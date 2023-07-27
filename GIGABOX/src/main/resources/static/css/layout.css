@@ -1,22 +1,21 @@
 @charset "UTF-8";
-/* 전체 레이아웃
-------------------------*/
+
+/*----------전체 레이아웃----------*/
+
 #main{
-	width:1024px;
+	width:100%;
 	margin:0 auto;
 	font-size:10pt;
 	font-family:"맑은 고딕";
 }
 #main_header{
-	margin-bottom:10px;
-	padding:0 10px 0 0;
+	margin-bottom:50px;
 }
 #main_body{
-	padding:5px 5px 30px 5px;
 	min-height:500px;
 }
 #main_footer{
-	background-color:yellow;
+	background-color:rgb(194, 194, 194);
 }
 a:link{
 	text-decoration:none;
@@ -30,32 +29,38 @@ a:hover{
 	text-decoration:underline;
 	color:#999999;
 }
-/* 좌측 메뉴 레이아웃(Admin,MyPage)
-------------------------*/
+
+
+/*----------좌측 메뉴 레이아웃 (Admin, MyPage)----------*/
+
 #page_nav{
 	float:left;
 	width:25%;
 	min-height:530px;
 }
 #page_body{
-	width:75%;
 	float:left;
+	width:75%;
 }
 .page_clear{
 	clear:both;
 }
-/* 페이지 기본 레이아웃
-------------------------*/
+
+
+/*----------페이지 기본 레이아웃----------*/
+
 .page-main{
-	width:98%;
+	width:75%;
 	margin:0 auto;
 }
 .page-one{
 	width:600px;
 	margin:0 auto;
 }
-/* 공통 메시지 및 버튼
-------------------------*/
+
+
+/*----------공통 메시지 및 버튼----------*/
+
 .result-display{
 	width:400px;
 	height:200px;
@@ -80,29 +85,92 @@ a:hover{
 .default-btn:hover{
 	background-color:#fff;
 	color:#09aa5c;
-	transition:0.2s ease-out;
+	transition:0.2s ease-out; /*부드럽게 전환처리*/
 }
-/* 공통 정렬
-------------------------*/
+
+
+/*----------공통 정렬----------*/
+
 .align-center{
 	text-align:center;
 }
 .align-right{
 	text-align:right;
 }
-/* 상단 메뉴
-------------------------*/
+
+
+/*----------상단 메뉴----------*/
+
 div#main_menu ul{
 	list-style:none;
 }
 div#main_menu ul li{
 	margin-bottom:5px;
 }
-/* 메인
-------------------------*/
 
-/* 공통 등록, 수정 폼
-------------------------*/
+
+/*----------메인----------*/
+/*-----헤더-----*/
+#top_left{
+	float:left;
+}
+#top_right{
+	float:right;
+}
+#top_left li, #top_right li{
+	width:60px;
+	display:inline-block;
+}
+#main_nav{
+	padding:2px 10px 20px 10px;
+	height:20px;
+	clear:both;
+	text-align:center;
+	vertical-align:middle;
+}
+#main_nav ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+#main_nav ul li{
+	display:inline-block;
+	width:140px;
+	font-size:13pt;
+	vertical-align:middle;
+}
+#logo{
+	margin:0 40px 20px 10px;
+}
+/*하위 메뉴 설정*/
+.inner-menu{
+	position:absolute;
+	display:none; /*기본적으로 안 보여지게 설정(하위메뉴 숨기기)*/
+	z-index:1000; /*항상 제일 위에 있게 하기 위해 큰 숫자 명시*/
+	text-align:center;
+	color:white;
+}
+.outer-menu-item:hover .inner-menu{
+	display:block; /*숨겨놨다가 갖다대면 block형태로 보이게 설정(하위메뉴 보이기)*/
+	width:150px;
+}
+/*꼬리말 부분*/
+footer{
+	margin:0 auto;
+	height:200px;
+}
+
+footer p{
+	padding:40px 30px 0;
+	font-size:14px;
+}
+
+.footer-content{
+	padding:5px 30px;
+	font-size:13px;
+}
+
+/*----------공통 등록,수정 폼----------*/
 form{
 	width:600px;
 	margin:0 auto;
@@ -129,8 +197,10 @@ input[type="text"],input[type="password"],input[type="email"]{
 button[type="submit"]{
 	height:31px;
 }
-/* 회원가입 등록, 수정, 삭제 폼
-------------------------*/
+
+
+/*----------회원 가입 등록,수정,삭제 폼----------*/
+
 #member_register{
 	width:800px;
 }
@@ -143,8 +213,7 @@ button[type="submit"]{
 #member_register input[id="id"]{
 	width:236px;
 }
-#member_register input[id="zipcode"], 
-                      #member_modify input[id="zipcode"]{
+#member_register input[id="zipcode"], #member_modify input[id="zipcode"]{
 	width:220px;
 }
 #member_modify{
@@ -153,8 +222,10 @@ button[type="submit"]{
 #member_delete input[id="id"], #member_delete input[id="passwd"]{
 	width:240px;
 }
-/* 로그인
-------------------------*/
+
+
+/*----------로그인----------*/
+
 #member_login{
 	width:400px;
 	padding:0;
@@ -165,7 +236,7 @@ button[type="submit"]{
 }
 .floating-label{
 	position:relative;
-}
+}			/*자식선택자*/
 .floating-label > .form-input{
 	width:300px;
 	height:32px;
@@ -176,20 +247,20 @@ button[type="submit"]{
 	top:0;
 	left:0;
 	padding:1.25rem 0.65rem;
-	transition:all 0.25s;
+	transition:all 0.25s; /*변환 효과*/
 }
 .floating-label > .form-input::placeholder{
-	color:transparent;
+	color:transparent; /*투명하게*/
 }
-.floating-label > .form-input:focus, 
-          .floating-label > .form-input:not(:placeholder-shown){
+.floating-label > .form-input:focus,
+.floating-label > .form-input:not(:placeholder-shown){
 	padding-top:1.125rem;
-	padding-bottom:0.125rem;          
+	padding-bottom:0.125rem;
 }
 .floating-label > .form-input:focus + label,
-    .floating-label > .form-input:not(:placeholder-shown) + label{
-	opacity:0.65;
-	transform:scale(0.85) translateY(-0.5rem) translateX(-0.5rem);    
+.floating-label > .form-input:not(:placeholder-shown) + label{
+	opacity:0.65; /*투명도 지정*/
+	transform:scale(0.85) translateY(-0.5rem) translateX(-0.5rem);
 }
 #member_login .login-btn{
 	width:320px;
@@ -198,15 +269,17 @@ button[type="submit"]{
 	width:200px;
 	padding:0 0 5px 0;
 }
-/* Admin, MY페이지 공통
-------------------------*/
+
+
+/*----------Admin, MY페이지 공통----------*/
+
 .side-bar{
+	background-color:#cecccc;
 	margin:10px 10px 10px 0;
 	padding:10px;
-	/*사이드바의 높이가 컨텐트의 높이와 동일하게 자동 조절*/
+	/*사이드 바의 높이가 컨텐트의 높이와 동일하게 자동 조절*/
 	margin-bottom:-9999px;
 	padding-bottom:9999px;
-	background-color:#cecccc;
 }
 .side-bar ul{
 	margin:0;
@@ -215,14 +288,14 @@ button[type="submit"]{
 .side-bar ul li{
 	padding:5px 10px 5px 10px;
 }
-.size-bar ul li img{
+.side-bar ul li img{
 	margin-left:3px;
 }
 .side-height{
-	/*사이드바의 높이가 컨텐트의 높이와 동일하게 
-	  자동 조절하기 위해 흘러넘친 배경색은 숨김*/
+	/*사이드 바의 높이가 컨텐트의 높이와 동일하게 
+	자동 조절하기 위해 흘러 넘친 배경색은 숨김*/
 	overflow:hidden;
-	margin-bottom:10px;	  
+	margin-bottom:10px;
 }
 .menu-btn{
 	width:100%;
@@ -232,8 +305,10 @@ button[type="submit"]{
 	border-color:#b7b5b5;
 	border-radius:5px;
 }
-/* MY페이지
-------------------------*/
+
+
+/*----------MY페이지----------*/
+
 .camera{
 	width:50px;
 	height:50px;
@@ -251,8 +326,10 @@ button[type="submit"]{
 	object-position:top;
 	border-radius:50%;
 }
-/* 공통 목록
-------------------------*/
+
+
+/*----------공통 목록----------*/
+
 form#search_form{
 	width:98%;
 	padding-bottom:0;
@@ -297,26 +374,32 @@ table.striped-table td, table.striped-table th{
 	padding:.7em .5em;
 	vertical-align:middle;
 }
-table.striped-table th{
-	font-weight:bold;
-	background:#E1E1E1;
-}
 table.striped-table td{
 	border-bottom:1px solid rgba(0,0,0,.1);
 }
+table.striped-table th{
+	font-weight:bold;
+	background:#E1E1E1;
+}						/*홀수 행*/
 table.striped-table tr:nth-child(odd){
 	background-color:rgb(250,250,247);
 }
-/* 게시판 목록
-------------------------*/
+
+
+/*----------게시판 목록----------*/
+
 form#search_form #order{
 	height:32px;
 }
-/* 게시판 폼
-------------------------*/
 
-/* 게시판 글 상세
-------------------------*/
+
+/*----------게시판 폼----------*/
+
+
+
+
+/*----------게시판 글 상세----------*/
+
 ul.detail-info{
 	list-style:none;
 	margin:0;
@@ -328,7 +411,7 @@ ul.detail-info li{
 	display:inline-block;
 }
 ul.detail-info li:last-child{
-	vertical-align: top;
+	vertical-align:top;
 }
 .detail-img{
 	max-width:500px;
@@ -400,9 +483,13 @@ div#output{
 }
 form#mre_form{
 	border:none;
-	margin:5px;              
+	margin:5px;			   
 }
-               
+
+
+
+
+
 
 
 

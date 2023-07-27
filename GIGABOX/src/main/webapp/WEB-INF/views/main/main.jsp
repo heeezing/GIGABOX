@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <!-- 내용 시작 -->
 <div class="page-main">
-	<h3>최신 게시글</h3>
+	<div style="height:600px;">
+	
+	</div>
 </div>
 <!-- 내용 끝 -->
