@@ -11,24 +11,35 @@
 		</ul>
 	</div>
 	<div id="top_right">
-		<!-- 1. 로그아웃 상태인 경우 -->
+		<ul>
+			<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
+			<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+			<li><a href="${pageContext.request.contextPath}/member/registerUser.do">회원가입</a></li>
+			<li><a href="${pageContext.request.contextPath}/member/myPage.do">MY페이지</a></li>
+			<li><a href="${pageContext.request.contextPath}/main/admin.do">관리자 메인</a></li>
+		</ul>
+		<!-- 1. 로그아웃 상태인 경우 
 		<ul>
 			<c:if test="${empty user}">
 			<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
 			<li><a href="${pageContext.request.contextPath}/member/registerUser.do">회원가입</a></li>
 			</c:if>
 		</ul>
+		 -->
 		 
-		<!-- 2. 로그인 상태인 경우 -->
-		<c:if test="${!empty user}">
-		<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
-			<c:if test="${user.auth == 2}"> <!-- 일반 회원 -->
-			<a href="${pageContext.request.contextPath}/member/myPage.do">MY페이지</a>
+		<!-- 2. 로그인 상태인 경우
+		<ul>
+			<c:if test="${!empty user}">
+			<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+			<c:if test="${user.auth == 2}">
+			<li><a href="${pageContext.request.contextPath}/member/myPage.do">MY페이지</a></li>
 			</c:if>
-			<c:if test="${user.auth == 9}"> <!-- 관리자 -->
-			<a href="${pageContext.request.contextPath}/main/admin.do">관리자 메인</a>
+			<c:if test="${user.auth == 9}">
+			<li><a href="${pageContext.request.contextPath}/main/admin.do">관리자 메인</a></li>
 			</c:if>
-		</c:if>
+			</c:if>
+		</ul>
+		 -->
 	</div>
 
 	<!-- 메뉴 -->
