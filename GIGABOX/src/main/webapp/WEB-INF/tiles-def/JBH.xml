@@ -10,6 +10,10 @@
     	<put-attribute name="title" value="SpringPage"/>
 	    <put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
     </definition> 
+    <definition name="memberRegister" extends="main">
+    	<put-attribute name="title" value="회원가입"/>
+	    <put-attribute name="body" value="/WEB-INF/views/member/memberRegister.jsp"/>
+    </definition>
 </tiles-definitions>
 
 
