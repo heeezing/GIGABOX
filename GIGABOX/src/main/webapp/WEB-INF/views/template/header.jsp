@@ -7,7 +7,7 @@
 	<div id="top_left">
 		<ul>
 			<li><a href="#">고객센터</a></li>
-			<li><a href="#">빠른예매</a></li>
+			<li><a href="${pageContext.request.contextPath}/reservation/quick_res">빠른예매</a></li>
 		</ul>
 	</div>
 	<div id="top_right">
@@ -54,14 +54,14 @@
 				</ul>
 			</li>
 			<li class="outer-menu-item">
-				<a href="#">극장</a>
-				<ul class="inner-menu">
-					<li class="inner-menu-item"><a href="#">빠른예매</a></li>
-					<li class="inner-menu-item"><a href="#">상영시간표</a></li>
-				</ul>
+				<a href="${pageContext.request.contextPath}/theater/theaterList.do">극장</a>
 			</li>
 			<li>
 				<a href="#">예매</a>
+				<ul class="inner-menu">
+					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/reservation/quick_res">빠른예매</a></li>
+					<li class="inner-menu-item"><a href="#">상영시간표</a></li>
+				</ul>
 			</li>
 			<li id="logo">
 				<a href="${pageContext.request.contextPath}/main/main.do">
