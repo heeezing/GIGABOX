@@ -95,7 +95,10 @@ hr{
 	width:600px;
 	margin:0 auto;
 }
-
+.title{
+	padding:25px 0;
+	font-size:27px;
+}
 
 /*----------공통 메시지 및 버튼----------*/
 
