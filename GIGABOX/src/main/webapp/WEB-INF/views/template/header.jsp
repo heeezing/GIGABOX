@@ -48,8 +48,8 @@
 			<li class="outer-menu-item">
 				<a href="#">영화</a>
 				<ul class="inner-menu">
-					<li class="inner-menu-item"><a href="#">박스오피스</a></li>
-					<li class="inner-menu-item"><a href="#">상영예정작</a></li>
+					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/movie/movieList.do">박스오피스</a></li>
+					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/movie/premovieList.do">상영예정작</a></li>
 					<li class="inner-menu-item"><a href="#">무비포스트</a></li>
 				</ul>
 			</li>

@@ -10,6 +10,10 @@
     	<put-attribute name="title" value="SpringPage"/>
 	    <put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
     </definition> 
+    <definition name="movieList" extends="main">
+    	<put-attribute name="title" value="영화목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/movie/movieList.jsp"/>
+    </definition>
 </tiles-definitions>
 
 
