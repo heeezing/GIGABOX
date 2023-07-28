@@ -10,3 +10,4 @@ public interface MemberService{
 	public MemberVO selectCheckMember(String id);
 
 }
+  

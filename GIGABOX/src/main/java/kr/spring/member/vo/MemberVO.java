@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Setter  
 @ToString
 public class MemberVO {
 	private int mem_num;//회원번호

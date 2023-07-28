@@ -16,4 +16,4 @@ public interface MemberMapper {
 	@Insert("INSERT INTO member (mem_num,mem_id,mem_nickname) VALUES (#{mem_num},#{mem_id},#{mem_nickname})")
 	public void insertMember(MemberVO member);
 	public void insertMember_detail(MemberVO member);
-}
+}  

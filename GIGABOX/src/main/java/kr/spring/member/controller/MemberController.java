@@ -55,7 +55,7 @@ public class MemberController {
 				//패턴 일치, 아이디 미중복
 				mapAjax.put("result","idNotFound");
 			}
-		}
+		}  
 		
 		return mapAjax;
 	}

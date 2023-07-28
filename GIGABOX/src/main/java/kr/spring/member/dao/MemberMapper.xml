@@ -29,6 +29,6 @@
 	<select id="selectCheckMember" parameterType="string">
 	
 	</select>
-</mapper>
+</mapper>  
 
 	

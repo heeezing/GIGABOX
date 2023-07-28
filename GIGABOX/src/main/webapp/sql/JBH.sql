@@ -8,7 +8,7 @@ create table member(
 
 create table member_detail(
  mem_num number,
- mem_name varchar2(10) not null,
+ mem_name varchar2(10) not null,  
  mem_passwd varchar2(25) not null,
  mem_phone varchar2(15) not null,
  mem_email varchar2(50) not null,

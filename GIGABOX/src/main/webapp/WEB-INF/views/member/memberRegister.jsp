@@ -19,7 +19,7 @@
 				<form:input path="mem_name"/>
 				<form:errors path="mem_name" cssClass="error-color"/>
 			</li>
-			<li>
+			<li> 
 				<form:label path="mem_nickname">별명</form:label>
 				<form:input path="mem_nickname"/>
 			</li>
