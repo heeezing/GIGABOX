@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import kr.spring.movie.vo.MovieVO;
-
+ 
 
 public interface MovieService {
 	public List<MovieVO> selectList(Map<String,Object>map);
@@ -16,3 +16,4 @@ public interface MovieService {
 	public void updateMovie(MovieVO movie);
 	public void deleteMovie(Integer Movie_num);
 }
+ 

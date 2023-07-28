@@ -63,7 +63,7 @@ public class MovieController {
 	public ModelAndView getList(/*
 								 * @RequestParam(value="pageNum",defaultValue="1") int
 								 * currentPage, @RequestParam(value="order",defaultValue="1") int order, String
-								 * keyfield, String keyword
+					  			 * keyfield, String keyword
 								 */) {
 		/*
 		 * Map<String,Object> map = new HashMap<String,Object>(); map.put("keyfield",

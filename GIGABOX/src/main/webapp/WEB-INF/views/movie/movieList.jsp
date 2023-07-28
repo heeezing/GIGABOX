@@ -9,4 +9,4 @@
 		<input type="button" value="글쓰기" onclick="location.href='insert.do'">
 	</form>
 </div>
-<!-- 영화 목록 끝 -->
+<!-- 영화 목록 끝 -->   

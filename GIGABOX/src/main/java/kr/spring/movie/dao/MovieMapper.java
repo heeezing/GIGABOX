@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.spring.movie.vo.MovieVO;
-
+ 
 @Mapper
 public interface MovieMapper {
 	public List<MovieVO> selectList(Map<String,Object>map);

@@ -38,7 +38,7 @@
 			<li><a href="${pageContext.request.contextPath}/main/admin.do">관리자 메인</a></li>
 			</c:if>
 			</c:if>
-		</ul>
+		</ul> 
 		 -->
 	</div>
 

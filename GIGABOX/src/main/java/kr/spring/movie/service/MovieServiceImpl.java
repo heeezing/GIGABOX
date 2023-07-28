@@ -33,7 +33,7 @@ public class MovieServiceImpl implements MovieService{
 	public MovieVO selectMovie(Integer movie_num) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}  
 
 	@Override
 	public void updateMovie(MovieVO movie) {

@@ -34,7 +34,7 @@ public class MovieVO {
 	private byte[] m_vod;//예고편 //vod
 	private String m_vod_name;
 	
-	//이미지를 byte[]로 변환
+	//이미지를 byte[]로 변환 
 	public void setUpload(MultipartFile poster) throws IOException{
 		//MultipartFiled -> byte[]
 		setM_poster(poster.getBytes());

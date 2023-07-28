@@ -10,7 +10,7 @@
 			m_titleEng,
 			m_director,
 			m_actor,
-			m_nation,
+			m_nation, 
 			m_company,
 			m_plot,
 			m_runtime,
