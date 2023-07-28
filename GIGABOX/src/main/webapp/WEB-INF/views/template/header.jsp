@@ -53,10 +53,10 @@
 					<li class="inner-menu-item"><a href="#">무비포스트</a></li>
 				</ul>
 			</li>
-			<li class="outer-menu-item">
+			<li>
 				<a href="${pageContext.request.contextPath}/theater/theaterList.do">극장</a>
 			</li>
-			<li>
+			<li class="outer-menu-item">
 				<a href="#">예매</a>
 				<ul class="inner-menu">
 					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/reservation/quick_res">빠른예매</a></li>
