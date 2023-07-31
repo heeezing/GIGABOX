@@ -43,8 +43,10 @@
 			<input type="button" class="menu-btn" value="신고 관리"
 			  onclick="location.href='${pageContext.request.contextPath}/#'">
 			  <ul>
-			  	<li><a href="#">관람평 신고 관리</a></li>
-			  	<li><a href="#">무비포스트 신고 관리</a></li>
+			  	<li><input type="button" class="menu-btn" value="관람평 신고 관리"
+			  onclick="location.href='${pageContext.request.contextPath}/#'"></li>
+			  	<li><input type="button" class="menu-btn" value="무비포스트 신고 관리"
+			  onclick="location.href='${pageContext.request.contextPath}/#'"></li>
 			  </ul>
 		</li>
 		<li>
