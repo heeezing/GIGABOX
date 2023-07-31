@@ -14,6 +14,10 @@
     	<put-attribute name="title" value="회원권한수정(관리자용)"/>
 	    <put-attribute name="body" value="/WEB-INF/views/member/admin_memberModify.jsp"/>
     </definition>
+    <definition name="admin_membershipList" extends="admin">
+    	<put-attribute name="title" value="멤버십목록(관리자용)"/>
+	    <put-attribute name="body" value="/WEB-INF/views/membership/admin_membershipList.jsp"/>
+    </definition>
 </tiles-definitions>
 
 

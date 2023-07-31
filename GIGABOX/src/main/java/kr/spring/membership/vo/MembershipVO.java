@@ -8,8 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MembershipVO {
-	private int membership_id;
-	private String membership_grade;
-	private String membership_detail;
-	private int price;
+	private int membership_id; //멤버십 번호
+	private String membership_grade; //멤버십 등급
+	private String membership_detail; //멤버십 혜택
+	private int price; //멤버십 가격
 }

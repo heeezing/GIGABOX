@@ -51,7 +51,7 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="멤버십 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/membership/membership_list.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="이벤트 관리"

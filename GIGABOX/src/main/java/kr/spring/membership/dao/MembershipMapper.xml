@@ -4,6 +4,51 @@
 
 	<!-- 멤버십 등록 -->
 
+<!-- 멤버십 목록" -->
+<!-- sql태그와 includ태그를 이용해서 SQL문을 재사용 -->
+	<sql id="membershipSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					membership_grade LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 2">
+					membership_detail LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 3">
+					price LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 전체/검색 레코드수 -->
+	<select id="selectRowCount" parameterType="map"
+	                               resultType="integer">
+		SELECT
+		  COUNT(*)
+		FROM membership
+		<include refid="membershipSearch"></include>                               
+	</select>
+	
+	<!-- 전체/검색 목록 -->
+	<select id="selectList" parameterType="map"
+	                           resultType="membershipVO">
+		SELECT
+		  *
+		FROM (SELECT
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT
+		              *
+		            FROM membership
+		            <include refid="membershipSearch"></include>
+		            ORDER BY price DESC NULLS LAST)a)  
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>                                     
+	</select>
+	
 
 
 </mapper>
