@@ -21,12 +21,14 @@
 		</li>
 	</ul>
 	<ul>
+		<!-- 
 		<li>
 			<input type="button" class="menu-btn" value="비밀번호변경"
 			  onclick="location.href='${pageContext.request.contextPath}/member/changePassword.do'">
 		</li>
+		 -->
 		<li>
-			<input type="button" class="menu-btn" value="채팅"
+			<input type="button" class="menu-btn" value="예매내역"
 			  onclick="location.href='${pageContext.request.contextPath}/talk/talkList.do'">
 		</li>
 		<li>

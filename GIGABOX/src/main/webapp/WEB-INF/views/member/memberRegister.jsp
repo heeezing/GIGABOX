@@ -8,51 +8,51 @@
 	<form:form modelAttribute="memberVO" action="registerUser.do" id="member_register"><!-- modelAttribute로 자바빈 초기화 -->
 		<ul>
 			<li>
-				<form:label path="mem_id">아이디</form:label>
-				<form:input path="mem_id" placeholder="영문,숫자 4~12자" authcomplete="off"/>
+				<form:label path="id">아이디</form:label>
+				<form:input path="id" placeholder="영문,숫자 4~12자" authcomplete="off"/>
 				<input type="button" id="confirmId" value="ID중복체크" class="default-btn">
 				<span id="message_id"></span>
-				<form:errors path="mem_id" cssClass="error-color"/>
+				<form:errors path="id" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:label path="mem_name">이름</form:label>
-				<form:input path="mem_name"/>
-				<form:errors path="mem_name" cssClass="error-color"/>
+				<form:label path="name">이름</form:label>
+				<form:input path="name"/>
+				<form:errors path="name" cssClass="error-color"/>
 			</li>
 			<li> 
-				<form:label path="mem_nickname">별명</form:label>
-				<form:input path="mem_nickname"/>
+				<form:label path="nick_name">별명</form:label>
+				<form:input path="nick_name"/>
 			</li>
 			<li>
-				<form:label path="mem_passwd">비밀번호</form:label>
-				<form:password path="mem_passwd" placeholder="영문, 숫자 4~12자"/>
-				<form:errors path="mem_passwd" cssClass="error-color"/>
+				<form:label path="passwd">비밀번호</form:label>
+				<form:password path="passwd" placeholder="영문, 숫자 4~12자"/>
+				<form:errors path="passwd" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:label path="mem_phone">전화번호</form:label>
-				<form:input path="mem_phone"/>
-				<form:errors path="mem_phone" cssClass="error-color"/>
+				<form:label path="phone">전화번호</form:label>
+				<form:input path="phone"/>
+				<form:errors path="phone" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:label path="mem_email">이메일</form:label>
-				<form:input path="mem_email"/>
-				<form:errors path="mem_email" cssClass="error-color"/>
+				<form:label path="email">이메일</form:label>
+				<form:input path="email"/>
+				<form:errors path="email" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:label path="mem_zipcode">우편번호</form:label>
-				<form:input path="mem_zipcode"/>
+				<form:label path="zipcode">우편번호</form:label>
+				<form:input path="zipcode"/>
 				<input type="button" onclick="execDaumPostcode()" value="우편번호찾기" class="default-btn">
-				<form:errors path="mem_zipcode" cssClass="error-color"/>
+				<form:errors path="zipcode" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:label path="mem_address1">주소</form:label>
-				<form:input path="mem_address1"/>
-				<form:errors path="mem_address1" cssClass="error-color"/>
+				<form:label path="address1">주소</form:label>
+				<form:input path="address1"/>
+				<form:errors path="address1" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:label path="mem_address2">상세주소</form:label>
-				<form:input path="mem_address2"/>
-				<form:errors path="mem_address2" cssClass="error-color"/>
+				<form:label path="address2">상세주소</form:label>
+				<form:input path="address2"/>
+				<form:errors path="address2" cssClass="error-color"/>
 			</li>
 		</ul>
 		<div class="align-center">
@@ -121,11 +121,11 @@
                 //(수정) }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('mem_zipcode').value = data.zonecode;
+                document.getElementById('zipcode').value = data.zonecode;
                 //(수정) + extraAddr를 추가해서 address1에 참고항목이 보여지도록 수정
-                document.getElementById("mem_address1").value = addr + extraAddr;
+                document.getElementById("address1").value = addr + extraAddr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("mem_address2").focus();
+                document.getElementById("address2").focus();
 
                 // iframe을 넣은 element를 안보이게 한다.
                 // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)

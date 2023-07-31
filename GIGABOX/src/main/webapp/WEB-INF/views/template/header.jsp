@@ -12,11 +12,41 @@
 	</div>
 	<div id="top_right">
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
-			<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
-			<li><a href="${pageContext.request.contextPath}/member/registerUser.do">회원가입</a></li>
-			<li><a href="${pageContext.request.contextPath}/member/myPage.do">MY페이지</a></li>
-			<li><a href="${pageContext.request.contextPath}/main/admin.do">관리자 메인</a></li>
+			<li>
+				<c:if test="${!empty user && user.auth == 2}"><!-- 일반 회원 -->
+					<a href="${pageContext.request.contextPath}/member/myPage.do">My페이지</a>
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${!empty user && !empty user.nick_name}">
+					[<span class="user_name">${user.nick_name}</span>]<!-- 별명이 있으면 별명 표시 -->
+				</c:if>
+				<c:if test="${!empty user && empty user.nick_name}">
+					[<span class="user_name">${user.id}</span>]<!-- 별명이 없으면 id표시 -->
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${!empty user}">
+					<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
+				</c:if>
+			</li>
+				
+			<li>
+				<c:if test="${empty user}"><!-- user 식별자가 없으면(user가 비어있으면) -->
+					<a href="${pageContext.request.contextPath}/member/registerUser.do">회원가입</a>
+					<a href="${pageContext.request.contextPath}/member/login.do">로그인</a>
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${empty user || user.auth <9}">
+					<a href="${pageContext.request.contextPath}/main/main.do">홈으로</a>
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${!empty user && user.auth == 9}">
+					<a href="${pageContext.request.contextPath}/main/admin.do">관리자 메인</a>
+				</c:if>
+			</li>
 		</ul>
 		<!-- 1. 로그아웃 상태인 경우 
 		<ul>

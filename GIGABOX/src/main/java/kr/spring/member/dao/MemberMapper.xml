@@ -5,29 +5,40 @@
 	<insert id="insertMember_detail" parameterType="memberVO">
 		INSERT INTO member_detail(
 		  mem_num,
-		  mem_name,
-		  mem_passwd,
-		  mem_phone,
-		  mem_email,
-		  mem_zipcode,
-		  mem_address1,
-		  mem_address2
+		  name,
+		  passwd,
+		  phone,
+		  email,
+		  zipcode,
+		  address1,
+		  address2
 		)
 		VALUES(
 		  #{mem_num},
-		  #{mem_name},
-		  #{mem_passwd},
-		  #{mem_phone},
-		  #{mem_email},
-		  #{mem_zipcode},
-		  #{mem_address1},
-		  #{mem_address2}
+		  #{name},
+		  #{passwd},
+		  #{phone},
+		  #{email},
+		  #{zipcode},
+		  #{address1},
+		  #{address2}
 		)
 	</insert>
 	
-	<!-- ID를 이용한 회원정보 체크(ID중복체크) -->
-	<select id="selectCheckMember" parameterType="string">
-	
+	<!-- ID를 이용한 회원정보 체크(ID중복체크)            알리아스               반환타입 -->
+	<select id="selectCheckMember" parameterType="string" resultType="memberVO">
+		SELECT
+		  m.mem_num,
+		  m.id,
+		  m.auth,
+		  d.au_id,
+		  d.passwd,
+		  m.nick_name,
+		  d.email,
+		  d.membership_id
+		FROM member m LEFT OUTER JOIN member_detail d
+		ON m.mem_num=d.mem_num
+		WHERE m.id=#{id}
 	</select>
 </mapper>  
 
