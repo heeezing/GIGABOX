@@ -6,13 +6,8 @@
 
 <tiles-definitions>
     <!-- 아래 설정을 상황에 맞게 변형해서 사용하세요 -->
-    <definition name="a7" extends="main">
-    	<put-attribute name="title" value="SpringPage"/>
-	    <put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
+    <definition name="quick_res" extends="main">
+    	<put-attribute name="title" value="빠른예매"/>
+	    <put-attribute name="body" value="/WEB-INF/views/reservation/quick_res.jsp"/>
     </definition> 
 </tiles-definitions>
-
-
-
-
-
