@@ -32,16 +32,35 @@
 			<th>등급</th>
 			<th>혜택</th>
 			<th>가격</th>
+			<th>수정/삭제</th>
 		</tr>
 		<c:forEach var="membership" items="${list}">
 		<tr>
 			<td>${membership.membership_grade}</td>
 			<td>${membership.membership_detail}</td>
 			<td>${membership.price}</td>
+			<td>
+			<input type="button" value="수정"
+			onclick="location.href='membership_update.do?membership_id=${membership.membership_id}'">
+			<input type="button" value="삭제" id="delete_btn">
+			<script type="text/javascript">
+				let delete_btn = document.getElementById('delete_btn');
+				delete_btn.onclick=function(){
+					let choice = confirm('삭제하시겠습니까?');
+					if(choice){
+						location.replace('membership_delete.do?membership_id=${membership.membership_id}');
+					}
+				}
+			</script>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
 	</c:if>
+	<div class="align-right">
+		<input type="button" value="등록하기" 
+			onclick="location.href='registerMembership.do'">
+	</div>
 </div>
 
 <!-- 멤버십 목록 - 관리자 종료 -->

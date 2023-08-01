@@ -19,7 +19,6 @@ public class MembershipServiceImpl implements MembershipService{
 
 	@Override
 	public void insertMembership(MembershipVO membership) {
-		membership.setMembership_id(membershipMapper.selectMembership_id());
 		membershipMapper.insertMembership(membership);
 	}
 
@@ -31,6 +30,21 @@ public class MembershipServiceImpl implements MembershipService{
 	@Override
 	public List<MembershipVO> selectList(Map<String, Object> map) {
 		return membershipMapper.selectList(map);
+	}
+
+	@Override
+	public void updateMembership(MembershipVO membership) {
+		membershipMapper.updateMembership(membership);
+	}
+
+	@Override
+	public void deleteMembership(Integer membership_id) {
+		membershipMapper.deleteMembership(membership_id);
+	}
+
+	@Override
+	public MembershipVO selectMembership(Integer membership_id) {
+		return membershipMapper.selectMembership(membership_id);
 	}
 
 }

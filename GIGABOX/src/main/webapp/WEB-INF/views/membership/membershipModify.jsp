@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>멤버십 등록</title>
+<title>멤버십 수정</title>
 </head>
 <body>
 <div class="page-main">
-	<h2>멤버십 등록</h2>
-	<form:form modelAttribute="membershipVO" action="registerMembership.do" id="membership_register">
+	<h2>멤버십 수정</h2>
+	<form:form modelAttribute="membershipVO" action="membership_update.do" id="modify_form">
+		<form:hidden path="membership_id"/>
 		<ul>
 			<li>
 				<form:label path="membership_grade">등급</form:label>
@@ -26,7 +27,7 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<form:button>전송</form:button>
+			<form:button>수정</form:button>
 			<input type="button" value="목록" onclick="location.href='membership_list.do'">
 		</div>
 	</form:form>

@@ -4,10 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -77,5 +84,88 @@ public class MembershipController {
 	public String form() {
 		return "membershipRegister";
 	}
+	//전송된 데이터 처리
+	@PostMapping("/membership/registerMembership.do")
+	public String submit(@Valid MembershipVO membershipVO,
+						 BindingResult result,
+						 HttpServletRequest request,
+						 HttpSession session,
+						 Model model) {
+		log.debug("<<멤버십 등록>> : " + membershipVO);
+		
+		membershipService.insertMembership(membershipVO);
+		
+		model.addAttribute("message", "등록이 완료되었습니다.");
+		model.addAttribute("url", 
+				request.getContextPath()+"/membership/membership_list.do");
+		
+		return "common/resultView";
+		
+	}
+	
+	/*=======================
+	 * 멤버십 수정
+	 *=======================*/
+	//멤버십 수정 폼 호출
+	@GetMapping("/membership/membership_update.do")
+	public String formUpdate(@RequestParam int membership_id, Model model) {
+		
+		MembershipVO membershipVO = membershipService.selectMembership(membership_id);
+		model.addAttribute("membershipVO", membershipVO);
+		
+		return "membershipModify";
+	}
+	//전송된 데이터 처리
+	@PostMapping("/membership/membership_update.do")
+	public String submitUpdate(
+					@Valid MembershipVO membershipVO,
+					BindingResult result,
+					HttpServletRequest request,
+					Model model) {
+		log.debug("<<멤버십 수정 - MembershipVO>> : " + membershipVO);
+		
+		membershipService.updateMembership(membershipVO);
+		
+		model.addAttribute("message", "수정 완료!");
+		model.addAttribute("url", 
+				request.getContextPath()
+				+"/membership/membership_list.do?membership_id"
+						+membershipVO.getMembership_id());
+		
+		return "common/resultView";
+	}
+	
+	/*========================
+	 * 멤버십 삭제
+	 *========================*/
+	@RequestMapping("/membership/membership_delete.do")
+	public String submitDelete(
+				  @RequestParam int membership_id) {
+		log.debug("<<멤버십 삭제 - membership_id>> : " + membership_id);
+		
+		membershipService.deleteMembership(membership_id);
+		
+		return "redirect:/membership/membership_list.do";
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

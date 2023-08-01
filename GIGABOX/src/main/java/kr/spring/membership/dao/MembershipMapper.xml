@@ -3,7 +3,18 @@
 <mapper namespace="kr.spring.membership.dao.MembershipMapper">
 
 	<!-- 멤버십 등록 -->
-
+	<insert id="insertMembership" parameterType="membershipVO">
+		INSERT INTO membership(
+		  membership_id,
+		  membership_grade,
+		  membership_detail,
+		  price)
+		VALUES(
+		  membership_seq.nextval,
+		  #{membership_grade},
+		  #{membership_detail},
+		  #{price})
+	</insert>
 <!-- 멤버십 목록" -->
 <!-- sql태그와 includ태그를 이용해서 SQL문을 재사용 -->
 	<sql id="membershipSearch">
