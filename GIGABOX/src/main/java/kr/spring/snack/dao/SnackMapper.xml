@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.snack.dao.SnackMapper">
+	<!-- [관리자]상품 목록 -->
+	<!-- 검색창 -->
+	<sql id="snackSearch"> 
+		<where>
+			<if test="keyword!=null and keyword!=''">
+				<if test="keyfield == 1"> 
+					sn_name LIKE '%' || #{keyword} || '%' 
+				</if>
+				<if test="keyfield == 2"> 
+					sn_detail LIKE '%' || #{keyword} || '%' 
+				</if>
+			</if>		
+		</where>
+	</sql>
+	
+	<!-- 정렬 -->
+	<sql id="snackOrder">
+		<if test="order == 1">
+			ORDER BY sn_num DESC
+		</if>
+		<if test="order == 2">
+			ORDER BY sn_name ASC
+		</if>
+		<if test="order == 3">
+			ORDER BY sn_category ASC
+		</if>
+	</sql>
+	
+	<!-- 전체or검색 레코드 수 -->
+	<select id="selectSnackCount" parameterType="map" resultType="integer">
+		SELECT COUNT(*) 
+		FROM snack 
+		<include refid="snackSearch"></include> <!-- 미리 만들어놓은 WHERE절을 include하여 재사용 -->
+	</select>
+	
+	<!-- 전체or검색 목록 -->
+	<select id="selectSnackList" parameterType="map" resultType="snackVO">
+		SELECT * 
+		FROM (SELECT a.*, rownum rnum 
+			  FROM (SELECT * 
+			  		FROM snack 
+			  		<include refid="snackSearch"></include> 
+			  		<include refid="snackOrder"></include>)a) 
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+
+	
+	<!-- [관리자]상품 등록 -->
+	<insert id="insertSnack" parameterType="snackVO">
+		INSERT INTO snack(
+		sn_num,
+		sn_name,
+		sn_detail,
+		sn_price,
+		sn_dc_price,
+		sn_photo,
+		sn_photo_name,
+		sn_info,
+		sn_category,
+		sn_reg_date,
+		sn_status
+		)
+	VALUES(
+		snack_seq.nextval,
+		#{sn_name},
+		#{sn_detail},
+		#{sn_price},
+		#{sn_dc_price},
+		#{sn_photo},
+		#{sn_photo_name},
+		#{sn_info},
+		#{sn_category},
+		SYSDATE,
+		#{sn_status}
+		)
+	</insert>
+
+
+	<!-- [관리자]상품 수정 -->
+	<update id="updateSnack" parameterType="snackVO">
+		UPDATE 
+			snack 
+		SET 
+			sn_name=#{sn_name},
+			sn_detail=#{sn_detail},
+			sn_price=#{sn_price},
+			sn_dc_price=#{sn_dc_price},
+			<if test="sn_photo_name != ''">
+			sn_photo=#{sn_photo},
+			sn_photo_name=#{sn_photo_name},
+			</if>
+			sn_info=#{sn_info},
+			sn_category=#{sn_category},
+			sn_modify_date=SYSDATE,
+			sn_status=#{sn_status} 
+		WHERE 
+			sn_num=#{sn_num}
+	</update>
+	
+	<delete id="deleteChBox">
+		DELETE FROM snack 
+		WHERE sn_num IN 
+		<foreach item="item" collection="checkArr" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+</mapper>
