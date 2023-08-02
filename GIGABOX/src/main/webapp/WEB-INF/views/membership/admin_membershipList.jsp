@@ -35,7 +35,7 @@
 			<th>수정/삭제</th>
 		</tr>
 		<c:forEach var="membership" items="${list}">
-		<tr>
+		<tr align="center">
 			<td>${membership.membership_grade}</td>
 			<td>${membership.membership_detail}</td>
 			<td>${membership.price}</td>

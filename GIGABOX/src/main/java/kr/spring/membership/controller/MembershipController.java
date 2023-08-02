@@ -87,17 +87,12 @@ public class MembershipController {
 	//전송된 데이터 처리
 	@PostMapping("/membership/registerMembership.do")
 	public String submit(@Valid MembershipVO membershipVO,
-						 BindingResult result,
-						 HttpServletRequest request,
-						 HttpSession session,
-						 Model model) {
+						 BindingResult result,Model model) {
 		log.debug("<<멤버십 등록>> : " + membershipVO);
 		
 		membershipService.insertMembership(membershipVO);
 		
 		model.addAttribute("message", "등록이 완료되었습니다.");
-		model.addAttribute("url", 
-				request.getContextPath()+"/membership/membership_list.do");
 		
 		return "common/resultView";
 		
@@ -117,11 +112,8 @@ public class MembershipController {
 	}
 	//전송된 데이터 처리
 	@PostMapping("/membership/membership_update.do")
-	public String submitUpdate(
-					@Valid MembershipVO membershipVO,
-					BindingResult result,
-					HttpServletRequest request,
-					Model model) {
+	public String submitUpdate(MembershipVO membershipVO,Model model,
+					HttpServletRequest request) {
 		log.debug("<<멤버십 수정 - MembershipVO>> : " + membershipVO);
 		
 		membershipService.updateMembership(membershipVO);
