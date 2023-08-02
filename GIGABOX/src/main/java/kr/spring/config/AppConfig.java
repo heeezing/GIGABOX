@@ -9,6 +9,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import kr.spring.interceptor.AdminCheckInterceptor;
+import kr.spring.interceptor.AutoLoginCheckInterceptor;
 import kr.spring.interceptor.LoginCheckInterceptor;
 
 //자바 코드 기반 설정 클래스
@@ -21,6 +22,7 @@ public class AppConfig implements WebMvcConfigurer{
 	
 	private LoginCheckInterceptor loginCheck;
 	private AdminCheckInterceptor adminCheck;
+	private AutoLoginCheckInterceptor autoLoginCheck;
 	
 	@Bean
 	public LoginCheckInterceptor interceptor2() {
@@ -33,17 +35,25 @@ public class AppConfig implements WebMvcConfigurer{
 		adminCheck = new AdminCheckInterceptor();
 		return adminCheck;
 	}
-	
+	@Bean
+	public AutoLoginCheckInterceptor interceptor() {
+	   autoLoginCheck = new AutoLoginCheckInterceptor();
+	   return autoLoginCheck;
+	}
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		//AutoLoginCheckInterceptor 설정
+		   registry.addInterceptor(autoLoginCheck)
+		         .addPathPatterns("/**")
+		         .excludePathPatterns("/member/login.do")
+		         .excludePathPatterns("/member/logout.do");
+		         //"/**"로 전체 호출하는데 exclude로 호출안할거 명시
 		//LoginCheckInterceptor 설정
-		/*
-		registry.addInterceptor(loginCheck) 
-				.addPathPatterns("/member/myPage.do")
-				.addPathPatterns("/member/update.do")
-				.addPathPatterns("/member/changePassword.do")
-				.addPathPatterns("/member/delete.do");
-		*/
+		   registry.addInterceptor(loginCheck)
+		         .addPathPatterns("/member/myPage.do")
+		         .addPathPatterns("/member/update.do")
+		         .addPathPatterns("/member/changePassword.do")
+		         .addPathPatterns("/member/delete.do");
 		//AdminCheckInterceptor 설정
 		registry.addInterceptor(adminCheck)
 				.addPathPatterns("/snack/admin_list.do")
