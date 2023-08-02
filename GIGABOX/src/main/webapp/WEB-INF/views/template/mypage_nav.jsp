@@ -20,21 +20,46 @@
 			</div>
 		</li>
 	</ul>
+	 
 	<ul>
+		<li>
+			<input type="button" class="menu-btn" value="예매 내역"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="구매 내역"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="포인트 내역"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="이벤트 응모 내역"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="문의 내역"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="나의 관람평"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="나의 무비포스트"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
+		<li>
+			<input type="button" class="menu-btn" value="회원정보"
+			  onclick="location.href='${pageContext.request.contextPath}'">
+		</li>
 		<!-- 
-		<li>
-			<input type="button" class="menu-btn" value="비밀번호변경"
-			  onclick="location.href='${pageContext.request.contextPath}/member/changePassword.do'">
-		</li>
-		 -->
-		<li>
-			<input type="button" class="menu-btn" value="예매내역"
-			  onclick="location.href='${pageContext.request.contextPath}/talk/talkList.do'">
-		</li>
 		<li>
 			<input type="button" class="menu-btn" value="회원탈퇴"
 			  onclick="location.href='${pageContext.request.contextPath}/member/delete.do'">
 		</li>
+		 -->
 	</ul>
 </div>
 <!-- MY페이지 메뉴 끝 -->

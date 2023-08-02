@@ -40,6 +40,31 @@
 		ON m.mem_num=d.mem_num
 		WHERE m.id=#{id}
 	</select>
+	
+	<!-- 회원정보수정 -->
+	<update id="updateMember_detail" parameterType="memberVO">
+		UPDATE member_detail
+		SET
+			name=#{name},
+			phone=#{phone},
+			email=#{email},
+			zipcode=#{zipcode},
+			address1=#{address1},
+		  	address2=#{address2}
+		WHERE
+			mem_num=#{mem_num}
+	</update>
+	
+	
 </mapper>  
+
+
+
+
+
+
+
+
+
 
 	

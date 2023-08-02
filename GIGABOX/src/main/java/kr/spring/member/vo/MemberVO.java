@@ -34,10 +34,15 @@ public class MemberVO {
 	private String address1;//주소
 	@NotEmpty
 	private String address2;//상세주소
+	private byte[] photo;
+	private String photo_name;
 	private Date reg_date;//가입일
 	private String auto;//자동 로그인 처리에 필요함
 	private String au_id;//자동로그인때 사용되는 식별값
 	private int membership_id;
+	//비밀번호 변경시 현재 비밀번호를 저장하는 용도로 사용
+	@Pattern(regexp="^[A-Za-z0-9]{4,12}$")
+	private String now_passwd;
 	
 	//비밀번호 일치 여부 체크
 	public boolean isCheckedPassword(String userPasswd) {

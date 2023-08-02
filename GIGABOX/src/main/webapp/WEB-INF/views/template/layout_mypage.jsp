@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><tiles:getAsString name="title"/></title>
+<title><tiles:getAsString name="title"/></title><!-- main.xml에서 불러옴 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div id="main">
 	<div id="main_header">
-		<tiles:insertAttribute name="header"/>
+		<tiles:insertAttribute name="header"/><!-- main.xml에서 불러옴 -->
 	</div>
 	<div class="side-height">
 		<div id="page_nav">
