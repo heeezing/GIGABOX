@@ -13,15 +13,15 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="극장 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/theater/theaterList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="상영관 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/hall/hallList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="상영시간표 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/reservation/admin_schedule.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="예매 관리"
