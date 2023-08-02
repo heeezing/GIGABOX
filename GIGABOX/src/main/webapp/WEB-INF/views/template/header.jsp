@@ -84,7 +84,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="${pageContext.request.contextPath}/theater/theaterList.do"><b>극장</b></a>
+				<a href="${pageContext.request.contextPath}/theater/theaterDetail.do"><b>극장</b></a>
 			</li>
 			<li class="outer-menu-item">
 				<a href="${pageContext.request.contextPath}/reservation/quick_res.do"><b>예매</b></a>
