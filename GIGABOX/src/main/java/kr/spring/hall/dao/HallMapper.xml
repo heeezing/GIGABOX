@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.hall.dao.HallMapper">
+<!-- 상영관 등록 -->
+<insert id="insertHall" parameterType="hallVO">
+	INSERT INTO hall(
+		hall_num,
+		hall_name,
+		th_num)
+	VALUES(
+		hall_seq.nextval,
+		#{hall_name},
+		#{th_num})
+</insert>
+
+<!-- 상영관 목록 -->
+<!-- 상영관 검색 -->
+<sql id="hallSearch">
+	<where>
+		<if test="keyword != null and keyword != ''">
+			<if test="keyfield == 1">
+				h.hall_name LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyfield == 2">
+				t.th_name LIKE '%' || #{keyword} || '%'
+			</if>
+		</if>
+	</where>
+</sql>
+
+<!-- 전체/검색 레코드수 -->
+<select id="selectRowCount" parameterType="map" resultType="integer">
+	SELECT
+	  COUNT(*)
+	FROM hall h JOIN theater t
+	ON h.th_num = t.th_num
+	<include refid="hallSearch"></include>
+</select>
+
+<!-- 전체/검색 목록 -->
+<select id="selectList" parameterType="map" resultType="hallVO">
+	SELECT
+	  *
+	FROM (SELECT
+			a.*,
+			rownum rnum
+		  FROM(SELECT
+		  		 *
+		  	   FROM hall h
+		  	   JOIN theater t
+		  	   ON h.th_num = t.th_num
+		  	   <include refid="hallSearch"></include>
+		  	   ORDER BY h.th_num, h.hall_name
+		  	   )a)
+	<![CDATA[
+	WHERE rnum >= #{start} AND rnum <= #{end}
+	]]>
+</select>
+
+<!-- 극장 목록 가져오기 -->
+<select id="getTheaterList" resultType="theaterVO">
+	SELECT
+	  *
+	FROM theater
+	ORDER BY th_num
+</select>
+</mapper>
