@@ -76,7 +76,7 @@
 	<div id="main_nav">
 		<ul>
 			<li class="outer-menu-item">
-				<a href="#">영화</a>
+				<a href="#"><b>영화</b></a>
 				<ul class="inner-menu">
 					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/movie/movieList.do">박스오피스</a></li>
 					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/movie/premovieList.do">상영예정작</a></li>
@@ -84,10 +84,10 @@
 				</ul>
 			</li>
 			<li>
-				<a href="${pageContext.request.contextPath}/theater/theaterList.do">극장</a>
+				<a href="${pageContext.request.contextPath}/theater/theaterList.do"><b>극장</b></a>
 			</li>
 			<li class="outer-menu-item">
-				<a href="${pageContext.request.contextPath}/reservation/quick_res.do">예매</a>
+				<a href="${pageContext.request.contextPath}/reservation/quick_res.do"><b>예매</b></a>
 				<ul class="inner-menu">
 					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/reservation/quick_res.do">빠른예매</a></li>
 					<li class="inner-menu-item"><a href="#">상영시간표</a></li>
@@ -99,7 +99,7 @@
 				</a>
 			</li>
 			<li class="outer-menu-item">
-				<a href="#">이벤트</a>
+				<a href="#"><b>이벤트</b></a>
 				<ul class="inner-menu">
 					<li class="inner-menu-item"><a href="#">진행중이벤트</a></li>
 					<li class="inner-menu-item"><a href="#">지난이벤트</a></li>
@@ -107,10 +107,10 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">스토어</a>
+				<a href="${pageContext.request.contextPath}/snack/list.do"><b>스토어</b></a>
 			</li>
 			<li>
-				<a href="#">멤버십</a>
+				<a href="#"><b>멤버십</b></a>
 			</li>
 		</ul>
 	</div>

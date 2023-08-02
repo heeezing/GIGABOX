@@ -5,11 +5,29 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <!-- 아래 설정을 상황에 맞게 변형해서 사용하세요 -->
-    <definition name="a3" extends="main">
-    	<put-attribute name="title" value="SpringPage"/>
-	    <put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
-    </definition> 
+    <!-- [관리자 스토어 관리]스낵 목록 -->
+    <definition name="admin_snackList" extends="admin">
+    	<put-attribute name="title" value="스토어 관리"/>
+    	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackList.jsp"/>
+    </definition>
+    
+    <!-- [관리자 스토어 관리]스낵 등록 폼 -->
+    <definition name="admin_snackInsert" extends="admin">
+    	<put-attribute name="title" value="상품 등록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackInsert.jsp"/>
+    </definition>
+    
+    <!-- [관리자 스토어 관리]스낵 수정 폼 -->
+    <definition name="admin_snackUpdate" extends="admin">
+    	<put-attribute name="title" value="상품 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackUpdate.jsp"/>
+    </definition>
+    
+    <!-- [사용자] 스낵 목록 -->
+    <definition name="snackList" extends="main">
+    	<put-attribute name="title" value="스토어 | GIGABOX"/>
+    	<put-attribute name="body" value="/WEB-INF/views/snack/snackList.jsp"/>
+    </definition>
 </tiles-definitions>
 
 

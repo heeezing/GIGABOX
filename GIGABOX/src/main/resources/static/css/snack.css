@@ -1,0 +1,55 @@
+@charset "UTF-8";
+#snack_photo{
+	width:40%;
+	float:left;
+	text-align:center;
+}
+#file_detail{
+	margin:20px;
+}
+#snack_input{
+	width:60%;
+	float:right;
+}
+#insert_form, #update_form{
+	width:880px;
+	margin:0 auto;
+	padding:40px 0;
+	border:1px solid #000;
+}
+#insert_form label, #update_form label{
+	font-weight:bold;
+	width:80px;
+	margin:0 auto;
+	vertical-align:middle;
+}
+#insert_form ul li, #update_form ul li{
+	margin:10px 0;
+	vertical-align:middle;
+}
+input.form-input{
+	width:300px;
+}
+#snack_text{
+	clear:both;
+	margin:0 auto;
+	height:100px;
+}
+#snack_text label{
+	margin-left:40px;
+}
+textarea.form-text{
+	float:right;
+	margin-right:40px;
+	resize:none;
+	width:85%;
+}
+#snack_button{
+	text-align:center;
+	margin:0 auto;
+	clear:both;
+}
+
+
+
+
