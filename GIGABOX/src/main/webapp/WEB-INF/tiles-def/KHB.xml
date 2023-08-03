@@ -5,6 +5,11 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
+	<!-- 사용자 -->
+	<definition name="membershipList" extends="main">
+    	<put-attribute name="title" value="멤버십목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/membership/membershipList.jsp"/>
+    </definition>
     <!-- 관리자 -->
     <definition name="admin_memberList" extends="admin">
     	<put-attribute name="title" value="회원목록(관리자용)"/>

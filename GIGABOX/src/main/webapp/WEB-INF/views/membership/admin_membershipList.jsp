@@ -4,7 +4,7 @@
 <!-- 멤버십 목록 - 관리자 시작 -->
 <div class="page-main">
 	<h2>멤버십 목록</h2>
-	<form action="membership_list.do" id="search_form" method="get">
+	<form action="admin_membership_list.do" id="search_form" method="get">
 		<ul class="search">
 			<li>
 				<select name="keyfield">
@@ -19,7 +19,7 @@
 			<li>
 				<input type="submit" value="찾기">
 				<input type="button" value="목록" 
-				   onclick="location.href='membership_list.do'">
+				   onclick="location.href='admin_membership_list.do'">
 			</li>
 		</ul>
 	</form>

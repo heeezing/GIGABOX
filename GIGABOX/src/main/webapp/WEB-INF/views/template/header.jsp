@@ -69,7 +69,7 @@
 				<a href="${pageContext.request.contextPath}/snack/list.do"><b>스토어</b></a>
 			</li>
 			<li>
-				<a href="${pageContext.request.contextPath}/membership/membershipList.do"><b>멤버십</b></a>
+				<a href="${pageContext.request.contextPath}/membership/membership_list.do"><b>멤버십</b></a>
 			</li>
 		</ul>
 	</div>
