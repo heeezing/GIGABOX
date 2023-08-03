@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.spring.snack.dao.SnackMapper">
+	<!-- [사용자]카테고리 별 상품 개수 -->
+	<select id="selectUserSnackCount" parameterType="integer" resultType="integer">
+		SELECT COUNT(*) 
+		FROM snack 
+		WHERE sn_category=#{sn_category}
+	</select>
+	
+	<!-- [사용자]카테고리 별 상품 목록 -->
+	<select id="selectUserSnackList" parameterType="map" resultType="snackVO">
+		SELECT * 
+		FROM (SELECT a.*, rownum rnum 
+			  FROM (SELECT * 
+			  		FROM snack 
+			  		WHERE sn_category=#{sn_category})a) 
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+
+
 	<!-- [관리자]상품 목록 -->
 	<!-- 검색창 -->
 	<sql id="snackSearch"> 
-		<where>
-			<if test="keyword!=null and keyword!=''">
-				<if test="keyfield == 1"> 
-					sn_name LIKE '%' || #{keyword} || '%' 
+		<!-- WHERE sn_status > #{sn_status} -->
+			<where>
+				<if test="keyword!=null and keyword!=''">
+					<if test="keyfield == 1"> 
+						AND sn_name LIKE '%' || #{keyword} || '%'
+					</if>
+					<if test="keyfield == 2"> 
+						AND sn_detail LIKE '%' || #{keyword} || '%' 
+					</if>
 				</if>
-				<if test="keyfield == 2"> 
-					sn_detail LIKE '%' || #{keyword} || '%' 
-				</if>
-			</if>		
-		</where>
+			</where>	
 	</sql>
-	
+
 	<!-- 정렬 -->
 	<sql id="snackOrder">
 		<if test="order == 1">
@@ -29,14 +50,14 @@
 		</if>
 	</sql>
 	
-	<!-- 전체or검색 레코드 수 -->
+	<!-- [관리자]전체or검색 레코드 수 -->
 	<select id="selectSnackCount" parameterType="map" resultType="integer">
 		SELECT COUNT(*) 
 		FROM snack 
 		<include refid="snackSearch"></include> <!-- 미리 만들어놓은 WHERE절을 include하여 재사용 -->
 	</select>
 	
-	<!-- 전체or검색 목록 -->
+	<!-- [관리자]전체or검색 목록 -->
 	<select id="selectSnackList" parameterType="map" resultType="snackVO">
 		SELECT * 
 		FROM (SELECT a.*, rownum rnum 

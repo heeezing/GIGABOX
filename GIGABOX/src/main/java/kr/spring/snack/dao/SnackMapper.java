@@ -11,6 +11,7 @@ import kr.spring.snack.vo.SnackVO;
 
 @Mapper
 public interface SnackMapper {
+	/*==========관리자==========*/
 	//상품 등록
 	public void insertSnack(SnackVO snack);
 	//전체or검색 상품 개수
@@ -27,4 +28,10 @@ public interface SnackMapper {
 	public void deleteSnack(Integer sn_num);
 	//상품 다중 삭제
 	public void deleteChBox(String[] checkArr);
+	
+	/*==========사용자==========*/
+	//카테고리 별 상품 개수
+	public int selectUserSnackCount(int sn_category);
+	//카테고리 별 상품 목록
+	public List<SnackVO> selectUserSnackList(Map<String,Object> map);
 }

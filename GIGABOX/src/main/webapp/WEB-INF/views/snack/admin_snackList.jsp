@@ -55,17 +55,13 @@
 					});
 				});
 			</script>
-			
 			<input type="button" value="등록" onclick="location.href='admin_insert.do'">
-			<!--<c:if test="${!empty user}">
-				나중에 등록 버튼에 관리자 조건 주기
-			</c:if>-->
 		</div>
 	</form>
 
 	<!-- 목록 -->
 	<c:if test="${count == 0}">
-	<div class="result-display">표시할 게시물이 없습니다.</div>
+	<div class="result-display">표시할 상품이 없습니다.</div>
 	</c:if>
 	<c:if test="${count > 0}">
 	<table class="striped-table">
@@ -113,7 +109,6 @@
 		 $(".chBox").click(function(){ 
 			  $("#allCheck").prop("checked", false);
 		});
-		
 		
 		//선택 삭제 버튼 클릭 이벤트
 		 $("#selectDelete_btn").click(function(){

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,17 +35,27 @@ public class SnackAdminController {
 	private SnackService snackService;
 	
 	/*======================
-	 		스낵 목록	
+		   자바빈 초기화
+	======================*/
+	@ModelAttribute
+	public SnackVO initCommand() {
+		return new SnackVO();
+}
+	
+	/*======================
+	 		상품 목록	
 	======================*/
 	
 	@RequestMapping("/snack/admin_list.do")
-	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+	public ModelAndView getListAdmin(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
 								@RequestParam(value="order",defaultValue="1") int order,
 								String keyfield, String keyword) {
 		Map<String,Object> map = new HashMap<String,Object>();
 
 		map.put("keyfield", keyfield);
 		map.put("keyword", keyword);
+		//status가 0이면 미표시(1), 표시(2) 모두 체크
+		map.put("sn_status",0);
 		
 		//전체or검색 레코드 수
 		int count = snackService.selectSnackCount(map);
@@ -53,14 +63,15 @@ public class SnackAdminController {
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,
-										 20,10,"admin_list.do","&order="+order);
-		
+										 10,10,"admin_list.do","&order="+order);
+	
 		//목록 읽어오기
 		List<SnackVO> list = null;
 		if(count > 0) {
 			map.put("order", order);
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
+			
 			list = snackService.selectSnackList(map);
 			log.debug("<<목록>> : " + list);
 		}
@@ -78,7 +89,7 @@ public class SnackAdminController {
 	
 	
 	/*======================
-		    스낵 등록
+		   상품 정보 등록
 	======================*/	
 	
 	//등록 폼

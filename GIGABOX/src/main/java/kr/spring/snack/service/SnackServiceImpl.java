@@ -55,4 +55,14 @@ public class SnackServiceImpl implements SnackService{
 		snackMapper.deleteChBox(checkArr);
 	}
 
+	@Override
+	public int selectUserSnackCount(int sn_category) {
+		return snackMapper.selectUserSnackCount(sn_category);
+	}
+
+	@Override
+	public List<SnackVO> selectUserSnackList(Map<String,Object> map) {
+		return snackMapper.selectUserSnackList(map);
+	}
+
 }
