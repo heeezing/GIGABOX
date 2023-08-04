@@ -12,7 +12,7 @@
 			<li>
 				<label for="th_name">극장명</label>
 				<input type="text" name="th_name" id="th_name" value="${theaterVO.th_name}" maxlength="50" width="200">
-			</li>
+			</li> 
 			<li>
 				<label for="th_address">주소</label>
 				<input type="text" name="th_address" id="th_address" value="${theaterVO.th_address}" maxlength="200" width="200">
