@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.theater.dao.TheaterMapper">
+<!-- 극장 등록 -->
+<insert id="insertTheater" parameterType="theaterVO">
+  INSERT INTO theater(
+    th_num,
+    th_name,
+    th_address,
+    th_phone,
+    th_photo,
+    th_photoname)
+  VALUES(
+    theater_seq.nextval,
+    #{th_name},
+    #{th_address},
+    #{th_phone},
+    #{th_photo},
+    #{th_photoname})
+</insert>
+
+<!-- 게시판 목록 -->
+<sql id="theaterSearch">
+	<where>
+		<if test="keyword != null and keyword != ''">
+			<if test="keyfield == 1">
+				th_name LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyfield == 2">
+				th_address LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyfield == 3">
+				th_phone LIKE '%' || #{keyword} || '%'
+			</if>
+		</if>
+	</where>
+</sql>
+
+<!-- 전체/검색 레코드수 -->
+<select id="selectRowCount" parameterType="map" resultType="integer">
+	SELECT
+	  COUNT(*)
+	FROM theater
+	<include refid="theaterSearch"></include>
+</select>
+
+<!-- 전체/검색 목록 -->
+<select id="selectList" parameterType="map" resultType="theaterVO">
+		SELECT
+		  *
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			  FROM(SELECT
+			  		 *
+			  	   FROM theater
+			  	   <include refid="theaterSearch"></include>
+			  	   )a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+
+<!-- 극장 수정 -->
+<update id="updateTheater" parameterType="theaterVO">
+    UPDATE theater 
+    SET 
+    	<if test="th_photo != null and th_photoname != ''">
+		    th_photo=#{th_photo}, 
+		    th_photoname=#{th_photoname}, 
+		</if>
+        th_name=#{th_name},
+        th_address=#{th_address},
+        th_phone=#{th_phone}
+    WHERE th_num=#{th_num}
+</update>
+
+</mapper>

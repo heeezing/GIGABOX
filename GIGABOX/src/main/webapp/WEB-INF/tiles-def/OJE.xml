@@ -5,11 +5,36 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <!-- 아래 설정을 상황에 맞게 변형해서 사용하세요 -->
-    <definition name="a5" extends="main">
-    	<put-attribute name="title" value="SpringPage"/>
-	    <put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
-    </definition> 
+    <definition name="theaterAdd" extends="admin">
+    	<put-attribute name="title" value="극장 등록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/theater/admin_theaterAdd.jsp"/>
+    </definition>
+    <definition name="theaterList" extends="admin">
+    	<put-attribute name="title" value="극장 목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/theater/admin_theaterList.jsp"/>
+    </definition>
+    <definition name="theaterModify" extends="admin">
+    	<put-attribute name="title" value="극장 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/theater/admin_theaterModify.jsp"/>
+    </definition>
+    
+    <definition name="hallAdd" extends="admin">
+    	<put-attribute name="title" value="상영관 등록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/hall/admin_hallAdd.jsp"/>
+    </definition>
+    <definition name="hallList" extends="admin">
+    	<put-attribute name="title" value="상영관 목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/hall/admin_hallList.jsp"/>
+    </definition>
+    <definition name="hallModify" extends="admin">
+    	<put-attribute name="title" value="상영관 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/hall/admin_hallModify.jsp"/>
+    </definition>
+    
+    <definition name="theaterDetail" extends="main">
+    	<put-attribute name="title" value="극장 정보 보기"/>
+    	<put-attribute name="body" value="/WEB-INF/views/theater/theaterDetail.jsp"/>
+    </definition>
 </tiles-definitions>
 
 
