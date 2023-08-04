@@ -15,10 +15,10 @@ public class ScheduleVO {
 	private String sch_start; //상영 시작 시간
 	private String sch_end; //상영 끝 시간
 	
-	
-	private int hall_num; //극장 번호
-	
-	
-	
+	private int hall_num; //상영관 번호
 	private int movie_num; //영화 번호
+	
+	private String movie_name;//영화 이름
+	private String theater_name;//극장
+	private String hall_name;//상영관
 }

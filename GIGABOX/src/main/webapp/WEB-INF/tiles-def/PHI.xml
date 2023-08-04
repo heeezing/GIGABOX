@@ -10,4 +10,17 @@
     	<put-attribute name="title" value="빠른예매"/>
 	    <put-attribute name="body" value="/WEB-INF/views/reservation/quick_res.jsp"/>
     </definition> 
+    <definition name="seat" extends="main">
+    	<put-attribute name="title" value="좌석선택"/>
+	    <put-attribute name="body" value="/WEB-INF/views/reservation/seat.jsp"/>
+    </definition> 
+    
+    <definition name="admin_schedule" extends="admin">
+    	<put-attribute name="title" value="상영시간표 목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/reservation/admin_schedule.jsp"/>
+    </definition>
+    <definition name="admin_scheduleAdd" extends="admin">
+    	<put-attribute name="title" value="상영시간표 등록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/reservation/admin_scheduleAdd.jsp"/>
+    </definition>
 </tiles-definitions>

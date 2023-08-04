@@ -5,7 +5,7 @@ create table schedule(
 	sch_start varchar2(30) not null,
 	sch_end varchar2(30) not null,
 	hall_num number not null,
-	movie_num number nont null
+	movie_num number not null,
 	constraint schedule_pk primary key (sch_num),
 	constraint schedule_fk1 foreign key (hall num) references hall (hall_num),
 	constraint schedule_fk2 foreign key (movie_num) references movie (movie_num)

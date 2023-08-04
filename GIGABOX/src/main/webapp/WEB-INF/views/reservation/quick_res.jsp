@@ -175,6 +175,7 @@
 					</div>
 				</div>
 		</div>
+		<input type="button" value="좌석선택" onclick="location.href='${pageContext.request.contextPath}/reservation/seat.do'">
 	</form:form>
 	<br>
 	<br>
