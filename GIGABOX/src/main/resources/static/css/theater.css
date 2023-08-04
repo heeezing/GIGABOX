@@ -46,7 +46,7 @@
 }
 
 /*---------- 극장 정보 -----------*/
-.info-title{
+.info-title, .info-title-sub{
 	font-size:30px;
 	margin:5px 0;
 }

@@ -32,7 +32,7 @@
 		<h3>
 			<img src="${pageContext.request.contextPath}/images/h3_theater.gif">
 		</h3>
-		<h1><span class="info-title">강남</span> <span class="">상영시간표</span></h1>
+		<h1><span class="info-title">강남</span> <span class="info-title-sub">상영시간표</span></h1>
 		<div class="wrap-theaterinfo">
 			<div class="box-image">
 				<img src="${pageContext.request.contextPath}/images/강남.jpg">

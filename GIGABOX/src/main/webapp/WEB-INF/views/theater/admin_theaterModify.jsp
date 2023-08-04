@@ -27,7 +27,7 @@
 			</li>
 			<li>
 				<img src="${pageContext.request.contextPath}/theater/photoViewByTh_num.do?th_num=${theaterVO.th_num}" width="200" height="200" class="th-photo">
-			</c:if>
+			</li>
 		</ul>
 		<div class="align-center">
 			<input type="submit" value="수정" class="button">
