@@ -52,6 +52,9 @@ public class SnackServiceImpl implements SnackService{
 
 	@Override
 	public void deleteChBox(String[] checkArr) {
+		//장바구니 정보 삭제
+		
+		//상품 정보 삭제
 		snackMapper.deleteChBox(checkArr);
 	}
 

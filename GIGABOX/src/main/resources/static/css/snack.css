@@ -1,4 +1,9 @@
 @charset "UTF-8";
+
+/*===========================
+	 [관리자]상품 등록, 수정 폼
+  ===========================*/
+  
 #snack_photo{
 	width:40%;
 	float:left;
@@ -50,6 +55,124 @@ textarea.form-text{
 	clear:both;
 }
 
+
+
+/*===========================
+	   [사용자] 스토어 목록
+  ===========================*/
+  
+/*---------카테고리---------*/
+
+.category_contents_wrap {
+    display: flex;
+}
+.category_content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    line-height: 26px;
+    margin:0 20px 0 45px;
+}
+.cart_content {
+    display: flex;
+    align-items: center;
+    line-height: 26px;
+}
+.category_content li, .cart_content li{
+	font-size:14pt;
+	display: inline-flex;
+    align-items: center;
+    font-weight:bold;
+}
+.cart_content li:first-child {
+    padding-left: 42px;
+}
+.cart_content li{
+	width:110px;
+	margin:0 10px;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 14px;
+}
+.cart_content li a + span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:8px;
+    width: 20px;
+    height: 20px;
+    min-width: 12px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    background-color: #fb4357;
+    border-radius: 10px;
+    outline: none;
+}
+.cart_content:before {
+    content: '';
+    display: inline-flex;
+    width: 1px;
+    height: 23px;
+    background-color: #cfcfcf;
+}
+
+/*---------선택 카테고리 문구---------*/
+
+.category-title{
+	display: block;
+    padding-bottom: 13px;
+    font-weight: 500;
+    font-size: 28px;
+    color: #000;
+    border-bottom: 1px solid #999;
+    margin-top:70px;
+}
+.category-title span {
+    font-weight: 300;
+    font-size: 20px;
+    padding-left: 11px;
+}
+.select{
+	color:red !important;
+}
+
+/*---------상품 목록---------*/
+
+.image-space{
+	margin: 57px 0 20px 20px;
+}
+.image-space .horizontal-area{
+	margin:15px 15px 45px 15px;
+	padding:3px;
+	width:350px;
+	height:480px;
+	float:left;
+	text-align:center;
+	overflow:hidden;
+}
+.image-space .horizontal-area img{
+	width:350px;
+	height:350px;	
+	margin-bottom:20px;
+}
+.image-space .horizontal-area a:hover img{
+	border:1px solid #703691;
+}
+.image-space span{
+	padding:10px 0;
+}
+.image-space .float-clear{
+	clear:both;
+}
+.list-name, .list-price{
+	font-size:14pt;
+}
+.list-detail{
+	color:gray;
+}
 
 
 

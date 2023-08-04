@@ -22,10 +22,10 @@ public class SnackVO {
 	private byte[] sn_photo;
 	private String sn_photo_name;
 	private String sn_info;
-	private int sn_category;
+	private int sn_category; //1:콤보, 2:팝콘, 3:음료, 4:스낵
 	private Date sn_reg_date;
 	private Date sn_modify_date;
-	private int sn_status;
+	private int sn_status; //1:판매중지, 2:판매중
 	
 	//이미지를 byte[]로 변환 (BLOB처리)
 	//주의) 폼에서 파일 업로드 파라미터네임은 반드시 upload로 지정해야 함. photo아님!!

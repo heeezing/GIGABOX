@@ -28,6 +28,12 @@
     	<put-attribute name="title" value="스토어 | GIGABOX"/>
     	<put-attribute name="body" value="/WEB-INF/views/snack/snackList.jsp"/>
     </definition>
+    
+    <!-- [사용자] 스낵 상세 -->
+    <definition name="snackDetail" extends="main">
+    	<put-attribute name="title" value="스토어 상세 | GIGABOX"/>
+    	<put-attribute name="body" value="/WEB-INF/views/snack/snackDetail.jsp"/>
+    </definition>
 </tiles-definitions>
 
 

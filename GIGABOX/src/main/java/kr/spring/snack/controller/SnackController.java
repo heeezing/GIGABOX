@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.snack.service.SnackService;
 import kr.spring.snack.vo.SnackVO;
 import kr.spring.util.PagingUtil;
+import kr.spring.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -39,7 +41,6 @@ public class SnackController {
 	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
 								@RequestParam(value="sn_category",defaultValue="1") int sn_category) {
 		Map<String,Object> map = new HashMap<String,Object>();
-		
 		//전체or검색 레코드 수
 		int count = snackService.selectUserSnackCount(sn_category);
 		log.debug("<<count>> : " + count);
@@ -53,6 +54,7 @@ public class SnackController {
 			map.put("sn_category", sn_category);
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
+			map.put("sn_status", 1);
 			list = snackService.selectUserSnackList(map);
 			log.debug("<<목록>> : " + list);
 		}
@@ -67,5 +69,45 @@ public class SnackController {
 		
 		return mav;
 	}
+	
+	
+	/*======================
+	   	    이미지 출력
+	======================*/	
+	
+	@RequestMapping("/snack/imageView.do")
+	public ModelAndView viewImage(@RequestParam int sn_num) {
+		SnackVO snackVO = snackService.selectSnack(sn_num);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("imageView");
+		mav.addObject("imageFile", snackVO.getSn_photo());
+		mav.addObject("filename", snackVO.getSn_photo_name());
+		
+		return mav;
+	}
+	
+	
+	
+	/*======================
+	 		스낵 상세
+	======================*/	
+	
+	@RequestMapping("/snack/detail.do")
+	public String getDetail(@RequestParam int sn_num, Model model) {
+		log.debug("<<상품 상세 - sn_num>> : " + sn_num);
+		
+		SnackVO snackVO = snackService.selectSnack(sn_num);
+		
+		/*태그를 허용X ?
+		snack.setSn_name(StringUtil.useNoHtml(snack.getSn_name()));
+		snack.setSn_detail(StringUtil.useNoHtml(snack.getSn_detail()));
+		snack.setSn_info(StringUtil.useBrNoHtml(snack.getSn_info()));
+		*/
+		model.addAttribute("snack", snackVO);
+								//  뷰 이름	   속성명   속성값
+		return "snackDetail";
+	}
+
 	
 }

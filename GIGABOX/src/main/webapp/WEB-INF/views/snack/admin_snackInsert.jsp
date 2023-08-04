@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 상품 등록 폼 시작 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/snack_insert.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/snack-insert.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/snack.css">
 <div class="page-main">
 	<div class="title"><a href="admin_insert.do">상품 등록</a></div>
@@ -17,8 +17,8 @@
 			<ul>
 				<li>
 					<label>판매 여부</label>
-					<input type="radio" name="sn_status" value="1" id="status1" checked>판매
-					<input type="radio" name="sn_status" value="2" id="status2">판매중지
+					<input type="radio" name="sn_status" value="2" id="status2" checked>판매
+					<input type="radio" name="sn_status" value="1" id="status1">판매중지
 				</li>
 				<li>
 					<label for="sn_name">상품명</label>

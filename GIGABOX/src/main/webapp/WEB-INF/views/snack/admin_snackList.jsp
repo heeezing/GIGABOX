@@ -88,8 +88,8 @@
 				<c:if test="${snack.sn_category==4}">스낵</c:if>
 			</td>
 			<td class="align-center">
-				<c:if test="${snack.sn_status==1}">판매중</c:if>
-				<c:if test="${snack.sn_status==2}">판매중지</c:if>
+				<c:if test="${snack.sn_status==2}">판매중</c:if>
+				<c:if test="${snack.sn_status==1}">판매중지</c:if>
 			</td>
 		</tr>
 		</c:forEach>

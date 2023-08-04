@@ -14,7 +14,7 @@
 		FROM (SELECT a.*, rownum rnum 
 			  FROM (SELECT * 
 			  		FROM snack 
-			  		WHERE sn_category=#{sn_category})a) 
+			  		WHERE sn_status > #{sn_status} AND sn_category=#{sn_category})a) 
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
@@ -24,17 +24,15 @@
 	<!-- [관리자]상품 목록 -->
 	<!-- 검색창 -->
 	<sql id="snackSearch"> 
-		<!-- WHERE sn_status > #{sn_status} -->
-			<where>
-				<if test="keyword!=null and keyword!=''">
-					<if test="keyfield == 1"> 
-						AND sn_name LIKE '%' || #{keyword} || '%'
-					</if>
-					<if test="keyfield == 2"> 
-						AND sn_detail LIKE '%' || #{keyword} || '%' 
-					</if>
-				</if>
-			</where>	
+		WHERE sn_status > #{sn_status}
+		<if test="keyword!=null and keyword!=''">
+			<if test="keyfield == 1"> 
+				AND sn_name LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyfield == 2"> 
+				AND sn_detail LIKE '%' || #{keyword} || '%' 
+			</if>
+		</if>
 	</sql>
 
 	<!-- 정렬 -->

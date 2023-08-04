@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 상품 수정 폼 시작 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/snack_update.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/snack-update.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/snack.css">
 <div class="page-main">
 	<div class="title"><a href="admin_update.do?sn_num=${snackVO.sn_num}">상품 수정</a></div>
@@ -22,8 +22,8 @@
 			<ul>
 				<li>
 					<label>판매 여부</label>
-					<input type="radio" name="sn_status" value="1" id="status1" <c:if test="${snackVO.sn_status == 1}">checked</c:if>>판매
-					<input type="radio" name="sn_status" value="2" id="status2" <c:if test="${snackVO.sn_status == 2}">checked</c:if>>판매중지
+					<input type="radio" name="sn_status" value="2" id="status2" <c:if test="${snackVO.sn_status == 2}">checked</c:if>>판매
+					<input type="radio" name="sn_status" value="1" id="status1" <c:if test="${snackVO.sn_status == 1}">checked</c:if>>판매중지
 				</li>
 				<li>
 					<label for="sn_name">상품명</label>
