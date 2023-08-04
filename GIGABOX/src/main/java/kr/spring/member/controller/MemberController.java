@@ -2,8 +2,10 @@ package kr.spring.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -117,7 +119,27 @@ public class MemberController {
 				check = member.isCheckedPassword(memberVO.getPasswd());
 			}
 			
-			if(check) {
+			if(check) {//인증 성공
+				// ===자동 로그인 체크 시작===
+				boolean autoLogin = memberVO.getAuto() != null && memberVO.getAuto().equals("on");
+				if(autoLogin) {//자동 로그인 체크를 한 경우
+					String au_id = member.getAu_id();
+					if(au_id==null) {
+						//자동로그인 체크 식별값 생성
+						au_id = UUID.randomUUID().toString();
+						log.debug("<<au_id>> : "+au_id);
+						memberService.updateAu_id(au_id, member.getMem_num());
+					}
+					
+					//쿠키 생성
+					Cookie auto_cookie = new Cookie("au-log",au_id);
+					auto_cookie.setMaxAge(60*60*24*7);//쿠키 유효시간
+					auto_cookie.setPath("/");//루트 밑으로 내려오면 다 사용할 수 있게
+					
+					response.addCookie(auto_cookie);		
+				}
+				// ===자동 로그인 체크 끝===
+				
 				
 				//인증 성공, 로그인 처리
 				session.setAttribute("user", member);
@@ -159,7 +181,6 @@ public class MemberController {
 		//로그아웃
 		session.invalidate();
 		
-		/*
 		// ===자동 로그인 해제 시작===
 		//클라이언트 쿠키 처리
 		Cookie auto_cookie = new Cookie("au-log", "");
@@ -168,7 +189,7 @@ public class MemberController {
 
 		response.addCookie(auto_cookie);
 		// ===자동 로그인 해제 끝===
-		*/
+		
 		
 		return "redirect:/main/main.do";
 	}
@@ -201,16 +222,18 @@ public class MemberController {
 			//기본 이미지 읽기
 			byte[] readbyte = FileUtil.getBytes(request.getServletContext().getRealPath("/image_bundle/face.png"));
 			model.addAttribute("imageFile", readbyte);
-			model.addAttribute("filename","face.png");
-		}else {//로그인이 된 경우
+			model.addAttribute("filename", "face.png");
+		}else {//로그인 된 경우
 			MemberVO memberVO = memberService.selectMember(user.getMem_num());
 			viewProfile(memberVO,request,model);
 		}
+		
 		return "imageView";
 	}
+	
 	//프로필 사진 출력(회원번호 지정)
 	@RequestMapping("/member/viewProfile.do")
-	public String getProfileByMem_num(@RequestParam int mem_num,HttpServletRequest request, Model model) {
+	public String getProfileByMem_num(@RequestParam int mem_num, HttpServletRequest request, Model model) {
 		MemberVO memberVO = memberService.selectMember(mem_num);
 		viewProfile(memberVO,request,model);
 		
@@ -222,10 +245,10 @@ public class MemberController {
 		if(memberVO==null || memberVO.getPhoto_name()==null) {
 			//기본 이미지 읽기
 			byte[] readbyte = FileUtil.getBytes(request.getServletContext().getRealPath("/image_bundle/face.png"));
-			model.addAttribute("imageFile",readbyte);
-			model.addAttribute("filename","face.png");
+			model.addAttribute("imageFile", readbyte);
+			model.addAttribute("filename", "face.png");
 		}else {
-			//업로드한 프로필이 있는 경우
+			//업로드한 프로필 사진이 있는 경우
 			model.addAttribute("imageFile",memberVO.getPhoto());
 			model.addAttribute("filename", memberVO.getPhoto_name());
 		}
@@ -234,7 +257,7 @@ public class MemberController {
 	/*============
 	 * 프로필 사진 업데이트
 	 *============*/
-	@RequestMapping("/member/updaeMyPhoto.do")
+	@RequestMapping("/member/updateMyPhoto.do")
 	@ResponseBody
 	public Map<String,String> updateProfile(MemberVO memberVO, HttpSession session){
 		Map<String,String> mapAjax = new HashMap<String,String>();
@@ -252,6 +275,35 @@ public class MemberController {
 		return mapAjax;
 	}
 	
+	/*============
+	 * 회원 정보 bar
+	 *============*/
+	@RequestMapping("/member/memberView.do")
+	public String memberView(HttpSession session, Model model) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		//회원 정보 반환
+		MemberVO member = memberService.selectMember(user.getMem_num());
+		
+		//회원정보
+		model.addAttribute("member",member);//member라는 이름으로 member를 넣어줌
+		
+		return "memberView";
+	}
+	
+	/*============
+	 * 예매 내역 bar
+	 *============*/
+	@RequestMapping("/member/memberReservation.do")
+	public String memberReservation(HttpSession session, Model model) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		//회원 정보 반환
+		MemberVO member = memberService.selectMember(user.getMem_num());
+		
+		//회원정보
+		model.addAttribute("member",member);//member라는 이름으로 member를 넣어줌
+		
+		return "memberReservation";
+	}
 	
 	/*============
 	 * 회원 정보 수정

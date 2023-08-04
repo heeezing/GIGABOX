@@ -24,7 +24,7 @@
     	<put-attribute name="title" value="MyPage"/>
     	<put-attribute name="header" value="/WEB-INF/views/template/header.jsp"/>
     	<put-attribute name="nav" value="/WEB-INF/views/template/mypage_nav.jsp"/>
-    	<put-attribute name="body" value="/WEB-INF/views/member/memberView.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/myPage.jsp"/>
     	<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp"/>
     </definition>
     
@@ -44,6 +44,18 @@
 	<definition name="memberDelete" extends="myPage">
     	<put-attribute name="title" value="회원탈퇴"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberDelete.jsp"/>
+    </definition>
+    
+    <!-- 회원정보 -->
+    <definition name="memberView" extends="myPage">
+    	<put-attribute name="title" value="회원정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberView.jsp"/>
+    </definition>
+    
+    <!-- 예매 내역 -->
+    <definition name="memberReservation" extends="myPage">
+    	<put-attribute name="title" value="회원정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberReservation.jsp"/>
     </definition>
 </tiles-definitions>
   

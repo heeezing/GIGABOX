@@ -24,7 +24,7 @@
 	<ul>
 		<li>
 			<input type="button" class="menu-btn" value="예매 내역"
-			  onclick="location.href='${pageContext.request.contextPath}'">
+			  onclick="location.href='${pageContext.request.contextPath}/member/memberReservation.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="구매 내역"
@@ -52,7 +52,7 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="회원정보"
-			  onclick="location.href='${pageContext.request.contextPath}'">
+			  onclick="location.href='${pageContext.request.contextPath}/member/memberView.do'">
 		</li>
 		<!-- 
 		<li>

@@ -1,0 +1,8 @@
+@charset "UTF-8";
+.mypage-top{
+	position: relative;
+    padding: 40px 0 0 364px;
+    height: 221px;
+    background: #D3D3D3;
+    background-size: 840px 221px;
+}

@@ -1,11 +1,14 @@
 package kr.spring.member.vo;
 
+import java.io.IOException;
 import java.sql.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,5 +53,14 @@ public class MemberVO {
 			return true;
 		}
 		return false;
+	}
+	
+	//이미지를 byte[]로 변환(BOLB 처리)
+	//(주의) 폼에서 파일 업로드 파라미터네임은 반드시 upload로 명시
+	public void setUpload(MultipartFile upload)throws IOException{
+		//multipartfile -> byte[]로 변환
+		setPhoto(upload.getBytes());
+		//파일 이름
+		setPhoto_name(upload.getOriginalFilename());
 	}
 }
