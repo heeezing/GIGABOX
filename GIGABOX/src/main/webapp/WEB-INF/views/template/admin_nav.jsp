@@ -9,7 +9,7 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="영화 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/movie/movieAdmin.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="극장 관리"

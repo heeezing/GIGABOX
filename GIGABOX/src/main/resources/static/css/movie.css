@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/*===== movieList =====*/
+.list-search{
+	margin-left:40%;
+	margin-right:0;
+	margin-bottom:30px;
+}
+.movie-list{
+	width:80%;
+	height:30%;
+}
+.movie-list-parent{
+	display:flex;
+}
+.card-img-top{
+	width: 230px!important;
+    height:331px;
+    flex-wrap:wrap;
+}
+/*===== movieDetail =====*/
+.movie-detailtop{
+	background-color:black;
+}
+.detailtop-left{
+	float:left;
+}
+.detailtop-right > h2 h4 {
+	color:white;
+}
+.detailtop-right{
+	float:right;
+}
+.movie-detailmain{
+ 	clear:both;
+}
+.detail-rightbtn > input{
+	clear:both;
+	float:right;
+}
+.tabWrap {
+	display:flex;
+}
+.tabWrap li{
+	font-size:large;
+}
+.movie-info > ul {
+	display:flex;
+}
+/*===== movieRegister =====*/
+/*===== movieUpdate =====*/
