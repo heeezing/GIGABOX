@@ -79,7 +79,15 @@
 	
 	<!-- 상영시간표 수정 -->
 	<update id="updateSchedule">
-		UPDATE schedule SET m_title=#{m_title}, hall_num=#{hall_num}, sch_date=#{sch_date}, sch_start=#{sch_start}, sch_end=#{sch_end} WHERE sch_num=#{sch_num}
+		UPDATE schedule 
+		SET 
+		  movie_num=#{movie_num}, 
+		  hall_num=#{hall_num}, 
+		  sch_date=#{sch_date}, 
+		  sch_start=#{sch_start}, 
+		  sch_end=#{sch_end} 
+		WHERE 
+		  sch_num=#{sch_num}
 	</update>
 
 	

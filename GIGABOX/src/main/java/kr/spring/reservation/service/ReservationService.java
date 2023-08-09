@@ -3,6 +3,8 @@ package kr.spring.reservation.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import kr.spring.hall.vo.HallVO;
@@ -24,6 +26,10 @@ public interface ReservationService {
 	// 극장 선택 후 상영관
 	public List<HallVO> getHallsByTheaterId(int th_num);
 	
+	//상영 시간표 정보 가져오기
+	public ScheduleVO selectSchedule(Integer sch_num);
 	// 상영시간표 수정
 	public void updateSchedule(ScheduleVO schedule);
+	// 상영시간표 삭제
+	public void deleteSchedule(Integer sch_num);
 }

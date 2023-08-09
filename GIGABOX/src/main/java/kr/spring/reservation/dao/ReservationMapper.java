@@ -3,6 +3,7 @@ package kr.spring.reservation.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -28,6 +29,13 @@ public interface ReservationMapper {
 	@Select("SELECT * FROM hall h WHERE h.th_num = #{th_num} ORDER BY hall_name")
 	public List<HallVO> getHallsByTheaterId(int theaterId);
 	
+	//상영 시간표 정보 가져오기
+	@Select("SELECT * FROM schedule s JOIN hall h ON s.hall_num = h.hall_num JOIN movie m ON s.movie_num = m.movie_num JOIN theater th ON h.th_num = th.th_num WHERE sch_num=#{sch_num}")
+	public ScheduleVO selectSchedule(Integer sch_num);
 	// 상영시간표 수정
 	public void updateSchedule(ScheduleVO schedule);
+	// 상영시간표 삭제
+	@Delete("DELETE FROM schedule WHERE sch_num=#{sch_num}")
+	public void deleteSchedule(Integer sch_num);
+	
 }

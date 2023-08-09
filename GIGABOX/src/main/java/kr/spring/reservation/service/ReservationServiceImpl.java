@@ -53,4 +53,14 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationMapper.updateSchedule(schedule);
 	}
 
+	@Override
+	public ScheduleVO selectSchedule(Integer sch_num) {
+		return reservationMapper.selectSchedule(sch_num);
+	}
+
+	@Override
+	public void deleteSchedule(Integer sch_num) {
+		reservationMapper.deleteSchedule(sch_num);
+	}
+
 }

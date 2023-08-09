@@ -132,10 +132,14 @@ public class ReservationController {
 	/*========================
 	 *  상영 시간표 수정
 	 *========================*/
-	//수정 폼 호출
+	// 수정 폼 호출
 	@GetMapping("reservation/admin_scheduleUpdate.do")
 	public String formScheduleUpdate(@RequestParam int sch_num, Model model) {
-		return "admin_scheduleUpdate";
+	    ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
+	    model.addAttribute("scheduleVO", scheduleVO);
+	    model.addAttribute("MovieList", resService.getMovieList());
+	    model.addAttribute("TheaterList", resService.getTheaterList());
+	    return "admin_scheduleUpdate"; // 수정 폼 페이지로 이동
 	}
 	//전송된 데이터 처리
 	@PostMapping("reservation/admin_scheduleUpdate.do")
@@ -146,8 +150,21 @@ public class ReservationController {
 		
 		//View에 표시할 메시지
 		model.addAttribute("message", "상영시간표 수정 완료!");
-		model.addAttribute("url", request.getContextPath()+"/reservation/admin_schedule");
+		model.addAttribute("url", request.getContextPath()+"/reservation/admin_schedule.do");
 		
 		return "common/resultView";
+	}
+	
+	/*========================
+	 *  상영 시간표 삭제
+	 *========================*/
+	@RequestMapping("/reservation/admin_scheduleDelete.do")
+	public String submitScheduleDelete(@RequestParam int sch_num) {
+		log.debug("<<상영시간표 삭제 - sch_num>> : " + sch_num);
+		
+		//상영시간표 삭제
+		resService.deleteSchedule(sch_num);
+		
+		return "redirect:/reservation/admin_schedule.do";
 	}
 }
