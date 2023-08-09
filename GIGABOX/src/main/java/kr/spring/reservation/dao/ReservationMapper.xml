@@ -34,7 +34,7 @@
 					h.hall_name LIKE '%' || #{keyword} || '%'
 				</if>
 				<if test="keyfield == 4">
-					s.sch_date LIKE '%' || #{keyword} || '%' or b.content LIKE '%' || #{keyword} || '%'
+					s.sch_date LIKE '%' || #{keyword} || '%'
 				</if>
 			</if>
 		</where>
@@ -77,6 +77,10 @@
 		]]>
 	</select>
 	
-	
+	<!-- 상영시간표 수정 -->
+	<update id="updateSchedule">
+		UPDATE schedule SET m_title=#{m_title}, hall_num=#{hall_num}, sch_date=#{sch_date}, sch_start=#{sch_start}, sch_end=#{sch_end} WHERE sch_num=#{sch_num}
+	</update>
+
 	
 </mapper>

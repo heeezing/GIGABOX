@@ -394,15 +394,94 @@
     overflow: hidden;
     position: relative;
     min-height: 230px;
+    width:280px;
     margin: 10px 0 0 20px;
     border-radius: 5px;
     border: 1px solid #434343;
 }
 .seat-select-section .seat-result .wrap .choice-seat-area .legend {
     float: left;
-    width: calc(100% - 117px);
     padding: 16px 0 0 20px;
 }
 .seat-select-section .seat-result .wrap .choice-seat-area .legend .list{
 	padding:0;
+	margin:0;
+}
+
+.choice-seat-area .legend .list li{
+	height: 16px;
+}
+.choice-seat-area .legend .list li img{
+	margin-top:4px;
+	margin-right:5px;
+	float:left;
+}
+.choice-seat-area .legend .list li span{
+	color: #c4c4c4;
+    font-size: 13px;
+    letter-spacing: -1px;
+    margin:0;
+    float:left;
+}
+.seat-select-section .seat-result .wrap .choice-seat-area .seat-num {
+    float: right;
+    width: 140px;
+    border-left: 1px solid #434343;
+    height: 230px;
+}
+.seat-select-section .seat-result .wrap .choice-seat-area .seat-num .tit {
+    height: 43px;
+    margin: 0;
+    padding: 0;
+    line-height: 42px;
+    font-size: 13px;
+    color: #c4c4c4;
+    text-align: center;
+}
+.seat-select-section .seat-result .wrap .choice-seat-area .seat-num .my-seat {
+    overflow: hidden;
+    padding: 0 14px;
+}
+.seat-num .my-seat p{
+	background-color: #503396;
+	padding:5px;
+	width:40px;
+	float:left;
+	margin:3px 2px 0 2px;
+	border: 1px solid #5c5c5c;
+    text-align: center;
+}
+.seat-select-section .seat-result .wrap .pay-area {
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+    width: 267px;
+    margin: 0;
+    padding: 10px 20px;
+}
+.pay-area .count{
+	display: block;
+    position: relative;
+    padding: 0 0 0 12px;
+    font-size: 13px;
+    color: #c4c4c4;
+    margin:0;
+}
+.pay-area .pay .tit {
+    float: left;
+    line-height: 35px;
+    font-size: 14px;
+    padding-left:12px;
+    margin-top: 0;
+}
+.seat-select-section .seat-result .wrap .pay-area .pay .money {
+    float: right;
+}
+.pay-area .pay .money span{
+	display: block;
+    float: left;
+    line-height: 35px;
+    font-size: 1.6em;
+    color: #59bec9;
+    font-weight: 400;
 }

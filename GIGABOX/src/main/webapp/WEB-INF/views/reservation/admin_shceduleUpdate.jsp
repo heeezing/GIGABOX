@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/reservation.js"></script>
-<!-- 상영시간표 등록 시작 -->
+<!-- 상영시간표 수정 시작 -->
 <div class="page-main">
-	<h2>상영시간표 등록</h2>
+	<h2>상영시간표 수정</h2>
 	<form action="admin_scheduleAdd.do" id="admin_scheduleAdd" method="post">
 		<ul>
 			<li>
@@ -45,7 +45,7 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<input type="submit" value="등록" class="button">
+			<input type="submit" value="수정" class="button">
 			<input type="button" value="목록" onclick="location.href='admin_schedule.do'">
 		</div>
 	</form>

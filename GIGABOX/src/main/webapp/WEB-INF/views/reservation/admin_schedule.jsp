@@ -51,14 +51,16 @@
 			<th>극장/상영관</th>
 			<th>상영날짜</th>
 			<th>상영시간</th>
+			<th>수정/삭제</th>
 		</tr>
 		<c:forEach var="schedule" items="${list}">
 		<tr>
 			<td class="align-center">${schedule.sch_num}</td>
-			<td width="400">${schedule.m_title}</td>
+			<td class="align-center" width="300">${schedule.m_title}</td>
 			<td class="align-center">${schedule.th_name} / ${schedule.hall_name}</td>
 			<td class="align-center">${schedule.sch_date}</td>
 			<td class="align-center">${schedule.sch_start} ~ ${schedule.sch_end}</td>
+			<td class="align-center"><input type="button" value="수정" onclick="location.href='admin_scheduleUpdate.do?sch_num=${schedule.sch_num}'"> <input type="button" value="삭제"></td>
 		</tr>
 		</c:forEach>
 	</table>

@@ -191,15 +191,36 @@
 					<div class="choice-seat-area">
 						<div class="legend">
 							<ul class="list">
-								<li><img src="${pageContext.request.contextPath}/images/선택.png"></li>
+								<li>
+									<img src="${pageContext.request.contextPath}/images/선택.png">
+									<span>선택</span>
+								</li>
+								<li>
+									<img src="${pageContext.request.contextPath}/images/예매완료.png">
+									<span>예매완료</span>
+								</li>
+								<li>
+									<img src="${pageContext.request.contextPath}/images/일반.png">
+									<span>일반</span>
+								</li>
 							</ul>
 						</div>
 						<div class="seat-num">
-							
+							<p class="tit">선택좌석</p>
+							<div class="my-seat">
+								<p>좌석</p>
+								<p>좌석</p>
+							</div>
 						</div>
 					</div>
 					<div class="pay-area">
-					
+						<p class="count">인원 <span>2</span></p>
+						<div class="pay">
+							<p class="tit">최종결제금액</p>
+							<div class="money">
+								<span>15,000</span>원
+							</div>
+						</div>
 					</div>
 					<div class="btn-group">
 					

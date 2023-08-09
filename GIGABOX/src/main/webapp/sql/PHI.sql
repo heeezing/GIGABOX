@@ -10,7 +10,7 @@ create table schedule(
 	constraint schedule_fk1 foreign key (hall num) references hall (hall_num),
 	constraint schedule_fk2 foreign key (movie_num) references movie (movie_num)
 );
-create sequence schdule_seq;
+create sequence schedule_seq;
 
 --좌석
 create table seat(

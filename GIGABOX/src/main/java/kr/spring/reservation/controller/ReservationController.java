@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.hall.service.HallService;
+import kr.spring.hall.vo.HallVO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
@@ -64,17 +66,17 @@ public class ReservationController {
 	 *========================*/
 	//등록 폼
 	@GetMapping("reservation/admin_scheduleAdd.do")
-	public String formSchedule() {
+	public String formSchedule(Model model) {
+		// 영화 정보 불러오기
+		model.addAttribute("MovieList", resService.getMovieList());
+		// 극장 정보 불러오기
+		model.addAttribute("TheaterList", resService.getTheaterList());
 		return "admin_scheduleAdd";
 	}
 	//전송된 데이터 처리
 	@PostMapping("/reservation/admin_scheduleAdd.do")
 	public String submitSchedule(@Valid ScheduleVO scheduleVO, BindingResult result,HttpServletRequest request,HttpSession session,Model model) {
 		log.debug("<<상영시간표 등록>> : " + scheduleVO);
-		//유효성 체크 결과 오류가 있으면 폼 호출
-		if(result.hasErrors()) {
-			return formSchedule();
-		}
 		
 		//글쓰기
 		resService.insertSchedule(scheduleVO);
@@ -84,6 +86,14 @@ public class ReservationController {
 		
 		return "common/resultView";
 	}
+	// 상영관 정보
+	@RequestMapping("/reservation/getHallsByTheaterId")
+	@ResponseBody
+	public List<HallVO> getHallsByTheaterId(@RequestParam("th_num") int th_num) {
+	    return resService.getHallsByTheaterId(th_num);
+	}
+
+	
 	/*========================
 	 *  상영 시간표 목록
 	 *========================*/
@@ -117,5 +127,27 @@ public class ReservationController {
 		mav.addObject("page", page.getPage());
 		
 		return mav;
+	}
+	
+	/*========================
+	 *  상영 시간표 수정
+	 *========================*/
+	//수정 폼 호출
+	@GetMapping("reservation/admin_scheduleUpdate.do")
+	public String formScheduleUpdate(@RequestParam int sch_num, Model model) {
+		return "admin_scheduleUpdate";
+	}
+	//전송된 데이터 처리
+	@PostMapping("reservation/admin_scheduleUpdate.do")
+	public String submitScheduleUpdate(@Valid ScheduleVO scheduleVO, BindingResult result, HttpServletRequest request, Model model) {
+		log.debug("<<상영시간표 수정 - ScheduleVO>>" + scheduleVO);
+		
+		resService.updateSchedule(scheduleVO);
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "상영시간표 수정 완료!");
+		model.addAttribute("url", request.getContextPath()+"/reservation/admin_schedule");
+		
+		return "common/resultView";
 	}
 }

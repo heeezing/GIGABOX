@@ -6,8 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.spring.hall.vo.HallVO;
+import kr.spring.movie.vo.MovieVO;
 import kr.spring.reservation.dao.ReservationMapper;
 import kr.spring.reservation.vo.ScheduleVO;
+import kr.spring.theater.vo.TheaterVO;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{
@@ -28,6 +31,26 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void insertSchedule(ScheduleVO schedule) {
 		reservationMapper.insertSchedule(schedule);
+	}
+
+	@Override
+	public List<TheaterVO> getTheaterList() {
+		return reservationMapper.getTheaterList();
+	}
+
+	@Override
+	public List<MovieVO> getMovieList() {
+		return reservationMapper.getMovieList();
+	}
+
+	@Override
+	public List<HallVO> getHallsByTheaterId(int th_num) {
+	    return reservationMapper.getHallsByTheaterId(th_num);
+	}
+
+	@Override
+	public void updateSchedule(ScheduleVO schedule) {
+		reservationMapper.updateSchedule(schedule);
 	}
 
 }
