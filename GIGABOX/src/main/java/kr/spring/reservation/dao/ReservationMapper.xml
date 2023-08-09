@@ -71,7 +71,7 @@
 				   JOIN movie m ON s.movie_num = m.movie_num
 				   JOIN theater th ON h.th_num = th.th_num
 			  	   <include refid="scheduleSearch"></include>
-			  	   )a)
+			  	   ORDER BY s.sch_date)a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
