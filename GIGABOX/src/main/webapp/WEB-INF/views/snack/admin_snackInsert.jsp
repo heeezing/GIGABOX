@@ -2,8 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 상품 등록 폼 시작 -->
+<!-- include libraries (jquery, bootstrap) : CKEditor 사용을 위해 필요 -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- include CKEditor js -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploadAdapter.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/snack-insert.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/snack.css">
+<style>
+.ck-editor__editable_inline{
+	height:400px;
+}
+</style>
 <div class="page-main">
 	<div class="title"><a href="admin_insert.do">상품 등록</a></div>
 	<form:form modelAttribute="snackVO" action="admin_insert.do" id="insert_form" encType="multipart/form-data">
@@ -54,7 +65,30 @@
 		
 		<div id="snack_text">
 			<label for="sn_info">설명</label>
-			<textarea rows="5" cols="60" name="sn_info" id="sn_info" class="form-text"></textarea>
+			<textarea rows="5" cols="60" name="sn_info" id="sn_info"></textarea>
+		</div>
+		
+		<div id="snack_ck">
+			<label for="sn_notice">안내사항</label><p>
+			<textarea name="sn_notice" id="sn_notice"></textarea>
+				<script>
+					function MyCustomUploadAdapterPlugin(editor){
+						editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+							return new UploadAdapter(loader);
+						}
+					}
+					
+					ClassicEditor.create(document.querySelector('#sn_notice'),{
+									extraPlugins:[MyCustomUploadAdapterPlugin]
+								 })
+								 .then(editor => {
+									 window.editor = editor;
+								 })
+								 .catch(error => {
+									 console.error(error);
+								 });
+				</script>
+		
 		</div>
 		
 		<div id="snack_button">

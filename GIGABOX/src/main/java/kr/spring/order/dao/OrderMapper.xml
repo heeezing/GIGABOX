@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.order.dao.OrderMapper">
+	<!-- 상품 주문 -->
+	<insert id="insertOrder" parameterType="orderVO">
+		INSERT INTO orders(
+			orders_num,
+			sn_name,
+			sn_photo,
+			orders_total,
+			payment,
+			orders_type,
+			orders_status,
+			billing_key,
+			to_id,
+			to_phone,
+			to_message,
+			mem_num
+			)
+		VALUES(
+			#{orders_num},
+			#{sn_name},
+			#{sn_photo},
+			#{orders_total},
+			#{payment},
+			#{orders_type},
+			#{orders_status},
+			#{billing_key},
+			#{to_id},
+			#{to_phone},
+			#{to_message},
+			#{mem_num}
+			)
+	</insert>
+	
+	<insert id="insertOrderDetail" parameterType="orderDetailVO">
+		INSERT INTO sporder_detail(
+			detail_num,
+			sn_num,
+			sn_name,
+			sn_detail,
+			sn_price,
+			sn_dc_price,
+			sn_photo,
+			sn_total,
+			orders_quantity,
+			orders_num
+			)
+		VALUES(
+			sporder_detail_seq.nextval,
+			#{sn_num},
+			#{sn_name},
+			#{sn_detail},
+			#{sn_price},
+			#{sn_dc_price},
+			#{sn_photo},
+			#{sn_total},
+			#{orders_quantity},
+			#{orders_num}
+			)
+	</insert>
+	
+	
+	<!-- [관리자] 주문 목록 -->
+	
+	<!-- 검색창 용 sql 조각 -->
+	<sql id="orderSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					orders_num = #{keyword}
+				</if>
+				<if test="keyfield == 2">
+					id LIKE '%'|| #{keyword} || '%'
+				</if>
+				<if test="keyfield == 3">
+					sn_name LIKE '%'|| #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 전체or검색 레코드 수 -->
+	<select id="selectOrderCount" parameterType="map" resultType="integer">
+		SELECT COUNT(*) 
+		FROM orders o JOIN member m ON o.mem_num = m.mem_num 
+		<include refid="orderSearch"></include>
+	</select>
+
+	<!-- 전체or검색 목록 -->
+	<select id="selectListOrder" parameterType="map" resultType="orderVO">
+		SELECT * 
+		FROM (SELECT a.*, rownum rnum 
+			  FROM (SELECT * 
+			  		FROM orders o JOIN member m ON o.mem_num = m.mem_num 
+			  		<include refid="orderSearch"></include> 
+			  		ORDER BY orders_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

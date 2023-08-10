@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.cart.dao.CartMapper">
+	<!-- resultMap 생성 (프로퍼티명이 불일치하므로) -->
+	<resultMap type="cartVO" id="cartMap">
+		<result property="snackVO.sn_name" column="sn_name"/>
+		<result property="snackVO.sn_detail" column="sn_detail"/>
+		<result property="snackVO.sn_status" column="sn_status"/>
+		<result property="snackVO.sn_price" column="sn_price"/>
+		<result property="snackVO.sn_dc_price" column="sn_dc_price"/>
+	</resultMap>
+
+	<sql id="cartCondition">
+		WHERE mem_num=#{mem_num} 
+		<!-- 주문 폼에서 장바구니 정보 읽어올 때 cart_numbers 사용함 -->
+		<if test="cart_numbers != null and cart_numbers.length > 0">
+			AND cart_num IN 
+			<foreach item="item" index="index" collection="cart_numbers" 
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</sql>
+	
+	<sql id="cartSubTotal">
+	CASE WHEN sn_dc_price != 0  
+		 THEN orders_quantity * sn_dc_price 
+		 ELSE orders_quantity * sn_price 
+	END sub_total
+	</sql>
+	
+	<!-- 장바구니 목록 -->
+	<select id="selectListCart" parameterType="map" resultMap="cartMap">
+		SELECT 
+			cart_num,
+			sn_num,
+			orders_quantity,
+			mem_num,
+			sn_name,
+			sn_detail,
+			sn_price,
+			sn_dc_price,
+			sn_status,
+			<include refid="cartSubTotal"></include>,
+			orders_quantity * sn_price sub_real_total  
+		FROM cart JOIN snack USING (sn_num) 
+		<include refid="cartCondition"></include>
+		ORDER BY sn_num ASC
+	</select>
+	
+	<!-- [할인가 포함] 회원 별 장바구니에 담은 상품 총 금액 -->
+	<select id="selectTotalByMem_num" parameterType="map" resultType="integer">
+		SELECT NVL(SUM(sub_total),0) 
+		FROM (SELECT mem_num,
+					 cart_num,
+					 <include refid="cartSubTotal"></include>
+			  FROM cart JOIN snack USING (sn_num))
+		<include refid="cartCondition"></include>
+	</select>
+	
+	<!-- [원가] 회원 별 장바구니에 담은 상품 총 금액 -->
+	<select id="selectOriginTotalByMem_num" parameterType="map" resultType="integer">
+		SELECT NVL(SUM(sub_total),0) 
+		FROM (SELECT mem_num,
+					 cart_num,
+					 orders_quantity * sn_price sub_total 
+			  FROM cart JOIN snack USING (sn_num))
+		<include refid="cartCondition"></include>
+	</select>
+
+	<!-- 장바구니에 상품 등록 -->
+	<insert id="insertCart" parameterType="cartVO">
+		INSERT INTO cart(
+			cart_num,
+			sn_num,
+			orders_quantity,
+			mem_num
+			)
+		VALUES(
+			cart_seq.nextval,
+			#{sn_num},
+			#{orders_quantity},
+			#{mem_num}
+			)
+	</insert>
+	
+	<!-- 체크박스 다중 삭제 -->
+	<delete id="deleteChBox">
+		DELETE FROM cart 
+		WHERE cart_num IN 
+		<foreach item="item" collection="checkArr" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+</mapper>

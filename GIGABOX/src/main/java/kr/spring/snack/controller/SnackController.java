@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.cart.service.CartService;
+import kr.spring.member.vo.MemberVO;
 import kr.spring.snack.service.SnackService;
 import kr.spring.snack.vo.SnackVO;
 import kr.spring.util.PagingUtil;
@@ -23,6 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 public class SnackController {
 	@Autowired
 	private SnackService snackService;
+	
+	@Autowired
+	private CartService cartService;
 	
 	/*======================
 		   자바빈 초기화
@@ -39,8 +46,17 @@ public class SnackController {
 	
 	@RequestMapping("/snack/list.do")
 	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
-								@RequestParam(value="sn_category",defaultValue="1") int sn_category) {
+								@RequestParam(value="sn_category",defaultValue="1") int sn_category,
+								HttpSession session) {
 		Map<String,Object> map = new HashMap<String,Object>();
+		
+		int cartCount = 0;
+		//로그인 회원 정보 가져옴
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user != null) { //로그인 O
+			cartCount = cartService.selectCartCount(user.getMem_num());
+		}
+		
 		//전체or검색 레코드 수
 		int count = snackService.selectUserSnackCount(sn_category);
 		log.debug("<<count>> : " + count);
@@ -63,6 +79,7 @@ public class SnackController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("snackList"); //tiles 설정
 		mav.addObject("count", count);
+		mav.addObject("cartCount", cartCount); 
 		mav.addObject("list", list);
 		mav.addObject("sn_category", sn_category);
 		mav.addObject("page", page.getPage());
@@ -105,7 +122,7 @@ public class SnackController {
 		snack.setSn_info(StringUtil.useBrNoHtml(snack.getSn_info()));
 		*/
 		model.addAttribute("snack", snackVO);
-								//  뷰 이름	   속성명   속성값
+		
 		return "snackDetail";
 	}
 

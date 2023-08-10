@@ -82,7 +82,8 @@
 		sn_info,
 		sn_category,
 		sn_reg_date,
-		sn_status
+		sn_status,
+		sn_notice
 		)
 	VALUES(
 		snack_seq.nextval,
@@ -95,7 +96,8 @@
 		#{sn_info},
 		#{sn_category},
 		SYSDATE,
-		#{sn_status}
+		#{sn_status},
+		#{sn_notice}
 		)
 	</insert>
 
@@ -116,11 +118,14 @@
 			sn_info=#{sn_info},
 			sn_category=#{sn_category},
 			sn_modify_date=SYSDATE,
-			sn_status=#{sn_status} 
+			sn_status=#{sn_status},
+			sn_notice=#{sn_notice} 
 		WHERE 
 			sn_num=#{sn_num}
 	</update>
 	
+	
+	<!-- [관리자] 체크박스 다중 삭제 -->
 	<delete id="deleteChBox">
 		DELETE FROM snack 
 		WHERE sn_num IN 

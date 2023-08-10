@@ -5,19 +5,19 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <!-- [관리자 스토어 관리]스낵 목록 -->
+    <!-- [관리자] 스낵 목록 -->
     <definition name="admin_snackList" extends="admin">
     	<put-attribute name="title" value="스토어 관리"/>
     	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackList.jsp"/>
     </definition>
     
-    <!-- [관리자 스토어 관리]스낵 등록 폼 -->
+    <!-- [관리자] 스낵 등록 폼 -->
     <definition name="admin_snackInsert" extends="admin">
     	<put-attribute name="title" value="상품 등록"/>
     	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackInsert.jsp"/>
     </definition>
     
-    <!-- [관리자 스토어 관리]스낵 수정 폼 -->
+    <!-- [관리자] 스낵 수정 폼 -->
     <definition name="admin_snackUpdate" extends="admin">
     	<put-attribute name="title" value="상품 수정"/>
     	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackUpdate.jsp"/>
@@ -34,9 +34,16 @@
     	<put-attribute name="title" value="스토어 상세 | GIGABOX"/>
     	<put-attribute name="body" value="/WEB-INF/views/snack/snackDetail.jsp"/>
     </definition>
+    
+    <!-- [사용자] 장바구니 목록 -->
+    <definition name="cartList" extends="main">
+    	<put-attribute name="title" value="장바구니 | GIGABOX"/>
+    	<put-attribute name="body" value="/WEB-INF/views/cart/list.jsp"/>
+    </definition>
+    
+    <!-- [사용자] 장바구니 경유 주문 폼 -->
+    <definition name="orderForm" extends="main">
+    	<put-attribute name="title" value="결제하기 | GIGABOX"/>
+    	<put-attribute name="body" value="/WEB-INF/views/order/orderForm.jsp"/>
+    </definition>
 </tiles-definitions>
-
-
-
-
-

@@ -132,7 +132,7 @@
 				    	let choice = confirm("삭제하시겠습니까?");
 				    	if(choice){
 							if(param.result == 'logout'){
-								alert('로그인 후 삭제할 수 있습니다.');
+								alert('로그인 후 사용 가능합니다.');
 							}else if(param.result == 'success'){
 								alert('상품 삭제가 완료되었습니다.');
 								location.href='../snack/admin_list.do';

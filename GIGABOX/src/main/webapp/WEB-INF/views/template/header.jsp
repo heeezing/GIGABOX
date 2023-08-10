@@ -83,6 +83,5 @@ $(window).on("scroll",function(){
 			</li>
 		</ul>
 	</div>
-</div><br><br>
-<hr size="1" width="100%">
+</div>
 <!-- 헤더 끝 -->

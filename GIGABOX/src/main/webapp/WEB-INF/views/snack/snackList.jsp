@@ -29,7 +29,7 @@
 			<ul></ul>
 			<ul class='cart_content'>
        			<li><a href='#'>내 선물함</a><span id='giftconcnt'>0</span></li>
-       			<li><a href='#'>장바구니</a><span id='cartviewcnt'>0</span></li>
+       			<li><a href='${pageContext.request.contextPath}/cart/list.do'>장바구니</a><span id='cartviewcnt'>${cartCount}</span></li>
        		</ul>
 		 </div>
 	</div>
@@ -89,10 +89,10 @@
 				<span class="list-detail">${snack.sn_detail}</span><br><br>
 				<!-- 할인가가 있을 경우 -->
 				<c:if test="${snack.sn_dc_price > 0}">
-				<span class="list-price" style="color:red;">
+				<span class="list-price-red">
 				<b><fmt:formatNumber value="${snack.sn_dc_price}"/>원</b>
 				</span>
-				<span style="text-decoration:line-through; color:grey; font-size:10pt;">
+				<span class="list-dc-price">
 				<fmt:formatNumber value="${snack.sn_price}"/>원
 				</span>
 				</c:if>

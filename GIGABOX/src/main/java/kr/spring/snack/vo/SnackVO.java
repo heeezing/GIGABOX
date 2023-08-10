@@ -26,6 +26,7 @@ public class SnackVO {
 	private Date sn_reg_date;
 	private Date sn_modify_date;
 	private int sn_status; //1:판매중지, 2:판매중
+	private String sn_notice;
 	
 	//이미지를 byte[]로 변환 (BLOB처리)
 	//주의) 폼에서 파일 업로드 파라미터네임은 반드시 upload로 지정해야 함. photo아님!!
