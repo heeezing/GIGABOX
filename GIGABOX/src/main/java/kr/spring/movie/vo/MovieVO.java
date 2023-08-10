@@ -45,6 +45,26 @@ public class MovieVO {
 		private String m_nation;
 		private int m_status;
 		
+		private int rating_avg; //평점 평균 아니 이거 잘못됨 없앨거임 
+		
+		//평점 평균 구하기
+		public int setratingAverage(int[] ratingscore) {
+			//평점 배열(임시!!!!!!!)
+			int[] avg = {}; //ratingscore.split(","); //ratingscore는 array. review작성할때 입력받음.
+			
+			//합계 계산
+			int sum = 0;
+			for(int num:avg) {
+				sum += num;
+			}
+			
+			//평균 계산
+			double average = sum / avg.length;
+			int rating_avg = (int)Math.round(average);
+			
+			return rating_avg;
+		}
+		
 		//업로드 파일 처리
 		public void setPoster(MultipartFile poster) throws IOException{
 			//MultipartFile -> byte[] 변환
