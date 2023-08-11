@@ -94,6 +94,21 @@
 .all-list ul li{
 	margin-bottom:12px;
 }
+.all-list ul li button.btn{
+	background-color: white;
+	border:none;
+	cursor: pointer;
+	width:100%;
+	text-align: left;
+}
+.all-list ul li button.btn-on{
+	background-color: #666;
+	color:white;
+	border:none;
+	cursor: pointer;
+	width:100%;
+	text-align: left;
+}
 /*극장*/
 .quick_resArea .theater-choice {
     float: left;

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.hall.service.HallService;
 import kr.spring.hall.vo.HallVO;
+import kr.spring.movie.service.MovieService;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
@@ -52,9 +53,15 @@ public class ReservationController {
 	 *========================*/
 	//빠른예매
 	@GetMapping("/reservation/quick_res.do")
-	public String form() {
+	public String form(Model model) {
+		// 영화 정보 불러오기
+		model.addAttribute("MovieList", resService.getMovieList());
+		// 극장 정보 불러오기
+		model.addAttribute("TheaterList", resService.getTheaterList());
+		
 		return "quick_res";
 	}
+	
 	//좌석 선택
 	@GetMapping("/reservation/seat.do")
 	public String formSeat() {

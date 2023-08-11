@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.btn').click(function() {
+            $('.btn').removeClass('btn-on');
+            $(this).addClass('btn-on');
+        });
+    });
+</script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservation.css">
 <div class="page-util">
 	<div class="location">
@@ -13,7 +22,7 @@
 	<div class="title">
 		빠른예매
 	</div>
-	<form:form modelAttribute="ReservationVO" action="quick_resSel.do" id="quick_res">
+	<form action="quick_res.do" id="quick_res" method="post">
 		<div class="quick_resContent">
 			<div class="dateSelect">
 				<div class="august" style="left: 30px; z-index: 1; opacity: 1;">2023.08</div>
@@ -40,21 +49,11 @@
 						<p class="title">영화</p>
 						<div class="all-list">
 							<ul>
-								<li>영화제목1</li>
-								<li>영화제목2</li>
-								<li>영화제목3</li>
-								<li>영화제목4</li>
-								<li>영화제목5</li>
-								<li>영화제목6</li>
-								<li>영화제목7</li>
-								<li>영화제목8</li>
-								<li>영화제목9</li>
-								<li>영화제목10</li>
-								<li>영화제목11</li>
-								<li>영화제목12</li>
-								<li>영화제목13</li>
-								<li>영화제목14</li>
-								<li>영화제목15</li>
+								<c:forEach var="movie" items="${MovieList}">
+						            <li>
+						            	<button type="button" class="btn">${movie.m_title}</button>
+						            </li>
+						        </c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -64,13 +63,9 @@
 						</div>
 						<div class="all-list">
 							<ul>
-								<li>극장1</li>
-								<li>극장2</li>
-								<li>극장3</li>
-								<li>극장4</li>
-								<li>극장5</li>
-								<li>극장6</li>
-								<li>극장7</li>
+								<c:forEach var="theater" items="${TheaterList}">
+						            <li>${theater.th_name}</li>
+						        </c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -176,7 +171,7 @@
 				</div>
 		</div>
 		<input type="button" value="좌석선택" onclick="location.href='${pageContext.request.contextPath}/reservation/seat.do'">
-	</form:form>
+	</form>
 	<br>
 	<br>
 </div>

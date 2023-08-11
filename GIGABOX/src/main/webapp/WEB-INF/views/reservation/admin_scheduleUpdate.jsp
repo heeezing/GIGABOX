@@ -17,7 +17,7 @@
                 </select>
             </li>
             <li>
-                <label for="th_name">극장${scheduleVO.th_num}</label>
+                <label for="th_name">극장</label>
                 <select name="th_num" id="th_num">
                     <option value="0" selected>극장을 선택하세요</option>
                     <c:forEach items="${TheaterList}" var="theater">
