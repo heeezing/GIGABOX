@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.dao.TheaterMapper;
 import kr.spring.theater.vo.TheaterVO;
 
@@ -32,7 +33,7 @@ public class TheaterServiceImpl implements TheaterService{
 	}
 
 	@Override
-	public TheaterVO selectTheater(Integer th_num) {
+	public TheaterVO selectTheater(int th_num) {
 		return theaterMapper.selectTheater(th_num);
 	}
 
@@ -42,13 +43,19 @@ public class TheaterServiceImpl implements TheaterService{
 	}
 
 	@Override
-	public void deleteTheater(Integer th_num) {
+	public void deleteTheater(int th_num) {
 		theaterMapper.deleteTheater(th_num);
 	}
 
 	@Override
-	public List<TheaterVO> theaterDetail() {
-		return theaterMapper.theaterDetail();
+	public List<TheaterVO> selectTheaterList() {
+		return theaterMapper.selectTheaterList();
 	}
+
+	@Override
+	public List<ScheduleVO> selectScheduleList(Map<String,Object> map) {
+		return theaterMapper.selectScheduleList(map);
+	}
+
 
 }

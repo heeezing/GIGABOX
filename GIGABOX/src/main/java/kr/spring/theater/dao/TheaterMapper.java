@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.vo.TheaterVO;
 
 @Mapper
@@ -20,16 +21,20 @@ public interface TheaterMapper {
 	public int selectRowCount(Map<String,Object> map);
 	// 극장 선택
 	@Select("SELECT * FROM theater WHERE th_num=#{th_num}")
-	public TheaterVO selectTheater(Integer th_num);
+	public TheaterVO selectTheater(int th_num);
 	// 극장 수정
 	public void updateTheater(TheaterVO theater);
 	// 극장 삭제
 	@Delete("DELETE FROM theater WHERE th_num=#{th_num}")
-	public void deleteTheater(Integer th_num);
+	public void deleteTheater(int th_num);
 	
 	// 극장 정보 보기
 	@Select("SELECT * FROM theater")
-	public List<TheaterVO> theaterDetail();
+	public List<TheaterVO> selectTheaterList();
+	
+	// 상영시간표
+	// 상영시간표 목록
+	public List<ScheduleVO> selectScheduleList(Map<String,Object> map);
 	
 	
 }

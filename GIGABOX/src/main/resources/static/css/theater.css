@@ -23,7 +23,7 @@
 }
 .th-name{
 	width:100%;
-	height:45px;
+	height:35px;
 	margin:0px;
 	padding:0 28px 0 10px;
 	color:#444;
@@ -33,6 +33,9 @@
 	cursor:pointer;
 	font-size:1.2em;
 	letter-spacing:1px;
+}
+.th-name:hover{
+	text-decoration:underline 1px;
 }
 .choice-main{
 	width:100%;
@@ -46,19 +49,25 @@
 }
 
 /*---------- 극장 정보 -----------*/
-.info-title, .info-title-sub{
+#info_title, #info_title_sub{
 	font-size:30px;
 	margin:5px 0;
+}
+#info_title{
+	color:#037b94;
+}
+#info_title_sub{
+	color:#503396;
 }
 .wrap-theater h3{
 	background:url(https://img.cgv.co.kr/r2014/images/common/bg/bg_h3_line.jpg) repeat-x 0 50%;
 	text-align:center;
 }
-.box-image img{
+#box_image img{
 	width:100%;
 	height:420px;
 }
-.box-contents{
+#box_contents{
 	position:absolute;
 	bottom:0;
 	color:#fdfcf0;
@@ -68,16 +77,145 @@
 	height:130px;
 	
 }
-.wrap-theaterinfo{
+#wrap_theaterinfo{
 	position:relative;
 }
-.box-text{
+#box_text{
 	float:right;
 	margin:30px;
 	padding-right:150px;
 }
-.theater-name{
+#theater_name{
 	float:left;
 	margin:40px;
 	padding-left:60px;
+}
+
+/*---------- 상영시간표 -----------*/
+.date-area{
+	height:73px;
+	border:1px solid #d8d9db;
+	border-right:0;
+	border-left:0;
+	margin:50px 0;
+}
+.year{
+	position:absolute;
+	margin-top:-14px;
+	margin-left:4px;
+	width:70px;
+	height:23px;
+	border:1px solid #d8d9db;
+	border-radius:15px;
+	background-color:#fff;
+	text-align:center;
+	padding-top:2px;
+}
+.date-area button{
+	width:80px;
+	height:73px;
+	border:0;
+	background-color:transparent;
+	float:left;
+	border-bottom:3px solid transparent;
+	cursor:pointer;
+	font-size:1.2em;
+}
+.date-area button:hover{
+	border-bottom:3px solid #503396;
+}
+.date-area .on{
+	background-color:#f7f8f9;
+	border-bottom:3px solid #503396;
+}
+.date-area .sat{
+	color:#3b5fcb;
+}
+.date-area .holi{
+	color:#e81002;
+}
+.schedule-box{
+	margin-bottom:30px
+}
+.movie-name-area{
+	background-color:#f7f8f9;
+	border-top:1px solid #eaeaea;
+	border-bottom:1px solid #eaeaea;
+	padding:0 20px;
+	overflow:hidden;
+	display:block;
+	width:97%;
+}
+.movie-name{
+	float:left;
+	margin:11px 5px 5px 5px;
+	font-size:18px;
+}
+.information{
+	float:right;
+	font-size:15px;
+}
+.information span{
+	color:#01738b;
+}
+.hall-schedule-box{
+	overflow:hidden;
+	position:relative;
+	padding:20px 0;
+	border-bottom:1px solid #eaeaea;
+}
+.hall-type{
+	text-align:left;
+	width:170px;
+	vertical-align:middle;
+	padding:14px 0;
+	float:left;
+	margin-left:25px;
+}
+.hall-name{
+	font-size:1.3em;
+	font-weight:600;
+	margin:0 0 6px 0;
+}
+.seats{
+	font-size:1.1em;
+	color:#666;
+	margin:0;
+}
+.schedule-time{
+	border-collapse:collapse;
+}
+.hoverable{
+	border:1px solid #ebebeb;
+	padding:0;
+	width:99px;
+	text-align:center;
+}
+.time{
+	font-size:1.3em;
+	font-weight:600;
+	margin-bottom:0;
+}
+.remain-seats{
+	color:#01738b;
+	font-size:15px;
+	font-weight:500;
+	margin-top:0;
+}
+.hidden-text {
+    display: none;
+    background-color:#503396;
+    color:#fff;
+    font-size:17px;
+    text-align:center;
+    padding:25px 0;
+}
+.hoverable:hover .hidden-text {
+    display: block;
+}
+.hoverable:hover .time, .hoverable:hover .remain-seats {
+    display: none;
+}
+.hoverable:hover {
+	 background-color:#503396;
 }

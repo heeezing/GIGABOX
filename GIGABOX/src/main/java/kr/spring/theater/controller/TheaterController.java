@@ -1,26 +1,27 @@
 package kr.spring.theater.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.spring.member.vo.MemberVO;
+import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.service.TheaterService;
 import kr.spring.theater.vo.TheaterVO;
 import kr.spring.util.FileUtil;
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TheaterController {
 	@Autowired
 	private TheaterService theaterService;
+	
 	/*===============
 	 * 극장 등록
 	 *===============*/
@@ -130,7 +132,7 @@ public class TheaterController {
 	// 전송된 데이터 처리
 	@PostMapping("/theater/theaterUpdate.do")
 	public String submitUpdate(TheaterVO theaterVO,BindingResult result,HttpServletRequest request,Model model) {
-		log.debug("<<상영관 수정 - TheaterVO>> : " + theaterVO);
+		log.debug("<<극장 수정 - TheaterVO>> : " + theaterVO);
 		
 		// 극장 수정
 		theaterService.updateTheater(theaterVO);
@@ -158,15 +160,65 @@ public class TheaterController {
 	/*===============
 	 * 극장 정보
 	 *===============*/
-	@RequestMapping("/theater/theaterDetail.do")
+	@RequestMapping("/theater/theaterDetail.do") // url
 	public ModelAndView getChoiceList() {
-
-		List<TheaterVO> list = theaterService.theaterDetail();
+		List<TheaterVO> list = theaterService.selectTheaterList();
+		List<Date> dateList = getDate();
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("theaterDetail");
+		mav.setViewName("theaterDetail"); // jsp 명
 		mav.addObject("list", list);
-
+		
+		mav.addObject("dateList", dateList);
+		
 		return mav;
 	}
+	
+	@RequestMapping("/theater/selectTheater.do")
+	@ResponseBody
+	public TheaterVO selectTheater(@RequestParam int th_num) {
+		TheaterVO theater = theaterService.selectTheater(th_num);
+		return theater;
+	}
+	
+	/*===============
+	 * 날짜 선택
+	 *===============*/
+	public List<Date> getDate(){
+		
+		Date now = new Date();
+        List<Date> dateList = new ArrayList<>();
+
+        // Calendar 객체를 사용하여 오늘 날짜를 설정
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+
+        // 오늘 날짜부터 14일 후까지의 날짜를 리스트에 추가
+        for (int i=0; i<14; i++) {
+        	dateList.add(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // 하루를 더함
+        }
+        
+		return dateList;
+	}
+	
+	/*===============
+	 * 상영시간표
+	 *===============*/
+	@RequestMapping("/theater/getScheduleList.do")
+	@ResponseBody
+	public Map<String,Object> getScheduleList(@RequestParam int th_num,@RequestParam String sch_date){
+		Map<String,Object> mapJson = new HashMap<String,Object>();
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("th_num", th_num);
+		map.put("sch_date", sch_date);
+		
+		List<ScheduleVO> scheduleList = theaterService.selectScheduleList(map);
+		
+		mapJson.put("scheduleList", scheduleList);
+		
+		return mapJson;
+	}
+	
 }

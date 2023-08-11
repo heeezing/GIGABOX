@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theater.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/theaterDetail.js"></script>
 <div class="page-util">
@@ -16,10 +17,10 @@
 			<b><span>원하는 극장 선택</span></b>
 		</div>
 		<div class="theater-list-section">
-			<ul>
+			<ul class="theater-list">
 				<c:forEach var="theater" items="${list}">
 				<li>
-					<button class="th-name" data-num="${theater.th_num}">${theater.th_name}</button>
+					<button class="th-name" data-num="${theater.th_num}" onclick="selectTheater(this)">${theater.th_name}</button>
 				</li>
 				</c:forEach>
 			</ul>
@@ -32,22 +33,38 @@
 		<h3>
 			<img src="${pageContext.request.contextPath}/images/h3_theater.gif">
 		</h3>
-		<h1><span class="info-title">강남</span> <span class="info-title-sub">상영시간표</span></h1>
-		<div class="wrap-theaterinfo">
-			<div class="box-image">
-				<img src="${pageContext.request.contextPath}/images/강남.jpg">
+		<h1><span id="info_title"></span> <span id="info_title_sub">상영시간표</span></h1>
+		<div id="wrap_theaterinfo">
+			<div id="box_image">
+				<img id="info_image" src="">
 			</div>
-			<div class="box-contents">
-				<h1 class="theater-name">
-					강남
-				</h1>
-				<div class="box-text">
-					<div><span class="theater-address"><b>서울특별시 강남구 강남대로 438 (역삼동)</b></span></div>
+			<div id="box_contents">
+				<h1 id="theater_name"></h1>
+				<div id="box_text">
+					<div><span id="theater_address"><b></b></span></div>
 					<br>
-					<div><span class="theater-info">1544-1122<br>6관 / 874석</span></div>
-				</div>
+					<div><span id="theater_info">1544-1122</span></div>
+				</div> 
 			</div>
 		</div>
 	</div>
 	<!-- 극장 정보 끝 -->
+	
+	<!-- 상영시간표 시작 -->
+	<div class="time-schedule-wrap">
+		<div class="date-area">
+			 <c:forEach var="date" items="${dateList}">
+			 	<div class="year"><fmt:formatDate value="${date}" pattern="yyyy.MM"/></div>
+			 	<fmt:formatDate var="pattern_date" value="${date}" pattern="yyyy-MM-dd"/>
+			 	<button class="date-button" data-num="${pattern_date}" onclick="selectDate(this)">
+			 		<div class="day-of-month"><fmt:formatDate value="${date}" pattern="d"/></div>
+			 		<span class="day-of-week"><fmt:formatDate value="${date}" pattern="E"/></span>
+			 	</button>
+			 </c:forEach>
+		</div>
+		<!-- 상영시간표 목록 출력 -->
+		<div id="schedule-list-area"></div>
+	</div>
+	<!-- 상영시간표 끝 -->
+	
 </div>
