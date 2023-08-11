@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.member.vo.MemberVO;
 import kr.spring.movie.service.MovieService;
 import kr.spring.movie.vo.MovieVO;
 import kr.spring.util.PagingUtil;
@@ -168,7 +171,7 @@ public class MovieController {
 		MovieVO movie = movieService.selectMovie(movie_num);
 		model.addAttribute("movieVO",movie);
 		
-		return "movieModify";
+		return "movieUpdate";
 	}
 	//전송된 데이터 처리
 	@PostMapping("/movie/movieUpdate.do")
@@ -178,7 +181,7 @@ public class MovieController {
 		
 		//유효성 체크 결과 오류가 있으면 폼 호출
 		if(result.hasErrors()) {
-			return "movieModify";
+			return "movieUpdate";
 		}
 		//글수정
 		movieService.updateMovie(movie);
@@ -188,6 +191,35 @@ public class MovieController {
 		model.addAttribute("url",request.getContextPath() + "/movie/movieDetail.do?movie_num=" + movie.getMovie_num());
 		
 		return "common/resultView";
+	}
+
+	/* =========================영화 삭제=============================== */
+	@RequestMapping("/movie/movieDelete.do")
+	public String delete(@RequestParam int movie_num) {
+		log.debug("<<영화 삭제 >> : " + movie_num);
+		
+		movieService.deleteMovie(movie_num);
+		return "redirect:/movie/movieAdmin.jsp";
+	}
+	
+	
+	@RequestMapping("/movie/moviecheckDelete.do")
+	@ResponseBody
+	public Map<String,String> deleteMovieCheck(@RequestParam String selectmovies,HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		Map<String,String> mapJson = new HashMap<String,String>();
+		
+		if(user==null) {
+			mapJson.put("result", "logout");
+		}else {
+			String[] Selectmovies = selectmovies.split(",");
+			movieService.deleteMovieCheck(Selectmovies);
+			
+			mapJson.put("result", "success");
+		}
+		
+		return mapJson;
 	}
 	
 	/* =========================관리자=============================== */
@@ -223,6 +255,23 @@ public class MovieController {
 		return mav;
 	}
 	
+	
+	//관리자 영화 상세
+	@RequestMapping("/movie/movieAdminDetail.do")
+	public ModelAndView getAdminDetail(@RequestParam int movie_num) {
+		log.debug("<<영화 상세>> : " + movie_num);
+		
+		//글 상세
+		MovieVO movie = movieService.selectMovie(movie_num);
+		
+		//제목에 태그를 허용하지 않음
+		movie.setM_title(StringUtil.useNoHtml(movie.getM_title()));
+		
+		//내용에 태그 불허
+		movie.setM_plot(StringUtil.useBrNoHtml(movie.getM_plot()));
+		
+		return new ModelAndView("movieAdminDetail","movie",movie);
+	}	
 	
 	
 	

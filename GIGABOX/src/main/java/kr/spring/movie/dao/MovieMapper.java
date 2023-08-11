@@ -4,6 +4,7 @@ package kr.spring.movie.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -21,7 +22,9 @@ public interface MovieMapper {
 	@Update("UPDATE movie SET m_title=#{m_title},m_titleEng=#{m_titleEng},m_director=#{m_director},m_actor=#{m_actor},m_company=#{m_company},m_plot=#{m_plot},m_runtime=#{m_runtime},m_rating=#{m_rating},m_genre=#{m_genre},m_opendate=#{m_opendate},m_poster=#{m_poster},poster_name=#{poster_name},m_stllimg=#{m_stllimg},stllimg_name=#{stllimg_name},m_vod=#{m_vod},m_nation=#{m_nation},m_status=#{m_status}"
 			+ "WHERE movie_num=#{movie_num}")
 	public void updateMovie(MovieVO movie);
-	public void deleteMovie(Integer Movie_num);
+	@Delete("DELETE FROM movie WHERE movie_num=#{movie_num}")
+	public void deleteMovie(Integer movie_num);
+	public void deleteMovieCheck(String[] selectmovies);
 	
 	//api
 	//public void saveMovies(MovieVO movielist);

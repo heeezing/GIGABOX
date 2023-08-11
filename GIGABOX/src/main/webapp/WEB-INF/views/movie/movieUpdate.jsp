@@ -5,12 +5,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/movie_register.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
 <div class="page-main">
-	<div class="title"><a href="movieRegister.do">영화 등록</a></div>
-	<form:form modelAttribute="movieVO" action="movieRegister.do" id="register_form" encType="multipart/form-data">
+	<div class="title"><a href="movieUpdate.do">영화 등록</a></div>
+	<form:form modelAttribute="movieVO" action="movieUpdate.do" id="Update_form" encType="multipart/form-data">
 	<form:errors element="div" cssClass="error-color"/>
 		<!--[왼쪽] 사진 미리 보기 -->
 		<div id="m_poster">
-			<img src="${pageContext.request.contextPath}/moviephotoView.do?movie_num=${movieVO.movie_num}" width="300" class="m-poster">
+			<img src="imageView.do?movie_num=${movie.movie_num}&movie_type=1" width="300" class="m-poster">
 			<div id="file_detail">
 				(${movieVO.poster_name})파일이 등록되어 있습니다.
 			</div>
@@ -88,18 +88,14 @@
 			<input type="submit" value="수정">
 			<input type="button" value="삭제" class="movie_deletebtn">
 			<script type="text/javascript">
-				let movie_deletebtn = document
-						.getElementById('movie_deletebtn');
+				let movie_deletebtn = document.getElementById('movie_deletebtn');
 				//이벤트 연결
 				movie_deletebtn.onclick = function() {
 					let choice = confirm('삭제하겠습니까?');
 					if (choice) {
 						alert("상품 삭제가 완료되었습니다.");
 						//히스토리를 지우면서 이동
-						location
-								.replace('movieDelete.do?movie_num=${movieVO.movie_num}');
-					} else {
-						return false;
+						location.replace('movieDelete.do?movie_num=${movieVO.movie_num}');
 					}
 				};
 			</script>

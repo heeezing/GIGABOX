@@ -23,13 +23,17 @@
 	    <put-attribute name="body" value="/WEB-INF/views/movie/movieDetail.jsp"/>
     </definition>
     <definition name="movieUpdate" extends="main">
-    	<put-attribute name="title" value="영화상세"/>
+    	<put-attribute name="title" value="영화수정"/>
 	    <put-attribute name="body" value="/WEB-INF/views/movie/movieUpdate.jsp"/>
     </definition> 
     <definition name="movieAdmin" extends="admin">
     	<put-attribute name="title" value="영화관리자"/>
 	    <put-attribute name="body" value="/WEB-INF/views/movie/movieAdmin.jsp"/>
     </definition>    
+    <definition name="movieAdminDetail" extends="main">
+    	<put-attribute name="title" value="관리자 상세페이지"/>
+	    <put-attribute name="body" value="/WEB-INF/views/movie/movieAdminDetail.jsp"/>
+    </definition>
 </tiles-definitions>
 
  

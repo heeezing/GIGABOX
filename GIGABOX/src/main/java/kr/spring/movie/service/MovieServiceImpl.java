@@ -28,10 +28,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void registerMovie(MovieVO movie) {
 		moviemapper.registerMovie(movie);
-		
 	}
-
-
 
 	@Override
 	public MovieVO selectMovie(Integer movie_num) {
@@ -41,14 +38,19 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void updateMovie(MovieVO movie) {
 		moviemapper.updateMovie(movie);
-
 	}
 
 	@Override
-	public void deleteMovie(Integer Movie_num) {
-		// TODO Auto-generated method stub
-
+	public void deleteMovie(Integer movie_num) {
+		moviemapper.deleteMovie(movie_num);
 	}
+	
+	@Override
+	public void deleteMovieCheck(String[] selectmovies) {
+		moviemapper.deleteMovieCheck(selectmovies);
+		
+	}
+
 
 	@Override
 	public int selectRowCount(Map<String, Object> map) {

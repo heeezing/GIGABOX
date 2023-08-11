@@ -17,7 +17,8 @@ public interface MovieService {
 	//영화수정
 	public void updateMovie(MovieVO movie);
 	//영화삭제
-	public void deleteMovie(Integer Movie_num);
+	public void deleteMovie(Integer movie_num);
+	public void deleteMovieCheck(String[] selectmovies);
 	
 	//api정보 저장
 	//public void saveMovies(MovieVO movielist);

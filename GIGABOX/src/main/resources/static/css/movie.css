@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*===== movieList =====*/
-.list-search{
+/* .list-search{
 	margin-left:40%;
 	margin-right:0;
 	margin-bottom:30px;
@@ -16,35 +16,153 @@
 	width: 230px!important;
     height:331px;
     flex-wrap:wrap;
-}
+} */
+
+
 /*===== movieDetail =====*/
-.movie-detailtop{
-	background-color:black;
+.movie-detailtop {
+ 	background-color:rgba(0, 0, 0, 0.85);
+    overflow: hidden; /* 해상도에 따른 overflow 관리 */
+    padding: 20px; /* 내부 여백 추가 */
+    width:100%;
+    margin-bottom:30px;
+    margin-top:5px;
 }
-.detailtop-left{
-	float:left;
-}
-.detailtop-right > h2 h4 {
+.title{
+	font-size: 400%;
+	font-weight: 1500;
+	margin-top:37px;
+	margin-bottom:0;
+	margin-left:5%;
 	color:white;
 }
-.detailtop-right{
-	float:right;
+.titleEng{
+	font-size:150%;
+	margin-top:0;
+	margin-left:7%;
+	color:white;
 }
-.movie-detailmain{
- 	clear:both;
+.ratingicon{
+	width:100px;
+	height:100px;
+	margin-top:53px;	
+	margin-left:10%;
 }
-.detail-rightbtn > input{
+
+.detailtop-left {
+    float: left;
+    width: 70%; /* 왼쪽 영역은 50%로 설정 */
+    padding-right: 20px; /* 내부 여백 추가 */
+    box-sizing: border-box; /* 내부 여백을 width에 포함 */
+}
+.left1{
+	float:left;
+	width:10%;
+}
+.left2{
+	float:left;
+	width:90%;	
+}
+.detailtop-right {
+    float: right;
+    width: 30%; /* 오른쪽 영역은 50%로 설정 */
+    box-sizing: border-box; /* 내부 여백을 width에 포함 */
+}
+.detailtop-right > img{
+	width:90%;
+	height:60%;
+	margin-top:30px;
+}
+
+.detailtop-bottom::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.detailtop-bottom{
+	width:30%;
 	clear:both;
 	float:right;
 }
-.tabWrap {
-	display:flex;
+.detail-rightbtn {
+    width: 90%;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-right:33px;
+    height: 43.2px;
+    background-color: #329eb1; /*  #503396;버튼 배경색 추가 */
+    color: white; /* 버튼 텍스트 색상 설정 */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius:5px;
+    cursor: pointer; /* 포인터 형태로 변경 */
+    font-size: 16px;
+    font-weight: bold;
 }
-.tabWrap li{
-	font-size:large;
+
+.movie-detailmain {
+    clear: both;
 }
-.movie-info > ul {
-	display:flex;
+
+.tabWrap > li {
+	font-size:15px;
+	font-weight:bold;
 }
+
+/*주요정보*/
+#wrap_info{
+	margin-top: 35px;
+}
+.movie-plot{
+	font-size: 18px;
+	white-space: pre-line;
+	line-height: 1.5; /* 줄 간격 설정 */
+	margin-bottom: 35px; 
+}
+.movie-info > ul > li{
+	font-size:15px;
+}
+.movie-info ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+.movie-info li {
+    margin: 0;
+    padding: 0;
+}
+.movie-info li:not(:last-child):after {
+    content: "|";
+    margin: 0 8px;
+}
+
+.movierating_Avg > p{
+	margin-left:47%;
+	margin-top:8%;
+	margin-bottom:2.5%;
+	font-size:18px;
+	font-weight:600;
+}
+
+.movierating_Avg > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color:#503396; /* 보라색 배경색 + 투명도 */
+  color: white; /* 흰색 글자색 */
+  border-radius: 50%; /* 원을 만들기 위한 border-radius 설정 */
+  width: 100px; /* 원의 너비 */
+  height: 100px; /* 원의 높이 */
+  font-weight: bold;
+  font-size: 30px;
+  margin-left:46.5%;
+}
+
+
+
+/*실관람평*/
+/*무비포스트*/
+/*예고편 스틸컷*/
+
 /*===== movieRegister =====*/
 /*===== movieUpdate =====*/

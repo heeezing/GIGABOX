@@ -47,6 +47,7 @@ public class MovieVO {
 		
 		private int rating_avg; //평점 평균 아니 이거 잘못됨 없앨거임 
 		
+		/*
 		//평점 평균 구하기
 		public int setratingAverage(int[] ratingscore) {
 			//평점 배열(임시!!!!!!!)
@@ -64,6 +65,9 @@ public class MovieVO {
 			
 			return rating_avg;
 		}
+		*/
+		
+		
 		
 		//업로드 파일 처리
 		public void setPoster(MultipartFile poster) throws IOException{

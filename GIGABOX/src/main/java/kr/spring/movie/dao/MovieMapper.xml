@@ -141,4 +141,12 @@
 		]]>	  		
 	</select> 
 	
+	<!-- (체크박스) 영화 삭제 -->	
+	<delete id="deleteMovieCheck">
+		DELETE FROM movie 
+		WHERE movie_num IN 
+		<foreach item="movie" collection="selectmovies" open="(" separator="," close=")">
+			#{movie}
+		</foreach>
+	</delete>	
 </mapper>

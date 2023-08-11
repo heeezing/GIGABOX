@@ -12,7 +12,7 @@
 		<div id="m_poster">
 			<img src="${pageContext.request.contextPath}/images/no_image.jpg" width="300" class="m-poster">
 		</div>
-		<!--[오른쪽] 상품 정보 입력 -->
+		<!--[오른쪽] 영화 정보 입력 -->
 		<div id="movie_input">
 			<ul>
 				<li>
@@ -87,4 +87,4 @@
 		</div>
 	</form:form>
 </div>
-<!-- 상품 등록 폼 시작 끝 -->
+<!-- 영화 등록 폼 끝 -->
