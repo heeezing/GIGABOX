@@ -62,12 +62,6 @@ public class ReservationController {
 		return "quick_res";
 	}
 	
-	//좌석 선택
-	@GetMapping("/reservation/seat.do")
-	public String formSeat() {
-		return "seat";
-	}
-	
 	/*========================
 	 *  상영 시간표 등록
 	 *========================*/
