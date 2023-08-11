@@ -61,8 +61,8 @@ ul {
     width: 25%;
 }
 .tab-list>ul>li.on {
-    border: 1px solid #503396;
-    border-bottom: 0;
+   border-width: 2px 2px 0 2px; /* 상, 우, 하, 좌 순서 */
+   border-color: #503396;
 }
 .tab-list>ul>li {
     float: left;
@@ -236,14 +236,16 @@ li {
 		<!-- ================= 예고편/스틸컷 시작 ================= -->
 		<div id="wrap_preview" class="tab-contents">
 			<div class="content-main container">
-				<hr>
-				<h2>메인 예고편</h2>
+				<hr style="border: 1px solid #7d7c7c;">
+				<h2 class="previewtitle">메인 예고편</h2>
 				<hr><br>
-				<iframe width="560" height="315" src="${movie.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				<hr>
-				<h2>${movie.m_title}에 대한 스틸컷이 있어요!</h2>
+				<div class="iframe">
+					<iframe width="700" height="400" src="${movie.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div><br>
+				<hr style="border: 1px solid #7d7c7c;">
+				<h2 class="previewtitle"><span style="color:#503396;">${movie.m_title}</span>에 대한 스틸컷이 있어요!</h2>
 				<hr><br>
-				<div><img src="imageView.do?movie_num=${movie.movie_num}&movie_type=2" width=80% height=60%></div>
+				<div><img class="stllimg" src="imageView.do?movie_num=${movie.movie_num}&movie_type=2"></div>
 			</div>
 		</div>
 		<!-- 예고편/스틸컷 끝 -->

@@ -163,6 +163,31 @@
 /*실관람평*/
 /*무비포스트*/
 /*예고편 스틸컷*/
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+.iframe{
+	margin-left:20%;
+}
+
+/* 스틸컷 스타일 */
+.previewtitle {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.stllimg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
 
 /*===== movieRegister =====*/
 /*===== movieUpdate =====*/
