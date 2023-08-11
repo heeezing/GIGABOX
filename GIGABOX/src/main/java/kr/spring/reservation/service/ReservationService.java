@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import kr.spring.hall.vo.HallVO;
@@ -32,4 +33,5 @@ public interface ReservationService {
 	public void updateSchedule(ScheduleVO schedule);
 	// 상영시간표 삭제
 	public void deleteSchedule(Integer sch_num);
+	
 }

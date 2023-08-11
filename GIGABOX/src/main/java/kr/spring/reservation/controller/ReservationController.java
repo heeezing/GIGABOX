@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.hibernate.boot.model.relational.InitCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.spring.hall.service.HallService;
 import kr.spring.hall.vo.HallVO;
-import kr.spring.movie.service.MovieService;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
@@ -58,7 +55,6 @@ public class ReservationController {
 		model.addAttribute("MovieList", resService.getMovieList());
 		// 극장 정보 불러오기
 		model.addAttribute("TheaterList", resService.getTheaterList());
-		
 		return "quick_res";
 	}
 	
