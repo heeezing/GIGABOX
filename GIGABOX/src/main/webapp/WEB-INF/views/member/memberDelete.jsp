@@ -18,8 +18,8 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<form:button>전송</form:button>
-			<input type="button" value="MY페이지" onclick="location.href='myPage.do'">
+			<form:button class="default-btn">전송</form:button>
+			<input type="button" value="MY페이지" onclick="location.href='myPage.do'" class="default-btn">
 		</div>
 	</form:form>
 <!-- 회원탈퇴 폼 끝 -->

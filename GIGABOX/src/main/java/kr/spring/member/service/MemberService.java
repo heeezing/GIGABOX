@@ -1,9 +1,14 @@
 package kr.spring.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.spring.member.vo.MemberVO;
+import kr.spring.reservation.vo.ReservationVO;
 
 public interface MemberService{
 	//회원관리 - 일반회원
@@ -28,5 +33,7 @@ public interface MemberService{
 	public void updateAu_id(String au_id,int mem_num);
 	public MemberVO selectAu_id(String au_id);
 	public void deleteAu_id(int mem_num);
+	
+
 }
   

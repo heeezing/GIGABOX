@@ -1,5 +1,8 @@
 package kr.spring.member.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -8,6 +11,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.spring.member.vo.MemberVO;
+import kr.spring.reservation.vo.ReservationVO;
+import kr.spring.snack.vo.SnackVO;
 
 @Mapper
 public interface MemberMapper {
@@ -49,4 +54,6 @@ public interface MemberMapper {
 	public MemberVO selectAu_id(String au_id);
 	@Update("UPDATE member_detail SET au_id='' WHERE mem_num=#{mem_num}")//이름은 delete로 했지만 레코드를 지우는게 아니기 때문에 update문 사용
 	public void deleteAu_id(int mem_num);
+	
+	
 }  

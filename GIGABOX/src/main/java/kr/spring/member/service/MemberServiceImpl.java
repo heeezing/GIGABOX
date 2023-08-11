@@ -1,11 +1,15 @@
 package kr.spring.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.member.dao.MemberMapper;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.reservation.vo.ReservationVO;
 
 @Service
 @Transactional
@@ -69,6 +73,9 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.updateProfile(member);
 		
 	}
+
+
+
 
 
 

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <!-- 회원정보수정 시작 -->
 <div class="page-main">
-	<h2>회원가입</h2>
+	<h2>회원정보수정</h2>
 	<form:form modelAttribute="memberVO" action="update.do" id="member_modify"><!-- modelAttribute로 자바빈 초기화 -->
 		<form:errors element="div" cssClass="error-color"/>
 		<ul>

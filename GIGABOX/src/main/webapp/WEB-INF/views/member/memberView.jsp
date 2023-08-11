@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <!-- my페이지 시작 -->
-<div class="page-main">
-	<h2>회원상세정보 <input type="button" value="회원정보수정" onclick="location.href='update.do'"></h2>
+<div class="page-main mypage-view">
+	<h2>회원상세정보<input type="button" value="회원정보수정" onclick="location.href='update.do'" class="default-btn"></h2>
 	<ul>
 		<li>이름 : ${member.name}</li>
 		<li>별명 : ${member.nick_name}</li>
@@ -14,13 +14,14 @@
 		<li>주소 : ${member.address1} ${member.address2}</li>
 		<li>가입일 : ${member.reg_date}</li>
 	</ul>
-		<ul>
+	<br>
+	<ul>
 		<li>
-			<input type="button" class="menu-btn" value="비밀번호변경"
+			<input type="button" class="menu-btn1" value="비밀번호변경"
 			  onclick="location.href='${pageContext.request.contextPath}/member/changePassword.do'">
 		</li>
 		<li>
-			<input type="button" class="menu-btn" value="회원탈퇴"
+			<input type="button" class="menu-btn1" value="회원탈퇴"
 			  onclick="location.href='${pageContext.request.contextPath}/member/delete.do'">
 		</li>
 	</ul>

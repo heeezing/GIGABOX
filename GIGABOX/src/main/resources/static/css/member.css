@@ -1,8 +1,187 @@
 @charset "UTF-8";
+.mypage{
+	box-sizing: border-box;
+	margin:0 100px;
+	width:700px;
+}
 .mypage-top{
 	position: relative;
-    padding: 40px 0 0 364px;
-    height: 221px;
-    background: #D3D3D3;
+    margin: 100px auto;
+    height: 180px;
     background-size: 840px 221px;
+    padding: 40px 0 0 0;
+    width:700px;
+    background: url(https://img.megabox.co.kr/static/pc/images/2023/01/my_info_topbg.png) no-repeat;
+	border-radius: 30px;
+}
+.mypage-top .mypage-membership{
+	background: #04c9df;
+	margin:10px 50px;
+	height:100px;
+	width:130px;
+	color:white;
+	border-radius: 20px;
+	text-align: center;
+	line-height: 100px;
+	font-size:25px;
+	position: absolute;
+}
+.mypage-top .mypage-hi{
+	color:white;
+	position: absolute;
+	left:200px;
+	font-size:25px;
+	line-height: 44px;
+	font-weight: 300;
+	top:50px;
+}
+.mypage-top .mypage-hi p{
+	padding-top: 1px;
+	line-height: 44px;
+	font-weight: 900;
+	font-size:30px;
+	margin:0;
+}
+.mypage-top .mypage-hi p span{
+	font-weight:300;
+	font-size:25px;
+}
+.tit-util {
+    padding-bottom: 50px;
+}
+.mt70 {
+    margin-top: 70px!important;
+}
+.tit{
+	line-height: 32px;
+	font-size: 1.4666em;
+    color: #503396;
+    float:left;
+    font-size:20px;
+    margin: 0 20px 0 0;
+}
+.tit-util a{
+	float:right;
+	line-height: 32px;
+}
+.mypage-content{
+	border-top: 1px solid #555;
+	min-height: 0;
+	padding:20px 0;
+	text-align:center;
+	line-height: 120px;
+}
+.mypage-content ul li{
+	position: relative;
+	border-bottom: 1px solid #eaeaea;
+	margin:0;
+	padding: 20px 100px 20px 100px;
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mypage-side-bar{
+	float: left;
+    width: 150px;
+    padding: 80px 0 40px 150px;
+    background-color: #fff;
+}
+.mypage-side-bar p{
+	overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px 10px 0 0;
+    background:url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-lnb-tit.png) 0 0;
+}
+.mypage-side-bar p a{
+	display: block;
+    width: 100%;
+    font-size: 1.2em;
+    line-height: 90px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+.mypage-side-bar .mypage-photo li{
+	overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 10px 10px 0 0;
+    background:url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-lnb-tit.png) 0 0
+}
+.mypage-side-bar ul{
+	border: 1px solid #d8d9db;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-radius: 0 0 10px 10px;
+}
+.mypage-side-bar ul li{
+	border-top: 0;
+	
+}
+.mypage-side-bar ul li input{
+	display: block;
+    color: #222;
+    padding: 10px 15px;
+    font-weight: 400;
+    background-color: #f2f4f5;
+    border-radius: 0px;
+    margin:0;
+}
+.default-btn{
+	padding:5px 20px;
+	border:1px solid black;
+	border-radius:4px;
+	color:#fff;
+	background:url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-lnb-tit.png) 0 0;
+	font-weight:bold;
+	cursor:pointer;
+}
+.default-btn:hover{
+	background:#f2f4f5;
+	color:black;
+	transition:0.2s ease-out; /*부드럽게 전환처리*/
+}
+.menu-btn1{
+	width:180px;
+	height:40px;
+	font-size:12pt;
+	background:url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-lnb-tit.png) 0 0;
+	color:#fff;
+	border-color:#b7b5b5;
+	border-radius:5px;
+	border:1px solid black;
+	font-weight:bold;
+	cursor:pointer;
+}
+.menu-btn1:hover{
+	background:#f2f4f5;
+	color:black;
+	transition:0.2s ease-out; /*부드럽게 전환처리*/
+}
+.mypage-left{
+	float:left;
+}
+.mypage-right{
+	float:right;
+}
+.mypage-view{
+	margin:100px auto;
+}
+.mypage-reservation{
+	margin:80px 50px;
+}
+.mypage-point{
+	color:white;
+	margin: 80px 10px 20px 500px;
+	font-size:20px;
+	padding:10;
+}
+.mypage-point a{
+	color:white;
+	font-size:15px;
 }

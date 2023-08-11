@@ -2,6 +2,13 @@ package kr.spring.reservation.vo;
 
 import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class ReservationVO {
 	private int res_num; //예매 번호
 	private Date res_date; //예매 날짜

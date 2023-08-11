@@ -54,9 +54,30 @@
     
     <!-- 예매 내역 -->
     <definition name="memberReservation" extends="myPage">
-    	<put-attribute name="title" value="회원정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/member/memberReservation.jsp"/>
+    	<put-attribute name="title" value="예매내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberReservation.jsp"/>
     </definition>
+    
+    <!-- 구매 내역 -->
+    <definition name="memberAdd" extends="myPage">
+    	<put-attribute name="title" value="회원정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberAdd.jsp"/>
+    </definition>
+    
+    <!-- 이벤트 응모 내역 -->
+    <definition name="memberEvent" extends="myPage">
+    	<put-attribute name="title" value="회원정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberEvent.jsp"/>
+    </definition>
+    
+    <!-- 문의 내역 -->
+    <definition name="memberQuestion" extends="myPage">
+    	<put-attribute name="title" value="회원정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberQuestion.jsp"/>
+    </definition>
+    
+    
+
 </tiles-definitions>
   
 

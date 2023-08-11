@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.member.dao.BoardMapper">
+	
+	<!-- 예매내역 목록 -->
+	<sql id="reservationBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					r.res_num = #{keyword}
+				</if>
+				<if test="keyfield == 2">
+					r.res_date LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="reservationBoardOrder">
+		<if test="order == 1">
+			ORDER BY r.res_num DESC
+		</if>
+		<if test="order == 2">
+			ORDER BY r.res_date DESC
+		</if>
+	</sql>
+	
+	<!-- 예매 내역 전체/검색 레코드수 -->
+	<select id="selectReservationRowCount" parameterType="map" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM reservation r JOIN member m
+		ON r.mem_num = m.mem_num
+		<include refid="reservationBoardSearch"></include>
+	</select>
+	
+	<!-- 예매 내역 전체/검색 목록 -->
+	<select id="selectReservation" parameterType="map" resultType="reservationVO">
+		SELECT
+			*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			  FROM(SELECT
+			  		  r.res_num,
+			  		  r.res_date,
+			  		  r.res_people,
+			  		  r.res_payment,
+			  		  r.res_total
+			  	   FROM reservation r
+			  	   JOIN member m
+			  	   ON r.mem_num = m.mem_num
+			  	   <include refid="reservationBoardSearch"></include>
+			  	   <include refid="reservationBoardOrder"></include>
+			  	   )a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 구매내역 목록 -->
+	<sql id="orderBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					o.orders_num = #{keyword}
+				</if>
+				<if test="keyfield == 2">
+					o.orders_date LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="orderBoardOrder">
+		<if test="order == 1">
+			ORDER BY o.orders_num DESC
+		</if>
+		<if test="order == 2">
+			ORDER BY o.orders_date DESC
+		</if>
+	</sql>
+	
+	<!-- 구매내역 전체/검색 레코드수 -->
+	<select id="selectOrderRowCount" parameterType="map" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM orders o JOIN member m
+		ON o.mem_num = m.mem_num
+		<include refid="orderBoardSearch"></include>
+	</select>
+	
+	<!-- 구매 내역 전체/검색 목록 -->
+	<select id="selectReservation" parameterType="map" resultType="reservationVO">
+		SELECT
+		*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+		  	  FROM(SELECT 
+						o.orders_num,
+						o.orders_date,
+						o.sn_name,
+						od.sn_price,
+						od.orders_quantity;
+			  		FROM member m
+			  		JOIN orders o ON m.mem_num = o.mem_num
+			  		JOIN orders_detail od ON o.orders_num = od.orders_num;
+			  		<include refid="orderBoardSearch"></include>
+			  	    <include refid="selectOrderRowCount"></include>
+			  		)a)
+	<![CDATA[
+	WHERE rnum >= #{start} AND rnum <= #{end}
+	]]>
+	</select>
+	
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+	
