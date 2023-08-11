@@ -293,7 +293,7 @@
     border: 1px solid #d8d9db;
     border-top: 0;
 }
-.seat-layout input[type="button"]{
+.seat{
 	background-color: #747474;
 	color:white;
 	border: 1px solid #02bfd3;
@@ -303,6 +303,9 @@
 	text-align: center;
 	line-height: 20px;
 	padding:0;
+}
+.seat.selected{
+	background-color:#503396;
 }
 .seat-layout .A input{
 	position:absolute;
