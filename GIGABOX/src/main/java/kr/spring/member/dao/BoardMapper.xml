@@ -57,8 +57,8 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
 	</select>
+	<!-- 
 	
-	<!-- 구매내역 목록 -->
 	<sql id="orderBoardSearch">
 		<where>
 			<if test="keyword != null and keyword != ''">
@@ -81,7 +81,7 @@
 		</if>
 	</sql>
 	
-	<!-- 구매내역 전체/검색 레코드수 -->
+	구매내역 전체/검색 레코드수
 	<select id="selectOrderRowCount" parameterType="map" resultType="integer">
 		SELECT
 			COUNT(*)
@@ -90,7 +90,7 @@
 		<include refid="orderBoardSearch"></include>
 	</select>
 	
-	<!-- 구매 내역 전체/검색 목록 -->
+	구매 내역 전체/검색 목록
 	<select id="selectReservation" parameterType="map" resultType="reservationVO">
 		SELECT
 		*
@@ -113,6 +113,8 @@
 	WHERE rnum >= #{start} AND rnum <= #{end}
 	]]>
 	</select>
+	 -->
+	  
 	
 </mapper>  
 
