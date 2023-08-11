@@ -103,7 +103,7 @@ public class MovieController {
 
 		// 전체/검색 레코드 수
 		int count = movieService.selectRowCount(map); // 페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 20, 10, "movieList.do",
+		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 8, 10, "movieList.do",
 				"&order=" + order);
 
 		List<MovieVO> list = null;
