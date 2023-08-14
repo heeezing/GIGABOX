@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.btn').click(function() {
-            $('.btn').removeClass('btn-on');
-            $(this).addClass('btn-on');
-        });
-    });
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/reservation.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservation.css">
 <div class="page-util">
 	<div class="location">
@@ -64,7 +56,9 @@
 						<div class="all-list">
 							<ul>
 								<c:forEach var="theater" items="${TheaterList}">
-						            <li>${theater.th_name}</li>
+						            <li>
+						            	<button type="button" class="btn">${theater.th_name}</button>
+						            </li>
 						        </c:forEach>
 							</ul>
 						</div>
@@ -75,96 +69,23 @@
 						</div>
 						<div class="all-list">
 							<ul class="timetable">
-								<li>
-									<div class="sch_left">
-										<p class="sch_start">00:00</p>
-										<p class="sch_end">~ 00:00</p>
-									</div>
-									<p class="m_title">영화제목</p>
-									<div class="sch_right">
-										<span class="hall_name">&nbsp;&nbsp;&nbsp;상영관</span>
-										<span class="seat_count">
-											<span class="now">50</span>
-											<span class="slash">/</span>
-											<span class="all">100</span>
-										</span>
-									</div>
-								</li>
-								<li>
-									<div class="sch_left">
-										<p class="sch_start">00:00</p>
-										<p class="sch_end">~ 00:00</p>
-									</div>
-									<p class="m_title">영화제목</p>
-									<div class="sch_right">
-										<span class="hall_name">&nbsp;&nbsp;&nbsp;상영관</span>
-										<span class="seat_count">
-											<span class="now">50</span>
-											<span class="slash">/</span>
-											<span class="all">100</span>
-										</span>
-									</div>
-								</li>
-								<li>
-									<div class="sch_left">
-										<p class="sch_start">00:00</p>
-										<p class="sch_end">~ 00:00</p>
-									</div>
-									<p class="m_title">영화제목</p>
-									<div class="sch_right">
-										<span class="hall_name">&nbsp;&nbsp;&nbsp;상영관</span>
-										<span class="seat_count">
-											<span class="now">50</span>
-											<span class="slash">/</span>
-											<span class="all">100</span>
-										</span>
-									</div>
-								</li>
-								<li>
-									<div class="sch_left">
-										<p class="sch_start">00:00</p>
-										<p class="sch_end">~ 00:00</p>
-									</div>
-									<p class="m_title">영화제목</p>
-									<div class="sch_right">
-										<span class="hall_name">&nbsp;&nbsp;&nbsp;상영관</span>
-										<span class="seat_count">
-											<span class="now">50</span>
-											<span class="slash">/</span>
-											<span class="all">100</span>
-										</span>
-									</div>
-								</li>
-								<li>
-									<div class="sch_left">
-										<p class="sch_start">00:00</p>
-										<p class="sch_end">~ 00:00</p>
-									</div>
-									<p class="m_title">영화제목</p>
-									<div class="sch_right">
-										<span class="hall_name">&nbsp;&nbsp;&nbsp;상영관</span>
-										<span class="seat_count">
-											<span class="now">50</span>
-											<span class="slash">/</span>
-											<span class="all">100</span>
-										</span>
-									</div>
-								</li>
-								<li>
-									<div class="sch_left">
-										<p class="sch_start">00:00</p>
-										<p class="sch_end">~ 00:00</p>
-									</div>
-									<p class="m_title">영화제목</p>
-									<div class="sch_right">
-										<span class="hall_name">&nbsp;&nbsp;&nbsp;상영관</span>
-										<span class="seat_count">
-											<span class="now">50</span>
-											<span class="slash">/</span>
-											<span class="all">100</span>
-										</span>
-									</div>
-								</li>
+								<c:forEach var="schedule" items="${ScheduleList}">
+						        	<li>
+										<div class="sch_left">
+											<p class="sch_start">${schedule.sch_start}</p>
+											<p class="sch_end">~ ${schedule.sch_end}</p>
+										</div>
+										<p class="m_title">${schedule.m_title}</p>
+										<div class="sch_right">
+											<span class="hall_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${schedule.hall_name}</span>
+											<span class="seat_count">
+												<span class="now">50</span>
+												<span class="slash">/</span>
+												<span class="all">120</span>
+											</span>
+										</div>
+									</li>
+						        </c:forEach>
 							</ul>
 						</div>
 					</div>

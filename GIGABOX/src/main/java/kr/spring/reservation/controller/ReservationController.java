@@ -89,6 +89,21 @@ public class ReservationController {
 	public List<HallVO> getHallsByTheaterId(@RequestParam("th_num") int th_num) {
 	    return resService.getHallsByTheaterId(th_num);
 	}
+	//상영시간표 정보
+	@RequestMapping("/reservation/getScheduleList")
+	@ResponseBody
+	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("movie_num", movie_num);
+		map.put("th_num", th_num);
+		
+		List<ScheduleVO> list = resService.getScheduleList(map);
+		
+		Map<String, Object> mapJson = new HashMap<String, Object>();
+		mapJson.put("list", list);
+		
+		return mapJson;
+	}
 
 	
 	/*========================

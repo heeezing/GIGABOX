@@ -34,4 +34,7 @@ public interface ReservationService {
 	// 상영시간표 삭제
 	public void deleteSchedule(Integer sch_num);
 	
+	// 상영시간표 목록 불러오기
+	public List<ScheduleVO> getScheduleList(Map<String, Object> map);
+
 }

@@ -61,5 +61,24 @@ $(function(){
             }
         });
     });
+
+	//빠른예매 - 영화, 극장 버튼
+	$('.movie_choice .btn').click(function() {
+        $('.movie_choice .btn').removeClass('btn-on');
+        $(this).addClass('btn-on');
+    });
+
+    $('.theater-choice .btn').click(function() {
+		// 극장을 선택하기 전에 영화를 선택하지 않았으면 선택 불가능하게 처리
+	    if ($('.movie_choice .btn.btn-on').length === 0) {
+	        alert('영화를 먼저 선택해주세요.');
+	        return;
+	    }
+
+        $('.theater-choice .btn').removeClass('btn-on');
+        $(this).addClass('btn-on');
+
+		
+    });
 	
 });

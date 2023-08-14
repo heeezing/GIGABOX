@@ -28,7 +28,10 @@ public interface ReservationMapper {
 	public List<TheaterVO> getTheaterList();
 	// 극장 선택 후 상영관
 	@Select("SELECT * FROM hall h WHERE h.th_num = #{th_num} ORDER BY hall_name")
-	public List<HallVO> getHallsByTheaterId(int theaterId);
+	public List<HallVO> getHallsByTheaterId(int th_num);
+	// 상영시간표 목록 불러오기
+	public List<ScheduleVO> getScheduleList(Map<String, Object> map);
+	
 	
 	//상영 시간표 정보 가져오기
 	@Select("SELECT * FROM schedule s JOIN hall h ON s.hall_num = h.hall_num JOIN movie m ON s.movie_num = m.movie_num JOIN theater th ON h.th_num = th.th_num WHERE sch_num=#{sch_num}")
