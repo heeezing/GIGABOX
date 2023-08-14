@@ -232,6 +232,7 @@
     height: 556px;
     border-top: 1px solid #000;
     background-color: #fff;
+    padding-bottom:100px;
 }
 .seat-select-section .seat-section .title-util {
     padding: 8px 0 7px 0;
@@ -265,6 +266,7 @@
     font-size: 1.2em;
     background-color:white;
     margin:0;
+    cursor:pointer;
 }
 .seat-select-section .seat-section .seat-area .seat-count .cell .count .number{
 	position: relative;
@@ -286,6 +288,7 @@
     font-size: 1.2em;
     background-color:white;
     margin:0;
+    cursor:pointer;
 }
 .seat-select-section .seat-section .seat-area .seat-layout {
     position: relative;
@@ -428,6 +431,7 @@
 
 .choice-seat-area .legend .list li{
 	height: 16px;
+	clear:both;
 }
 .choice-seat-area .legend .list li img{
 	margin-top:4px;
@@ -447,7 +451,7 @@
     border-left: 1px solid #434343;
     height: 230px;
 }
-.seat-select-section .seat-result .wrap .choice-seat-area .seat-num .tit {
+.seat-select-section .seat-result .wrap .choice-seat-area .seat-num div{
     height: 43px;
     margin: 0;
     padding: 0;
@@ -455,51 +459,62 @@
     font-size: 13px;
     color: #c4c4c4;
     text-align: center;
+    width:100%;
 }
 .seat-select-section .seat-result .wrap .choice-seat-area .seat-num .my-seat {
-    overflow: hidden;
     padding: 0 14px;
 }
-.seat-num .my-seat p{
-	background-color: #503396;
+.my-seat p{
 	padding:5px;
 	width:40px;
 	float:left;
 	margin:3px 2px 0 2px;
 	border: 1px solid #5c5c5c;
     text-align: center;
+    height:25px;
 }
-.seat-select-section .seat-result .wrap .pay-area {
-    position: absolute;
-    left: 0;
-    bottom: 40px;
+.pay-area {
     width: 267px;
     margin: 0;
-    padding: 10px 20px;
+    padding: 20px 20px 10px 20px;
 }
 .pay-area .count{
 	display: block;
-    position: relative;
     padding: 0 0 0 12px;
     font-size: 13px;
     color: #c4c4c4;
     margin:0;
 }
-.pay-area .pay .tit {
+.tit {
     float: left;
     line-height: 35px;
     font-size: 14px;
     padding-left:12px;
     margin-top: 0;
 }
-.seat-select-section .seat-result .wrap .pay-area .pay .money {
+.money {
     float: right;
 }
-.pay-area .pay .money span{
-	display: block;
+.money span{
+	line-height:37px;
+	padding-left:7px;
+}
+#money_area{
     float: left;
     line-height: 35px;
     font-size: 1.6em;
     color: #59bec9;
     font-weight: 400;
+}
+#btn_area{
+	clear:both;
+	text-align:right;
+	padding-right:20px;
+	padding-top:8px;
+}
+#btn_area input{
+	background-color:#53565b;
+	color:#fff;
+	font-size:20px;
+	border:none;
 }

@@ -1,5 +1,7 @@
 package kr.spring.reservation.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,26 @@ public class SeatController {
 		
 		return "seat";
 	}
+	
+	// 선택한 좌석 데이터 저장
+	@GetMapping("/reservation/saveSeats.do")
+	public String saveSeats(@RequestParam("seats") String seats,HttpSession session) {
+		session.setAttribute("clickedSeats", seats);
+		return "redirect:/reservation/pay.do";
+	}
+	
+	/*===============
+	 * 예매 결제
+	 *===============*/
+	// 예매 결제 폼 호출
+	@GetMapping("/reservation/pay.do")
+    public String formPay(HttpSession session, Model model) {
+        String clickedSeats = (String) session.getAttribute("clickedSeats");
+        model.addAttribute("clickedSeats", clickedSeats);
+        return "reservationPay";
+    }
+	
+	
 	
 	
 	

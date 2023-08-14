@@ -35,6 +35,10 @@
     	<put-attribute name="title" value="극장 정보 보기"/>
     	<put-attribute name="body" value="/WEB-INF/views/theater/theaterDetail.jsp"/>
     </definition>
+    <definition name="reservationPay" extends="main">
+    	<put-attribute name="title" value="예매 결제"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/res_pay.jsp"/>
+    </definition>
 </tiles-definitions>
 
 
