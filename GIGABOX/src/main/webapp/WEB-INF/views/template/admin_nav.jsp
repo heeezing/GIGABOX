@@ -44,7 +44,7 @@
 			  onclick="location.href='${pageContext.request.contextPath}/#'">
 			  <ul>
 			  	<li><input type="button" class="menu-btn" value="관람평 신고 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'"></li>
+			  onclick="location.href='${pageContext.request.contextPath}/movie/reportAdmin.do'"></li>
 			  	<li><input type="button" class="menu-btn" value="무비포스트 신고 관리"
 			  onclick="location.href='${pageContext.request.contextPath}/#'"></li>
 			  </ul>
