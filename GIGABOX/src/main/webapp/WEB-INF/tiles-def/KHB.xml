@@ -10,6 +10,10 @@
     	<put-attribute name="title" value="멤버십목록"/>
 	    <put-attribute name="body" value="/WEB-INF/views/membership/membershipList.jsp"/>
     </definition>
+    <definition name="msorderForm" extends="main">
+    	<put-attribute name="title" value="멤버십구매"/>
+	    <put-attribute name="body" value="/WEB-INF/views/membership/msorderForm.jsp"/>
+    </definition> 
     <!-- 관리자 -->
     <definition name="admin_memberList" extends="admin">
     	<put-attribute name="title" value="회원목록(관리자용)"/>
@@ -31,6 +35,7 @@
     	<put-attribute name="title" value="멤버십수정(관리자용)"/>
 	    <put-attribute name="body" value="/WEB-INF/views/membership/membershipModify.jsp"/>
     </definition>
+    
     
 </tiles-definitions>
 

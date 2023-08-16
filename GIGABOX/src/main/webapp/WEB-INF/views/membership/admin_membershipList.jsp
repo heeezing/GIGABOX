@@ -9,8 +9,7 @@
 			<li>
 				<select name="keyfield">
 					<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>등급</option>
-					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>혜택</option>
-					<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>가격</option>
+					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>가격</option>
 				</select>
 			</li>
 			<li>

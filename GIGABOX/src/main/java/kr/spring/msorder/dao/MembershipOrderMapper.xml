@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.msorder.dao.MembershipOrderMapper">
+	<!-- 멤버십 주문 -->
+	<insert id="insertOrder" parameterType="membershiporderVO">
+		INSERT INTO membership_order(
+			order_num,
+			mem_num,
+			membership_id,
+			price,
+			pay_type,
+			pay_date,
+			next_pay_date,
+			billing_key,
+			result_status,
+			result_message,
+			membership_grade)
+		VALUES(
+			#{order_num},
+			#{mem_num},
+			#{membership_id},
+			#{price},
+			#{pay_type},
+			#{pay_date},
+			#{next_pay_date},
+			#{billing_key},
+			#{result_status},
+			#{result_message},
+			#{membership_grade})
+	</insert>
+</mapper>

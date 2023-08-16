@@ -18,17 +18,26 @@
 				<form:input path="membership_grade"/>
 			</li>
 			<li>
-				<form:label path="membership_detail">혜택</form:label>
-				<form:input path="membership_detail"/>
+				<form:label path="membership_benefits">혜택</form:label>
+				<form:input path="membership_benefits"/>
 			</li>
 			<li>
 				<form:label path="price">가격</form:label>
 				<form:input path="price"/>
 			</li>
+			<li>
+				<label for="upload">사진</label>
+				<input type="file" name="upload" id="upload"
+					accept="image/gif,image/png,image/jpeg">
+			</li>
+			<li>
+				<form:label path="membership_detail">혜택 설명</form:label>
+				<form:input path="membership_detail"/>
+			</li>
 		</ul>
 		<div class="align-center">
 			<form:button>수정</form:button>
-			<input type="button" value="목록" onclick="location.href='membership_list.do'">
+			<input type="button" value="목록" onclick="location.href='admin_membership_list.do'">
 		</div>
 	</form:form>
 </div>

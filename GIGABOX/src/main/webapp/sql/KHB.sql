@@ -9,6 +9,7 @@ CREATE TABLE membership_order(
  billing_key varchar2(300) NOT NULL,
  result_status varchar2(45) NOT NULL,
  result_message	varchar2(300) NOT NULL,
+ membership_grade varhar2(45) NOT NULL,
  constraint membership_order_pk primary key (order_num),
  constraint membership_order_fk1 foreign key (mem_num) 
 									references member (mem_num),
@@ -20,9 +21,12 @@ create sequence membership_order_seq;
 
 CREATE TABLE membership(
  membership_id number NOT NULL,
- membership_grade varchar2(45) DEFAULT basic NOT NULL,
- membership_detail varchar2(300) NOT NULL,
+ membership_grade varchar2(45) NOT NULL,
+ membership_benefits varchar2(300) NOT NULL,
  price number NOT NULL,
+ photo blob NOT NULL,
+ photo name VARCHAR(90) NOT NULL,
+ membership_detail varchar2(300) NOT NULL,
  constraint membership_pk primary key (membership_id)
 );
 create sequence membership_seq;

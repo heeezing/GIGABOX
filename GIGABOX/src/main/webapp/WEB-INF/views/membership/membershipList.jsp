@@ -1,67 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 멤버십 목록 시작-->
-<div class="page-main">
-	<h2>멤버십 목록</h2>
-	<form action="membership_list.do" id="search_form" method="get">
-		<ul class="search">
-			<li>
-				<select name="keyfield">
-					<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>등급</option>
-					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>혜택</option>
-					<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>가격</option>
-				</select>
-			</li>
-			<li>
-				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
-			</li>
-			<li>
-				<input type="submit" value="찾기">
-				<input type="button" value="목록" 
-				   onclick="location.href='membership_list.do'">
-			</li>
-		</ul>
-	</form>
-	<c:if test="${count == 0}">
-	<div class="result-display">표시할 정보가 없습니다.</div>
-	</c:if>
-	<c:if test="${count > 0}">
-	<table class="striped-table">
-		<tr>
-			<th>등급</th>
-			<th>혜택</th>
-			<th>가격</th>
-			<th>수정/삭제</th>
-		</tr>
-		<c:forEach var="membership" items="${list}">
-		<tr align="center">
-			<td>${membership.membership_grade}</td>
-			<td>${membership.membership_detail}</td>
-			<td>${membership.price}</td>
-			<td>
-			<input type="button" value="수정"
-			onclick="location.href='membership_update.do?membership_id=${membership.membership_id}'">
-			<input type="button" value="삭제" id="delete_btn">
-			<script type="text/javascript">
-				let delete_btn = document.getElementById('delete_btn');
-				delete_btn.onclick=function(){
-					let choice = confirm('삭제하시겠습니까?');
-					if(choice){
-						location.replace('membership_delete.do?membership_id=${membership.membership_id}');
-					}
-				}
-			</script>
-			</td>
-		</tr>
-		</c:forEach>
-	</table>
-	</c:if>
-	<div class="align-right">
-		<input type="button" value="등록하기" 
-			onclick="location.href='registerMembership.do'">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/membership.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/membership.js"></script>
+<div class="page-util">
+	<div class="location">
+		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
+		<a href="../membership/membership_list.do">멤버십</a> 
 	</div>
 </div>
+
+<div class="page-main">
+	<div class="title" align="center">
+		<b>GIGA 멤버십</b>
+	</div>
+	
+	<hr size="2" noshade="noshade">
+	
+	<!-- 상품 목록 시작 -->
+	<c:if test="${count == 0}">
+		<div class="result-display">
+			표시할 상품이 없습니다.
+		</div>
+	</c:if>
+	
+	<c:if test="${count > 0}">
+		<div class="membership_list">
+			<div class="horizontal-membership-container">
+				<c:forEach var="membership" items="${list}">
+					<div class="horizontal-membership-item">
+						<span class="list-name"><b>${membership.membership_grade}</b></span><br>
+						<span class="list-detail">${membership.membership_detail}</span><br>
+						<img src="imageView.do?membership_id=${membership.membership_id}">
+						<span class="list-benefits">${membership.membership_benefits}</span><br>
+						<span class="list-price"> <fmt:formatNumber value="${membership.price}" />원
+						</span>
+						<!-- 여기에 구독 버튼 추가 가능 -->
+						<a href="${pageContext.request.contextPath}/membership/msorderForm.do?membership_id=${membership.membership_id}" class="subscribe-button">구독하기</a>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</c:if>
+</div>
+
 <!-- 멤버십 목록 종료 -->
 
 

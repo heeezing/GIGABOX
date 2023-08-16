@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.spring.membership.dao.MembershipMapper">
-
-<!-- 멤버십 목록" -->
-<!-- sql태그와 includ태그를 이용해서 SQL문을 재사용 -->
+<!-- 관리자 시작 -->
+	<!-- 멤버십 등록 -->
+	<insert id="insertMembership" parameterType="membershipVO">
+		INSERT INTO membership(
+		  membership_id,
+		  membership_grade,
+		  membership_benefits,
+		  price,
+		  photo,
+		  photo_name,
+		  membership_detail)
+		VALUES(
+		  membership_seq.nextval,
+		  #{membership_grade},
+		  #{membership_benefits},
+		  #{price},
+		  #{photo},
+		  #{photo_name},
+		  #{membership_detail})
+	</insert>
+	
+	<!-- 멤버십 수정 -->
+	<update id="updateMembership" parameterType="membershipVO">
+		UPDATE
+			membership
+		SET
+			membership_grade=#{membership_grade},
+			membership_benefits=#{membership_benefits},
+			price=#{price},
+			<if test="photo_name != ''">
+			photo=#{photo},
+			photo_name=#{photo},
+			</if>
+			membership_detail=#{membership_detail}
+		WHERE
+			membership_id=#{membership_id}
+	
+	</update>
+	
 	<sql id="membershipSearch">
 		<where>
 			<if test="keyword != null and keyword != ''">
@@ -11,9 +47,6 @@
 					membership_grade LIKE '%' || #{keyword} || '%'
 				</if>
 				<if test="keyfield == 2">
-					membership_detail LIKE '%' || #{keyword} || '%'
-				</if>
-				<if test="keyfield == 3">
 					price LIKE '%' || #{keyword} || '%'
 				</if>
 			</if>
@@ -21,8 +54,7 @@
 	</sql>
 	
 	<!-- 전체/검색 레코드수 -->
-	<select id="selectRowCount" parameterType="map"
-	                               resultType="integer">
+	<select id="selectMembershipCount" parameterType="map" resultType="integer">
 		SELECT
 		  COUNT(*)
 		FROM membership
@@ -30,7 +62,7 @@
 	</select>
 	
 	<!-- 전체/검색 목록 -->
-	<select id="selectList" parameterType="map"
+	<select id="selectMembershipList" parameterType="map"
 	                           resultType="membershipVO">
 		SELECT
 		  *
@@ -46,7 +78,53 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>                                     
 	</select>
+<!-- 관리자 끝 -->	
+
+<!-- 사용자 시작-->
+	<!-- 멤버십 목록 -->
+	<select id="selectMembershipUserList" parameterType="map" resultType="membershipVO">
+		SELECT *
+		FROM (SELECT a.*, rownum rnum
+			  FROM (SELECT *
+			  		FROM membership)a)
+	</select>
 	
-
-
+	<!-- 멤버십 선택(장바구니 대체) -->
+	<select id="getMembershipById" resultType="kr.spring.membership.vo.MembershipVO">
+        SELECT
+            membership_id,
+            membership_grade,
+            membership_benefits,
+            price,
+            membership_detail
+        FROM membership
+        WHERE membership_id = #{membershipId}
+    </select>
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

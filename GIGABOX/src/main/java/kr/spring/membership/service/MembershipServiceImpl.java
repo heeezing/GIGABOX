@@ -18,19 +18,28 @@ public class MembershipServiceImpl implements MembershipService{
 	private MembershipMapper membershipMapper;
 
 	@Override
-	public void insertMembership(MembershipVO membership) {
-		membership.setMembership_id(membershipMapper.selectMembership_id());
-		membershipMapper.insertMembership(membership);
+	public void insertMembership(MembershipVO membershipVO) {
+		membershipMapper.insertMembership(membershipVO);
 	}
-	
+
+	@Override
+	public int selectMembershipCount(Map<String, Object> map) {
+		return membershipMapper.selectMembershipCount(map);
+	}
+
+	@Override
+	public List<MembershipVO> selectMembershipList(Map<String, Object> map) {
+		return membershipMapper.selectMembershipList(map);
+	}
+
 	@Override
 	public MembershipVO selectMembership(Integer membership_id) {
 		return membershipMapper.selectMembership(membership_id);
 	}
 
 	@Override
-	public void updateMembership(MembershipVO membership) {
-		membershipMapper.updateMembership(membership);
+	public void updateMembership(MembershipVO membershipVO) {
+		membershipMapper.updateMembership(membershipVO);
 	}
 
 	@Override
@@ -39,13 +48,19 @@ public class MembershipServiceImpl implements MembershipService{
 	}
 	
 	@Override
-	public int selectRowCount(Map<String, Object> map) {
-		return membershipMapper.selectRowCount(map);
+	public List<MembershipVO> selectMembershipUserList(Map<String, Object> map) {
+		return membershipMapper.selectMembershipUserList(map);
 	}
 
+
 	@Override
-	public List<MembershipVO> selectList(Map<String, Object> map) {
-		return membershipMapper.selectList(map);
+	public MembershipVO getMembershipById(int membershipId) {
+		return membershipMapper.getMembershipById(membershipId);
 	}
+
+
+
+	
+
 
 }
