@@ -1,5 +1,8 @@
 package kr.spring.reservation.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.hall.vo.HallVO;
+import kr.spring.movie.vo.MovieVO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
+import kr.spring.theater.vo.TheaterVO;
 import kr.spring.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,13 +54,27 @@ public class ReservationController {
 	 *  빠른 예매
 	 *========================*/
 	//빠른예매
-	@GetMapping("/reservation/quick_res.do")
-	public String form(Model model) {
+	@RequestMapping("/reservation/quick_res.do")
+	public ModelAndView form() {
 		// 영화 정보 불러오기
-		model.addAttribute("MovieList", resService.getMovieList());
+		List<MovieVO> movieList = resService.getMovieList();
+		//model.addAttribute("MovieList", resService.getMovieList());
+
 		// 극장 정보 불러오기
-		model.addAttribute("TheaterList", resService.getTheaterList());
-		return "quick_res";
+		List<TheaterVO> theaterList = resService.getTheaterList();
+		//model.addAttribute("TheaterList", resService.getTheaterList());
+		
+		// 날짜
+		List<Date> dateList = getDate(); 
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("quick_res");
+		
+		mav.addObject("movieList", movieList);
+		mav.addObject("theaterList", theaterList);
+		mav.addObject("dateList", dateList);
+		
+		return mav;
 	}
 	
 	/*========================
@@ -178,5 +197,26 @@ public class ReservationController {
 		resService.deleteSchedule(sch_num);
 		
 		return "redirect:/reservation/admin_schedule.do";
+	}
+	
+	/*===============
+	 * 날짜 선택
+	 *===============*/
+	public List<Date> getDate(){
+		
+		Date now = new Date();
+        List<Date> dateList = new ArrayList<>();
+
+        // Calendar 객체를 사용하여 오늘 날짜를 설정
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+
+        // 오늘 날짜부터 14일 후까지의 날짜를 리스트에 추가
+        for (int i=0; i<14; i++) {
+        	dateList.add(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // 하루를 더함
+        }
+        
+		return dateList;
 	}
 }
