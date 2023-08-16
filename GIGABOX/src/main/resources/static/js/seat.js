@@ -55,7 +55,8 @@ $(function(){
 	});
 	
 	$('#pay').click(function(){
-		location.href = "/reservation/saveSeats.do?seats=" + seats;
+		let sch_num = $('#sch_num').val();
+		location.href = "/reservation/saveSeats.do?seats=" + seats + "&sch_num=" + sch_num;
 	});
 	
 	

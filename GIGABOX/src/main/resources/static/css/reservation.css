@@ -9,12 +9,54 @@
     border:none;
 }
 .dateSelect{
-	height: 45px;
+	height: 40px;
     border-top: 1px solid #555;
     border-left: 1px solid #d8d9db;
     border-right: 1px solid #d8d9db;
 }
-.august {
+
+.date_area{
+    float: left;
+    text-align: center;
+    margin-left:11px;
+}
+
+.dateSelect .sat{
+	color:#3b5fcb;
+}
+.dateSelect .holi{
+	color:#e81002;
+}
+
+.year{
+	position:absolute;
+	margin-top:-14px;
+	margin-left:4px;
+	width:70px;
+	height:23px;
+	border:1px solid #d8d9db;
+	border-radius:15px;
+	background-color:#fff;
+	text-align:center;
+	padding-top:2px;
+}
+
+.date-button{
+	border:0;
+	background-color:transparent;
+	border-bottom:3px solid transparent;
+	cursor:pointer;
+	height: 26px;
+    font-size: 13px;
+    margin:0 13px;
+    width:50px;
+    float:left;
+    display:flex;
+    margin-top:10px;
+    justify-content:space-evenly;
+}
+
+/* .august {
     font-size: .8667em;
     width: 70px;
     line-height: 28px;
@@ -49,7 +91,7 @@
     margin:0 13px;
     width:50px;
     float:left;
-}
+} */
 
 
 .quick_resArea{

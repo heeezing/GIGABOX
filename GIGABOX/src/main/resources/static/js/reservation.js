@@ -80,5 +80,16 @@ $(function(){
 
 		
     });
+
+	// 날짜
+	// 토,일인 경우 button에 클래스 추가
+	$('.day-of-week').each(function() {
+	    if ($(this).text().trim() == '토') {
+	        $(this).parent().addClass('sat');
+	    }
+		if ($(this).text().trim() == '일') {
+	        $(this).parent().addClass('holi');
+	    }
+	});
 	
 });

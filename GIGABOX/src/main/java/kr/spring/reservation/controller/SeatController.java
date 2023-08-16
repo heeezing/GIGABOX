@@ -33,8 +33,9 @@ public class SeatController {
 	
 	// 선택한 좌석 데이터 저장
 	@GetMapping("/reservation/saveSeats.do")
-	public String saveSeats(@RequestParam("seats") String seats,HttpSession session) {
+	public String saveSeats(@RequestParam("seats") String seats, @RequestParam int sch_num, HttpSession session) {
 		session.setAttribute("clickedSeats", seats);
+		session.setAttribute("sch_num", sch_num);
 		return "redirect:/reservation/pay.do";
 	}
 	
@@ -45,11 +46,14 @@ public class SeatController {
 	@GetMapping("/reservation/pay.do")
     public String formPay(HttpSession session, Model model) {
         String clickedSeats = (String) session.getAttribute("clickedSeats");
+        int sch_num = (int)session.getAttribute("sch_num");
+        
+        ScheduleVO scheduleVO = reservationService.selectSchedule(sch_num);
+        model.addAttribute("scheduleVO", scheduleVO);
         model.addAttribute("clickedSeats", clickedSeats);
+        
         return "reservationPay";
     }
-	
-	
 	
 	
 	
