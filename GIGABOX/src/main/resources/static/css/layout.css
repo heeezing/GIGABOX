@@ -22,7 +22,7 @@ body{
 	min-height:500px;
 }
 #main_footer{
-	background-color:rgb(194, 194, 194);
+	background-color: #f8f8fa;
 	margin-top:100px;
 }
 a:link{
@@ -259,16 +259,18 @@ div#main_menu ul li{
 footer{
 	margin:0 auto;
 	height:200px;
+	font-size:12px;
 }
-
-footer p{
-	padding:40px 30px 0;
-	font-size:14px;
+.footer-img{
+	margin-top:75px;
+	float:left;
 }
-
-.footer-content{
-	padding:5px 30px;
-	font-size:13px;
+.footer-wrap{
+	padding:65px 0 0 200px;
+	font-weight:500;
+}
+.footer-wrap p{
+	margin: 5px 0;
 }
 
 /*----------공통 등록,수정 폼----------*/

@@ -33,11 +33,11 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="주문 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/order/admin_list.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="포인트 내역"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/point/admin_list.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="신고 관리"

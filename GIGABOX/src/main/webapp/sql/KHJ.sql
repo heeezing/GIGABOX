@@ -36,14 +36,13 @@ CREATE SEQUENCE cart_seq;
 
 --주문
 CREATE TABLE orders (
-	orders_num number,
+	orders_num varchar2(20),
 	mem_num	number NOT NULL,
 	sn_name	varchar2(60) NOT NULL,
-	sn_photo blob NOT NULL,
 	orders_total number(9) NOT NULL,
 	payment	number(1) NOT NULL,
 	orders_type number(1) NOT NULL,
-	orders_status number(1) NOT NULL,
+	orders_status number(1) DEFAULT 1 NOT NULL,
 	orders_date date DEFAULT SYSDATE NOT NULL,
 	valid_date date DEFAULT add_months(SYSDATE-1,12) NOT NULL,
 	modify_date date,
@@ -61,10 +60,9 @@ CREATE SEQUENCE orders_seq;
 --주문상세
 CREATE TABLE orders_detail (
 	detail_num number,
-	orders_num number NOT NULL,
+	orders_num varchar2(20) NOT NULL,
 	sn_num number NOT NULL,
 	sn_name	varchar2(60) NOT NULL,
-	sn_photo blob NOT NULL,
 	sn_detail varchar2(100)	NOT NULL,
 	sn_price number(6) NOT NULL,
 	sn_dc_price number(6),
@@ -81,7 +79,7 @@ CREATE SEQUENCE detail_seq;
 CREATE TABLE point (
 	pt_num number,
 	res_num number,
-	orders_num number,
+	orders_num varchar2(20),
 	mem_num	number NOT NULL,
 	pt_date	date DEFAULT SYSDATE NOT NULL,
 	add_point number DEFAULT 0 NOT NULL,

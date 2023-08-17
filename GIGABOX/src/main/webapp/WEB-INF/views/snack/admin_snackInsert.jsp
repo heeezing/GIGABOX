@@ -8,7 +8,7 @@
 <!-- include CKEditor js -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/ckeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/uploadAdapter.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/snack-insert.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/store.snackInsert.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/snack.css">
 <style>
 .ck-editor__editable_inline{

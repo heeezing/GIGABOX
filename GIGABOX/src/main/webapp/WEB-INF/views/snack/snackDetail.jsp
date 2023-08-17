@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 스토어 상세 시작 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/videoAdapter.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/snack-detail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/store.snackDetail.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/snack.css">
 <div class="page-util">
 	<div class="location">
@@ -30,11 +30,13 @@
 			<img src="imageView.do?sn_num=${snack.sn_num}" width="400" height="400">
 		</div>
 		<div class="item-detail">
-			<form id="item_cart" method="post"> 
+			<form id="item_cart" action="${pageContext.request.contextPath}/order/directOrderForm.do" method="post" name="item_cart"> 
 				<input type="hidden" name="sn_num" value="${snack.sn_num}" id="sn_num">
+				<input type="hidden" name="sn_name" value="${snack.sn_name}" id="sn_name">
 				<input type="hidden" name="sn_detail" value="${snack.sn_detail}" id="sn_detail">
 				<input type="hidden" name="sn_price" value="${snack.sn_price}" id="sn_price">
 				<input type="hidden" name="sn_dc_price" value="${snack.sn_dc_price}" id="sn_dc_price">
+				<input type="hidden" name="orders_type" value="1" id="orders_type">
 				<div class="cart-info">
 					<ul>
 						<li class="sn-name">
@@ -97,13 +99,9 @@
 				</div>
 				<!-- 장바구니,선물,구매 버튼 -->
 				<div class="btn_wrap">
-					<input type="submit" value="" class="btn_cart">
-					<a href="${pageContext.request.contextPath}/order/orderForm.do" id="btn_gift">
-						선물하기
-					</a>
-					<a href="#" id="btn_order">
-						구매하기
-					</a>
+					<input type="button" value="" id="btn_cart">
+					<input type="button" id="btn_gift" value="선물하기">
+					<input type="submit" id="btn_order" value="구매하기">
 				</div>
 			</form>
 		</div>

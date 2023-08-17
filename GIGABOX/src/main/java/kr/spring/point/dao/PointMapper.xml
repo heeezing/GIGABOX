@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.point.dao.PointMapper">
+	<!-- 스낵 구매 포인트 적립/사용  -->
+	<insert id="insertSnackPoint" parameterType="orderVO">
+		INSERT INTO point(
+			pt_num,
+			orders_num,
+			mem_num,
+			add_point,
+			use_point
+			)
+		VALUES(
+			point_seq.nextval,
+			#{orders_num},
+			#{mem_num},
+			#{add_point},
+			#{use_point}
+			)
+	</insert>
+	
+	<!-- 영화 몌매 포인트 적립/사용  -->
+	<insert id="insertResPoint" parameterType="reservationVO">
+		INSERT INTO point(
+			pt_num,
+			res_num,
+			mem_num,
+			add_point,
+			use_point
+			)
+		VALUES(
+			point_seq.nextval,
+			#{res_num},
+			#{mem_num},
+			#{add_point},
+			#{use_point}
+			)
+	</insert>
+	
+	
+	
+	<!-- [관리자]포인트 내역 목록 -->
+	
+	<!-- 검색창 -->
+	<sql id="pointSearch"> 
+		<if test="keyword!=null and keyword!=''">
+			<if test="keyfield == 1"> 
+				WHERE id = #{keyword}
+			</if>
+		</if>
+	</sql>
+	
+	<!-- [관리자]전체or검색 레코드 수 -->
+	<select id="selectPointCount" parameterType="map" resultType="integer">
+		SELECT COUNT(*)  
+		FROM point p JOIN member m ON p.mem_num = m.mem_num 
+		  LEFT OUTER JOIN orders o ON p.orders_num = o.orders_num
+		  LEFT OUTER JOIN reservation r ON p.res_num = r.res_num 
+		<include refid="pointSearch"></include> <!-- 미리 만들어놓은 WHERE절을 include하여 재사용 -->
+	</select>
+	
+	<!-- [관리자]전체or검색 목록 -->
+	<select id="selectPointList" parameterType="map" resultType="pointVO">
+		SELECT * 
+		FROM (SELECT a.*, rownum rnum 
+			  FROM (SELECT * 
+			  		FROM point p JOIN member m ON p.mem_num = m.mem_num 
+			  		  LEFT OUTER JOIN orders o ON p.orders_num = o.orders_num
+			  		  LEFT OUTER JOIN reservation r ON p.res_num = r.res_num 
+			  		  LEFT OUTER JOIN schedule s ON r.sch_num = s.sch_num   
+			  		<include refid="pointSearch"></include>
+			  		ORDER BY p.pt_num DESC)a) 
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+</mapper>

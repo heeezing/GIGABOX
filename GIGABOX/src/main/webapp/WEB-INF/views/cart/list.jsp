@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 장바구니 시작 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/cart.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/store.cart.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.order.css">
 <div class="page-util">
 	<div class="location">
 		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
@@ -53,6 +53,7 @@
 	<c:if test="${!empty list}">
 	<form id="cart_order" method="post" name="cart_order" 
 		  action="${pageContext.request.contextPath}/order/orderForm.do">
+	<input type="hidden" name="orders_type" value="1" id="orders_type">
 		<table class="cart-table">
 			<thead>
 			<tr>
@@ -168,8 +169,7 @@
 		
 		<!-- 버튼 -->
 		<div class="btn_wrap">
-			<a href="javascript:;" id="cart_gift" onclick="cartGift();">선물하기</a>
-			<!-- <a href="javascript:;" id="cart_order" onclick="cartOrder();">구매하기</a> -->
+			<a href="#" id="cart_gift">선물하기</a>
 			<a href="javascript:void(0);" onclick="document.forms['cart_order'].submit();">구매하기</a>
 		</div>
 		<!-- 

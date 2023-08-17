@@ -54,14 +54,23 @@ public class AppConfig implements WebMvcConfigurer{
 		         .addPathPatterns("/member/update.do")
 		         .addPathPatterns("/member/changePassword.do")
 		         .addPathPatterns("/member/delete.do")
-		         .addPathPatterns("/board/memberReservationList.do");
+		         .addPathPatterns("/board/memberReservationList.do")
+		         .addPathPatterns("/cart/list.do")
+		         .addPathPatterns("/order/directOrderForm.do")
+		         .addPathPatterns("/order/orderForm.do")
+		         .addPathPatterns("/order/order.do")
+		         .addPathPatterns("/order/orderFail.do")
+		         .addPathPatterns("/order/searchMember.do");
 		//AdminCheckInterceptor 설정
 		registry.addInterceptor(adminCheck)
 				.addPathPatterns("/snack/admin_list.do")
 				.addPathPatterns("/snack/admin_insert.do")
 				.addPathPatterns("/snack/admin_update.do")
 				.addPathPatterns("/snack/admin_delete.do")
-				.addPathPatterns("/snack/admin_deleteChBox.do");
+				.addPathPatterns("/snack/admin_deleteChBox.do")
+				.addPathPatterns("/point/admin_list.do")
+				.addPathPatterns("/order/admin_list.do")
+				.addPathPatterns("/order/admin_detail.do");
 	}
 	
 	

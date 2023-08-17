@@ -296,7 +296,7 @@ input.form-input{
 }
 
 /*----------장바구니,선물하기,구매하기 버튼----------*/
-.btn_cart, .btn_wrap a {
+#btn_cart, #btn_gift, #btn_order {
     display: block;
     float: left;
     height: 50px;
@@ -305,18 +305,17 @@ input.form-input{
     font-size: 16px;
     color: #fff;
     text-align: center;
-}
-.btn_cart {
-    width: 55px;
-    background: #fb4357 url(../images/bg_cartBtn.png) center center scroll no-repeat;
-    border:none;
     cursor:pointer;
     margin-top:0;
 }
-.btn_wrap a {
+#btn_cart {
+    width: 55px;
+    background: #fb4357 url(../images/bg_cartBtn.png) center center scroll no-repeat;
+    border:none;
+}
+#btn_gift, #btn_order {
     width: 200px;
     background-color: #373e46;
-    line-height: 50px;
     font-weight: bold;
 }
 

@@ -1,59 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.spring.order.dao.OrderMapper">
-	<!-- 상품 주문 -->
+	<!-- 구매하기 -->
 	<insert id="insertOrder" parameterType="orderVO">
 		INSERT INTO orders(
 			orders_num,
 			sn_name,
-			sn_photo,
+			origin_total,
 			orders_total,
+			pay_total,
 			payment,
 			orders_type,
-			orders_status,
-			billing_key,
-			to_id,
-			to_phone,
-			to_message,
 			mem_num
 			)
 		VALUES(
 			#{orders_num},
 			#{sn_name},
-			#{sn_photo},
+			#{origin_total},
 			#{orders_total},
+			#{pay_total},
 			#{payment},
 			#{orders_type},
-			#{orders_status},
-			#{billing_key},
+			#{mem_num}
+			)
+	</insert>
+	
+	<!-- 선물하기 -->
+	<insert id="insertGiftOrder" parameterType="orderVO">
+		INSERT INTO orders(
+			orders_num,
+			sn_name,
+			origin_total,
+			orders_total,
+			pay_total,
+			payment,
+			orders_type,
+			to_id,
+			to_phone,
+			message,
+			mem_num
+			)
+		VALUES(
+			#{orders_num},
+			#{sn_name},
+			#{origin_total},
+			#{orders_total},
+			#{pay_total},
+			#{payment},
+			#{orders_type},
 			#{to_id},
 			#{to_phone},
-			#{to_message},
+			#{message},
 			#{mem_num}
 			)
 	</insert>
 	
 	<insert id="insertOrderDetail" parameterType="orderDetailVO">
-		INSERT INTO sporder_detail(
+		INSERT INTO orders_detail(
 			detail_num,
 			sn_num,
 			sn_name,
 			sn_detail,
 			sn_price,
 			sn_dc_price,
-			sn_photo,
 			sn_total,
 			orders_quantity,
 			orders_num
 			)
 		VALUES(
-			sporder_detail_seq.nextval,
+			detail_seq.nextval,
 			#{sn_num},
 			#{sn_name},
 			#{sn_detail},
 			#{sn_price},
 			#{sn_dc_price},
-			#{sn_photo},
 			#{sn_total},
 			#{orders_quantity},
 			#{orders_num}
@@ -100,15 +120,43 @@
 		]]>
 	</select>
 	
+	
+
+
+	<!-- [사용자] 주문 목록 -->
+	<!-- 검색창 용 sql 조각 -->
+	<sql id="orderSearchByUser">
+		WHERE mem_num = #{mem_num} 
+		<if test="keyword != null and keyword != ''">
+			<if test="keyfield == 1">
+				AND orders_num = #{keyword} 
+			</if>
+			<if test="keyfield == 2">
+				AND sn_name LIKE '%' || #{keyword} || '%' 
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 전체or검색 레코드 수 -->
+	<select id="selectOrderCountByMem_num" parameterType="map">
+		SELECT COUNT(*) 
+		FROM orders 
+		<include refid="orderSearchByUser"></include>
+	</select>
+	
+	<!-- 전체or검색 목록 -->
+	<select id="selectListOrderByMem_num" parameterType="map" resultType="orderVO">
+		SELECT * 
+		FROM (SELECT a.*, rownum rnum 
+			  FROM (SELECT * 
+			  		FROM orders 
+			  		<include refid="orderSearchByUser"></include>
+			  		ORDER BY orders_num DESC)a) 
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>		  		
+	</select>	
 </mapper>
-
-
-
-
-
-
-
-
 
 
 

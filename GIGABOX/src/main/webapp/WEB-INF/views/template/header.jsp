@@ -64,7 +64,7 @@ $(window).on("scroll",function(){
 			</li>
 			<li id="logo">
 				<a href="${pageContext.request.contextPath}/main/main.do">
-					<img src="${pageContext.request.contextPath}/images/logo.png" width="160">
+					<img src="${pageContext.request.contextPath}/images/logo_p.png" width="160">
 				</a>
 			</li>
 			<li class="outer-menu-item">

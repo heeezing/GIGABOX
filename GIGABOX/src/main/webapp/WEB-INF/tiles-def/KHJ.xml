@@ -23,6 +23,27 @@
     	<put-attribute name="body" value="/WEB-INF/views/snack/admin_snackUpdate.jsp"/>
     </definition>
     
+    <!-- [관리자] 포인트 내역 목록 -->
+    <definition name="admin_pointList" extends="admin">
+    	<put-attribute name="title" value="포인트 내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/point/admin_pointList.jsp"/>
+    </definition>
+    
+    <!-- [관리자] 주문 목록 -->
+    <definition name="admin_orderList" extends="admin">
+    	<put-attribute name="title" value="주문 내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/order/admin_orderList.jsp"/>
+    </definition>
+    
+    <!-- [관리자] 주문 상세 -->
+    <definition name="admin_orderDetail" extends="admin">
+    	<put-attribute name="title" value="주문 상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/order/admin_orderDetail.jsp"/>
+    </definition>
+    
+    
+    
+    
     <!-- [사용자] 스낵 목록 -->
     <definition name="snackList" extends="main">
     	<put-attribute name="title" value="스토어 | GIGABOX"/>
@@ -45,5 +66,17 @@
     <definition name="orderForm" extends="main">
     	<put-attribute name="title" value="결제하기 | GIGABOX"/>
     	<put-attribute name="body" value="/WEB-INF/views/order/orderForm.jsp"/>
+    </definition>
+    
+    <!-- [사용자] 주문 성공 시 화면 -->
+    <definition name="orderComplete" extends="main">
+    	<put-attribute name="title" value="결제하기 | GIGABOX"/>
+    	<put-attribute name="body" value="/WEB-INF/views/order/orderComplete.jsp"/>
+    </definition>
+    
+    <!-- [사용자] 주문 실패 시 화면 -->
+    <definition name="orderFail" extends="main">
+    	<put-attribute name="title" value="결제하기 | GIGABOX"/>
+    	<put-attribute name="body" value="/WEB-INF/views/order/orderFail.jsp"/>
     </definition>
 </tiles-definitions>

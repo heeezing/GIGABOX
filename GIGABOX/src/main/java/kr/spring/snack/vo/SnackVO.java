@@ -18,7 +18,6 @@ public class SnackVO {
 	private String sn_detail;
 	private int sn_price;
 	private int sn_dc_price;
-	private int sn_quantity;
 	private byte[] sn_photo;
 	private String sn_photo_name;
 	private String sn_info;
