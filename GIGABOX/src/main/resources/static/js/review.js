@@ -10,9 +10,9 @@ $(function(){
 		$('#loading').show();
 		//서버와 통신
 		$.ajax({
-			url:'listReview.do',
+			url:'reviewList.do',
 			type:'post',
-			data:{pageNum:pageNum,rowCount:rowCount,board_num:$('#review_num').val()},
+			data:{pageNum:pageNum,rowCount:rowCount,movie_num:$('#movie_num').val()},
 				//key		변수		key		변수			key			변수
 			dataType:'json',
 			success:function(param){
@@ -26,43 +26,86 @@ $(function(){
 				}
 				
 				//관람평수 읽어오기
-				displayReplyCount(param);
+				displayReviewCount(param);
 				
-				//관람평 목록 평점(별점)내는 방법 구현해줘야해
 				$(param.list).each(function(index,item){
 					let output = '<div class="item">';
 					output += '<ul class="detail-info">';
 					output += '<li>';
-					output += '<img src="../member/viewProfile.do?mem_num='+item.mem_num+'" width="40" height="40" class="my-photo">';
+					output += '<img src="../member/viewProfile.do?mem_num='+item.mem_num+'" width="40" height="40" class="my-photo">'; 
 					output += '</li>';
-					output == '<li>';
+					output == '<li class="nick-name">';
 					if(item.nick_name){
 						output += item.nick_name + '<br>';
 					}else{
 						output += item.id + '<br>';
 					}
-					if(item.review_mdate){
-						output += '<span class="review_mdate">최근 수정일 : ' + item.review_mdate + '</span>';
-					}else{
-						output += '<span class="review_date">최근 등록일 : ' + item.review_date + '</span>';
-					}
 					output += '</li>';
 					output += '</ul>';
+					//목록에 관람평 점수 보이기
+					output += '<div class="reviewbackground">';
+					output += '<div class="sub-item-score">';
+					output += '<span>' + item.rating_score + '</span>';
+					output += '</div>';
+					//관람평 내용 보이기
 					output += '<div class="sub-item">';
 					output += '<p>' + item.review_content.replace(/\r\n/g,'<br>') + '</p>';
 															// /여기 들어가있는 모든 요소를 검색한다는 뜻/g 
 										//re_content는 html 불허해서 줄바꿈 처리만 해주면 됨
 					if(param.user_num==item.mem_num){
 						//로그인 한 회원 번호와 리뷰 작성자 회원번호와 같으면
-						output += ' <input type="button" data-num="'+item.review_num+'" value="수정" class="modify-btn">';
+						output += '<div class="modifybtn">';
+						output += ' <input type="button" data-num="'+item.review_num+'" data-star="'+item.rating_score+'" value="수정" class="modify-btn">';
 						output += ' <input type="button" data-num="'+item.review_num+'" value="삭제" class="delete-btn">';
+						output += '</div>'
 					}
+					//좋아요 버튼
+					output += '<div class="favcontainer">';
+					output += '<img class="output_fav" id="output_fav' + item.review_num + '" data-num="' + item.review_num + '" data-movie-num = "'+ item.movie_num +'"src="../images/fav01.gif" width="40">';
+					output += '<span class="output_fcount" id="output_fcount' + item.review_num + '">'+ item.fav_cnt+'</span>';
+					output += '</div>';
+					//좋아요 끝
+					//신고하기 버튼 
+					output += '<div class="button-group">';
+					output += '<input type="button" value="신고하기" class="repo_btn" data-num="'+item.review_num+'" data-movie-num="'+ item.movie_num+'" data-mem-num="'+ item.mem_num +'">';
+					output += '<div id="modal'+item.review_num+'" class="modal">';
+					output += '<div class="modal_container">';
+					output += '<div class="modal_head"><h2>신고하기</h2></div>';
+					output += '<div class="modal_body">';
+					output += '<form style="border:none;" id="repo_modal'+item.review_num+'" action="writeReport.do" method="post">';
+					output += '<input type="hidden" name="review_num" value="'+item.review_num+'">';
+					output += '<input type="hidden" name="movie_num" value="'+item.movie_num+'">';
+					output += '<input type="hidden" name="mem_num" value="'+item.mem_num+'">';
+					output += '<span>정말로 해당 글을 신고하시겠습니까?</span>'
+					output += '<div class="modal_btn_group">';
+					output += '<input type="button" value="취소" class="repo_cancel">';
+					output += '<input type="submit" value="신고하기" class="repo_submit">';
+					output += '</div>';
+					output += '</form>';
+					output += '</div>';
+					output += '</div>';
+					output += '</div>';
+					//신고하기 끝
+					output += '</div>';
+					output += '</div>';
+					output += '</div>';
 					output += '<hr size="1" noshade>';
 					output += '</div>';
+					output += '<div class="datecontainer">';
+					if(item.review_mdate){
+						output += '<span class="review_mdate">최근 수정일 : ' + item.review_mdate + '</span>';
+					}else{
+						output += '<span class="review_date">최근 등록일 : ' + item.review_date + '</span>';
+					}
 					output += '</div>';
+					
 					
 					//문서 객체 추가
 					$('#output').append(output);
+				});
+				
+				$(param.list).each(function(index,item){
+					selectFav(item.review_num,item.movie_num);
 				});
 				
 				//paging button 처리
@@ -91,9 +134,10 @@ $(function(){
 			alert('내용을 입력하세요!');
 			$('#review_content').val('').focus();
 			return false;
-		}else if($('#review_score').val().trim()==''){
+		}else if($('input[name="rating_score"]').val().trim() == ''){
 			alert('평점을 입력하세요!');
-			$('#review_score').val('').focus();
+			$('#rating_score').val('').focus();
+			return false;
 		}
 		
 		//입력한 정보 읽기
@@ -101,7 +145,7 @@ $(function(){
 		
 		//서버와 통신
 		$.ajax({
-			url:'writeReview.do',
+			url:'reviewWrite.do',
 			type:'post',
 			data:form_data,
 			dataType:'json',
@@ -129,7 +173,7 @@ $(function(){
 	//리뷰 작성 폼 초기화
 	function initForm(){
 		$('textarea').val('');
-		$('#review_score').val('') //관람평 평점 초기화
+		$('#rating_score').val('') //관람평 평점 초기화
 		$('#review_first .letter-count').text('220/220');
 	}
 	
@@ -137,18 +181,41 @@ $(function(){
 	$(document).on('click','.modify-btn',function(){
 		//관람평 번호
 		let review_num = $(this).attr('data-num');
+		let rating_score = $(this).attr('data-star');
 		//관람평 내용
-		let content = $(this).parent().find('p').html().replace(/<br>/gi,'\r\n');
+		let review_content = $(this).parents('.sub-item').find('p').html().replace(/<br>/gi,'\r\n');
 						//부모를 찾아가서 자식 태그 중 p태그를 찾는다     //모든 <br>을 찾아서 \r\n으로 변경한다 . i는 대소문자 구분없이 찾아라 라는 의미
 						
-		//관람평 수정폼 UI 관람평 평점 추가해야해
 		let modifyUI = '<form id="mreview_form">';
 		modifyUI += '<input type="hidden" name="review_num" id="mreview_num" value="'+review_num+'">';
-		modifyUI += '<textarea row="3" cols="50" name="review_content" id="mreview_content" class="rep-content">'+review_content+'</textarea>'
-		modifyUI += '<div id="mreview_first"><span class="letter-count">220/220</span></div>';
+		//평점 수정폼 시작
+		modifyUI += '<div class="rating-wrap align-center">';
+		modifyUI += '<fieldset class="rating_score">'; 
+		let checked = '';
+		for(let i=10;i>0;i--){
+			if(i==rating_score){
+				checked = 'checked';
+			}else{
+				checked = '';
+			}
+			if(i%2==0){
+				modifyUI += '<input type="radio" name="rating_score" '+checked+' value="'+i+'" id="mstar'+i+'"/><label for="mstar'+i+'" class="full"></label>';
+			}else{
+				modifyUI += '<input type="radio" name="rating_score" '+checked+' value="'+i+'" id="mstar'+i+'"/><label for="mstar'+i+'" class="half"></label>';
+			}
+		}
+		
+		modifyUI += '</fieldset>';	
+		modifyUI += '<span class="rating-value" style="font-size: 40px; font-weight:1000; color: #000;" >'+rating_score+'</span>';		        	
+		modifyUI += '<span style="font-size: 14px; font-weight: bold; color: #333; margin-top:25px; margin-left:10px;">&nbsp;/&nbsp; 10</span>';
+		modifyUI += '</div>';			        
+		//평점 수정폼 끝
+		
+		modifyUI += '<textarea row="3" cols="50" name="review_content" id="mreview_content" class="review-content">'+review_content+'</textarea>'
+		modifyUI += '<div id="mreview_first"><span class="letter-count align-right">220/220</span></div>';
 		modifyUI += '<div id="mreview_second" class="align-right">';
 		modifyUI += ' <input type="submit" value="수정">';
-		modifyUI += ' <input type="button" value="취소" class="re-reset">';
+		modifyUI += ' <input type="button" value="취소" class="review-reset">';
 		modifyUI += '</div>';
 		modifyUI += '<hr size="1" noshade width="96%">';
 		modifyUI += '</form>';
@@ -174,7 +241,7 @@ $(function(){
 	});
 		
 	//수정폼에서 취소 버튼 클릭시 수정폼 초기화
-	$(document).on('click','.re-reset',function(){
+	$(document).on('click','.review-reset',function(){
 		initModifyForm();
 	});
 	
@@ -190,11 +257,11 @@ $(function(){
 		let inputLength = $(this).val().length;
 		
 		if(inputLength>220){//220자를 넘어선 경우
-			$(this).val($(this).val().substring(0,200));
+			$(this).val($(this).val().substring(0,220));
 		}else{//300자 이하인 경우
 			//남은 글자수 구하기
-			let remain = 200 - inputLength;
-			remain += '/200';
+			let remain = 220 - inputLength;
+			remain += '/220';
 			if($(this).attr('id')=='review_content'){
 				//등록 폼 글자수
 				$('#review_first .letter-count').text(remain);
@@ -218,7 +285,7 @@ $(function(){
 		
 		//서버와 통신
 		$.ajax({
-			url:'updateReview.do',
+			url:'reviewUpdate.do',
 			type:'post',
 			data:form_data,
 			dataType:'json',
@@ -254,7 +321,7 @@ $(function(){
 		let review_num = $(this).attr('data-num');
 		//서버와 통신
 		$.ajax({
-			url:'deleteReview.do',
+			url:'reviewDelete.do',
 			type:'post',
 			data:{review_num:review_num},
 				//key(식별자) value(변수)
@@ -280,12 +347,153 @@ $(function(){
 	//관람평수 표시
 	function displayReviewCount(data){
 		let count = data.count;
+		let output;
+		if(count==0){
+			output = '관람평수(0)';
+		}else{
+			output = '관람평수(' + count + ')';
+		}
 		//문서 객체에 추가
-		$('#output_reviewcount').text(count);
+		$('#output_reviewcount').text(output);
 	}
 	
 	
 	//초기 데이터(목록) 호출
 	selectList(1);
 
+	//별점을 누르면 점수 표출
+	$(document).on('click','input[name="rating_score"]',function(){
+		let rating = $(this).val();
+		if(rating>0){
+			$(this).parents('.rating-wrap').find('.rating-value').text(rating);
+		}
+	});
+	
+	//let reviewnum;
+	
+    // 신고하기 버튼 클릭 이벤트 처리
+   $(document).on('click','input[class="repo_btn"]',function(){
+		let reviewnum = $(this).attr('data-num');
+        $('#modal'+reviewnum).css('display', 'block'); // 모달 창 보이기
+    });
+
+    // 취소 버튼 클릭 이벤트 처리
+	$(document).on('click','input[class="repo_cancel"]',function(){
+          $('.modal').css('display', 'none'); // 모달 창 숨기기
+    });
+	
+	let repo_modal;
+	
+	// 신고 폼 제출 이벤트 처리
+    $(document).on('submit',repo_modal,function(event,review_num) {
+	repo_modal = $('#repo_modal'+review_num);
+        event.preventDefault(); // 기본 제출 동작 막기
+
+        $.ajax({
+            url: 'writeReport.do',
+            type: 'post',
+            data:{review_num:$('.repo_btn').attr('data-num'),
+					movie_num:$('.repo_btn').attr('data-movie-num'),
+					mem_num:$('.repo_btn').attr('data-mem-num')},
+            dataType: 'json',
+            success: function(param) {
+                if(param.result == 'logout'){
+					alert('로그인해야 신고할 수 있습니다.');
+				}else if(param.result == 'alreadydonereport'){
+					alert('이미 신고가 접수되었습니다.');
+				}else if(param.result == 'success'){
+					alert('신고가 접수되었습니다.');
+					history.go(0);
+				}else{
+					alert('신고 등록 오류 발생');
+				}
+            },
+            error: function() {
+                alert('신고 네트워크 오류 발생');
+            }
+        });
+
+        $('#modal').css('display', 'none'); // 모달 창 숨기기
+    });
+
+
+	//좋아요 읽기
+	//좋아요 선택 여부와 선택한 총 개수 표시
+	function selectFav(review_num,movie_num){
+		$.ajax({
+			url:'getFav.do',
+			type:'post',
+			data:{review_num:review_num,
+				movie_num:movie_num},
+			dataType:'json',
+			success:function(param){
+				console.log(param);
+				displayFav(param,review_num);
+			},
+			error:function(){
+				alert('selectFav 오류 발생');
+			}
+		});
+	}//end of selectFav
+	
+	//좋아요 등록/삭제
+	$(document).on('click','img[class="output_fav"]',function(){
+		let review_num = $(this).attr('data-num');
+		console.log('클릭 : ' + review_num);
+		$.ajax({
+			url:'writeFav.do',
+			type:'post',
+			data:{review_num:review_num,
+				movie_num:$(this).attr('data-movie-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result=='logout'){
+					alert('로그인 후 이용 가능합니다.');
+				}else if(param.result=='success'){
+					displayFav(param,review_num);
+				}else{
+					alert('등록시 오류 발생');
+				}
+			},
+			error:function(){
+				alert('클릭이벤트 오류 발생');
+			}
+		});
+	});//end of #output_fav click
+	
+	//좋아요 표시 공통 함수
+	function displayFav(param,review_num){
+		let output;
+		if(param.status=='yesFav'){
+			output = '../images/fav02.gif';
+		}else if(param.status=='noFav'){
+			output = '../images/fav01.gif';
+		}else{
+			alert('좋아요 표시 오류 발생');
+		}
+		//문서 객체에 추가
+		$('#output_fav'+review_num).attr('src',output);
+		$('#output_fav'+review_num).parent().find('#output_fcount'+review_num).text(param.count);
+		
+	};//end of displayFav 
+	
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

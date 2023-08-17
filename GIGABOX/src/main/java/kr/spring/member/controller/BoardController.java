@@ -15,10 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.member.service.BoardService;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.movie.vo.ReviewVO;
 import kr.spring.order.vo.OrderVO;
 import kr.spring.post.vo.PostVO;
 import kr.spring.reservation.vo.ReservationVO;
-import kr.spring.movie.vo.ReviewVO;
 import kr.spring.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
 

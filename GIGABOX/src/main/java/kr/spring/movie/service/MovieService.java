@@ -3,7 +3,14 @@ package kr.spring.movie.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.movie.vo.ReviewVO;
+import kr.spring.movie.vo.Review_FavVO;
+import kr.spring.movie.vo.Review_ReportVO;
+
  
 
 public interface MovieService {
@@ -24,5 +31,32 @@ public interface MovieService {
 	//public void saveMovies(MovieVO movielist);
 	//api정보 불러오기
 	//public void insertMovie(MovieVO movelist);
+	
+	//댓글
+	public List<ReviewVO> selectListReview(Map<String,Object> map);
+	public int selectRowCountReview(Map<String,Object> map);
+	public ReviewVO selectReview(Integer review_num);
+	public void insertReview(ReviewVO review);
+	public void updateReview(ReviewVO review);
+	public void deleteReview(Integer review_num);
+	
+	//평점 평균 구하기
+	public int averageRatingScore(Integer rating_score);
+	
+	//관람평 좋아요
+	public Review_FavVO selectFav(Review_FavVO fav);
+	public int selectFavCount(Review_FavVO fav);
+	public void insertFav(Review_FavVO fav);
+	public void deleteFav(Integer review_favnum);
+	
+	//관람평 신고하기
+	public List<Review_ReportVO> selectListRepo(Map<String,Object> map);
+	public int selectRowCountRepo(Map<String,Object> map);
+	public Review_ReportVO selectRepo(Integer repo_num);
+	public void insertRepo(Review_ReportVO repo);
+	public void deleteRepo(Integer repo_num);
+	public void deleteRepoCheck(String[] selectreports);
+	//관람평 신고하기 유효성 검사
+	public int selectCountReportByUser(@Param(value="mem_num") Integer mem_num, @Param(value="review_num") Integer review_num);
 }
  

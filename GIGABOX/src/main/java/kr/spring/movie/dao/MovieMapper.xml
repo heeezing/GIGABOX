@@ -148,5 +148,104 @@
 		<foreach item="movie" collection="selectmovies" open="(" separator="," close=")">
 			#{movie}
 		</foreach>
-	</delete>	
+	</delete>
+	
+	
+	<!-- 관람평 시작 -->
+	<!-- 관람평 쓰기 -->
+	<insert id="insertReview" parameterType="reviewVO">
+		INSERT INTO review(
+			review_num,
+			movie_num,
+			mem_num,
+			rating_score,
+			review_content)
+		VALUES(
+			review_seq.nextval,
+			#{movie_num},
+			#{mem_num},
+			#{rating_score},
+			#{review_content})
+	</insert>
+	
+	<!-- 관람평 목록 --> <!-- 임시로 다 작성할 수 있게 구현! 후에 예매 한 것만 작성할 수 있도록 구현하기 -->
+	<select id="selectListReview" parameterType="map" resultType="reviewVO">
+	SELECT * FROM
+	(SELECT a.* , rownum rnum FROM
+	(SELECT review_num,
+	<![CDATA[
+	REPLACE(REPLACE(review_content,'<','&lt;'),'>','&gt;') review_content,
+	]]>
+	rating_score,review_date,review_mdate,movie_num,mem_num,id,nick_name FROM review JOIN member USING(mem_num) WHERE movie_num= #{movie_num}
+	ORDER BY review_num DESC)a)
+	<![CDATA[ WHERE rnum >= #{start} AND rnum <=#{end} ]]>
+	</select>
+	
+	<!-- 관람평 신고 목록 -->
+	<sql id="repoSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1"> <!-- 관람평 내용 -->
+					review_content LIKE '%' || #{keyword} || '%' 
+				</if>
+				<if test="keyfield == 2"> <!-- 신고자 ID -->
+					id LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 전체/검색 레코드 수  -->
+	<select id="selectRowCountRepo" parameterType="map" resultType="integer">
+		SELECT 
+			COUNT(*)
+		FROM(SELECT *
+		FROM review_report p
+		JOIN review r
+		ON p.review_num = r.review_num
+		JOIN member m
+		ON p.mem_num = m.mem_num)
+		<include refid="repoSearch"></include>
+	</select>
+	<!-- 신고내역 리스트 (관리자) -->		
+	<select id="selectListRepo" parameterType="map" resultType="review_reportVO">
+	SELECT
+      	a.repo_num,a.review_num,a.repo_date,a.movie_num,a.review_content,id,
+        rownum 
+    FROM ( SELECT 
+           		p.repo_num, 
+                v.review_num, 
+                p.repo_date,
+                v.movie_num, 
+                v.review_content  
+            FROM review v 
+            JOIN review_report p 
+            ON v.review_num = p.review_num) a
+      JOIN ( SELECT 
+                id, 
+                review_num,
+                review_content
+             FROM member m 
+             JOIN review r 
+             ON m.mem_num = r.mem_num
+            <include refid="repoSearch"></include>) b
+     ON a.review_num = b.review_num     
+     <![CDATA[ 
+    		WHERE rownum >= #{start} AND rownum <= #{end} 
+    	]]> 
+    ORDER BY repo_date DESC
+	</select>
+	
+<!-- (체크박스) 관람평 신고 삭제 -->	
+	<delete id="deleteRepoCheck">
+		DELETE 
+		FROM review_report 
+		WHERE repo_num IN 
+		<foreach item="item" collection="selectreports" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	
+<!--  관람평 끝	 -->
 </mapper>

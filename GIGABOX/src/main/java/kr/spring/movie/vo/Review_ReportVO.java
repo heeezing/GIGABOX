@@ -1,4 +1,4 @@
-package kr.spring.review.vo;
+package kr.spring.movie.vo;
 
 import java.sql.Date;
 
@@ -15,4 +15,7 @@ public class Review_ReportVO {
 	private int movie_num;
 	private int mem_num;
 	private Date repo_date;
+	
+	private String id;
+	private String review_content;
 }

@@ -30,10 +30,10 @@
     	<put-attribute name="title" value="영화관리자"/>
 	    <put-attribute name="body" value="/WEB-INF/views/movie/movieAdmin.jsp"/>
     </definition>    
-    <definition name="movieAdminDetail" extends="main">
-    	<put-attribute name="title" value="관리자 상세페이지"/>
-	    <put-attribute name="body" value="/WEB-INF/views/movie/movieAdminDetail.jsp"/>
-    </definition>
+    <definition name="reportAdmin" extends="admin">
+    	<put-attribute name="title" value="관람평신고목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/movie/reportAdmin.jsp"/>
+    </definition> 
 </tiles-definitions>
 
  

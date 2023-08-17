@@ -1,4 +1,4 @@
-package kr.spring.review.vo;
+package kr.spring.movie.vo;
 
 import lombok.Getter;
 import lombok.Setter;

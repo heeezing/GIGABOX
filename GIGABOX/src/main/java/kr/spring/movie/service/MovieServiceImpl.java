@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.movie.dao.MovieMapper;
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.movie.vo.ReviewVO;
+import kr.spring.movie.vo.Review_FavVO;
+import kr.spring.movie.vo.Review_ReportVO;
 
 @Service
 @Transactional
@@ -57,18 +60,122 @@ public class MovieServiceImpl implements MovieService{
 		return moviemapper.selectRowCount(map);
 	}
 
-	//@Override
-	//public void saveMovies(MovieVO movielist) {
-	//	 moviemapper.insertMovie(movielist);
-	//	 moviemapper.saveMovies(movielist);
-	//}
+
+	@Override
+	public List<ReviewVO> selectListReview(Map<String, Object> map) {
+		return moviemapper.selectListReview(map);
+	}
 
 
-	//@Override
-	//public void insertMovie(MovieVO movelist) {
-	//	moviemapper.insertMovie(movelist);
+	@Override
+	public int selectRowCountReview(Map<String, Object> map) {
+		return moviemapper.selectRowCountReview(map);
+	}
+
+
+	@Override
+	public void insertReview(ReviewVO review) {
+		moviemapper.insertReview(review);
+	}
+
+
+	@Override
+	public void updateReview(ReviewVO review) {
+		moviemapper.updateReview(review);
+	}
+
+
+	@Override
+	public void deleteReview(Integer review_num) {
+		//부모글 좋아요 삭제
+		moviemapper.deleteFavByReviewNum(review_num);
+		//부모글 삭제(부모글: 관람평, 자식글: 관람평 좋아요)
+		moviemapper.deleteReview(review_num);
+	}
+
+
+	@Override
+	public int averageRatingScore(Integer rating_score) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public ReviewVO selectReview(Integer review_num) {
+		return moviemapper.selectReview(review_num);
+	}
+
+
+	@Override
+	public Review_FavVO selectFav(Review_FavVO fav) {
+		return moviemapper.selectFav(fav);
+	}
+
+
+	@Override
+	public int selectFavCount(Review_FavVO fav) {
+		return moviemapper.selectFavCount(fav);
+	}
+
+
+	@Override
+	public void insertFav(Review_FavVO fav) {
+		moviemapper.insertFav(fav);
 		
-	//}
+	}
 
+
+	@Override
+	public void deleteFav(Integer review_favnum) {
+		moviemapper.deleteFav(review_favnum);	
+	}
+
+
+	@Override
+	public List<Review_ReportVO> selectListRepo(Map<String, Object> map) {
+		return moviemapper.selectListRepo(map);
+	}
+
+
+	@Override
+	public Review_ReportVO selectRepo(Integer repo_num) {
+		return moviemapper.selectRepo(repo_num);
+	}
+
+
+	@Override
+	public void insertRepo(Review_ReportVO repo) {
+		moviemapper.insertRepo(repo);
+	}
+
+
+	@Override
+	public void deleteRepo(Integer repo_num) {
+		moviemapper.deleteRepo(repo_num);
+	}
+
+
+	@Override
+	public int selectRowCountRepo(Map<String, Object> map) {
+		return moviemapper.selectRowCountRepo(map);
+	}
+
+
+	@Override
+	public void deleteRepoCheck(String[] selectreports) {
+		moviemapper.deleteRepoCheck(selectreports);
+	}
+
+
+	@Override
+	public int selectCountReportByUser(Integer mem_num, Integer review_num) {
+		return moviemapper.selectCountReportByUser(mem_num, review_num);
+	}
+
+
+
+
+	
 
 }

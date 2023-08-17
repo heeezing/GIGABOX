@@ -75,12 +75,12 @@ li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
-.tab-list>ul>li .on>a {
+.a {
     z-index: 3 !important;
     color: #503396;
     background-color: #fff;
 }
-.tab-list>ul>li>a {
+.a {
     position: relative;
     display: block;
     width: 100%;
@@ -92,7 +92,7 @@ li {
     font-size: 1.0667em;
     text-decoration: none;
 }
-.a:link {
+.a{
     color: #444;
     text-decoration: none;
 }
@@ -152,10 +152,10 @@ li {
 	<div class="movie-detailmain">
 		<div class="tab-list fixed movie">
 	        <ul class="tabWrap">
-	            <li class="wrap_info" data-tab="wrap_info" style="cursor: pointer;"><a class="a" href="movieDetail.do?movie_num=${movie.movie_num}#wrap_info">주요정보</a></li>
-	            <li class="wrap_review" data-tab="wrap_review" style="cursor: pointer;"><a class="a" href="movieDetail.do?movie_num=${movie.movie_num}#wrap_review">실관람평</a></li>
-	            <li class="wrap_post" data-tab="wrap_post" style="cursor: pointer;"><a class="a" href="movieDetail.do?movie_num=${movie.movie_num}#wrap_post">무비포스트</a></li>
-	            <li class="wrap_preview" data-tab="wrap_preview" style="cursor: pointer;"><a class="a" href="movieDetail.do?movie_num=${movie.movie_num}#wrap_preview">예고편/스틸컷</a></li>
+	            <li class="wrap_info a" data-tab="wrap_info" style="cursor: pointer;">주요정보</li>
+	            <li class="wrap_review a" data-tab="wrap_review" style="cursor: pointer;">실관람평</li>
+	            <li class="wrap_post a" data-tab="wrap_post" style="cursor: pointer;">무비포스트</li>
+	            <li class="wrap_preview a" data-tab="wrap_preview" style="cursor: pointer;">예고편/스틸컷</li>
 	        </ul>
 	    </div>
 	<!--================= 주요정보 시작 ================= -->
@@ -195,36 +195,50 @@ li {
 		<div id="wrap_review" class="tab-contents">
 			<div class="content-main container">
 				<div id="review_div">
-					<span class="review-title">관람평 쓰기</span>
 					<form id="review_form">
 						<input type="hidden" name="movie_num" value="${movie.movie_num}" id="movie_num">
-						<textarea rows="3" cols="50" name="review_content" id="review_content" class="review-content" <c:if test="${empty user}">disabled="disabled"</c:if>>
-							<c:if test="${empty user}">${movie.m_title} 재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.</c:if>
-						</textarea>
+						<!-- 관람평 평점 입력 -->
+						<h3 class="align-center" style="letter-spacing: 1.8px;"><span style="color:#503396; font-size:20px;">${movie.m_title }</span>의 평점을 선택해주세요.</h3>
+						<div class="rating-wrap align-center"> 
+							<fieldset class="rating_score">
+					        	<input type="radio" name="rating_score" value="10" id="star10"/><label for="star10" class="full"></label>
+					        	<input type="radio" name="rating_score" value="9" id="star9"/><label for="star9" class="half"></label>
+					        	<input type="radio" name="rating_score" value="8" id="star8"/><label for="star8" class="full"></label>
+					        	<input type="radio" name="rating_score" value="7" id="star7"/><label for="star7" class="half"></label>
+					        	<input type="radio" name="rating_score" value="6" id="star6"/><label for="star6" class="full"></label>
+					        	<input type="radio" name="rating_score" value="5" id="star5"/><label for="star5" class="half"></label>
+					        	<input type="radio" name="rating_score" value="4" id="star4"/><label for="star4" class="full"></label>
+					        	<input type="radio" name="rating_score" value="3" id="star3"/><label for="star3" class="half"></label>
+					        	<input type="radio" name="rating_score" value="2" id="star2"/><label for="star2" class="full"></label>
+					        	<input type="radio" name="rating_score" value="1" id="star1"/><label for="star1" class="half"></label>
+					        </fieldset>
+					        <span class="rating-value" style="font-size: 40px; font-weight:1000; color: #000;" >0</span>
+					        <span style="font-size: 14px; font-weight: bold; color: #333; margin-top:25px; margin-left:10px;">&nbsp;/&nbsp; 10</span>
+				        </div>
+				       
+						<!-- 관람평 평점 입력 끝 -->
+						<textarea rows="3" cols="50" name="review_content" id="review_content" class="review-content" <c:if test="${empty user}">disabled="disabled"</c:if>
+						><c:if test="${empty user}">${movie.m_title} 재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.</c:if></textarea>
 						<c:if test="${!empty user}">
-							<!-- 별을 이용한 평점 매기기 시작 -->
-							<!-- 별을 이용한 평점 매기기 끝 -->
 							<div id="review_first">
-								<span class="letter-count">220/220</span>
+								<span class="letter-count align-right">220/220</span>
 							</div>
-							<div id="review_second" class="align-right">
-								<input type="submit" value="관람평 작성">
+							<div id="review_second" class="align-center">
+								<input type="submit" value="작성하기" class="review-btn">
 							</div>
 						</c:if>
 					</form>
 				</div> <!--end of review_div -->
 				<!-- 관람평 목록  -->	
-				<div id="output"></div>
-				<div class="paging-button" style="display:none;">
+				<div id="output">
+				</div>
+				<div class="paging-button">
 					<input type="button" value="더보기">
-				</div>
-				<div class="loading" style="display:none;">
-					<img src="${pageContext.request.contextPath}/images/loading.gif" width="100" height="100">
-				</div>
 			</div><!-- end of content-main -->
 		</div>
 		<!-- 실관람평 끝 -->
-
+ 
+		</div>
 		<!-- ================= 무비포스트 시작 =================-->
 		<div id="wrap_post" class="tab-contents">
 			<div class="content-main container">
@@ -240,7 +254,7 @@ li {
 				<h2 class="previewtitle">메인 예고편</h2>
 				<hr><br>
 				<div class="iframe">
-					<iframe width="700" height="400" src="${movie.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+					<iframe width="700" height="400" src="${movie.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 				</div><br>
 				<hr style="border: 1px solid #7d7c7c;">
 				<h2 class="previewtitle"><span style="color:#503396;">${movie.m_title}</span>에 대한 스틸컷이 있어요!</h2>
@@ -249,47 +263,43 @@ li {
 			</div>
 		</div>
 		<!-- 예고편/스틸컷 끝 -->
-		
-		
-		
-		<script type="text/javascript">
-		$(document).ready(function(){
-			$('.tabWrap li').click(function(){
+	</div>
+	<!--end of movie-detailmain -->
+</div>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.tabWrap li').click(function() {
 				const getID = $(this).attr('data-tab')
 				console.log(getID)
 				$(this).addClass('on').siblings().removeClass('on')
 				$('.tab_contents').removeClass('on')
 				$("#" + getID).addClass('on')
 			}); //on붙이기 끝
-			
-			$(function(){
-				$('.wrap_info').on('click',function(){
+
+			$(function() {
+				$('.wrap_info').on('click', function() {
 					$('.tab-contents').hide();
 					$('#wrap_info').show();
 				});
-				$('.wrap_review').on('click',function(){
+				$('.wrap_review').on('click', function() {
 					$('.tab-contents').hide();
 					$('#wrap_review').show();
 				});
-				$('.wrap_post').on('click',function(){
+				$('.wrap_post').on('click', function() {
 					$('.tab-contents').hide();
 					$('#wrap_post').show();
 				});
-				$('.wrap_preview').on('click',function(){
+				$('.wrap_preview').on('click', function() {
 					$('.tab-contents').hide();
 					$('#wrap_preview').show();
 				});
 			}); // click 끝
-			
+
 			//페이지 로드 시 wrap_info 보이게
 			$('.wrap_info').addClass('on').siblings().removeClass('on')
 			$('.tab-contents').hide();
 			$('#wrap_info').show();
 		});
-		</script>
-	</div>
-	<!--end of movie-detailmain -->
-</div>
-
-
-
+	</script>

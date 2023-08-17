@@ -45,6 +45,8 @@ public class MovieVO {
 		private String m_nation;
 		private int m_status;
 		
+		private int review_cnt; //관람평 개수
+		
 		private int rating_avg; //평점 평균 아니 이거 잘못됨 없앨거임 
 		
 		/*
