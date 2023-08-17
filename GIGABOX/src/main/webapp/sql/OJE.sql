@@ -15,6 +15,7 @@ create table hall(
  hall_num number,
  hall_name varchar2(90) not null,
  hall_status number(1) default 2 not null,
+ seats number not null,
  th_num number not null,
  constraint hall_pk primary key (hall_num),
  constraint hall_fk foreign key (th_num) references theater (th_num)

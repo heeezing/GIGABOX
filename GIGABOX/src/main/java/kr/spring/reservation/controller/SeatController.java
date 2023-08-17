@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.spring.member.vo.MemberVO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ScheduleVO;
 import lombok.extern.slf4j.Slf4j;

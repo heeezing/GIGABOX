@@ -54,10 +54,16 @@ $(function(){
 		}
 	});
 	
+	
 	$('#pay').click(function(){
-		let sch_num = $('#sch_num').val();
-		location.href = "/reservation/saveSeats.do?seats=" + seats + "&sch_num=" + sch_num;
+		if(number>0 && number==clicked){
+			let sch_num = $('#sch_num').val();
+			location.href = "/reservation/saveSeats.do?seats=" + seats + "&sch_num=" + sch_num;
+		}else{
+			$('#pay').addClass('disabled');
+		}
 	});
+
 	
 	
 });

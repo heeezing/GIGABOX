@@ -63,7 +63,7 @@
 			 </c:forEach>
 		</div>
 		<!-- 상영시간표 목록 출력 -->
-		<div id="schedule-list-area"></div>
+		<div id="schedule_list_area"></div>
 	</div>
 	<!-- 상영시간표 끝 -->
 	

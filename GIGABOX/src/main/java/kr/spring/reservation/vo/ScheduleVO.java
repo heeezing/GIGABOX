@@ -20,4 +20,8 @@ public class ScheduleVO {
 	private String m_title;//영화 이름
 	private String th_name;//극장
 	private String hall_name;//상영관
+	private int seats;//좌석수
+	private int remain;//남은 좌석수
+	
+	
 }

@@ -51,7 +51,7 @@ function selectTheater(prop){
 			$('#info_image').attr('src', '/theater/photoViewByTh_num.do?th_num='+param['th_num']);
 			$('#theater_name').text(param['th_name']);
 			$('#theater_address').text(param['th_address']);
-			$('#theater_info').html(param['th_phone'] + '<br>6관 / 874석');
+			$('#theater_info').html('문의사항 <br>' + param['th_phone']);
 		},
 		error:function(){
 			alert('네트워크 오류 발생');
@@ -59,10 +59,6 @@ function selectTheater(prop){
 	});
 	
 }
-
-$('.date-button').click(function(){
-	
-});
 
 // 날짜 버튼 선택 함수
 function selectDate(prop){
@@ -79,7 +75,7 @@ function selectDate(prop){
 		dataType:'json',
 		success:function(param){
 			//처음 호출시는 해당 class의 div의 내부 내용을 제거
-			$('#schedule-list-area').empty();
+			$('#schedule_list_area').empty();
 			
 			// 이전에 나타난 영화와 상영관 정보를 추적하기 위한 변수 초기화
 			let prevMovieTitle = null;
@@ -105,7 +101,7 @@ function selectDate(prop){
 					GroupOutput += '<div class="hall-schedule-box">';
 					GroupOutput += '<div class="hall-type">';
 			        GroupOutput += '<p class="hall-name">' + item.hall_name + '</p>';
-			        GroupOutput += '<p class="seats">총 200석</p>';
+			        GroupOutput += '<p class="seats">' + item.seats + '석</p>';
 			        GroupOutput += '</div>';
 					GroupOutput += '<table class="schedule-time">';
 					GroupOutput += '<tr>';
@@ -119,7 +115,7 @@ function selectDate(prop){
 					GroupOutput += '<div class="hall-schedule-box">';
 					GroupOutput += '<div class="hall-type">';
 			        GroupOutput += '<p class="hall-name">' + item.hall_name + '</p>';
-			        GroupOutput += '<p class="seats">총 200석</p>';
+			        GroupOutput += '<p class="seats">' + item.seats + '석</p>';
 			        GroupOutput += '</div>';
 					GroupOutput += '<table class="schedule-time">';
 					GroupOutput += '<tr>';
@@ -127,10 +123,10 @@ function selectDate(prop){
 		        
 			    // 상영 시간 정보 추가
 			    GroupOutput += '<td class="hoverable">';
-			    GroupOutput += '<a href="/reservation/seat.do?sch_num=' + item.sch_num + '">';
+				GroupOutput += '<a href="/reservation/seat.do?sch_num=' + item.sch_num + '" class="seatForm">';
 			    GroupOutput += '<div class="hidden-text">' + item.sch_start + '~' + item.sch_end + '</div>';
 			    GroupOutput += '<p class="time">' + item.sch_start + '</p>';
-			    GroupOutput += '<p class="remain-seats">150석</p>';
+			    GroupOutput += '<p class="remain-seats">' + item.remain + '석</p>';
 			    GroupOutput += '</a>';
 			    GroupOutput += '</td>';
 			
@@ -148,7 +144,16 @@ function selectDate(prop){
 			}
 			
 			// 결과를 출력
-			$('#schedule-list-area').append(GroupOutput);
+			$('#schedule_list_area').append(GroupOutput);
+			
+			// 로그인 안한 경우 좌석선택 페이지로 이동하지 않고, 로그인 페이지로 이동
+			$('.seatForm').click(function(event){
+			    if(!param.user_num){ // user_num이 없는 경우
+			        event.preventDefault(); // 링크 이동을 중단
+			        alert('로그인이 필요합니다');
+					location.href="/member/login.do";
+			    }
+			});
 
 		},
 		error:function(){

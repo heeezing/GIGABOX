@@ -186,7 +186,7 @@
 					<p class="date">${scheduleVO.sch_date}</p>
 					<p class="time">${scheduleVO.sch_start} ~ ${scheduleVO.sch_end}</p>
 					<p class="poster">
-						<img src="${pageContext.request.contextPath}/images/no_image.jpg">
+						<img src="../movie/imageView.do?movie_num=${scheduleVO.movie_num}&movie_type=1">
 					</p>
 				</div>
 				<div class="choice-seat-area">

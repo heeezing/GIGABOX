@@ -4,6 +4,7 @@ create table schedule(
 	sch_date date not null,
 	sch_start varchar2(30) not null,
 	sch_end varchar2(30) not null,
+	remain number not null,
 	hall_num number not null,
 	movie_num number not null,
 	constraint schedule_pk primary key (sch_num),
@@ -27,6 +28,7 @@ create sequence seat_seq;
 create table reservation(
 	res_num number,
 	res_date date default sysdate not null,
+	del_date date,
 	res_people number(3) not null,
 	res_payment varchar2(50) not null,
 	res_total number(10) not null,

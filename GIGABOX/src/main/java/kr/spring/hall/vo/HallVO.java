@@ -12,6 +12,7 @@ public class HallVO {
 	private String hall_name; // 상영관명
 	private int hall_status; // 상영 가능 여부
 	private int th_num; // 극장 번호
+	private int seats; // 좌석수
 	
 	private String th_name; // 극장명
 }

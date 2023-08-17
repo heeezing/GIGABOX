@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.member.vo.MemberVO;
 import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.service.TheaterService;
 import kr.spring.theater.vo.TheaterVO;
@@ -207,8 +208,10 @@ public class TheaterController {
 	 *===============*/
 	@RequestMapping("/theater/getScheduleList.do")
 	@ResponseBody
-	public Map<String,Object> getScheduleList(@RequestParam int th_num,@RequestParam String sch_date){
+	public Map<String,Object> getScheduleList(@RequestParam int th_num,@RequestParam String sch_date,HttpSession session){
 		Map<String,Object> mapJson = new HashMap<String,Object>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("th_num", th_num);
@@ -217,7 +220,11 @@ public class TheaterController {
 		List<ScheduleVO> scheduleList = theaterService.selectScheduleList(map);
 		
 		mapJson.put("scheduleList", scheduleList);
-		
+		//====로그인 한 회원정보 셋팅====
+		if(user!=null) {
+			mapJson.put("user_num", user.getMem_num());
+		}
+
 		return mapJson;
 	}
 	
