@@ -13,7 +13,11 @@
     <definition name="seat" extends="main">
     	<put-attribute name="title" value="좌석선택"/>
 	    <put-attribute name="body" value="/WEB-INF/views/reservation/seat.jsp"/>
-    </definition> 
+    </definition>
+    <definition name="payment_success" extends="main">
+    	<put-attribute name="title" value="예매완료"/>
+	    <put-attribute name="body" value="/WEB-INF/views/reservation/payment_success.jsp"/>
+    </definition>
     
     <definition name="admin_schedule" extends="admin">
     	<put-attribute name="title" value="상영시간표 목록"/>

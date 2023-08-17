@@ -219,4 +219,12 @@ public class ReservationController {
         
 		return dateList;
 	}
+	
+	/*========================
+	 * 결제 완료 페이지
+	 *========================*/
+	@RequestMapping("/reservation/payment_success.do")
+	public String paySuccessForm() {
+		return "payment_success";
+	}
 }
