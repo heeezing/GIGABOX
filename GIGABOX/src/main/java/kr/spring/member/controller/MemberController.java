@@ -42,7 +42,9 @@ import kr.spring.member.service.UserSha256;
 import kr.spring.member.vo.KakaoProfile;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.member.vo.OAuthToken;
+import kr.spring.order.service.OrderService;
 import kr.spring.order.vo.OrderVO;
+import kr.spring.point.service.PointService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.util.AuthCheckException;
 import kr.spring.util.FileUtil;
@@ -58,7 +60,12 @@ public class MemberController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private OrderService orderService;
 
+	@Autowired
+	private PointService pointService;
 	/*
 	 * ============ 자바빈 초기화 ============
 	 */
@@ -114,6 +121,8 @@ public class MemberController {
 
 		// 회원가입
 		memberService.insertMember(memberVO);
+		// 가입 포인트 적립
+		pointService.insertWelcomePoint(memberVO.getMem_num());
 
 		model.addAttribute("accessMsg", "회원가입이 완료되었습니다.");
 
@@ -460,9 +469,11 @@ public class MemberController {
 		MemberVO user1 = (MemberVO) session.getAttribute("user");
 		// 회원 정보 반환
 		MemberVO member = memberService.selectMember(user1.getMem_num());
+		String membership = orderService.selectMembershipByMem_num(user1.getMem_num());
 
 		// 회원정보
 		model.addAttribute("member", member);// member라는 이름으로 member를 넣어줌
+		model.addAttribute("membership", membership);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("keyfield", keyfield);

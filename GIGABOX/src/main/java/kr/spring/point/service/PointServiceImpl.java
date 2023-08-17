@@ -46,4 +46,9 @@ public class PointServiceImpl implements PointService{
 		return pointMapper.selectPointList(map);
 	}
 
+	@Override
+	public void insertWelcomePoint(Integer mem_num) {
+		pointMapper.insertWelcomePoint(mem_num);
+	}
+
 }

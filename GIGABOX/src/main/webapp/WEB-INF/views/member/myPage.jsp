@@ -10,8 +10,9 @@
 			안녕하세요 !
 			<p>${member.name}<span>님</span></p>
 		</div>
-
+	
 		<div class="mypage-point">
+			<b>멤버십 등급 : <c:if test="${membership}==null">BASIC</c:if>${membership}</b><br>
 			<b>포인트 : 0P</b><br>
 			<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;포인트 내역></a>
 		</div>

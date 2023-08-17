@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.member.dao.MemberMapper;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.point.dao.PointMapper;
 
 @Service
 @Transactional
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberMapper memberMapper;
-	private MemberMapper mdao;
 	
 	//회원관리 - 일반회원
 	//회원가입
