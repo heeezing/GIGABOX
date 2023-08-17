@@ -6,10 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.spring.member.vo.MemberVO;
+import kr.spring.movie.vo.ReviewVO;
 import kr.spring.order.vo.OrderVO;
 import kr.spring.post.vo.PostVO;
 import kr.spring.reservation.vo.ReservationVO;
-import kr.spring.review.vo.ReviewVO;
 
 @Mapper
 public interface BoardMapper {

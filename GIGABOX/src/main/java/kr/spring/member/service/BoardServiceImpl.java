@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.member.dao.BoardMapper;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.movie.vo.ReviewVO;
 import kr.spring.order.vo.OrderVO;
 import kr.spring.post.vo.PostVO;
 import kr.spring.reservation.vo.ReservationVO;
-import kr.spring.review.vo.ReviewVO;
 
 @Service
 @Transactional
