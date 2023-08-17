@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,6 +95,7 @@ public class OrderAdminController {
 		  사용 상태 변경
 	======================*/
 	
+	//사용 완료 처리
 	@RequestMapping("/order/admin_statusUse.do")
 	@ResponseBody
 	public Map<String,String> statusToUse(@RequestParam int orders_status,
@@ -113,6 +112,27 @@ public class OrderAdminController {
 			mapAjax.put("result","success");
 		}
 
+		return mapAjax;
+	}
+	
+	
+	//주문 취소 처리
+	@RequestMapping("/order/admin_statusCancel.do")
+	@ResponseBody
+	public Map<String,String> statusToCancel(@RequestParam int orders_status,
+			@RequestParam String orders_num) {
+		log.debug("<<주문번호 / 주문상태>> : " + orders_num + " / " + orders_status);
+		Map<String,String> mapAjax = new HashMap<String,String>();
+		
+		OrderVO db_order = orderService.selectOrder(orders_num);
+		if(db_order.getOrders_status() != 1) {
+			mapAjax.put("result","wrongAccess");
+		}else {
+			//수정 처리
+			orderService.updateStatusUse(orders_num, orders_status);
+			mapAjax.put("result","success");
+		}
+		
 		return mapAjax;
 	}
 	

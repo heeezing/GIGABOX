@@ -33,7 +33,7 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="포인트 내역"
-			  onclick="location.href='${pageContext.request.contextPath}'">
+			  onclick="location.href='${pageContext.request.contextPath}/board/pointList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="이벤트 응모 내역"
