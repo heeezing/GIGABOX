@@ -1,14 +1,9 @@
 package kr.spring.member.service;
 
-import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.spring.member.vo.MemberVO;
-import kr.spring.reservation.vo.ReservationVO;
 
 public interface MemberService{
 	//회원관리 - 일반회원
@@ -33,6 +28,14 @@ public interface MemberService{
 	public void updateAu_id(String au_id,int mem_num);
 	public MemberVO selectAu_id(String au_id);
 	public void deleteAu_id(int mem_num);
+	
+	//이메일발송
+	public void sendEmail(MemberVO vo, String div) throws Exception;
+
+	//비밀번호찾기
+	public void findPw(HttpServletResponse resp, MemberVO vo) throws Exception;
+	// 비밀번호 변경
+	public int updatePw(MemberVO vo) throws Exception;
 	
 
 }

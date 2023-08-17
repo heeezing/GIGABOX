@@ -59,9 +59,9 @@
     </definition>
     
     <!-- 구매 내역 -->
-    <definition name="memberAdd" extends="myPage">
-    	<put-attribute name="title" value="회원정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/board/memberAdd.jsp"/>
+    <definition name="memberOrder" extends="myPage">
+    	<put-attribute name="title" value="구매내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberOrder.jsp"/>
     </definition>
     
     <!-- 이벤트 응모 내역 -->
@@ -76,6 +76,17 @@
     	<put-attribute name="body" value="/WEB-INF/views/board/memberQuestion.jsp"/>
     </definition>
     
+    <!-- 리뷰 내역 -->
+    <definition name="memberReview" extends="myPage">
+    	<put-attribute name="title" value="리뷰내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberReview.jsp"/>
+    </definition>
+    
+    <!-- 포스트 내역 -->
+    <definition name="memberPost" extends="myPage">
+    	<put-attribute name="title" value="포스트내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberPost.jsp"/>
+    </definition>
     
 
 </tiles-definitions>

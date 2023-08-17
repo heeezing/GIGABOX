@@ -26,6 +26,17 @@
 	font-size:25px;
 	position: absolute;
 }
+.mypage-top .mypage-photo{
+	margin:10px 50px;
+	height:100px;
+	width:130px;
+	color:white;
+	border-radius: 20px;
+	text-align: center;
+	line-height: 100px;
+	font-size:25px;
+	position: absolute;
+}
 .mypage-top .mypage-hi{
 	color:white;
 	position: absolute;
@@ -69,7 +80,6 @@
 	min-height: 0;
 	padding:20px 0;
 	text-align:center;
-	line-height: 120px;
 }
 .mypage-content ul li{
 	position: relative;

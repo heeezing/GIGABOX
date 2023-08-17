@@ -29,7 +29,7 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="구매 내역"
-			  onclick="location.href='${pageContext.request.contextPath}/board/memberAdd.do'">
+			  onclick="location.href='${pageContext.request.contextPath}/board/orderList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="포인트 내역"
@@ -45,11 +45,11 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="나의 관람평"
-			  onclick="location.href='${pageContext.request.contextPath}'">
+			  onclick="location.href='${pageContext.request.contextPath}/board/reviewList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="나의 무비포스트"
-			  onclick="location.href='${pageContext.request.contextPath}'">
+			  onclick="location.href='${pageContext.request.contextPath}/board/postList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="회원정보"

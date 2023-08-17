@@ -61,6 +61,7 @@ $(function(){
 					$('#upload').val('');
 					$('#photo_choice').hide();
 					$('#photo_btn').show();
+					$('.mypage-photo1').hide();
 				}
 			},
 			error:function(){

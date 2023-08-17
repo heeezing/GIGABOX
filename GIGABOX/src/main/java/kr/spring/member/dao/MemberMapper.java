@@ -30,6 +30,8 @@ public interface MemberMapper {
 	@Select("SELECT * FROM member m JOIN member_detail d ON m.mem_num=d.mem_num WHERE m.mem_num=#{mem_num}")
 	public MemberVO selectMember(Integer mem_num);
 	
+	
+	
 	//회원정보 수정
 	@Update("UPDATE member SET nick_name=#{nick_name} WHERE mem_num=#{mem_num}")
 	public void updateMember(MemberVO member);
@@ -55,5 +57,9 @@ public interface MemberMapper {
 	@Update("UPDATE member_detail SET au_id='' WHERE mem_num=#{mem_num}")//이름은 delete로 했지만 레코드를 지우는게 아니기 때문에 update문 사용
 	public void deleteAu_id(int mem_num);
 	
-	
+	//id로 회원정보 구하기
+	public MemberVO readMember(String id);
+	// 비밀번호 변경
+	public int updatePw(MemberVO vo) throws Exception;
+
 }  

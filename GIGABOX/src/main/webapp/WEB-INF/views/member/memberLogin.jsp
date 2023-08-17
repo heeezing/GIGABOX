@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<style type="text/css">
+	.loginmain{padding-left:500px; margin:40px;}
+</style>
 <!-- 로그인 폼 시작 -->
-	<h2>회원로그인</h2>
+	<h2 class="loginmain">회원로그인</h2>
 	<form:form modelAttribute="memberVO" action="login.do" id="member_login">
 		<form:errors element="div" cssClass="error-color"/>
 		<ul>
@@ -23,6 +26,7 @@
 		<div class="align-center">
 			<form:button class="login-btn">로그인</form:button>
 			<br><br>
+			<a href="/member/findpw">비밀번호찾기</a>
 			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=621f753e46e1d4873265bd1481f1a380&redirect_uri=http://localhost:8000/auth/kakao/callback"><img src="/images/kakao_login_button.png"></a>
 		</div>
 	</form:form>

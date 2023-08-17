@@ -25,6 +25,18 @@
 		)
 	</insert>
 	
+	<select id="readMember" resultType="memberVO">
+		select m.*,d.*
+			FROM member m LEFT OUTER JOIN member_detail d
+			ON m.mem_num=d.mem_num
+		where id=#{id}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" >
+	update member set passwd = #{passwd} where id = #{id}
+	</update>
+	
 	<!-- ID를 이용한 회원정보 체크(ID중복체크)            알리아스               반환타입 -->
 	<select id="selectCheckMember" parameterType="string" resultType="memberVO">
 		SELECT

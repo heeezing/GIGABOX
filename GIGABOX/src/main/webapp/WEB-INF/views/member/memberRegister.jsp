@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 회원가입 시작 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/confirmId.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <div class="page-main">
 	<h2>회원가입</h2>
 	<form:form modelAttribute="memberVO" action="registerUser.do" id="member_register"><!-- modelAttribute로 자바빈 초기화 -->

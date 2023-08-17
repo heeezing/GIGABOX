@@ -31,6 +31,7 @@
 			COUNT(*)
 		FROM reservation r JOIN member m
 		ON r.mem_num = m.mem_num
+		WHERE r.mem_num=#{mem_num}
 		<include refid="reservationBoardSearch"></include>
 	</select>
 	
@@ -50,6 +51,7 @@
 			  	   FROM reservation r
 			  	   JOIN member m
 			  	   ON r.mem_num = m.mem_num
+			  	   WHERE r.mem_num=#{user}
 			  	   <include refid="reservationBoardSearch"></include>
 			  	   <include refid="reservationBoardOrder"></include>
 			  	   )a)
@@ -57,8 +59,8 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
 	</select>
-	<!-- 
-	
+
+	<!-- 구매내역 목록 -->
 	<sql id="orderBoardSearch">
 		<where>
 			<if test="keyword != null and keyword != ''">
@@ -81,19 +83,20 @@
 		</if>
 	</sql>
 	
-	구매내역 전체/검색 레코드수
+	<!-- 구매내역 전체/검색 레코드수 -->
 	<select id="selectOrderRowCount" parameterType="map" resultType="integer">
 		SELECT
 			COUNT(*)
 		FROM orders o JOIN member m
 		ON o.mem_num = m.mem_num
+		WHERE o.mem_num=#{mem_num}
 		<include refid="orderBoardSearch"></include>
 	</select>
 	
-	구매 내역 전체/검색 목록
-	<select id="selectReservation" parameterType="map" resultType="reservationVO">
+	<!-- 구매 내역 전체/검색 목록 -->
+	<select id="selectOrder" parameterType="map" resultType="orderVO">
 		SELECT
-		*
+			*
 		FROM (SELECT
 				a.*,
 				rownum rnum
@@ -101,19 +104,129 @@
 						o.orders_num,
 						o.orders_date,
 						o.sn_name,
-						od.sn_price,
-						od.orders_quantity;
+						o.orders_total
 			  		FROM member m
 			  		JOIN orders o ON m.mem_num = o.mem_num
-			  		JOIN orders_detail od ON o.orders_num = od.orders_num;
+			  		WHERE o.mem_num=#{user}
 			  		<include refid="orderBoardSearch"></include>
-			  	    <include refid="selectOrderRowCount"></include>
+			  	    <include refid="orderBoardOrder"></include>
 			  		)a)
-	<![CDATA[
-	WHERE rnum >= #{start} AND rnum <= #{end}
-	]]>
-	</select>  
-	 -->  
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	
+	<!-- 리뷰내역 목록 -->
+	<sql id="reviewBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					r.review_num = #{keyword}
+				</if>
+				<if test="keyfield == 2">
+					
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="reviewBoardOrder">
+		<if test="order == 1">
+			ORDER BY r.review_num DESC
+		</if>
+		<if test="order == 2">
+			ORDER BY r.review_date DESC
+		</if>
+	</sql>
+	
+	<!-- 리뷰내역 전체/검색 레코드수 -->
+	<select id="selectReviewRowCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM review r JOIN member m
+		ON r.mem_num = m.mem_num
+		<include refid="reviewBoardSearch"></include>
+	</select>
+	
+	<!-- 리뷰 내역 전체/검색 목록 -->
+	<select id="selectReview" resultType="reviewVO">
+		SELECT
+			*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+		  	  FROM(SELECT 
+						r.review_num,
+						r.review_date,
+						r.review_content,
+						r.rating_score
+			  		FROM member m
+			  		JOIN review r ON m.mem_num = r.mem_num
+			  		WHERE r.mem_num=#{user}
+			  		<include refid="reviewBoardSearch"></include>
+			  	    <include refid="reviewBoardOrder"></include>
+			  		)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	
+	<!-- 포스트내역 목록 -->
+	<sql id="postBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					p.post_num = #{keyword}
+				</if>
+				<if test="keyfield == 2">
+					p.post_date LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="postBoardOrder">
+		<if test="order == 1">
+			ORDER BY p.post_num DESC
+		</if>
+		<if test="order == 2">
+			ORDER BY p.post_date DESC
+		</if>
+	</sql>
+	
+	<!-- 포스트내역 전체/검색 레코드수 -->
+	<select id="selectPostRowCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM moviepost p JOIN member m
+		ON p.mem_num = m.mem_num
+		<include refid="postBoardSearch"></include>
+	</select>
+	
+	<!-- 포스트 내역 전체/검색 목록 -->
+	<select id="selectPost" resultType="postVO">
+		SELECT
+			*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+		  	  FROM(SELECT 
+						p.post_num,
+						p.post_date,
+						p.post_content,
+						p.post_photo
+			  		FROM member m
+			  		JOIN moviepost p ON m.mem_num = p.mem_num
+			  		WHERE p.mem_num=#{user}
+			  		<include refid="postBoardSearch"></include>
+			  	    <include refid="postBoardOrder"></include>
+			  		)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
 	  
 	
 </mapper>  
