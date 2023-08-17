@@ -34,7 +34,7 @@
 			</li>
 			<li>
 				<input type="submit" value="찾기">
-				<input type="button" value="목록" onclick="location.href='memberReservation.do'"> 
+				<input type="button" value="목록" onclick="location.href='reservationList.do'"> 
 			</li>
 		</ul>
 		<div class="aligh-right">
@@ -45,26 +45,17 @@
 			<script type="text/javascript">
 				$(function(){
 					$('#order').change(function(){
-						location.href='memberReservationList.do?keyfield='+$('#keyfield').val()+'&keyword='+$('#keyword').val()+'&order='+$('#order').val();
+						location.href='reservationList.do?keyfield='+$('#keyfield').val()+'&keyword='+$('#keyword').val()+'&order='+$('#order').val();
 					});
 				})
 			</script>
 		</div>
 	</form>
 	<c:if test="${count == 0}">
-	<div class="result-display">
+	<div class="tit-util mt70">
 		<div class="mypage-content">
 			<ul>
 				<li>예매 내역이 없습니다.</li>
-			</ul>
-		</div>
-	</div>
-	</c:if>
-	<c:if test="${count == null}">
-	<div class="result-display">
-		<div class="mypage-content">
-			<ul>
-				<li>예매 내역이 없습니다111.</li>
 			</ul>
 		</div>
 	</div>
