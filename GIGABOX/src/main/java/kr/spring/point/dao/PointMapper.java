@@ -20,6 +20,10 @@ public interface PointMapper {
 	public void insertResPoint(ReservationVO reservationVO);
 	//스낵 구매 시 포인트 적립 및 사용 - order에서 사용
 	public void insertSnackPoint(OrderVO orderVO);
+	//스낵 구매 취소 시 포인트 환불
+	@Insert("INSERT INTO point(pt_num,orders_num,mem_num,add_point,pt_detail) "
+		  + "VALUES(point_seq.nextval,#{orders_num},#{mem_num},#{add_point},'포인트환불(주문취소)')")
+	public void insertRefundPoint(PointVO pointVO);
 	
 	//나의 포인트 내역 레코드 수 - 마이페이지(페이지 처리 용)
 	@Select("SELECT COUNT(*) FROM point WHERE mem_num=#{mem_num}")

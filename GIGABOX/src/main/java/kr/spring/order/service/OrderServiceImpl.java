@@ -98,7 +98,19 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public void statusChange(String orders_num, Integer orders_status) {
+		/*
+		OrderVO order = orderMapper.selectOrder(orders_num);
+		if(orders_status == 4) {
+			int db_use_point = order.getUse_point();
+			
+			if(db_use_point != null) {
+				PointVO pointVO = new PointVO();
+				pointMapper.insertRefundPoint(null);
+			}
+		}
+		*/
 		orderMapper.statusChange(orders_num, orders_status);
+		
 	}
 
 	@Override
