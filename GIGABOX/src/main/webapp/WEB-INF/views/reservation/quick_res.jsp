@@ -23,7 +23,7 @@
 					 	<div class="year"><fmt:formatDate value="${date}" pattern="yyyy.MM"/></div>
 					 	<fmt:formatDate var="pattern_date" value="${date}" pattern="yyyy-MM-dd"/>
 					 	<button class="date-button" data-num="${pattern_date}">
-					 		<div class="day-of-month"><fmt:formatDate value="${date}" pattern="d"/></div>
+					 		<div class="day-of-month"><fmt:formatDate value="${date}" pattern="d"/></div>&nbsp;
 					 		<span class="day-of-week"><fmt:formatDate value="${date}" pattern="E"/></span>
 					 	</button>
 					 </c:forEach>
@@ -57,7 +57,7 @@
 							<ul>
 								<c:forEach var="movie" items="${movieList}">
 						            <li>
-						            	<button type="button" class="btn">${movie.m_title}</button>
+						            	<button type="button" class="btn" id="movie_btn" data-num="${movie.movie_num}">${movie.m_title}</button>
 						            </li>
 						        </c:forEach>
 							</ul>
@@ -71,7 +71,7 @@
 							<ul>
 								<c:forEach var="theater" items="${theaterList}">
 						            <li>
-						            	<button type="button" class="btn">${theater.th_name}</button>
+						            	<button type="button" class="btn" id="theater_btn" data-num="${theater.th_num}">${theater.th_name}</button>
 						            </li>
 						        </c:forEach>
 							</ul>
@@ -83,29 +83,12 @@
 						</div>
 						<div class="all-list">
 							<ul class="timetable">
-								<c:forEach var="schedule" items="${ScheduleList}">
-						        	<li>
-										<div class="sch_left">
-											<p class="sch_start">${schedule.sch_start}</p>
-											<p class="sch_end">~ ${schedule.sch_end}</p>
-										</div>
-										<p class="m_title">${schedule.m_title}</p>
-										<div class="sch_right">
-											<span class="hall_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${schedule.hall_name}</span>
-											<span class="seat_count">
-												<span class="now">50</span>
-												<span class="slash">/</span>
-												<span class="all">120</span>
-											</span>
-										</div>
-									</li>
-						        </c:forEach>
+							
 							</ul>
 						</div>
 					</div>
 				</div>
 		</div>
-		<input type="button" value="좌석선택" onclick="location.href='${pageContext.request.contextPath}/reservation/seat.do'">
 	</form>
 	<br>
 	<br>

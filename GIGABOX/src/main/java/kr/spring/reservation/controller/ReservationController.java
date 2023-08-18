@@ -109,7 +109,7 @@ public class ReservationController {
 	    return resService.getHallsByTheaterId(th_num);
 	}
 	//상영시간표 정보
-	@RequestMapping("/reservation/getScheduleList")
+	@RequestMapping("/reservation/getScheduleList.do")
 	@ResponseBody
 	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num){
 		Map<String, Object> map = new HashMap<String, Object>();

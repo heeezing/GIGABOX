@@ -11,8 +11,24 @@
 	</div>
 </div>
 <div class="page-main">
-	<div class="title">
+	<div class="title" style="color: #503396!important; font-weight: bold;">
 		예매완료
+	</div>
+	<div class="reserve-info-box">
+		<div class="movie-poster-area">
+			<img src="../image_bundle/no_image.jpg">
+		</div>
+		<div class="movie-info-area">
+			<div class="movie-info-top">
+			
+			</div>
+			<div class="movie-info-middle">
+			
+			</div>
+			<div class="movie-info-bottom">
+			
+			</div>
+		</div>
 	</div>
 	<br>
 	<br>

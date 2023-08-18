@@ -63,9 +63,24 @@ $(function(){
     });
 
 	//빠른예매 - 영화, 극장 버튼
+	let date;
+	
+	$('.date-button').click(function(event){
+		$('.date-button').removeClass('date-button-on');
+        $(this).addClass('date-button-on');
+		
+		event.preventDefault();
+		date = $(this).attr('data-num');
+		console.log(date);
+	});
+	
+	let movie_num;
+	
 	$('.movie_choice .btn').click(function() {
         $('.movie_choice .btn').removeClass('btn-on');
         $(this).addClass('btn-on');
+		movie_num = $(this).attr('data-num');
+		console.log(movie_num);
     });
 
     $('.theater-choice .btn').click(function() {
@@ -77,7 +92,45 @@ $(function(){
 
         $('.theater-choice .btn').removeClass('btn-on');
         $(this).addClass('btn-on');
-
+		
+		let th_num = $(this).attr('data-num');
+		console.log(th_num);
+		
+		$('.timetable').empty();
+		
+		$.ajax({
+			url:'getScheduleList.do',
+			type:'post',
+			data:{data:date, movie_num:movie_num, th_num:th_num},
+			dataType:'json',
+			success:function(param){
+				//상영시간표 목록
+				$(param.list).each(function(index,item){
+					let output = '<a href="seat.do?sch_num='+item.sch_num+'">';
+					output += '<li>';
+					output += '<div class="sch_left">';
+					output += '<p class="sch_start">'+item.sch_start+'</p>';
+					output += '<p class="sch_end">~ '+item.sch_end+'</p>';
+					output += '</div>';
+					output += '<p class="m_title">'+item.m_title+'</p>';
+					output += '<div class="sch_right">';
+					output += '<span class="hall_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.hall_name+'</span>';
+					output += '<span class="seat_count">';
+					output += '<span class="now">50</span>';
+					output += '<span class="slash">/</span>';
+					output += '<span class="all">120</span>';
+					output += '</span>';
+					output += '</div>';
+					output += '</li>';
+					output += '</a>';
+					
+					$('.timetable').append(output);
+				})
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
 		
     });
 
