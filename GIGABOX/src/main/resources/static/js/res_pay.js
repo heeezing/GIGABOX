@@ -14,9 +14,10 @@ $(function(){
         let finalTotal = allTotal - usePoint;
 		console.log('<<총 금액>> : ' + finalTotal);
 
-        $('.use-point').text(usePoint.toLocaleString()+'원');
-        $(".final-total").text(finalTotal.toLocaleString()+'원');
+        $('.use-point').text(usePoint.toLocaleString());
+        $(".final-total").text(finalTotal.toLocaleString());
 		$('#res_total').val(finalTotal);
+		$('.res_total_hidden').val(finalTotal);
     }
 
 	//[포인트]사용 포인트 입력 이벤트
@@ -24,10 +25,9 @@ $(function(){
         //입력한 포인트
         let inputValue = $(this).val().trim();
 
-        if (inputValue === '') { // 입력값이 공백일 경우
+        if (inputValue == '') { // 입력값이 공백일 경우
             inputValue = '0';
         }
-
         //숫자로 변환
         inputValue = parseFloat(inputValue);
         //숫자 형식인지 확인
@@ -56,9 +56,32 @@ $(function(){
         $(this).val(inputValue);
 
 		// hidden 태그 업데이트
-        $("#use_point").val(inputValue);
+        $("#use_point_hidden").val(inputValue);
 
         updateFinalTotal();
     });
+
+	//[포인트]전액 사용 버튼 클릭 이벤트
+    $(".order_point_input_btn").on("click", function(){
+        let state = $(this).data("state");    
+        
+        if(state == 'N'){
+            /* 모두사용 */
+            //값 변경
+			if(allTotal < havePoint){
+				$("#use_point").val(allTotal);
+			}else{
+				$("#use_point").val(havePoint);
+			}
+            updateFinalTotal();
+        }else if(state == 'Y'){
+            /* 취소 */
+            //값 변경
+            $(".use-point").val(0);
+            updateFinalTotal();
+            $('.use-point').text('0');
+        }        
+        
+    });    
 
 });

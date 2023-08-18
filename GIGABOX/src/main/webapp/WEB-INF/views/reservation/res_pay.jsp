@@ -13,7 +13,7 @@
 </div>
 <div class="page-main">
 	<div class="title">
-		빠른예매
+		예매결제
 	</div>
 	<div class="seat-select-section">
 		<form id="reservation" action="${pageContext.request.contextPath}/reservation/reservation.do" method="post" name="reservation">
@@ -25,9 +25,12 @@
 						<p>보유</p><p class="own_point" id="have_point" data-havePoint="${have_point}"><fmt:formatNumber value="${have_point}"/> point</p>
 						<br>
 						<p class="use">사용</p><p class="use_point"><input type="number" value="0" class="use-point"> point</p><p class="notice"></p>
+						<a class="order_point_input_btn order_point_input_btn_N" data-state="N">전액사용</a>
+				  		<a class="order_point_input_btn order_point_input_btn_Y" data-state="Y">사용취소</a>
 					</div>
 					<h3 class="payment-method">결제수단선택</h3>
 					<div class="payment">
+						<input type="hidden" name="res_payment" value="카드">
 						<input type="radio"> <p>카드결제 / 간편결제</p>
 					</div>
 				</div>
@@ -56,7 +59,7 @@
 						</div>
 						<div class="box discout-box">
 							<div class="all">
-								<input type="hidden" class="use_point" name="use_point" value="">
+								<input type="hidden" id="use_point" name="use_point" value="">
 								<span class="title">포인트 사용</span>
 								<span class="price"><em class="use-point" >0</em> point</span>
 							</div>
@@ -66,8 +69,8 @@
 						<div class="pay">
 							<p class="title">최종결제금액</p>
 							<div class="money">
-								<input type="hidden" class="res-total" name="res_total" value="">
-								<em class="final-total"></em> <span>원</span>
+								<input type="hidden" id="res_total" name="res_total" value="">
+								<em class="final-total"><fmt:formatNumber value="${reservationVO.res_people*12000}" type="number" pattern="#,##0"/></em> <span>원</span>
 							</div>
 						</div>
 					</div>
