@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.hall.vo.HallVO;
+import kr.spring.member.vo.MemberVO;
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.point.service.PointService;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
@@ -37,6 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ReservationController {
 	@Autowired
 	private ReservationService resService;
+	@Autowired
+	private PointService pointService;
 	
 	/*========================
 	 *  자바빈(VO) 초기화
@@ -219,6 +223,57 @@ public class ReservationController {
         
 		return dateList;
 	}
+	
+	/*===============
+	 * 좌석 선택
+	 *===============*/
+	// 좌석 선택 폼 호출
+	@GetMapping("/reservation/seat.do")
+	public String formSeat(@RequestParam int sch_num,Model model) {
+		ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
+		model.addAttribute("scheduleVO",scheduleVO);
+		
+		return "seat";
+	}
+	
+	
+	/*===============
+	 * 예매 결제
+	 *===============*/
+	// 예매 결제 폼
+	@RequestMapping("/reservation/pay.do")
+    public String formPay(@RequestParam int sch_num, HttpSession session, Model model, ReservationVO reservationVO) {
+        log.debug("<<reservationVO>> : " + reservationVO);
+        
+        ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
+        
+        // 회원 정보 읽어오기
+        MemberVO user = (MemberVO)session.getAttribute("user");
+        log.debug("<<user>> : " + user);
+        
+        // 회원 포인트
+        int totalPoint = pointService.myTotalPoint(user.getMem_num());
+        log.debug("<<totalPoint>> : " + totalPoint);
+        
+        model.addAttribute("scheduleVO", scheduleVO);
+        model.addAttribute("have_point", totalPoint); // 사용가능 포인트
+        
+        return "reservationPay";
+    }
+	// 전송된 데이터 처리
+	@PostMapping("/reservation/reservation.do")
+	public String submit(ReservationVO reservationVO,BindingResult result,HttpServletRequest request,HttpSession session, Model model) {
+		// 회원 정보 읽어오기
+        MemberVO user = (MemberVO)session.getAttribute("user");
+        
+        reservationVO.setMem_num(user.getMem_num());
+        log.debug("<<reservationVO>> : " + reservationVO);
+        
+        resService.insertRes(reservationVO);
+		
+		return "payment_success";
+	}
+	
 	
 	/*========================
 	 * 결제 완료 페이지

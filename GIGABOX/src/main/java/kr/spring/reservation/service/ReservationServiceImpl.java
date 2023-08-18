@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.spring.hall.vo.HallVO;
 import kr.spring.movie.vo.MovieVO;
 import kr.spring.reservation.dao.ReservationMapper;
+import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.vo.TheaterVO;
 
@@ -30,7 +31,7 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public void insertSchedule(ScheduleVO schedule) {
-		reservationMapper.insertSchedule(schedule);
+	    reservationMapper.insertSchedule(schedule);
 	}
 
 	@Override
@@ -67,4 +68,10 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<ScheduleVO> getScheduleList(Map<String,Object> map) {
 		return reservationMapper.getScheduleList(map);
 	}
+
+	@Override
+	public void insertRes(ReservationVO reservation) {
+		reservationMapper.insertRes(reservation);
+	}
+
 }

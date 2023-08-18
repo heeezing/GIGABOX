@@ -43,6 +43,7 @@ $(function(){
 		if(clicked<number){
 			let selectedSeat = $(this).attr('data-num');
 			$(this).addClass('selected');
+			seats.push(selectedSeat);
 			
 			++clicked;
 			$('#my_selected_seat'+(clicked)).text(selectedSeat);
@@ -50,19 +51,16 @@ $(function(){
 			
 			$('#money_area').text((clicked*12000).toLocaleString());
 			
-			seats += selectedSeat;
+			$('#res_seats').val(seats.toString());
 		}
 	});
 	
 	
-	$('#pay').click(function(){
-		if(number>0 && number==clicked){
-			let sch_num = $('#sch_num').val();
-			location.href = "/reservation/saveSeats.do?seats=" + seats + "&sch_num=" + sch_num;
-		}else{
-			$('#pay').addClass('disabled');
-		}
-	});
+	/*if(number>0 && number==clicked){
+		$('#btn_booking_pay').prop('disabled', false);
+	}else{
+		$('#btn_booking_pay').prop('disabled', true);
+	}*/
 
 	
 	

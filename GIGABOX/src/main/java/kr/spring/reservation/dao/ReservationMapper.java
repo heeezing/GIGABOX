@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.data.repository.query.Param;
 
 import kr.spring.hall.vo.HallVO;
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.vo.TheaterVO;
 
@@ -41,5 +43,8 @@ public interface ReservationMapper {
 	// 상영시간표 삭제
 	@Delete("DELETE FROM schedule WHERE sch_num=#{sch_num}")
 	public void deleteSchedule(Integer sch_num);
+	
+	// 예매
+	public void insertRes(ReservationVO reservation);
 	
 }

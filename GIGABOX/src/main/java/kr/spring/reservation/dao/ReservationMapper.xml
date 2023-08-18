@@ -101,5 +101,29 @@
 	ORDER BY m_title, h.hall_num, sch_start
 	</select>
 	
+	<!-- 예매 -->
+	<insert id="insertRes" parameterType="reservationVO">
+	  INSERT INTO reservation(
+	    res_num,
+	    res_date,
+	    res_people,
+	    res_payment,
+	    res_total,
+	    res_status,
+	    sch_num,
+	    mem_num,
+	    res_seats)
+	  VALUES(
+	    reservation_seq.nextval,
+	    SYSDATE,
+	    #{res_people},
+	    #{res_payment},
+	    #{res_total},
+	    1,
+	    #{sch_num},
+	    #{mem_num},
+	    #{res_seats})
+	</insert>
+	
 	
 </mapper>

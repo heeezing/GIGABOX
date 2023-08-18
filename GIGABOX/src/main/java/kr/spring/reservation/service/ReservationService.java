@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kr.spring.hall.vo.HallVO;
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
 import kr.spring.theater.vo.TheaterVO;
 
@@ -36,5 +37,8 @@ public interface ReservationService {
 	
 	// 상영시간표 목록 불러오기
 	public List<ScheduleVO> getScheduleList(Map<String, Object> map);
+	
+	// 예매
+	public void insertRes(ReservationVO reservation);
 
 }
