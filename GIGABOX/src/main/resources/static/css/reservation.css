@@ -330,7 +330,7 @@
     float: left;
     width: 42px;
     width: 42px;
-    height: 32px;
+    height: 21px;
     border: 1px solid #ccc;
     border-width: 1px 0;
     background-color:white;
@@ -528,6 +528,7 @@
 	border: 1px solid #5c5c5c;
     text-align: center;
     height:25px;
+    line-height:24px;
 }
 .pay-area {
     width: 267px;
@@ -740,6 +741,7 @@
     border: 0;
     border-radius: 0;
     background-color: #53565b;
+    cursor:pointer;
 }
 .seat-select-section .seat-result .wrap .btn-group #btn_booking_pay{
 	display: block;
@@ -754,7 +756,13 @@
     border: 0;
     border-radius: 0;
     background-color: #329eb1;
+    cursor:pointer;
 }
+/* .seat-select-section .seat-result .wrap .btn-group #btn_booking_pay:disabled{
+	cursor:default;
+	background-color:#434547;
+	color:#aaa;
+} */
 
 
 
