@@ -273,13 +273,4 @@ public class ReservationController {
 		
 		return "payment_success";
 	}
-	
-	
-	/*========================
-	 * 결제 완료 페이지
-	 *========================*/
-	@RequestMapping("/reservation/payment_success.do")
-	public String paySuccessForm() {
-		return "payment_success";
-	}
 }

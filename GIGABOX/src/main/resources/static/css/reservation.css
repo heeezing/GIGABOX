@@ -776,23 +776,109 @@
 	float: left;
     padding: 60px 0;
     width: 270px;
-    height: 255px;
     text-align: center;
 }
 .reserve-info-box .movie-poster-area img{
 	width: 189px!important;
     height: 255px!important;
 }
-.reserve-info-box .movie-imfo-area{
+.reserve-info-box .movie-info-area{
 	float: left;
-    padding: 20px 60px;
-    width: 830px;
-    height: 375px;
+    padding: 55px 60px;
+    width: 710px;
+    height: 261px;
     color: #c4c4c4;
 }
-
-
-
+.movie-info-top strong{
+	color: #55b0ba;
+    font-size: 24px;
+}
+.movie-info-top	span{
+	float: right;
+	line-height: 36px;
+	vertical-align: middle;
+	font-size:15px;
+}
+.movie-info-top span .icon{
+	display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-circle-point.png);
+    background-size: cover;
+    position: relative; /* 위치 조정을 위해 position 설정 */
+  	top: 2px;
+}
+.movie-info-top span em{
+	color: #59bec9;
+	font-style: normal;
+}
+.movie-info-middle{
+	display: block;
+    margin: 10px 0;
+    padding: 5px 0 15px 0;
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid #434343;
+    margin-top:20px;
+}
+.movie-info-middle ul{
+	padding:0;
+}
+.movie-info-middle ul li{
+	position: relative;
+    padding-left: 150px;
+    color: #fff;
+    font-size: 15px;
+    margin:5px 0;
+}
+.movie-info-middle ul li span{
+	position: absolute;
+    left: 10px;
+    width: 120px;
+    color: #c4c4c4;
+}
+.movie-info-middle ul li strong{
+	color: #59bec9;
+	font-size: 18px;
+}
+.myRes-btn{
+	padding: 20px 0 30px 0;
+    margin: 0;
+    text-align: center;
+}
+.myRes-btn input{
+	background-color:#503396;
+	border:none;
+	color:white;
+	width:114px;
+	height: 46px;
+	cursor:pointer;
+	border-radius: 5px;
+	font-size: 15px;
+	font-weight: bold; 
+}
+.notice-box{
+	padding: 15px;
+    border-color: #ebebeb;
+	margin-top: 10px!important;
+	border: 1px solid #d8d9db;
+    background-color: #fff;
+    border-radius: 5px;
+    height:200px;
+    width: 1068px;
+}
+.notice-box .notice-cont-tit{
+	padding:0;
+	font-size: 16px;
+	margin: 0;
+}
+.notice-box .notice-cont{
+	padding-left: 10px;
+	font-size: 14px;
+}
+.notice-box li{
+	padding:4px 0;
+}
 
 
 
