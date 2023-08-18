@@ -18,6 +18,14 @@ public class ReservationVO {
 	private int res_status; //예매 결제 상태 (1:결제 완료 2:취소)
 	private String res_seats; // 좌석번호
 	
+	private String m_title;//영화 이름
+	private String th_name;//극장
+	private String hall_name;//상영관
+	private String sch_date; //상영날짜
+	private String sch_start; //상영시작시간
+	private String phone; //회원전화번호
+	
 	private int sch_num;
 	private int mem_num;
+	private int movie_num;
 }

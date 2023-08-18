@@ -74,4 +74,9 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationMapper.insertRes(reservation);
 	}
 
+	@Override
+	public ReservationVO selectRes(Integer res_num) {
+		return reservationMapper.selectRes(res_num);
+	}
+
 }

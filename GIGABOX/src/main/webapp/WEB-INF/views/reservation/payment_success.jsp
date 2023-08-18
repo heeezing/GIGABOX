@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/seat.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservation.css">
 <div class="page-util">
@@ -16,7 +17,7 @@
 	</div>
 	<div class="reserve-info-box">
 		<div class="movie-poster-area">
-			<img src="../image_bundle/no_image.jpg">
+			<img src="../movie/imageView.do?movie_num=${reservationVO.movie_num}&movie_type=1">
 		</div>
 		<div class="movie-info-area">
 			<div class="movie-info-top">
@@ -29,25 +30,25 @@
 			<div class="movie-info-middle">
 				<ul>
 					<li>
-						<span>예매영화</span>${scheduleVO.m_title}
+						<span>예매영화</span>${reservationVO.m_title}
 					</li>
 					<li>
-						<span>관람극장/상영관</span>${scheduleVO.th_name} / ${scheduleVO.hall_name}
+						<span>관람극장/상영관</span>${reservationVO.th_name} / ${reservationVO.hall_name}
 					</li>
 					<li>
-						<span>관람일시</span>${scheduleVO.sch_date} ${scheduleVO.sch_start}
+						<span>관람일시</span>${reservationVO.sch_date} ${reservationVO.sch_start}
 					</li>
 					<li>
-						<span>관람인원</span>1명
+						<span>관람인원</span>${reservationVO.res_people}명
 					</li>
 					<li>
-						<span>좌석번호</span>A1
+						<span>좌석번호</span>${reservationVO.res_seats}
 					</li>
 					<li>
-						<span>전화번호</span>010-1234-5678
+						<span>전화번호</span>${reservationVO.phone}
 					</li>
 					<li>
-						<span>결제정보</span><strong>12,000</strong> 원
+						<span>결제정보</span><strong><fmt:formatNumber value="${reservationVO.res_total}" type="number" pattern="#,##0" /></strong> 원
 					</li>
 				</ul>
 			</div>

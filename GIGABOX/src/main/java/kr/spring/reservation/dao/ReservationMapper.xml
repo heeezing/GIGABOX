@@ -125,5 +125,22 @@
 	    #{res_seats})
 	</insert>
 	
+	<!-- 예매 내역 불러오기 -->
+	<select id="selectRes" parameterType="integer">
+		SELECT
+		  r.*,
+		  s.*,
+		  m.*,
+		  mo.*,
+		  th.*,
+		  h.*
+		FROM reservation r
+		JOIN schedule s ON r.sch_num = s.sch_num
+		JOIN member_detail m ON r.mem_num = m.mem_num
+		JOIN movie mo ON s.movie_num = mo.movie_num
+		JOIN hall h ON s.hall_num = h.hall_num
+		JOIN theater th ON h.th_num = th.th_num
+		WHERE r.res_num=#{res_num}
+	</select>
 	
 </mapper>

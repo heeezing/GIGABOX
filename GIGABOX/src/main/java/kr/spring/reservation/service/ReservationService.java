@@ -40,5 +40,7 @@ public interface ReservationService {
 	
 	// 예매
 	public void insertRes(ReservationVO reservation);
+	//예매 내역 불러오기
+	public ReservationVO selectRes(Integer res_num);
 
 }
