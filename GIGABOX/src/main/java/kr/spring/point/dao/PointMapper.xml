@@ -5,6 +5,7 @@
 	<insert id="insertSnackPoint" parameterType="orderVO">
 		INSERT INTO point(
 			pt_num,
+			pt_detail,
 			orders_num,
 			mem_num,
 			add_point,
@@ -12,6 +13,7 @@
 			)
 		VALUES(
 			point_seq.nextval,
+			#{sn_name},
 			#{orders_num},
 			#{mem_num},
 			#{add_point},
@@ -23,6 +25,7 @@
 	<insert id="insertResPoint" parameterType="reservationVO">
 		INSERT INTO point(
 			pt_num,
+			pt_detail,
 			res_num,
 			mem_num,
 			add_point,
@@ -30,6 +33,7 @@
 			)
 		VALUES(
 			point_seq.nextval,
+			#{m_title},
 			#{res_num},
 			#{mem_num},
 			#{add_point},

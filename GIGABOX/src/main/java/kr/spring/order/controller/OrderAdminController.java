@@ -1,5 +1,6 @@
 package kr.spring.order.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,15 @@ public class OrderAdminController {
 		log.debug("<<order>> : " + order);
 		log.debug("<<order_detail>> : " + detailList);
 		
-		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String orders_date = sdf1.format(order.getOrders_date());
+		if(order.getModify_date() != null) {
+			String modify_date = sdf2.format(order.getModify_date());
+			model.addAttribute("modify_date", modify_date);
+		}
+
+		model.addAttribute("orders_date", orders_date);
 		model.addAttribute("orders", order);
 		model.addAttribute("detail", detailList);
 		
@@ -95,10 +104,9 @@ public class OrderAdminController {
 		  사용 상태 변경
 	======================*/
 	
-	//사용 완료 처리
-	@RequestMapping("/order/admin_statusUse.do")
+	@RequestMapping("/order/admin_statusChange.do")
 	@ResponseBody
-	public Map<String,String> statusToUse(@RequestParam int orders_status,
+	public Map<String,String> statusChange(@RequestParam int orders_status,
 										  @RequestParam String orders_num) {
 		log.debug("<<주문번호 / 주문상태>> : " + orders_num + " / " + orders_status);
 		Map<String,String> mapAjax = new HashMap<String,String>();
@@ -108,35 +116,12 @@ public class OrderAdminController {
 			mapAjax.put("result","wrongAccess");
 		}else {
 			//수정 처리
-			orderService.updateStatusUse(orders_num, orders_status);
+			orderService.statusChange(orders_num, orders_status);
 			mapAjax.put("result","success");
 		}
 
 		return mapAjax;
 	}
-	
-	
-	//주문 취소 처리
-	@RequestMapping("/order/admin_statusCancel.do")
-	@ResponseBody
-	public Map<String,String> statusToCancel(@RequestParam int orders_status,
-			@RequestParam String orders_num) {
-		log.debug("<<주문번호 / 주문상태>> : " + orders_num + " / " + orders_status);
-		Map<String,String> mapAjax = new HashMap<String,String>();
-		
-		OrderVO db_order = orderService.selectOrder(orders_num);
-		if(db_order.getOrders_status() != 1) {
-			mapAjax.put("result","wrongAccess");
-		}else {
-			//수정 처리
-			orderService.updateStatusUse(orders_num, orders_status);
-			mapAjax.put("result","success");
-		}
-		
-		return mapAjax;
-	}
-	
-	
 	
 	
 }

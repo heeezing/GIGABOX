@@ -54,8 +54,17 @@ public interface OrderMapper {
 	//개별 상품 목록
 	@Select("SELECT * FROM orders_detail WHERE orders_num=#{orders_num} ORDER BY sn_num DESC")
 	public List<OrderDetailVO> selectListOrderDetail(String orders_num);
-	//사용 상태 변경 - 사용 완료
-	@Update("UPDATE orders SET orders_status=#{orders_status} WHERE orders_num=#{orders_num}")
-	public void updateStatusUse(@Param(value="orders_num") String orders_num,
-								@Param(value="orders_status") Integer orders_status);
+	//사용 상태 변경 - 사용 완료, 주문 취소
+	@Update("UPDATE orders SET orders_status=#{orders_status},modify_date=SYSDATE WHERE orders_num=#{orders_num}")
+	public void statusChange(@Param(value="orders_num") String orders_num,
+							 @Param(value="orders_status") Integer orders_status);
+	//유효 기간 체크
+//	@Select("SELECT * FROM orders WHERE valid_date < #{currentDate} AND orders_status = 1")
+//	public List<OrderVO> statusNoValid(Date currentDate);
+	
+	//선물함 개수
+	public int selectGiftCountByTo_id(Map<String,Object> map);
+	//선물함 목록
+	public List<OrderVO> selectListGiftByTo_id(Map<String,Object> map);
+	
 }

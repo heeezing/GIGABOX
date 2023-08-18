@@ -21,14 +21,12 @@ public class PointServiceImpl implements PointService{
 
 	@Override
 	public int selectPointCountByMem_num(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return pointMapper.selectPointCountByMem_num(map);
 	}
 
 	@Override
 	public List<PointVO> selectPointListByMem_num(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return pointMapper.selectPointListByMem_num(map);
 	}
 
 	@Override

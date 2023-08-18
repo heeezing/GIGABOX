@@ -345,7 +345,7 @@ ul.com_box_design > li input[type="number"] {
     cursor: pointer;
     margin-left:40px;
 }
-#message{
+.message{
 	overflow: hidden;
     height: 54px;
     width: 100%;
@@ -378,7 +378,7 @@ ul.com_box_design > li input[type="number"] {
   
 .status-change{
     overflow: hidden;
-    margin: 25px auto 40px;
+    margin: 25px auto 65px;
     padding: 0 20px;
     border-top: 1px solid #d6d4ca;
     border-bottom: 1px solid #d6d4ca;
@@ -389,14 +389,14 @@ ul.com_box_design > li input[type="number"] {
 }
 .status-change dt {
     float: left;
-    padding-right: 30px;
+    padding-right: 15px;
     font-size: 14px;
     color: #000;
     line-height: 27px;
     font-weight:bold;
 }
 .border-right {
-    margin-right: 30px;
+    margin-right: 15px;
     border-right: 1px solid #d6d4ca;
 }
 .margin{
@@ -404,7 +404,7 @@ ul.com_box_design > li input[type="number"] {
 }
 .status-change dd {
     float: left;
-    padding-right: 30px;
+    padding-right: 25px;
     font-size: 13px;
     color: #222;
     line-height: 25px;
@@ -423,18 +423,45 @@ dl:after{
     vertical-align: middle;
     float: right;
     cursor: pointer;
-    margin: 10px 10px 0 0;
+    margin-top: 10px;
     padding: 3px;
     color: #ffffff;
+    width:56px;
 }
 .inblue{
 	background: #037b94;
     border: 2px solid #037b94;
+    margin-right:10px;
 }
 .inred{
 	background: #fb4357;
     border: 2px solid #fb4357;
 }
+.button-container {
+	display: flex;
+	gap: 10px;
+	float:right;
+}
+/*선물 정보*/
+.gift-to, .gift-from, .gift-msg{
+	font-size:11pt;
+	margin:15px 35px;
+}
+.gift-msg {
+	overflow: hidden;
+	height: 54px;
+	border: 1px solid #ddd;
+	line-height: 1.7;
+	padding: 10px;
+}
+.gift-from{
+	text-align:right;
+}
+.gift-hr{
+	border-bottom: 2px solid #000;
+	margin-bottom:65px;
+}
+/*결제 정보*/
 .payment-info{
 	margin:0;
 	border-bottom:3px solid #000;
@@ -451,8 +478,33 @@ dl:after{
 }
 .payment-price{
 	text-align:right;
-	
 }  
   
+
+/*===========================
+	  	   포인트 내역
+  ===========================*/
   
-  
+.my-point{
+	overflow: hidden;
+    padding: 25px 30px 25px 40px;
+    border: 1px solid #d8d9db;
+    border-radius: 10px;
+    text-align:center;
+	position: relative;
+	z-index: 1;
+}
+.my-point span{
+    font-weight:bold;
+}
+.my-point:after {
+	background-image: linear-gradient(315deg, #b3cdd1 0%, #9fa4c4 74%);
+	opacity: 0.5;
+	width: 100%;
+	height: 100%;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}

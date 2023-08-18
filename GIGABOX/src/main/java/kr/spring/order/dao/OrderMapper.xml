@@ -35,6 +35,7 @@
 			pay_total,
 			payment,
 			orders_type,
+			from_id,
 			to_id,
 			to_phone,
 			message,
@@ -48,6 +49,7 @@
 			#{pay_total},
 			#{payment},
 			#{orders_type},
+			#{from_id},
 			#{to_id},
 			#{to_phone},
 			#{message},
@@ -55,6 +57,7 @@
 			)
 	</insert>
 	
+	<!-- 주문 상품 상세 정보 -->
 	<insert id="insertOrderDetail" parameterType="orderDetailVO">
 		INSERT INTO orders_detail(
 			detail_num,
@@ -120,7 +123,6 @@
 		]]>
 	</select>
 	
-	
 
 
 	<!-- [사용자] 주문 목록 -->
@@ -156,11 +158,40 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>		  		
 	</select>	
+	
+	
+	
+	<!-- 선물 목록 -->
+	<!-- 검색창 용 sql 조각 -->
+	<sql id="giftSearchByUser">
+		WHERE to_id = #{to_id} 
+		<if test="keyword != null and keyword != ''">
+			<if test="keyfield == 1">
+				AND sn_name LIKE '%' || #{keyword} || '%' 
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 전체or검색 레코드 수 -->
+	<select id="selectGiftCountByTo_id" parameterType="map">
+		SELECT COUNT(*) 
+		FROM orders 
+		<include refid="giftSearchByUser"></include>
+	</select>
+	
+	<select id="selectListGiftByTo_id" parameterType="map" resultType="orderVO">
+		SELECT * 
+		FROM (SELECT a.*, rownum rnum 
+			  FROM (SELECT * 
+			  		FROM orders 
+			  		<include refid="giftSearchByUser"></include> 
+			  		ORDER BY orders_num DESC)a) 
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>		  		
+	</select>
+	
+	
 </mapper>
-
-
-
-
-
 
 

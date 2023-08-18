@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.cart.service.CartService;
 import kr.spring.cart.vo.CartVO;
@@ -30,6 +31,7 @@ import kr.spring.order.vo.OrderVO;
 import kr.spring.point.service.PointService;
 import kr.spring.snack.service.SnackService;
 import kr.spring.snack.vo.SnackVO;
+import kr.spring.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -113,7 +115,29 @@ public class OrderController {
 		log.debug("<<member>> : " + member);
 		int totalPoint = pointService.myTotalPoint(user.getMem_num());
 		log.debug("<<totalPoint>> : " + totalPoint);
+		/*
+		//나의 멤버십
+		String membership = orderService.selectMembershipByMem_num(user.getMem_num());
+		if(membership == null) {
+			membership = "BASIC";
+		}else {
+			membership = membership.toUpperCase();
+		}
+			
+		String pointRate = "";
+		if(membership == "BASIC") {
+			pointRate = "3%";
+		}else if(membership == "BRONZE") {
+			pointRate = "5%";
+		}else if(membership == "SILVER") {
+			pointRate = "7%";
+		}else if(membership == "GOLD") {
+			pointRate = "10%";
+		}
 		
+		model.addAttribute("membership",membership);
+		model.addAttribute("pointRate",pointRate);
+		*/
 		model.addAttribute("member", member);
 		model.addAttribute("have_point", totalPoint);
 		
@@ -187,7 +211,29 @@ public class OrderController {
 		log.debug("<<member>> : " + member);
 		int totalPoint = pointService.myTotalPoint(user.getMem_num());
 		log.debug("<<totalPoint>> : " + totalPoint);
+		/*
+		//나의 멤버십
+		String membership = orderService.selectMembershipByMem_num(user.getMem_num());
+		if(membership == null) {
+			membership = "BASIC";
+		}else {
+			membership = membership.toUpperCase();
+		}
+			
+		String pointRate = "";
+		if(membership == "BASIC") {
+			pointRate = "3%";
+		}else if(membership == "BRONZE") {
+			pointRate = "5%";
+		}else if(membership == "SILVER") {
+			pointRate = "7%";
+		}else if(membership == "GOLD") {
+			pointRate = "10%";
+		}
 		
+		model.addAttribute("membership",membership);
+		model.addAttribute("pointRate",pointRate);
+		*/
 		model.addAttribute("member", member);
 		model.addAttribute("have_point", totalPoint);
 		
@@ -278,6 +324,7 @@ public class OrderController {
 			
 			if(orderVO.getOrders_type() == 2) {
 				//선물 등록 처리
+				orderVO.setFrom_id(user.getId());
 				orderService.insertGiftOrder(orderVO, orderDetailList);
 			}else {
 				//주문 등록 처리
@@ -374,6 +421,7 @@ public class OrderController {
 			
 			if(orderVO.getOrders_type() == 2) {
 				//선물 등록 처리
+				orderVO.setFrom_id(user.getId());
 				orderService.insertGiftOrder(orderVO, orderDetailList);
 			}else {
 				//주문 등록 처리
@@ -422,5 +470,93 @@ public class OrderController {
 		
 		return mapAjax;
 	}
+	
+	
+	
+	/*======================
+		  선물함 목록 조회
+	======================*/
+	
+	@RequestMapping("/order/giftList.do")
+	public ModelAndView admin_list(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+									String keyfield, String keyword, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("keyfield", keyfield);
+		map.put("keyword", keyword);
+		map.put("to_id", user.getId());
+		
+		//전체or검색 레코드 수 읽어오기
+		int count = orderService.selectGiftCountByTo_id(map);
+		log.debug("<<count>> : " + count);
+		//페이지 처리
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"gift_list.do");
+		
+		//전체or검색 목록 읽어오기
+		List<OrderVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = orderService.selectListGiftByTo_id(map);
+		}
+		
+		//데이터 세팅
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("giftList");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		
+		return mav;
+	}	
+	
+	
+	
+	/*======================
+	주문 목록 - 마이페이지(board)로 이동
+	======================*/
+//	@RequestMapping("/order/orderList.do") 
+//	public ModelAndView orderList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+//								  String keyfield, String keyword, HttpSession session) {
+//		MemberVO user = (MemberVO)session.getAttribute("user");
+//		
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("keyfield",keyfield);
+//		map.put("keyword",keyword);
+//		map.put("mem_num",user.getMem_num());
+//		
+//		//전체or검색 레코드 수
+//		int count = orderService.selectOrderCountByMem_num(map);
+//		log.debug("<<count>> : " + count);
+//		
+//		//페이지 처리
+//		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"orderList.do");
+//		
+//		List<OrderVO> list = null;
+//		if(count > 0) {
+//			map.put("start", page.getStartRow());
+//			map.put("end", page.getEndRow());
+//			
+//			list = orderService.selectListOrderByMem_num(map);
+//		}
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("orderList");
+//		mav.addObject("count", count);
+//		mav.addObject("list", list);
+//		mav.addObject("page", page.getPage());
+//		
+//		return mav;
+//	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 }

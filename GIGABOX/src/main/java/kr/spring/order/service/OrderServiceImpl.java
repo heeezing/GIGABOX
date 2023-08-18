@@ -78,14 +78,12 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public int selectOrderCountByMem_num(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return orderMapper.selectOrderCountByMem_num(map);
 	}
 
 	@Override
 	public List<OrderVO> selectListOrderByMem_num(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderMapper.selectListOrderByMem_num(map);
 	}
 
 	@Override
@@ -99,13 +97,23 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void updateStatusUse(String orders_num, Integer orders_status) {
-		orderMapper.updateStatusUse(orders_num, orders_status);
+	public void statusChange(String orders_num, Integer orders_status) {
+		orderMapper.statusChange(orders_num, orders_status);
 	}
 
 	@Override
 	public String selectMembershipByMem_num(Integer mem_num) {
 		return orderMapper.selectMembershipByMem_num(mem_num);
+	}
+
+	@Override
+	public int selectGiftCountByTo_id(Map<String, Object> map) {
+		return orderMapper.selectGiftCountByTo_id(map);
+	}
+
+	@Override
+	public List<OrderVO> selectListGiftByTo_id(Map<String, Object> map) {
+		return orderMapper.selectListGiftByTo_id(map);
 	}
 
 }

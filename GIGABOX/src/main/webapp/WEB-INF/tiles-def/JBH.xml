@@ -64,6 +64,30 @@
     	<put-attribute name="body" value="/WEB-INF/views/board/memberOrder.jsp"/>
     </definition>
     
+    <!-- 구매 상세 -->
+    <definition name="memberOrderDetail" extends="myPage">
+    	<put-attribute name="title" value="구매상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberOrderDetail.jsp"/>
+    </definition>
+    
+    <!-- 내 선물함 목록 -->
+    <definition name="memberGift" extends="myPage">
+    	<put-attribute name="title" value="내 선물함"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberGift.jsp"/>
+    </definition>
+    
+    <!-- 내 선물함 상세 -->
+    <definition name="memberGiftDetail" extends="myPage">
+    	<put-attribute name="title" value="내 선물함"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberGiftDetail.jsp"/>
+    </definition>
+
+    <!-- 포인트 내역 -->
+    <definition name="memberPoint" extends="myPage">
+    	<put-attribute name="title" value="포인트내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberPoint.jsp"/>
+    </definition>
+
     <!-- 이벤트 응모 내역 -->
     <definition name="memberEvent" extends="myPage">
     	<put-attribute name="title" value="회원정보"/>

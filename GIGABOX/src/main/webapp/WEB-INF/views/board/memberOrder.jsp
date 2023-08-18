@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
-<!-- 예매 내역 시작 -->
+<!-- 구매 내역 시작 -->
 <script type="text/javascript">
 	$(function(){
 		//검색 유효성 체크
@@ -18,66 +19,69 @@
 <div class="page-main mypage-reservation">
 	<div class="tit-util mt70">
 		<div>
-			<h2 class="tit">주문 내역</h2>
+			<h2 class="tit">구매 내역</h2>
 		</div>
 	</div>
+	<!-- 검색창 시작 -->
 	<form action="orderList.do" id="search_form" method="get">
 		<ul class="search">
 			<li>
-				<select name="keyfield" id="keyfield">
-					<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>주문번호</option>
-					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>주문날짜</option>
+				<select name="keyfield">
+					<option value="1" 
+					 <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
+					<option value="2" 
+					 <c:if test="${param.keyfield==2}">selected</c:if>>상품명</option>
 				</select>
 			</li>
 			<li>
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="찾기">
-				<input type="button" value="목록" onclick="location.href='orderList.do'"> 
+				<input type="submit" value="조회">
 			</li>
 		</ul>
-		<div class="aligh-right">
-			<select id="order" name="order">
-				<option value="1" <c:if test="${param.order == 1}">selected</c:if>>주문번호</option>
-				<option value="2" <c:if test="${param.order == 2}">selected</c:if>>주문날짜</option>
-			</select>
-			<script type="text/javascript">
-				$(function(){
-					$('#order').change(function(){
-						location.href='orderList.do?keyfield='+$('#keyfield').val()+'&keyword='+$('#keyword').val()+'&order='+$('#order').val();
-					});
-				})
-			</script>
-		</div>
 	</form>
+	<!-- 검색창 끝 -->
+	<!-- 목록 시작 -->
 	<c:if test="${count == 0}">
-	<div class="tit-util mt70">
-		<div class="mypage-content">
-			<ul>
-				<li>예매 내역이 없습니다.</li>
-			</ul>
-		</div>
-	</div>
+		<div class="result-display">표시할 구매 정보가 없습니다.</div>
 	</c:if>
 	<c:if test="${count > 0}">
 	<table class="striped-table">
 		<tr>
+			<th>구매일</th>
 			<th>주문번호</th>
-			<th>주문날짜</th>
-			<th>상품이름</th>
-			<th>총금액</th>
+			<th>상품명</th>
+			<th>결제금액</th>
+			<th>내역</th>
+			<th>상태</th>
 		</tr>
 		<c:forEach var="order" items="${list}">
 		<tr>
-			<td class="align-center">${order.orders_num}</td>
 			<td class="align-center">${order.orders_date}</td>
-			<td class="align-center">${order.sn_name}</td>
-			<td class="align-center">${order.orders_total}</td>
+			<td class="align-center">
+				<a href="orderDetail.do?orders_num=${order.orders_num}">${order.orders_num}</a>
+			</td>
+			<td class="align-center">
+				<a href="orderDetail.do?orders_num=${order.orders_num}">${order.sn_name}</a>
+			</td>
+			<td class="align-center"><fmt:formatNumber value="${order.orders_total}"/>원</td>
+			<td class="align-center">
+				<c:if test="${order.orders_type == 1}">구매</c:if>
+				<c:if test="${order.orders_type == 2}">선물</c:if>
+			</td>
+			<td class="align-center">
+				<c:if test="${order.orders_status == 1}">사용가능</c:if>
+				<c:if test="${order.orders_status == 2}">사용완료</c:if>
+				<c:if test="${order.orders_status == 3}">기간만료</c:if>
+				<c:if test="${order.orders_status == 4}">주문취소</c:if>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
+	<!-- 페이지 처리 -->
 	<div class="align-center">${page}</div>
 	</c:if>
+	<!-- 목록 끝 -->
 </div>
-<!-- 예매 내역 끝 -->
+<!-- 구매 내역 끝 -->

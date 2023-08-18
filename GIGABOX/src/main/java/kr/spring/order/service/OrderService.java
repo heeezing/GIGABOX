@@ -33,7 +33,11 @@ public interface OrderService {
 	public OrderVO selectOrder(String orders_num);
 	//개별 상품 목록
 	public List<OrderDetailVO> selectListOrderDetail(String orders_num);
-	//사용 상태 변경 - 사용 완료
-	public void updateStatusUse(@Param(value="orders_num") String orders_num,
+	//사용 상태 변경 
+	public void statusChange(@Param(value="orders_num") String orders_num,
 								@Param(value="orders_status") Integer orders_status);
+	//선물함 개수
+	public int selectGiftCountByTo_id(Map<String,Object> map);
+	//선물함 목록
+	public List<OrderVO> selectListGiftByTo_id(Map<String,Object> map);
 }

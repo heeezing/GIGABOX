@@ -11,6 +11,7 @@ public class PointVO {
 	private int pt_num;
 	private int res_num;
 	private String orders_num;
+	private String pt_detail;
 	private int mem_num;
 	private Date pt_date;
 	private int add_point;
@@ -21,6 +22,7 @@ public class PointVO {
 	private String id;
 	private String sn_name;
 	private int orders_total;
+	private int res_total;
 	private String m_title;
 	
 }

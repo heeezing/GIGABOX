@@ -32,6 +32,10 @@
 			  onclick="location.href='${pageContext.request.contextPath}/board/orderList.do'">
 		</li>
 		<li>
+			<input type="button" class="menu-btn" value="내 선물함"
+			  onclick="location.href='${pageContext.request.contextPath}/board/giftList.do'">
+		</li>
+		<li>
 			<input type="button" class="menu-btn" value="포인트 내역"
 			  onclick="location.href='${pageContext.request.contextPath}/board/pointList.do'">
 		</li>

@@ -2,38 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.order.css">
 <!-- 포인트 내역 시작 -->
-<script type="text/javascript">
-	$(function(){
-		//검색 유효성 체크
-		$('#search_form').submit(function(){
-			if($('#keyword').val().trim() == ''){
-				alert('검색어를 입력하세요!');
-				$('#keyword').val('').focus();
-				return false;
-			}
-		});
-	});
-</script>
-<div class="page-main">
-	<div class="title"><a href="admin_list.do">포인트 내역</a></div>
-	<!-- 검색창 -->
-	<form action="admin_list.do" id="search_form" method="get">
-		<ul class="search">
-			<li>
-				<select name="keyfield" id="keyfield">
-					<option value="1" 
-					  <c:if test="${param.keyfield == 1}">selected</c:if>>아이디</option>
-				</select>
-			</li>
-			<li>
-				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
-			</li>
-			<li>
-				<input type="submit" value="조회">
-			</li>
-		</ul>
-	</form>
+<div class="page-main mypage-reservation">
+	<div class="my-point">
+		<span style="font-size:16pt;">나의 GIGA 포인트 : </span>
+		<span style="font-size:22pt;"><fmt:formatNumber value="${totalPoint}"/>원</span>
+		<p>${user.nick_name}님은 ${membership} 등급으로, 결제 시 금액의 ${pointRate}가 적립됩니다.</p>
+	</div>
+	
+	<div class="tit-util mt70">
+		<div>
+			<h2 class="tit">포인트 내역</h2>
+		</div>
+	</div>
 
 	<!-- 목록 -->
 	<c:if test="${count == 0}">
@@ -43,7 +26,6 @@
 	<table class="striped-table">
 		<tr>
 			<th>거래일</th>
-			<th>아이디</th>
 			<th>내용</th>
 			<th>상품금액</th>
 			<th>적립</th>
@@ -52,9 +34,15 @@
 		<c:forEach var="point" items="${list}">
 		<tr>
 			<td class="align-center">${point.pt_date}</td>
-			<td class="align-center">${point.id}</td>
 			<td class="align-center">${point.pt_detail}</td>
-			<td class="align-center"><fmt:formatNumber value="${point.orders_total}"/>원</td>
+			<td class="align-center">
+				<c:if test="${point.orders_total != 0}">
+				<fmt:formatNumber value="${point.orders_total}"/>원
+				</c:if>
+				<c:if test="${point.res_total != 0}">
+				<fmt:formatNumber value="${point.res_total}"/>원
+				</c:if>
+			</td>
 			<td class="align-center"><fmt:formatNumber value="${point.add_point}"/>P</td>
 			<td class="align-center"><fmt:formatNumber value="${point.use_point}"/>P</td>
 		</tr>

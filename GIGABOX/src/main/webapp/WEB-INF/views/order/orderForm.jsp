@@ -200,7 +200,7 @@
 	           </li>
 	           <li>
 					<label for="message">메시지 (선택)</label>
-	          		<textarea id="message" name="message" maxlength="100" placeholder="전달하고픈 메시지를 입력해주세요. (최대 100자)"></textarea>
+	          		<textarea class="message" name="message" maxlength="100" placeholder="전달하고픈 메시지를 입력해주세요. (최대 100자)"></textarea>
 	           </li>
 	       </ul>
 	       <p class="com_box_design_olist">

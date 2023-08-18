@@ -24,6 +24,7 @@ public class OrderVO {
 	private String billing_key; //결제 빌링키
 	
 	//orders_type이 2(선물)인 경우 - 입력 받는 데이터
+	private String from_id; //보내는 사람 아이디
 	private String to_id; //받는 사람 아이디
 	private String to_phone; //받는 사람 전화번호
 	private String message; //보낼 메시지
