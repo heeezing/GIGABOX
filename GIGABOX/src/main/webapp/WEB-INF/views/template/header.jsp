@@ -59,7 +59,7 @@ $(window).on("scroll",function(){
 				<a href="${pageContext.request.contextPath}/reservation/quick_res.do" class="btn4"><b>예매</b></a>
 				<ul class="inner-menu">
 					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/reservation/quick_res.do">빠른예매</a></li>
-					<li class="inner-menu-item"><a href="#">상영시간표</a></li>
+					<li class="inner-menu-item"><a href="${pageContext.request.contextPath}/reservation/schedule.do">상영시간표</a></li>
 				</ul>
 			</li>
 			<li id="logo">
