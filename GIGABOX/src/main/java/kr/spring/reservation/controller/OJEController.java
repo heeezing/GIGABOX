@@ -31,7 +31,7 @@ public class OJEController {
 	 * 결제 완료 페이지
 	 *========================*/
 	@RequestMapping("/reservation/payment_success.do")
-	public String paySuccessForm(@RequestParam int res_num, Model model) {
+	public String paySuccessForm(@RequestParam String res_num, Model model) {
 	    
 	    ReservationVO reservationVO = reservationService.selectRes(res_num);
 	    model.addAttribute("reservationVO", reservationVO);

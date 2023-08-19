@@ -36,8 +36,7 @@
 					</div>
 					<h3 class="payment-method">결제수단선택</h3>
 					<div class="payment">
-						<input type="hidden" name="res_payment" value="카드">
-						<input type="radio" > <p>카드결제 / 간편결제</p>
+						<input type="radio" id="res_payment" name="res_payment" value="카드결제" checked> <p>카드결제 / 간편결제</p>
 					</div>
 				</div>
 			</div>
