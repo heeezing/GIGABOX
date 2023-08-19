@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.hall.vo.HallVO;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.order.service.OrderService;
 import kr.spring.point.service.PointService;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
+import kr.spring.theater.service.TheaterService;
 import kr.spring.theater.vo.TheaterVO;
 import kr.spring.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +43,10 @@ public class ReservationController {
 	private ReservationService resService;
 	@Autowired
 	private PointService pointService;
+	@Autowired
+	private TheaterService theaterService;
+	@Autowired
+	private OrderService orderService;
 	
 	/*========================
 	 *  자바빈(VO) 초기화
@@ -242,7 +248,7 @@ public class ReservationController {
 	 *===============*/
 	// 예매 결제 폼
 	@RequestMapping("/reservation/pay.do")
-    public String formPay(@RequestParam int sch_num, HttpSession session, Model model, ReservationVO reservationVO) {
+    public String formPay(@RequestParam int sch_num, Model model, ReservationVO reservationVO,HttpSession session) {
         log.debug("<<reservationVO>> : " + reservationVO);
         
         ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
@@ -255,6 +261,10 @@ public class ReservationController {
         int totalPoint = pointService.myTotalPoint(user.getMem_num());
         log.debug("<<totalPoint>> : " + totalPoint);
         
+        // 예약번호 미리 생성
+        String res_num = resService.selectResNum();
+        
+        model.addAttribute("res_num", res_num);
         model.addAttribute("scheduleVO", scheduleVO);
         model.addAttribute("have_point", totalPoint); // 사용가능 포인트
         
@@ -262,14 +272,50 @@ public class ReservationController {
     }
 	// 전송된 데이터 처리
 	@PostMapping("/reservation/reservation.do")
-	public String submit(ReservationVO reservationVO,BindingResult result,HttpServletRequest request,HttpSession session, Model model) {
+	public String submit(@RequestParam String res_num,ReservationVO reservationVO,BindingResult result,HttpServletRequest request,HttpSession session, Model model) {
 		// 회원 정보 읽어오기
         MemberVO user = (MemberVO)session.getAttribute("user");
+        log.debug("<<res_num>> : " + res_num);
         
-        reservationVO.setMem_num(user.getMem_num());
-        log.debug("<<reservationVO>> : " + reservationVO);
+        reservationVO.setMem_num(user.getMem_num()); // 회원번호 셋팅
         
+        int sch_num = reservationVO.getSch_num();
+        
+        //전송된 데이터 유효성 체크 결과, 오류 있으면 폼을 다시 호출
+		/*
+		 * if(result.hasErrors()) { return formPay(sch_num, model, reservationVO,
+		 * session); }
+		 */
+        
+        // 상영시간표 정보 호출
+        ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
+        log.debug("<<schedule>> : " + scheduleVO);
+        
+        //회원 멤버십 정보 확인
+		String membership = orderService.selectMembershipByMem_num(user.getMem_num());
+		//멤버십에 따른 적립포인트 계산
+		int add_point = 0; // 적립포인트
+		int final_total = reservationVO.getRes_total(); // 최종 금액
+		if(membership == "bronze") {
+			add_point = (int) (final_total * 0.05);
+		}else if(membership == "silver") {
+			add_point = (int) (final_total * 0.07);
+		}else if(membership == "gold") {
+			add_point = (int) (final_total * 0.1);
+		}else {
+			add_point = (int) (final_total * 0.03);
+		}
+		
+		reservationVO.setAdd_point(add_point); // 적립 포인트 셋팅
+		reservationVO.setM_title(scheduleVO.getM_title());
+		
+		
+		log.debug("<<reservationVO>> : " + reservationVO);
+		
         resService.insertRes(reservationVO);
+        
+        // 예매 완료 화면에 예약 번호 넘기기
+        model.addAttribute("res_num",reservationVO.getRes_num());
 		
 		return "payment_success";
 	}

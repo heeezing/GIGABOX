@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.spring.hall.vo.HallVO;
 import kr.spring.movie.vo.MovieVO;
+import kr.spring.point.dao.PointMapper;
 import kr.spring.reservation.dao.ReservationMapper;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
@@ -18,6 +19,8 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Autowired
 	ReservationMapper reservationMapper;
+	@Autowired
+	private PointMapper pointMapper;
 	
 	@Override
 	public List<ScheduleVO> selectList(Map<String, Object> map) {
@@ -72,11 +75,18 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void insertRes(ReservationVO reservation) {
 		reservationMapper.insertRes(reservation);
+		//포인트 사용 및 적립 
+		pointMapper.insertResPoint(reservation);
 	}
 
 	@Override
-	public ReservationVO selectRes(Integer res_num) {
+	public ReservationVO selectRes(String res_num) {
 		return reservationMapper.selectRes(res_num);
+	}
+
+	@Override
+	public String selectResNum() {
+		return reservationMapper.selectResNum();
 	}
 
 }

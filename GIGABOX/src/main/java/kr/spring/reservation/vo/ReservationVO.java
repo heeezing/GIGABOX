@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ReservationVO {
-	private int res_num; //예매 번호
+	private String res_num; //예매 번호
 	private Date res_date; //예매 날짜
 	private int res_people; //예매 인원
 	private String res_payment; //결제수단
@@ -28,4 +28,7 @@ public class ReservationVO {
 	private int sch_num;
 	private int mem_num;
 	private int movie_num;
+	
+	private int add_point; // 적립 포인트
+	private int use_point; // 사용 포인트
 }

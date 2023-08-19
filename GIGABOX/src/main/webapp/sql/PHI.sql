@@ -26,7 +26,7 @@ create sequence seat_seq;
 
 --예매
 create table reservation(
-	res_num number,
+	res_num varchar2(20),
 	res_date date default sysdate not null,
 	del_date date,
 	res_people number(3) not null,

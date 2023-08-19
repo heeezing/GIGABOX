@@ -38,9 +38,11 @@ public interface ReservationService {
 	// 상영시간표 목록 불러오기
 	public List<ScheduleVO> getScheduleList(Map<String, Object> map);
 	
+	//주문번호 생성
+	public String selectResNum();
 	// 예매
 	public void insertRes(ReservationVO reservation);
 	//예매 내역 불러오기
-	public ReservationVO selectRes(Integer res_num);
+	public ReservationVO selectRes(String res_num);
 
 }

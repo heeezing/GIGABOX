@@ -44,9 +44,12 @@ public interface ReservationMapper {
 	@Delete("DELETE FROM schedule WHERE sch_num=#{sch_num}")
 	public void deleteSchedule(Integer sch_num);
 	
+	//주문번호 생성
+	@Select("SELECT 'M' || TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(reservation_seq.NEXTVAL, 6, '0') FROM dual")
+	public String selectResNum();
 	// 예매
 	public void insertRes(ReservationVO reservation);
 	//예매 내역 불러오기
-	public ReservationVO selectRes(Integer res_num);
+	public ReservationVO selectRes(String res_num);
 	
 }

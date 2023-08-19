@@ -114,7 +114,7 @@
 	    mem_num,
 	    res_seats)
 	  VALUES(
-	    reservation_seq.nextval,
+	    #{res_num},
 	    SYSDATE,
 	    #{res_people},
 	    #{res_payment},
