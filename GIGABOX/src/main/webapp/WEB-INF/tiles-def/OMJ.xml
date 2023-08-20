@@ -6,9 +6,82 @@
 
 <tiles-definitions>
     <!-- 아래 설정을 상황에 맞게 변형해서 사용하세요 -->
-    <definition name="a6" extends="main">
-    	<put-attribute name="title" value="SpringPage"/>
-	    <put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
+    <definition name="eventList" extends="main">
+    	<put-attribute name="title" value="진행중인 이벤트"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventList.jsp"/>
+    </definition>
+    <definition name="eventActiList" extends="main">
+    	<put-attribute name="title" value="진행중인 이벤트"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventActiList.jsp"/>
+    </definition>
+    <definition name="eventActiList" extends="main">
+    	<put-attribute name="title" value="진행중인 이벤트"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventActiList.jsp"/>
+    </definition>
+    <definition name="eventEndList" extends="main">
+    	<put-attribute name="title" value="지난 이벤트"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventEndList.jsp"/>
+    </definition>
+    <definition name="eventResultList" extends="main">
+    	<put-attribute name="title" value="당첨자 발표"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventResultList.jsp"/>
+    </definition>
+    <definition name="eventResultWrite" extends="main">
+    	<put-attribute name="title" value="당첨자 발표 작성"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventResultWrite.jsp"/>
+    </definition>
+        <definition name="eventResultDetail" extends="main">
+    	<put-attribute name="title" value="당첨자 발표 보기"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventResultDetail.jsp"/>
+    </definition>
+        <definition name="eventResultUpdate" extends="main">
+    	<put-attribute name="title" value="당첨자 발표 수정"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventResultUpdate.jsp"/>
+    </definition>
+    <definition name="eventWrite" extends="main">
+    	<put-attribute name="title" value="이벤트 글쓰기"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventWrite.jsp"/>
+    </definition>
+      <definition name="eventDetail" extends="main">
+    	<put-attribute name="title" value="이벤트 글보기"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventDetail.jsp"/>
+    </definition>
+    
+    <definition name="csWrite" extends="main">
+    	<put-attribute name="title" value="고객센터 글쓰기"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csWrite.jsp"/>
+    </definition>
+    <definition name="csMain" extends="main">
+    	<put-attribute name="title" value="고객센터"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csMain.jsp"/>
+    </definition>  
+    <definition name="csQnaList" extends="main">
+    	<put-attribute name="title" value="자주묻는질문 게시판"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csQnaList.jsp"/>
+    </definition> 
+    <definition name="csNotiList" extends="main">
+    	<put-attribute name="title" value="공지사항 게시판"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csNotiList.jsp"/>
+    </definition> 
+    <definition name="csPersonalWrite" extends="main">
+    	<put-attribute name="title" value="1:1문의"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csPersonalWrite.jsp"/>
+    </definition> 
+     <definition name="csPersonalList" extends="main">
+    	<put-attribute name="title" value="1:1문의 내역"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csPersonalList.jsp"/>
+    </definition> 
+    <definition name="csPersonalAdminWrite" extends="main">
+    	<put-attribute name="title" value="1:1문의 답변쓰기"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csPersonalAdminWrite.jsp"/>
+    </definition> 
+    <definition name="csPersonalAdminUpdate" extends="main">
+    	<put-attribute name="title" value="1:1문의 답변수정"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csPersonalAdminUpdate.jsp"/>
+    </definition> 
+     <definition name="csPersonalDetail" extends="main">
+    	<put-attribute name="title" value="1:1문의 보기"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csPersonalDetail.jsp"/>
     </definition> 
 </tiles-definitions>
 

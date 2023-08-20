@@ -16,7 +16,7 @@ $(window).on("scroll",function(){
 	<!-- 상단 -->
 	<div id="top_left">
 		<ul>
-			<li><a href="#">고객센터</a></li>
+			<li><a href="<c:url value="/cs/csMain.do" />">고객센터</a></li>
 			<li><a href="${pageContext.request.contextPath}/reservation/quick_res.do">빠른예매</a></li>
 		</ul>
 	</div>
@@ -70,9 +70,9 @@ $(window).on("scroll",function(){
 			<li class="outer-menu-item">
 				<a href="#" class="btn4"><b>이벤트</b></a>
 				<ul class="inner-menu">
-					<li class="inner-menu-item"><a href="#">진행중이벤트</a></li>
-					<li class="inner-menu-item"><a href="#">지난이벤트</a></li>
-					<li class="inner-menu-item"><a href="#">당첨자발표</a></li>
+					<li class="inner-menu-item"><a href="<c:url value="/event/eventList.do" />">진행중이벤트</a></li>
+					<li class="inner-menu-item"><a href="<c:url value="/event/eventEndList.do" />">지난이벤트</a></li>
+					<li class="inner-menu-item"><a href="<c:url value="/event/eventResultList.do" />">당첨자발표</a></li>
 				</ul>
 			</li>
 			<li>

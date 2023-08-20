@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.cs.dao.CsMapper">
+	<!-- CS 작성 -->
+	<sql id="csTable">
+	<if test="table==1">
+		INSERT INTO cs_qna 
+		(
+			qna_num,
+			mem_num,
+			category_num,
+			title,
+			content,
+			reg_date
+		)VALUES(
+			cs_qna_seq.nextval,
+			#{csVO.mem_num},
+			#{csVO.category_num},
+			#{csVO.title},
+			#{csVO.content},
+			SYSDATE
+		)
+	</if>
+	<if test="table==2">
+		INSERT INTO cs_noti
+		(
+			noti_num,
+			mem_num,
+			th_num,
+			title,
+			content,
+			reg_date
+		)VALUES(
+			cs_noti_seq.nextval,
+			#{csVO.mem_num},
+			#{csVO.th_num},
+			#{csVO.title},
+			#{csVO.content},
+			SYSDATE
+		)
+	</if>
+	</sql>
+	<insert id="insertCs" parameterType="map" >
+		<include refid="csTable"></include>
+	</insert>
+	<insert id="insertPersonal" parameterType="csPersonalVO">
+		INSERT INTO cs_personal(
+				personal_num,
+				mem_num,
+				th_num,
+				category_num,
+				email,
+				title,
+				content,
+				reg_date,
+				modify_date,
+				state
+			)VALUES(
+				#{personal_num},
+				#{mem_num},
+				#{th_num},
+				#{category_num},
+				#{email},
+				#{title},
+				#{content},
+				SYSDATE,
+				NULL,
+				0
+			)
+	</insert>
+	
+	<insert id="saveAll" parameterType="fileVO">
+		INSERT INTO cs_file(
+				file_num,
+				personal_num,
+				origin_name,
+				save_name,
+				file_size,
+				delete_yn,
+				created_date
+				)VALUES
+				(
+					cs_file_seq.nextval,
+					#{personal_num},
+					#{origin_name},
+					#{save_name},
+					#{file_size},
+					0,
+					SYSDATE
+				)
+	</insert>
+	
+<!-- csQna 게시판 -->
+	<sql id="csSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					title LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 2">
+					content LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 3">
+					title LIKE '%' || #{keyword} || '%' or
+					content LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+
+	<!-- 전체/검색 레코드수 (qna,noti,personal사용 가능)-->
+	<sql id="table1">
+		<if test="table == 1">
+			cs_qna
+		</if>
+		<if test="table == 2">
+			cs_noti
+		</if>
+		<if test="table == 3">
+			cs_personal
+		</if>
+	</sql>
+	<select id="selectRowCount" parameterType="map" resultType="integer">
+		SELECT COUNT(*) FROM <include refid="table1"></include> c 
+				JOIN member m ON c.mem_num = m.mem_num 	
+		<include refid="csSearch"></include>
+	</select>
+	
+	<!-- 전체/검색 목록 -->
+	<select id="selectQnaList" parameterType="map" resultType="csVO">
+		SELECT * FROM 
+		(SELECT a.*,
+				rownum rnum FROM 
+			(SELECT qna_num,
+					category_num,
+					category_name,
+					mem_num,
+					<![CDATA[
+		             REPLACE(REPLACE(title,'<','&lt;'),'>','&gt;') title, 
+		             ]]>
+					content,
+					reg_date,
+					modify_date FROM cs_qna JOIN cs_qna_category USING(category_num)
+					<include refid="csSearch"></include> )a) 
+		<![CDATA[WHERE rnum >= #{start} AND rnum <= #{end}]]>	       
+	</select>
+<!-- csNoti 게시판 -->
+	<!-- 전체/검색 목록 -->
+	<select id="selectNotiList" parameterType="map" resultType="csVO">
+		SELECT * FROM 
+		(SELECT a.*,
+				rownum rnum FROM 
+			(SELECT noti_num,
+					th_num,
+					th_name,
+					mem_num,
+					<![CDATA[
+		             REPLACE(REPLACE(title,'<','&lt;'),'>','&gt;') title, 
+		             ]]>
+					content,
+					reg_date,
+					modify_date FROM cs_noti JOIN theater USING(th_num)
+					<include refid="csSearch"></include>)a) 
+		<![CDATA[WHERE rnum >= #{start} AND rnum <= #{end}]]>	       
+	</select>
+<!-- csPersonal게시판 -->
+	<select id="selectPersonalList" parameterType="map" resultType="csPersonalVO">
+		SELECT * FROM 
+		(SELECT a.*,
+				rownum rnum FROM 
+			(SELECT personal_num,
+					mem_num,
+					p.th_num,
+                    th_name,
+                    p.category_num,
+                    category_name,
+                  <![CDATA[
+		             REPLACE(REPLACE(title,'<','&lt;'),'>','&gt;') title, 
+		             ]]>
+					reg_date,
+					modify_date,
+                    state
+                    FROM cs_personal p JOIN theater t ON p.th_num = t.th_num
+                                       JOIN cs_personal_category c ON p.category_num = c.category_num      
+                    <include refid="csSearch"></include> ORDER BY
+                    CASE WHEN TO_CHAR(reg_date,'YY/MM/DD') > TO_CHAR(modify_date,'YY/MM/DD') THEN reg_date
+                            WHEN TO_CHAR(reg_date,'YY/MM/DD')<![CDATA[ < ]]>TO_CHAR(modify_date,'YY/MM/DD') THEN modify_date
+                      ELSE reg_date
+                    END
+                    DESC
+					)a) 
+		<![CDATA[WHERE rnum >= #{start} AND rnum <= #{end}]]>	          
+	</select>
+	<insert id="insertAdminPersonal" parameterType="csPersonalVO">
+		INSERT INTO cs_answer (
+					answer_num,
+					mem_num,
+					personal_num,
+					title,
+					content,
+					reg_date
+					) VALUES (
+					cs_answer_seq.nextval,
+					#{mem_num},
+					#{personal_num},
+					#{title},
+					#{content},
+					SYSDATE
+					)
+	</insert>
+</mapper>

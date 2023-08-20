@@ -1,0 +1,408 @@
+package kr.spring.cs.controller;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+
+import kr.spring.cs.service.CsService;
+import kr.spring.cs.vo.CsVO;
+import kr.spring.cs.vo.FileVO;
+import kr.spring.cs.vo.CategoryVO;
+import kr.spring.cs.vo.CsPersonalVO;
+import kr.spring.member.service.MemberService;
+import kr.spring.member.vo.MemberVO;
+import kr.spring.theater.vo.TheaterVO;
+import kr.spring.util.FileUtil;
+import kr.spring.util.FileUtils;
+import kr.spring.util.PagingUtil;
+import kr.spring.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class CsContorller {
+	
+	String uploadPath ="C:\\\\Users\\\\Hunter\\\\git\\\\GIGABOX\\\\GIGABOX\\\\src\\\\main\\\\webapp\\\\image_upload\\\\cs\\\\";
+	
+	@Autowired
+	CsService csService;
+	@Autowired
+	MemberService MemberService;
+	@Autowired
+	FileUtils fileUtils;
+	
+	/*========================
+	 * 자바빈(VO) 초기화
+	 *========================*/
+	@ModelAttribute
+	public CsVO initCommand() {
+		return new CsVO();
+	}
+	
+	@GetMapping("/cs/csWrite.do")
+	public ModelAndView form() {
+		
+		List<CategoryVO> category = new ArrayList<>();
+		category = csService.selectAllQnaCategory();
+		
+		List<TheaterVO> theater = new ArrayList<>();
+		theater = csService.selectAllTheater();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csWrite");
+		mav.addObject("category", category);
+		mav.addObject("theater", theater);
+		return mav;
+	}
+	@PostMapping("/cs/csWrite.do")
+	public String submit(@Valid CsVO csVO,
+						@RequestParam(value="table",
+							      defaultValue="0") int table,
+						HttpSession session, HttpServletRequest request, Model model) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		csVO.setMem_num(user.getMem_num());
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("csVO", csVO);
+		map.put("table", table);
+		
+		log.debug("<<csVO>> : "+ csVO);
+		log.debug("<<table>> : "+ table);
+		
+		csService.insertCs(map);
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "정상적으로 업로드되었습니다.");
+		model.addAttribute("url", 
+		request.getContextPath()+"/cs/csMain.do");
+		
+		return "common/resultView";
+	}
+	
+	@RequestMapping("/cs/csMain.do")
+	public String main() {
+		return "csMain";
+	}
+	
+	@RequestMapping("/cs/csQnaList.do")
+	public ModelAndView qnaList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+								String keyword, String keyfield
+								) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("table", 1); //cs_qna
+		map.put("keyword", keyword);
+		map.put("keyfield",keyfield);
+		
+		//레코드 수 
+		int count = csService.selectRowCount(map);
+		
+		//페이지 처리 
+		PagingUtil page = new PagingUtil(keyfield, keyword, 
+				currentPage, count, 20,10,"csQnaList.do");
+		List<CsVO> list = null;
+		
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = csService.selectQnaList(map);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csQnaList");
+		mav.addObject("count",count);
+		mav.addObject("list",list);
+		
+		mav.addObject("page",page.getPage());
+		
+		return mav;
+	}
+	
+	@RequestMapping("/cs/csNotiList.do")
+	public ModelAndView notiList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+								String keyword, String keyfield) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("table", 2); //cs_noti
+		map.put("keyword", keyword);
+		map.put("keyfield",keyfield);
+		
+		//레코드 수 
+		int count = csService.selectRowCount(map);
+		//페이지 처리 
+		PagingUtil page = new PagingUtil(keyfield, keyword, 
+				currentPage, count, 20,10,"csNotiList.do");
+		List<CsVO> list = null;
+		List<TheaterVO> theater = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = csService.selectNotiList(map);
+		}
+		theater = csService.selectAllTheater();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csNotiList");
+		mav.addObject("count",count);
+		mav.addObject("theater", theater);
+		mav.addObject("list",list);
+		mav.addObject("page",page.getPage());
+			
+		return mav;
+	}	
+	
+	@GetMapping("/cs/csPersonalWrite.do")
+	public ModelAndView personalForm(HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO db_user = MemberService.selectMember(user.getMem_num());
+		
+		List<TheaterVO> theater = null;
+		theater = csService.selectAllTheater();
+		
+		List<CategoryVO> category = null;
+		category = csService.selectAllPersonalCategory();
+		
+		log.debug("<<theater>> : " + theater);
+		log.debug("<<category>> : " + category);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csPersonalWrite");
+		mav.addObject("category", category);
+		mav.addObject("theater", theater);
+		mav.addObject("user", db_user);
+		return mav;
+	}
+	
+	@PostMapping("/cs/csPersonalWrite.do")
+	public String saveForm(CsPersonalVO csPersonalVO,
+							HttpSession session, Model model, HttpServletRequest request) throws IllegalStateException, IOException {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		log.debug("<<user>> : " + user);
+	
+		csPersonalVO.setMem_num(user.getMem_num());
+		log.debug("<<csPersonalVO>> : " + csPersonalVO);
+	
+		csService.insertPersonal(csPersonalVO); //게시글 저장
+		//View에 표시할 메시지
+		model.addAttribute("message", "정상적으로 업로드되었습니다.");
+		model.addAttribute("url",request.getContextPath()+"/cs/csMain.do");
+		
+		return "common/resultView";
+	}
+	
+	@RequestMapping("/cs/csPersonalList.do")
+	public ModelAndView personalList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+			String keyword, String keyfield) {
+
+		Map<String,Object> map = new HashMap<String, Object>();
+
+		map.put("table", 3); //cs_personal
+		map.put("keyword", keyword);
+		map.put("keyfield",keyfield);
+
+		//레코드 수 
+		int count = csService.selectRowCount(map);
+		//페이지 처리 
+		PagingUtil page = new PagingUtil(keyfield, keyword, 
+				currentPage, count, 20,10,"csPeronalList.do");
+		List<CsPersonalVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+
+			list = csService.selectPersonalList(map);
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csPersonalList");
+		mav.addObject("count",count);
+		mav.addObject("list",list);
+		mav.addObject("page",page.getPage());
+
+		return mav;
+	}	
+	
+	@GetMapping("/cs/csPersonalAdminWrite.do")
+	public ModelAndView getDetail(@RequestParam int personal_num) {
+		log.debug("<<글 상세>> : "+personal_num);
+
+		//글 상세 호출 
+		CsPersonalVO cs= csService.selectCsPersonal(personal_num);
+		
+		//제목에 태그를 허용하지 않는다. 
+		cs.setTitle(StringUtil.useNoHtml(cs.getTitle()));
+		
+		ModelAndView mav = new ModelAndView();
+		
+		List<FileVO> files = null;
+		files = csService.SelectNameList(personal_num);
+		if(!files.isEmpty()) {
+			mav.addObject("files", files);
+		}
+		mav.setViewName("csPersonalAdminWrite");
+		mav.addObject("cs",cs);
+		
+		return mav;
+	}
+	
+	@PostMapping("/cs/csPersonalAdminWrite.do")
+	public String saveAdminForm(CsPersonalVO csPersonalVO ,HttpSession session ,Model model, HttpServletRequest request) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		log.debug("<<user>> : " + user);
+		
+		csPersonalVO.setMem_num(user.getMem_num());
+		log.debug("<<csPersonalVO>> : " + csPersonalVO);
+		
+		csService.insertAdminPersonal(csPersonalVO);
+		csService.updateState1(csPersonalVO.getPersonal_num());
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "정상적으로 업로드되었습니다.");
+		model.addAttribute("url", request.getContextPath()+"/cs/csPersonalList.do");
+		
+		return "common/resultView";
+	}
+	
+	@GetMapping("/cs/csPersonalDetail.do")
+	public ModelAndView getDetail2(@RequestParam int personal_num) {
+		log.debug("<<글 상세>> : "+personal_num);
+
+		//글 상세 호출 
+		CsPersonalVO cs= csService.selectCsPersonal(personal_num);
+		//제목에 태그를 허용하지 않는다. 
+		cs.setTitle(StringUtil.useNoHtml(cs.getTitle()));
+		
+		ModelAndView mav = new ModelAndView();
+		if(cs.getState() != 0 ) {
+			CsPersonalVO answer = csService.selectCsAnswer(cs.getPersonal_num());
+			mav.addObject("answer", answer);
+		}
+		List<FileVO> files = null;
+		files = csService.SelectNameList(personal_num);
+		if(!files.isEmpty()) {
+			mav.addObject("files", files);
+		}
+		mav.addObject("cs", cs);
+		mav.setViewName("csPersonalDetail");
+		return mav;
+	}
+	
+	@RequestMapping("/cs/csPersonalDelete.do")
+	public String personalDelete(@RequestParam int personal_num, Model model, HttpServletRequest request, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		CsPersonalVO vo = csService.selectCsPersonal(personal_num);
+		//파일 삭제하기 
+		if(user.getMem_num() == vo.getMem_num()) {
+			
+			if(vo.getState() == 1) {
+				csService.deleteCsAnswer(personal_num);
+			}
+			csService.deleteCsFile(personal_num);//첨부파일 삭제
+			csService.deleteCsPersonal(personal_num);
+		}
+		
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "삭제되었습니다.");
+		model.addAttribute("url",request.getContextPath()+"/cs/csPersonalList.do");
+		return "common/resultView";
+	}
+	
+	@RequestMapping("/cs/csPersonalAdminDelete.do")
+	public String personalAdminDelete(@RequestParam int personal_num, Model model, HttpServletRequest request, HttpSession session) {
+		
+		csService.deleteCsAnswer(personal_num);
+		csService.updateState0(personal_num);
+
+		//View에 표시할 메시지
+		model.addAttribute("message", "삭제되었습니다.");
+		model.addAttribute("url",request.getContextPath()+"/cs/csPersonalList.do");
+		return "common/resultView";
+	}
+	
+	@GetMapping("/cs/csPersonalAdminUpdate.do")
+	public ModelAndView updateForm(@RequestParam int personal_num) {
+		
+		log.debug("<<글 상세>> : "+personal_num);
+
+		//글 상세 호출 
+		CsPersonalVO cs= csService.selectCsPersonal(personal_num);
+		//제목에 태그를 허용하지 않는다. 
+		cs.setTitle(StringUtil.useNoHtml(cs.getTitle()));
+		
+		ModelAndView mav = new ModelAndView();
+		if(cs.getState() != 0 ) {
+			CsPersonalVO answer = csService.selectCsAnswer(cs.getPersonal_num());
+			mav.addObject("answer", answer);
+		}
+		
+		List<FileVO> files = null;
+		files = csService.SelectNameList(personal_num);
+		if(!files.isEmpty()) {
+			mav.addObject("files", files);
+		}
+		
+		mav.addObject("cs", cs);
+		mav.setViewName("csPersonalAdminUpdate");
+		return mav;
+	}
+	
+	@PostMapping("/cs/csPersonalAdminUpdate.do")
+	public String update(CsPersonalVO csPersonalVO,Model model,HttpServletRequest request) {
+		csService.updateCsAnswer(csPersonalVO);
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "수정되었습니다.");
+		model.addAttribute("url",request.getContextPath()+"/cs/csPersonalList.do");
+		
+		return"common/resultView";
+	}
+	
+	//파일 다운로드 
+	@RequestMapping("/filedownload")
+	public void downloadFile(@RequestParam int file_num, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        	FileVO file = csService.selectFile(file_num);
+ 
+            String saveFileName = file.getSave_name(); 
+            String originalFileName = file.getOrigin_name();
+
+            
+            byte fileByte[] = FileUtil.getBytes(uploadPath + saveFileName);
+            
+            response.setContentType("application/octet-stream");
+            response.setContentLength(fileByte.length);
+            
+            response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(originalFileName,"UTF-8") +"\";");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            
+            response.getOutputStream().write(fileByte);
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+        
+    }
+}
