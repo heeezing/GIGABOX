@@ -10,13 +10,17 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.member.service.MemberService;
@@ -41,13 +45,51 @@ public class MembershipOrderController {
 	
 	
 	
+	
+	
 	@ModelAttribute
 	public MembershipOrderVO initCommand() {
 		return new MembershipOrderVO();
 	}
+	
+    @GetMapping("/getOrderInfo.do")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getOrderInfo(@RequestParam int membership_id) {
+        Map<String, Object> result = new HashMap<>();
+        
+        try {
+            MembershipVO selectedMembership = membershipService.getMembershipById(membership_id);
+
+            result.put("name", selectedMembership.getMembership_grade());
+            result.put("price", selectedMembership.getPrice());
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            result.put("error", "주문 정보를 가져오는데 실패하였습니다.");
+            return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 	/*------------------------
 	 *  상품 구매
 	 *------------------------*/
+    
+    @PostMapping("/membership/saveOrderInfo.do")
+    @ResponseBody
+    public ResponseEntity<String> saveOrderInfo(@RequestParam int order_num,
+                                                @RequestParam int membership_id) {
+        try {
+            MembershipOrderVO orderVO = new MembershipOrderVO();
+            orderVO.setOrder_num(order_num);
+            orderVO.setMembership_id(membership_id);
+            
+            membershipOrderService.insertOrder(orderVO);
+
+            return new ResponseEntity<>("Order info saved successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error saving order info", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
 	//상품 구매 폼 호출
 	
 	 @RequestMapping("/membership/msorderForm.do")
@@ -74,6 +116,8 @@ public class MembershipOrderController {
 	     return "msorderForm";  
 	     
 	    }
+	 
+	 
 	 
 	 //전송된 데이터 처리
 	 @PostMapping("membership/msorder.do")

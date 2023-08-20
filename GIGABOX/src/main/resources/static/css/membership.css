@@ -66,6 +66,59 @@
 .subscribe-btn:hover {
     background-color: #0056b3;
 }
+/*===========================
+	  	   주문 폼
+  ===========================*/
+.com_box_design_title { 
+    margin: 0 0 10px 55px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.com_box_design_wrap {
+    width: 980px;
+    margin: 90px auto 0;
+}
+ul.com_box_design {
+    padding: 29px 0 30px;
+    border-top: 3px solid #000;
+    border-bottom: 1px solid #000;
+    font-size:14pt;
+}
+ul.com_box_design > li {
+    padding: 10px 20px;
+}
+ul.com_box_design > li label {
+    height: 40px;
+    margin-right: 14px;
+    padding-left: 53px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #6a6f77;
+    line-height: 40px;
+    vertical-align: middle;
+    float:none;
+}
+ul.com_box_design > li label:first-child {
+    padding-left: 0;
+}
+ul.com_box_design > li input[type="text"], 
+ul.com_box_design > li input[type="tel"],
+ul.com_box_design > li input[type="number"] {
+    height: 38px;
+    padding: 0 0 0 10px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #000;
+    line-height: 38px;
+    border: 1px solid #bebebe;
+    margin:0 auto;
+}
+.com_box_design_olist{
+	font-weight: 300;
+    font-size: 15px;
+    color: #6a6f77;
+}
+
 
 
 

@@ -6,7 +6,7 @@ $(function(){
 	/*=======================
 			멤버십 결제
   	  =======================*/
-        $('#membership_pay').click(function iamport() {
+        $('#membership').click(function iamport() {
             // IMP.request_pay(param, callback) 호출
             IMP.init("imp05368653");
             IMP.request_pay({
