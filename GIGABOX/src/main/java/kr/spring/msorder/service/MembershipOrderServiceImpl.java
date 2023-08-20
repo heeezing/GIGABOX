@@ -15,8 +15,13 @@ public class MembershipOrderServiceImpl implements MembershipOrderService {
 	
 	@Override
 	public void insertOrder(MembershipOrderVO order) {
-		order.setOrder_num(orderMapper.selectOrderNum());
 		orderMapper.insertOrder(order);
+		order.setOrder_num(orderMapper.selectOrderNum());
+	}
+
+	@Override
+	public int selectOrderNum() {
+		return orderMapper.selectOrderNum();
 	}
 
 }

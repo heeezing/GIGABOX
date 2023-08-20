@@ -36,6 +36,8 @@ public class MembershipOrderController {
 	private MembershipService membershipService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private MembershipOrderService membershipOrderService;
 	
 	
 	
@@ -49,22 +51,25 @@ public class MembershipOrderController {
 	//상품 구매 폼 호출
 	
 	 @RequestMapping("/membership/msorderForm.do")
-	    public String showOrderForm(@RequestParam("membership_id") 
-	    							int membershipId,
+	    public String showOrderForm(@RequestParam int membership_id,
+	    							MembershipOrderVO msorderVO,	    							
 	    							HttpSession session, Model model,
 	    							HttpServletRequest request) {
+		 log.debug("<<membershipOrderVO>> : " +msorderVO);
 		 
-	     MemberVO user = (MemberVO)session.getAttribute("user");  
-	     Map<String, Object> map = new HashMap<String, Object>();
-	     map.put("mem_num", user.getMem_num());
-	     map.put("membership_id", membershipId);
+		 //회원정보 읽어오기
+	     MemberVO user = (MemberVO)session.getAttribute("user"); 
+	     log.debug("<<user>> : " + user);
+	     
+	    //주문번호 생성?
+	     int order_num = membershipOrderService.selectOrderNum();
+	     
+	     model.addAttribute("order_num", order_num);
 	     
 		 
-	     List<MembershipVO> membershipList = membershipService.selectMembershipUserList(map);
-	     MembershipVO selectedMembership = membershipService.getMembershipById(membershipId);
+	     MembershipVO selectedMembership = membershipService.getMembershipById(membership_id);
 	     
 	     model.addAttribute("selectedMembership", selectedMembership);
-	     model.addAttribute("list", membershipList);
 	     
 	     return "msorderForm";  
 	     
@@ -72,27 +77,30 @@ public class MembershipOrderController {
 	 
 	 //전송된 데이터 처리
 	 @PostMapping("membership/msorder.do")
-	 public String submit(@Valid MembershipOrderVO msorderVO,
+	 public String submit(@RequestParam int order_num,
+			 			  @Valid MembershipOrderVO msorderVO,
 			 			  BindingResult result, Model model,
 			 			  HttpSession session,
 			 			  HttpServletRequest request,
-			 			  HttpServletResponse response) {
-		 log.debug("<<MembershipOrderVO>> : " + msorderVO);
-
-		 //전송된 데이터 유효성 체크 결과 오류가 있으면 폼 호출
-		 if(result.hasErrors()) {
-			 return showOrderForm(msorderVO.getMembership_id(), 
-					 			  session,model,request);
-		 }
+			 			  @RequestParam int membership_id ) {		
 		 
+		 //회원정보 읽어오기
 		 MemberVO user = (MemberVO)session.getAttribute("user");
+		 log.debug("<<order_num>> : " + order_num);
+		 
+		 msorderVO.setMem_num(user.getMem_num());
+		 
 		 Map<String, Object> map = new HashMap<String, Object>();
 		 map.put("mem_num", user.getMem_num());
 		 map.put("membership_id", msorderVO.getMembership_id());
 		 
 		 //상품정보 호출
-		 List<MembershipVO> membershipList = membershipService.selectMembershipUserList(map);
+		MembershipVO membershipVO = membershipService.selectMembership(membership_id);
+		
 		 
+		 membershipOrderService.insertOrder(msorderVO);
+		 
+		 model.addAttribute("order_num", msorderVO.getOrder_num());
 		 
 		 
 

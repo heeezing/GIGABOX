@@ -33,12 +33,15 @@
 					<div class="horizontal-membership-item">
 						<span class="list-name"><b>${membership.membership_grade}</b></span><br>
 						<span class="list-detail">${membership.membership_detail}</span><br>
-						<img src="imageView.do?membership_id=${membership.membership_id}">
+						<img src="imageView.do?membership_id=${membership.membership_id}"><br>
 						<span class="list-benefits">${membership.membership_benefits}</span><br>
 						<span class="list-price"> <fmt:formatNumber value="${membership.price}" />원
-						</span>
+						</span><br>
 						<!-- 여기에 구독 버튼 추가 가능 -->
-						<a href="${pageContext.request.contextPath}/membership/msorderForm.do?membership_id=${membership.membership_id}" class="subscribe-button">구독하기</a>
+						<a href="${pageContext.request.contextPath}/membership/msorderForm.do?membership_id=${membership.membership_id}"
+							class="subscribe-button">
+							<button class="subscribe-btn">구독하기</button>
+						</a>
 					</div>
 				</c:forEach>
 			</div>
@@ -47,6 +50,7 @@
 </div>
 
 <!-- 멤버십 목록 종료 -->
+
 
 
 
