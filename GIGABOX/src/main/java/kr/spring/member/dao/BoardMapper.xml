@@ -226,7 +226,47 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
 	</select>
-	  
+	
+	
+	<!-- 관리자 회원내역 목록 -->
+	<sql id="memberBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					m.mem_num = #{keyword}
+				</if>
+				<if test="keyfield == 2">
+					m.auth = #{keyword}
+				</if>
+			</if>
+		</where>
+	</sql>
+
+	<!-- 포스트내역 전체/검색 레코드수 -->
+	<select id="selectMemberRowCount"  parameterType="map" resultType="integer">
+		SELECT
+		  COUNT(*)
+		FROM member m LEFT OUTER JOIN member_detail d
+		ON m.mem_num = d.mem_num
+		<include refid="memberBoardSearch"></include>
+	</select>
+	<!-- 관리자 회원 내역 전체/검색 목록 -->
+	<select id="selectMember"  parameterType="map" resultType="memberVO">
+		SELECT
+			*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+		  	  FROM(SELECT
+		              *
+		            FROM member m LEFT OUTER JOIN member_detail d
+		            ON m.mem_num = d.mem_num
+			  		<include refid="memberBoardSearch"></include>
+			  		)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
 	
 </mapper>  
 

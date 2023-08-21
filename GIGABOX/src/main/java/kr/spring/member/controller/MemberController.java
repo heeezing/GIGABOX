@@ -232,6 +232,44 @@ public class MemberController {
 
 		return "redirect:/main/main.do";
 	}
+	
+
+	/*
+	 * ============ 아이디 찾기 ============
+	 */
+	@GetMapping("/find_id1")
+	public String findid() {
+		return "userSearch";
+	}
+	
+	
+	@PostMapping("/find_id")
+	@ResponseBody
+	public Map<String, String> find_id(@RequestParam("name") String name,@RequestParam("phone") String phone) {
+		Map<String, String> mapAjax = new HashMap<String, String>();
+		
+		String result = memberService.find_id(name, phone);
+		
+		if(result==null) {
+			mapAjax.put("result", "null");
+		}else {
+			mapAjax.put("result", result);
+		}
+		log.debug("<<아이디찾기>>");
+		return mapAjax;
+	}
+	
+	/*
+	 * ============ 비밀번호 찾기 ============
+	 */
+	@RequestMapping(value = "/member/findpw", method = RequestMethod.GET)
+	public void findPwGET() throws Exception{
+	}
+
+	@RequestMapping(value = "/member/findpw", method = RequestMethod.POST)
+	public void findPwPOST(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception{
+		memberService.findPw(response, member);
+	}
 
 	/*
 	 * ============ my페이지 ============
@@ -470,10 +508,14 @@ public class MemberController {
 		// 회원 정보 반환
 		MemberVO member = memberService.selectMember(user1.getMem_num());
 		String membership = orderService.selectMembershipByMem_num(user1.getMem_num());
-
+		int point = pointService.myTotalPoint(user1.getMem_num());
+		if(membership == null) {
+			membership="BASIC";
+		}
 		// 회원정보
 		model.addAttribute("member", member);// member라는 이름으로 member를 넣어줌
 		model.addAttribute("membership", membership);
+		model.addAttribute("point", point);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("keyfield", keyfield);
@@ -517,17 +559,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	/*
-	 * ============ 비밀번호 찾기 ============
-	 */
-	@RequestMapping(value = "/member/findpw", method = RequestMethod.GET)
-	public void findPwGET() throws Exception{
-	}
-
-	@RequestMapping(value = "/member/findpw", method = RequestMethod.POST)
-	public void findPwPOST(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception{
-		memberService.findPw(response, member);
-	}
+	
 
 	
 	/*

@@ -1,7 +1,9 @@
 package kr.spring.member.service;
 
 import java.io.PrintWriter;
+import java.util.Properties;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -11,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.member.dao.MemberMapper;
 import kr.spring.member.vo.MemberVO;
-import kr.spring.point.dao.PointMapper;
 
 @Service
 @Transactional
@@ -79,47 +80,50 @@ public class MemberServiceImpl implements MemberService{
 	//비밀번호 찾기 이메일발송
 	@Override
 	public void sendEmail(MemberVO vo, String div) throws Exception {
-		// Mail Server 설정
-		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
-		String hostSMTPid = "wjdqudgml03@naver.com";
-		String hostSMTPpwd = "wjdqudgml11!~~";
+	    String charSet = "utf-8";
+	    String hostSMTP = "smtp.naver.com";
+	    String hostSMTPid = "wjdqudgml03@naver.com"; // 전체 이메일 주소
+	    String hostSMTPpwd = "wjdqudgml11!~~";
+	    String fromEmail = "wjdqudgml03@naver.com";
+	    String fromName = "gigabox";
+	    String subject = "";
+	    String msg = "";
+	    
+	    if(div.equals("findpw")) {
+	        subject = "베프마켓 임시 비밀번호 입니다.";
+	        msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+	        msg += "<h3 style='color: blue;'>";
+	        msg += vo.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+	        msg += "<p>임시 비밀번호 : ";
+	        msg += vo.getPasswd() + "</p></div>";
+	    }
+	    
+	    String mail = vo.getEmail();
+	    HtmlEmail email = new HtmlEmail();
+	    email.setDebug(true);
+	    email.setCharset(charSet);
+	    email.setHostName(hostSMTP);
+	    
+	    // 인증 설정
+	    email.setAuthentication(hostSMTPid, hostSMTPpwd);
+	    
+	    // 프로퍼티 설정
+	    Properties properties = new Properties();
+	    properties.setProperty("mail.smtp.starttls.enable", "true");
+	    properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+	    properties.setProperty("mail.smtp.ssl.ciphers", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256");
+	    
+	    // 포트 설정
+	    properties.setProperty("mail.smtp.port", "587");
+	    email.setAuthentication(hostSMTPid, hostSMTPpwd);
+	    email.setMailSession(Session.getDefaultInstance(properties));
+	    
+	    email.setFrom(fromEmail, fromName, charSet);
+	    email.addTo(mail, charSet);
+	    email.setSubject(subject);
+	    email.setHtmlMsg(msg);
 
-		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "wjdqudgml0303@naver.com";
-		String fromName = "gigabox";
-		String subject = "";
-		String msg = "";
-
-		if(div.equals("findpw")) {
-			subject = "베프마켓 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += vo.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += vo.getPasswd() + "</p></div>";
-		}
-		
-		
-		String mail = vo.getEmail();
-		try {
-			HtmlEmail email = new HtmlEmail();
-			email.setDebug(true);
-			email.setCharset(charSet);
-			email.setSSL(true);
-			email.setHostName(hostSMTP);
-			email.setSmtpPort(465); //네이버 이용시 587
-
-			email.setAuthentication(hostSMTPid, hostSMTPpwd);
-			email.setTLS(true);
-			email.addTo(mail, charSet);
-			email.setFrom(fromEmail, fromName, charSet);
-			email.setSubject(subject);
-			email.setHtmlMsg(msg);
-			email.send();
-		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
-		}
+	    email.send();
 	}
 
 	//비밀번호찾기
@@ -154,6 +158,21 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updatePw(MemberVO vo) throws Exception {
 		return memberMapper.updatePw(vo);
+	}
+
+	@Override
+	public String find_id(String name, String phone) {
+		String result = "";
+		
+		try {
+		 result= memberMapper.find_id(name, phone);
+		 
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return result ;
 	}
 
 

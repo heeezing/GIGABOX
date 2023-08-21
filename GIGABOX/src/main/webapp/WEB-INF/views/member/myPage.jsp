@@ -12,9 +12,9 @@
 		</div>
 	
 		<div class="mypage-point">
-			<b>멤버십 등급 : <c:if test="${membership}==null">BASIC</c:if>${membership}</b><br>
-			<b>포인트 : 0P</b><br>
-			<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;포인트 내역></a>
+			<b>멤버십 등급 : ${membership}</b><br>
+			<b>포인트 : ${point}P</b><br>
+			<a href="${pageContext.request.contextPath}/board/pointList.do">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;포인트 내역></a>
 		</div>
 	</div>
 	<div class="tit-util mt70">

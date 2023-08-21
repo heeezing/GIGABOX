@@ -112,7 +112,19 @@
     	<put-attribute name="body" value="/WEB-INF/views/board/memberPost.jsp"/>
     </definition>
     
-
+   <!-- 아이디 찾기 -->
+    <definition name="userSearch" extends="myPage">
+    	<put-attribute name="title" value="아이디찾기"/>
+    	<put-attribute name="nav" value=""/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/userSearch.jsp"/>
+    </definition>
+    
+    <!-- 관리자 - 회원관리 -->
+	<definition name="memberList" extends="admin">
+    	<put-attribute name="title" value="회원정보"/>
+	    <put-attribute name="body" value="/WEB-INF/views/board/memberList.jsp"/>
+    </definition>
+	
 </tiles-definitions>
   
 

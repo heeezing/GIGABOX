@@ -26,5 +26,9 @@ public interface BoardService{
 	//무비포스트 게시판
 	public List<PostVO> selectPost(Map<String,Object> map);
 	public int selectPostRowCount(Map<String,Object> map);
+	
+	//관리자-회원관리
+	public List<MemberVO> selectMember(Map<String,Object> map);
+	public int selectMemberRowCount(Map<String,Object> map);
 }
   

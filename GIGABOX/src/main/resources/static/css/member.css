@@ -63,6 +63,9 @@
 .mt70 {
     margin-top: 70px!important;
 }
+.login-btn{
+	background: black;
+}
 .tit{
 	line-height: 32px;
 	font-size: 1.4666em;
@@ -187,7 +190,7 @@ ol, ul {
 }
 .mypage-point{
 	color:white;
-	margin: 80px 10px 20px 500px;
+	margin: 60px 10px 20px 470px;
 	font-size:20px;
 	padding:10;
 }

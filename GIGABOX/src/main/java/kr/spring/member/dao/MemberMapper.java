@@ -61,5 +61,9 @@ public interface MemberMapper {
 	public MemberVO readMember(String id);
 	// 비밀번호 변경
 	public int updatePw(MemberVO vo) throws Exception;
+	
+	//아이디 찾기
+	@Select("select m.id from member m JOIN member_detail d ON m.mem_num=d.mem_num where d.name=#{name} and d.phone=#{phone}")
+	public String find_id(String name, String phone);
 
 }  

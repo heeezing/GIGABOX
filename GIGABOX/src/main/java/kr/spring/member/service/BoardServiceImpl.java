@@ -65,5 +65,15 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.selectPostRowCount(map);
 	}
 
+	@Override
+	public List<MemberVO> selectMember(Map<String, Object> map) {
+		return boardMapper.selectMember(map);
+	}
+
+	@Override
+	public int selectMemberRowCount(Map<String, Object> map) {
+		return boardMapper.selectMemberRowCount(map);
+	}
+
 
 }  

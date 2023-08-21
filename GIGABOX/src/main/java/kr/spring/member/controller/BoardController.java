@@ -346,6 +346,39 @@ public class BoardController {
 		return mav;
 	}
 	
-	
+	//관리자페이지 - 회원관리
+	@RequestMapping("/board/memberList.do")
+	public ModelAndView memberList(@RequestParam(value="pageNum",
+            defaultValue="1") int currentPage,
+            String keyfield,String keyword) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("keyfield", keyfield);
+		map.put("keyword", keyword);
+		
+		// 예매내역 전체 레코드 수
+		int count = boardService.selectMemberRowCount(map);
+		
+		log.debug("<<count>> : "+count);
+		
+		//페이지 처리
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,
+				count,20,10,"memberList.do");
+		List<MemberVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = boardService.selectMember(map);
+			log.debug("<<list>> : " + list);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("memberList");
+		mav.addObject("count", count);
+		mav.addObject("list",list);
+		mav.addObject("page",page.getPage());
+		
+		return mav;
+	}
 	
 }

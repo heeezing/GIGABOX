@@ -31,11 +31,3 @@ server:  port: 8000
     encoding:      charset: UTF-8
       enabled: true #http 인코딩 지원을 활성화할지 여부
       force: true
-  mail:
-    host: smtp.naver.com
-    port: 587
-    username: wjdqudgml03@naver.com
-    password: wjdqudgml03!~~
-    properties:
-      mail.smtp.auth: true
-      mail.smtp.ssl.enable: true

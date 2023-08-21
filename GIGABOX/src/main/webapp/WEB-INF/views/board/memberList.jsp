@@ -16,14 +16,12 @@
 </script>
 <div class="page-main">
 	<h2>회원목록(관리자용)</h2>
-	<form action="admin_list.do" id="search_form" method="get">
+	<form action="memberList.do" id="search_form" method="get">
 		<ul class="search">
 			<li>
 				<select name="keyfield">
 					<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>ID</option>
-					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>이름</option>
-					<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>이메일</option>
-					<option value="4" <c:if test="${param.keyfield == 4}">selected</c:if>>전체</option>
+					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>등급</option>
 				</select>
 			</li>
 			<li>
@@ -33,7 +31,7 @@
 			<li>
 				<input type="submit" value="찾기">
 				<input type="button" value="목록" 
-				   onclick="location.href='admin_list.do'">
+				   onclick="location.href='memberList.do'">
 			</li>
 		</ul>
 	</form>
@@ -54,7 +52,7 @@
 		<tr>
 			<td>
 				<c:if test="${member.auth==0}">${member.id}</c:if>
-				<c:if test="${member.auth > 0}"><a href="admin_update.do?mem_num=${member.mem_num}">${member.id}</a></c:if>
+				<c:if test="${member.auth > 0}"><a href="memberList.do?mem_num=${member.mem_num}">${member.id}</a></c:if>
 			</td>
 			<td>${member.name}</td>
 			<td>${member.phone}</td>

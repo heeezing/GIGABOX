@@ -5,7 +5,7 @@
 	<ul>
 		<li>
 			<input type="button" class="menu-btn" value="회원 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/board/memberList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="영화 관리"
