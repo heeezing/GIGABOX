@@ -59,78 +59,66 @@
 <!-- 상품구매 끝 -->
 
 <script>
-BootPay.request({
-	price: 0, // 0으로 해야 한다.
-	application_id: "64e2311100be04001aa38e4d",
-	name: '정기적인 결제', //결제창에서 보여질 이름
-	pg: 'nicepay',
-	method: 'card_rebill', // 빌링키를 받기 위한 결제 수단
-	show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
-	user_info: {
-		username: '사용자 이름',
-		email: '사용자 이메일',
-		addr: '사용자 주소',
-		phone: '010-1234-4567'
-	},
-	order_id: '고유order_id_1234', //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
-	params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
-	extra: {
-		start_at: '2019-05-10', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
-		end_at: '2022-05-10' // 정기결제 만료일 -  기간 없음 - 무제한
-	}
-}).error(function (data) {
-	//결제 진행시 에러가 발생하면 수행됩니다.
-	console.log(data);
-}).cancel(function (data) {
-	//결제가 취소되면 수행됩니다.
-	console.log(data);
-}).done(function (data) {
-	// 빌링키를 정상적으로 가져오면 해당 데이터를 불러옵니다.
-	console.log(data);
-	import { RestClient } from "@bootpay/server-rest-client"
-	// or
-	const RestClient = require('@bootpay/server-rest-client').RestClient;
+$(document).ready(function() {
+    $("#membership_pay").click(function() {
+        BootPay.request({
+            price: 0, // 0으로 해야 한다.
+            application_id: "64e2311100be04001aa38e4d",
+            name: '정기적인 결제', // 결제창에서 보여질 이름
+            pg: 'nicepay',
+            method: 'card_rebill', // 빌링키를 받기 위한 결제 수단
+            show_agree_window: 0,
+            user_info: {
+                username: '사용자 이름',
+                email: '사용자 이메일',
+                addr: '사용자 주소',
+                phone: '010-1234-4567'
+            },
+            order_id: '고유order_id_1234',
+            params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
+            extra: {
+                start_at: '2019-05-10', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
+                end_at: '2022-05-10' // 정기결제 만료일 -  기간 없음 - 무제한
+            }
+        }).error(function (data) {
+            // 결제 진행시 에러가 발생하면 수행됩니다.
+            console.log(data);
+        }).cancel(function (data) {
+            // 결제가 취소되면 수행됩니다.
+            console.log(data);
+        }).done(function (data) {
+            // 빌링키를 정상적으로 가져오면 해당 데이터를 불러옵니다.
+            console.log(data);
 
-	RestClient.setConfig(
-	    '[[ 64e2311100be04001aa38e50 ]]',
-	    '[[ kSwOr6gQgDRzZSNd+leIoWbGJbzDg/YSwGsrc/zeHkA= ]]'
-	);
+            // 결제가 완료되었으므로 데이터베이스에 저장하고자 하는 정보를 변수에 담습니다.
+            var orderNum = data.order_id; // 결제한 주문번호
+            var memNum = ${user.mem_num}; // 사용자 회원 번호
+            var membershipId = ${selectedMembership.membership_id}; // 선택한 멤버십 ID
+            var price = ${selectedMembership.price}; // 선택한 멤버십 가격
 
-
-	RestClient.getAccessToken().then(function (token) {
-	    if (token.status === 200) {
-	        RestClient.requestSubscribeBillingPayment({
-	            billingKey: '[[ billing_key ]]', // 빌링키
-	            itemName: '정기결제 아이템', // 정기결제 아이템명
-	            price: 3000, // 결제 금액
-	            taxFree: 0, // 비과세 금액 ( 0원이면 생략 가능 )
-	            orderId: '[[ order_id ]]', // 유니크한 주문번호
-	            quota: 0, // 할부 개월수 0 - 일시불, 3 - 3개월 ( 5만원 이상부터 가능 )
-	            userInfo: {
-	                username: 'test',
-	                email: 'test@bootpay.co.kr',
-	                phone: '01000000000',
-	                address: '[[ 지역 ]]'
-	            },
-	            feedbackUrl: '[[ 결제 완료후 Feedback 받을 https가 포함된 URL ]]',
-	            feedbackContentType: '[[ json or urlencoded ]]',
-	            items: [
-	                {
-	                    itemName: '정기 결제 아이템명',
-	                    qty: 1,
-	                    unique: '아이템 유니크값',
-	                    price: 3000,
-	                    cat1: '카테고리1',
-	                    cat2: '카테고리2',
-	                    cat3: '카테고리3'
-	                }
-	            ]
-	        }).then(function (response) {
-	            if (response.status === 200) {
-	                // TODO: 결제 완료된 로직을 처리하시면 됩니다.
-	            }
-	        });
-	    }
-	});
+            // AJAX 요청을 통해 데이터베이스에 저장합니다.
+            $.ajax({
+                url: "${pageContext.request.contextPath}/membership/msorder.do",
+                type: "POST",
+                data: {
+                    order_num: orderNum,
+                    mem_num: memNum,
+                    membership_id: membershipId,
+                    price: price
+                    // ... (나머지 필요한 데이터)
+                },
+                success: function(result) {
+                    console.log("Order saved successfully:", result);
+                    // 결제가 완료되었으므로 사용자에게 알림을 표시합니다.
+                    alert("결제가 완료되었습니다.");
+                },
+                error: function(error) {
+                    console.log("Error saving order:", error);
+                    // 결제 실패 시 사용자에게 알림을 표시합니다.
+                    alert("결제가 실패하였습니다.");
+                }
+            });
+        });
+    });
 });
 </script>
