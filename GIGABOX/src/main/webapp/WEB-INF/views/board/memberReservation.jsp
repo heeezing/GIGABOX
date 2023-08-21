@@ -147,7 +147,7 @@
          <td class="align-center">${reservation.m_title}</td>
          <td class="align-center">${reservation.th_name}</td>
          <td class="align-center">${reservation.res_date}</td>
-         <td class="align-center">${reservation.res_total}</td>
+         <td class="align-center"><fmt:formatNumber value="${reservation.res_total}" type="number" pattern="#,##0"/>원</td>
       </tr>
       </c:if>
       </c:forEach>
