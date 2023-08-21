@@ -13,6 +13,7 @@ public interface BoardService{
 	//예매내역 게시판
 	public List<ReservationVO> selectReservation(Map<String,Object> map);
 	public int selectReservationRowCount(Map<String,Object> map);
+	public int selectDelReservationRowCount(Map<String,Object> map);
 	
 	//구매내역 게시판
 	public List<OrderVO> selectOrder(Map<String,Object> map);

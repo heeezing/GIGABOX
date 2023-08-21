@@ -3,57 +3,56 @@
 <mapper namespace="kr.spring.member.dao.BoardMapper">
 	
 	<!-- 예매내역 목록 -->
-	<sql id="reservationBoardSearch">
-		<where>
-			<if test="keyword != null and keyword != ''">
-				<if test="keyfield == 1">
-					r.res_num = #{keyword}
-				</if>
-				<if test="keyfield == 2">
-					r.res_date LIKE '%' || #{keyword} || '%'
-				</if>
-			</if>
-		</where>
-	</sql>
-	
-	<sql id="reservationBoardOrder">
-		<if test="order == 1">
-			ORDER BY r.res_num DESC
-		</if>
-		<if test="order == 2">
-			ORDER BY r.res_date DESC
-		</if>
-	</sql>
-	
-	<!-- 예매 내역 전체/검색 레코드수 -->
+	<!-- 예매 내역 전체 레코드수 -->
 	<select id="selectReservationRowCount" parameterType="map" resultType="integer">
 		SELECT
 			COUNT(*)
 		FROM reservation r JOIN member m
 		ON r.mem_num = m.mem_num
-		WHERE r.mem_num=#{mem_num}
-		<include refid="reservationBoardSearch"></include>
+		WHERE r.mem_num=#{mem_num} AND r.res_status=1
 	</select>
 	
-	<!-- 예매 내역 전체/검색 목록 -->
+	<!-- 예매 취소 내역 전체 레코드수 -->
+	<select id="selectDelReservationRowCount" parameterType="map" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM reservation r JOIN member m
+		ON r.mem_num = m.mem_num
+		WHERE r.mem_num=#{mem_num} AND r.res_status=2
+	</select>
+	
+	<!-- 예매 내역 전체 목록 -->
 	<select id="selectReservation" parameterType="map" resultType="reservationVO">
+		<!-- SELECT
+		  r.*,
+		  s.*,
+		  m.*,
+		  mo.*,
+		  th.*,
+		  h.*
+		FROM reservation r
+		JOIN schedule s ON r.sch_num = s.sch_num
+		JOIN member ON r.mem_num = m.mem_num
+		JOIN movie mo ON s.movie_num = mo.movie_num
+		JOIN hall h ON s.hall_num = h.hall_num
+		JOIN theater th ON h.th_num = th.th_num
+		WHERE r.mem_num=#{user} AND
+		<include refid="reservationBoardSearch"></include>
+			  	   <include refid="reservationBoardOrder"></include> -->
 		SELECT
 			*
 		FROM (SELECT
 				a.*,
 				rownum rnum
 			  FROM(SELECT
-			  		  r.res_num,
-			  		  r.res_date,
-			  		  r.res_people,
-			  		  r.res_payment,
-			  		  r.res_total
+			  		 *
 			  	   FROM reservation r
-			  	   JOIN member m
-			  	   ON r.mem_num = m.mem_num
+			  	   JOIN member m ON r.mem_num = m.mem_num
+				   JOIN schedule s ON r.sch_num = s.sch_num
+			       JOIN movie mo ON s.movie_num = mo.movie_num
+				   JOIN hall h ON s.hall_num = h.hall_num
+				   JOIN theater th ON h.th_num = th.th_num
 			  	   WHERE r.mem_num=#{user}
-			  	   <include refid="reservationBoardSearch"></include>
-			  	   <include refid="reservationBoardOrder"></include>
 			  	   )a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}

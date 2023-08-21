@@ -40,40 +40,43 @@ public class BoardController {
 	
 	//예매내역 목록
 	@RequestMapping("/board/reservationList.do")
-	public ModelAndView getList(@RequestParam(value="pageNum", defaultValue="1") int currentPage, 
-								@RequestParam(value="order", defaultValue="1") int order,
-								String keyfield, String keyword, HttpSession session) {
+	public ModelAndView getList(@RequestParam(value="pageNum", defaultValue="1") int currentPage,HttpSession session) {
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("keyfield", keyfield);
-		map.put("keyword", keyword);
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user != null) {
 			map.put("mem_num", user.getMem_num());
 		}
 		
-		//전체 검색 레코드 수
+		// 예매내역 전체 레코드 수
 		int count = boardService.selectReservationRowCount(map);
 		
+		// 예매 취소내역 전체 레코드 수
+		int countDel = boardService.selectDelReservationRowCount(map);
+		
 		log.debug("<<count>> : "+count);
+		log.debug("<<countDel>> : "+countDel);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"reservationList.do","&order="+order);
+		PagingUtil page = new PagingUtil(currentPage,count,3,10,"reservationList.do");
+		PagingUtil pageDel = new PagingUtil(currentPage,countDel,10,10,"reservationList.do");
 		List<ReservationVO> list = null;
 		if(count > 0) {
-			map.put("order", order);
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
 			map.put("user", user.getMem_num());
 			
 			list = boardService.selectReservation(map);
+			log.debug("<<list>> : " + list);
 		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("memberReservation");
 		mav.addObject("count", count);
+		mav.addObject("countDel", countDel);
 		mav.addObject("list",list);
 		mav.addObject("page",page.getPage());
+		mav.addObject("pageDel",pageDel.getPage());
 		
 		return mav;
 	}

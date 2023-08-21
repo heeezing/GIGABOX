@@ -4,6 +4,7 @@
 	padding:25px 30px 25px 40px;
 	border:1px solid #d8d9db;
 	border-radius:10px;
+	margin:0 0 30px 0;
 }
 .res-box a{
 	float:left;
@@ -22,7 +23,7 @@
 	background-color:#f3f4f6;
 	border-radius:5px;
 	height:40px;
-	margin-left:160px;
+	margin-left:180px;
 }
 .bg-ground .res-table{
 	padding:2px 10px 0 20px;
@@ -44,4 +45,9 @@
 }
 .res-box img{
 	height:230px;
+}
+.res-num-text{
+	font-size:17px;
+	color:#503396;
+	font-weight:600;
 }

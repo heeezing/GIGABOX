@@ -29,6 +29,11 @@ public class BoardServiceImpl implements BoardService{
 	public int selectReservationRowCount(Map<String, Object> map) {
 		return boardMapper.selectReservationRowCount(map);
 	}
+	
+	@Override
+	public int selectDelReservationRowCount(Map<String, Object> map) {
+		return boardMapper.selectDelReservationRowCount(map);
+	}
 
 	@Override
 	public List<OrderVO> selectOrder(Map<String, Object> map) {
