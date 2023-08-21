@@ -101,4 +101,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationMapper.selectSeats(hall_num);
 	}
 
+	@Override
+	public void deleteRes(String res_num) {
+		reservationMapper.deleteRes(res_num);
+	}
+
 }

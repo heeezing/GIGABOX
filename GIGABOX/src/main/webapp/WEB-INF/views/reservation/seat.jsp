@@ -231,7 +231,7 @@
 					</div>
 					<div class="pay-area">
 						<p class="count">인원 <span class="person">0</span></p>
-						<div class="tit">최종결제금액</div>
+						<div class="money-text">최종결제금액</div>
 						<div class="money">
 							<span id="money_area">0</span><span>원</span>
 						</div>

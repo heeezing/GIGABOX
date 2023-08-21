@@ -49,5 +49,8 @@ public interface ReservationService {
 	
 	// 예매완료된 좌석번호 불러오기
 	public List<String> getSeatsDB(Integer sch_num);
+	
+	// 예매취소
+	public void deleteRes(String res_num);
 
 }

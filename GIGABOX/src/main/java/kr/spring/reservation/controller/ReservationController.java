@@ -345,4 +345,18 @@ public class ReservationController {
 		
 		return "payment_success";
 	}
+	
+	/*========================
+	 *  예매 취소
+	 *========================*/
+	@RequestMapping("/reservation/deleteRes.do")
+	public String DeleteRes(@RequestParam String res_num,HttpServletRequest request,Model model) {
+		resService.deleteRes(res_num);
+		
+		model.addAttribute("message", "예매가 취소되었습니다.");
+		model.addAttribute("url", request.getContextPath()+"/board/reservationList.do");
+		
+		return "common/resultView";
+		
+	}
 }

@@ -82,7 +82,7 @@
 	FROM schedule
 		 JOIN hall USING(hall_num)
 		 JOIN movie USING(movie_num)
-	WHERE th_num=#{th_num} AND sch_date = #{sch_date}
+	WHERE th_num=#{th_num} AND sch_date = #{sch_date} AND hall.hall_status=2
 	ORDER BY m_title, hall_num, sch_start
 </select>
 

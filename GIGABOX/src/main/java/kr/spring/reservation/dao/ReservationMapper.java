@@ -63,4 +63,8 @@ public interface ReservationMapper {
 	@Select("SELECT res_seats FROM reservation WHERE sch_num=#{sch_num}")
 	public List<String> getSeatsDB(Integer sch_num);
 	
+	// 예매취소
+	@Update("UPDATE reservation SET res_status=2, del_date=SYSDATE WHERE res_num=#{res_num}")
+	public void deleteRes(String res_num);
+	
 }
