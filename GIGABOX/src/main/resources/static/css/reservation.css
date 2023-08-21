@@ -67,45 +67,6 @@
 	background-color: #f7f8f9;
     border-bottom: 2px solid #503396;
 }
-
-/* .august {
-    font-size: .8667em;
-    width: 70px;
-    line-height: 28px;
-    margin-top: -16px;
-    border: 1px solid #d8d9db;
-    border-radius: 15px;
-    text-align: center;
-    background-color: #fff;
-    margin-left: 12px;
-    float:left;
-}
-.september {
-    font-size: .8667em;
-    width: 70px;
-    line-height: 28px;
-    margin-top: -16px;
-    border: 1px solid #d8d9db;
-    border-radius: 15px;
-    text-align: center;
-    background-color: #fff;
-    margin-left: 462px;
-    float:left;
-}
-.date_area{
-    float: left;
-    text-align: center;
-    margin-left:11px;
-}
-.date_area p{
-	height: 26px;
-    font-size: 13px;
-    margin:0 13px;
-    width:50px;
-    float:left;
-} */
-
-
 .quick_resArea{
 	border: 1px solid #d8d9db;
     height:350px;
@@ -272,6 +233,22 @@
 .all-list .timetable li:hover{
 	background-color: #ebebeb;
 	cursor: pointer;
+}
+.no-result {
+    height: 100%;
+    padding: 100px 0 0 0;
+    text-align: center;
+}
+.no-result .ico-movie-time{
+	display: block;
+	margin: 0px auto;
+	width: 46px;
+    height: 46px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-movie-time.png);
+}
+.no-result .txt{
+	margin-top: 10px;
+	padding:0;
 }
 /*====================================================================*/
 /*좌석 선택*/

@@ -127,10 +127,11 @@ public class ReservationController {
 	//상영시간표 정보
 	@RequestMapping("/reservation/getScheduleList.do")
 	@ResponseBody
-	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num){
+	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num, @RequestParam("sch_date") String sch_date){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("movie_num", movie_num);
 		map.put("th_num", th_num);
+		map.put("sch_date", sch_date);
 		
 		List<ScheduleVO> list = resService.getScheduleList(map);
 		

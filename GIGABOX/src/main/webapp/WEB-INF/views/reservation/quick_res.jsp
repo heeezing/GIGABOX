@@ -28,27 +28,6 @@
 					 	</button>
 					 </c:forEach>
 				 </div>
-			
-			
-			
-				<!-- <div class="august" style="left: 30px; z-index: 1; opacity: 1;">2023.08</div>
-				<div class="september" style="left: 30px; z-index: 1; opacity: 1;">2023.09</div>
-				<div class="date_area">
-					<p>25·오늘</p>
-					<p style="color:blue">26·내일</p>
-					<p style="color:red">27·일</p>
-					<p>28·월</p>
-					<p>29·화</p>
-					<p>30·수</p>
-					<p>31·목</p>
-					<p>1·금</p>
-					<p style="color:blue">2·토</p>
-					<p style="color:red">3·일</p>
-					<p>4·월</p>
-					<p>5·화</p>
-					<p>6·수</p>
-					<p>7·목</p>
-				</div> -->
 			</div>
 			<div class="quick_resArea">
 					<div class="movie_choice">

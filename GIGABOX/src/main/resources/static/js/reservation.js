@@ -63,15 +63,18 @@ $(function(){
     });
 
 	//빠른예매 - 영화, 극장 버튼
-	let date;
+	let sch_date;
 	
 	$('.date-button').click(function(event){
 		$('.date-button').removeClass('date-button-on');
         $(this).addClass('date-button-on');
 		
+		movie_num = null;
+		th_num = null;
+		
 		event.preventDefault();
-		date = $(this).attr('data-num');
-		console.log(date);
+		sch_date = $(this).attr('data-num');
+		console.log(sch_date);
 	});
 	
 	let movie_num;
@@ -80,6 +83,11 @@ $(function(){
         $('.movie_choice .btn').removeClass('btn-on');
         $(this).addClass('btn-on');
 		movie_num = $(this).attr('data-num');
+		
+		if($('.theater-choice .btn').length > 0){
+		$('.theater-choice .btn').first().click();
+	}
+		
 		console.log(movie_num);
     });
 
@@ -101,7 +109,7 @@ $(function(){
 		$.ajax({
 			url:'getScheduleList.do',
 			type:'post',
-			data:{data:date, movie_num:movie_num, th_num:th_num},
+			data:{sch_date:sch_date, movie_num:movie_num, th_num:th_num},
 			dataType:'json',
 			success:function(param){
 				//상영시간표 목록
@@ -133,6 +141,20 @@ $(function(){
 		});
 		
     });
+	
+	if($('.movie_choice .btn.btn-on').length == 0 && $('.theater_choice .btn.btn-on').length == 0){
+		$('.timetable').empty(); // 기존의 상영시간 목록을 비웁니다.
+        let output = '<div class="no-result">';
+		output += '<i class="ico-movie-time"></i>';
+		output += '<p class="txt">';
+		output += '영화와 극장을 선택하시면 ';
+		output += '<br>';
+		output += '상영시간표를 볼 수 있습니다.';
+		output += '</p>';
+		output += '</div>';
+		
+		$('.timetable').append(output);
+		}
 
 	// 날짜
 	// 토,일인 경우 button에 클래스 추가
@@ -144,5 +166,11 @@ $(function(){
 	        $(this).parent().addClass('holi');
 	    }
 	});
+	// 오늘 날짜가 클릭된 상태로 표시
+	if($('.date-button').length > 0){
+		$('.date-button').first().click();
+	}
+	
+	
 	
 });
