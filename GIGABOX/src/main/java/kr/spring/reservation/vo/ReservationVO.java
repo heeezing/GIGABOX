@@ -12,6 +12,7 @@ import lombok.ToString;
 public class ReservationVO {
 	private String res_num; //예매 번호
 	private Date res_date; //예매 날짜
+	private Date del_date; //예매 취소 날짜
 	private int res_people; //예매 인원
 	private String res_payment; //결제수단
 	private int res_total; //결제금액
@@ -31,4 +32,6 @@ public class ReservationVO {
 	
 	private int add_point; // 적립 포인트
 	private int use_point; // 사용 포인트
+	
+	private int remain; // 남은 좌석수 계산
 }

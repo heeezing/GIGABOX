@@ -16,11 +16,18 @@
 	</div>
 	<div class="seat-select-section">
 		<div class="seat-section">
-			<div class="title-util">
+			<div class="seat-title">
 				<h3>관람인원선택</h3>
+				<div id="reset">
+					<button id="reset_btn">
+						<i id="reset_img"></i> <span>초기화</span>
+					</button>
+				</div>
 			</div>
+			
 			<div class="seat-area">
 				<form id="res_pay" action="${pageContext.request.contextPath}/reservation/pay.do" method="post" name="res_pay">
+					<input type="hidden" id="seatsDB" value="${seatsDB}"/>
 					<input type="hidden" id="sch_num" name="sch_num" value="${scheduleVO.sch_num}"/>
 					<input type="hidden" id="res_seats" name="res_seats" value=""/>
 					<div class="seat-count">
@@ -230,8 +237,13 @@
 						</div>
 					</div>
 					<div class="btn-group">
-						<input type="button" value="이전" id="btn_booking_back">
-						<input type="submit" value="결제" id="btn_booking_pay">
+						<input type="button" value="이전" id="btn_booking_back" onclick="goBack()">
+						<script>
+							function goBack() {
+								window.history.back();
+							}
+						</script>
+						<input type="submit" value="결제" id="btn_booking_pay" disabled="disabled">
 					</div>
 				</div>
 			</div>

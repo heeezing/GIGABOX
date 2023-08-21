@@ -23,6 +23,7 @@
 	<div class="seat-select-section">
 		<form id="reservation" action="${pageContext.request.contextPath}/reservation/reservation.do" method="post" name="reservation">
 			<input type="hidden" id="res_num" name="res_num" value="${res_num}"/>
+			<input type="hidden" name="remain" value="${scheduleVO.remain - reservationVO.res_people}"/>
 			<input type="hidden" name="sch_num" value="${scheduleVO.sch_num}"/>
 			<div class="seat-section">
 				<div class="title-util">
@@ -79,8 +80,13 @@
 						</div>
 					</div>
 					<div class="btn-group">
-						<input type="button" value="이전" id="btn_booking_back">
-						<input type="button" value="결제" id="btn_booking_pay">
+						<input type="button" value="이전" id="btn_booking_back" onclick="goBack()">
+						<script>
+							function goBack() {
+								window.history.back();
+							}
+						</script>
+						<input type="submit" value="결제" id="btn_booking_pay">
 					</div>
 				</div>
 			</div>

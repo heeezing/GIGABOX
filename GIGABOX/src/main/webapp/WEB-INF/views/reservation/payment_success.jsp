@@ -17,38 +17,40 @@
 	</div>
 	<div class="reserve-info-box">
 		<div class="movie-poster-area">
-			<img src="../movie/imageView.do?movie_num=${reservationVO.movie_num}&movie_type=1">
+			<div id="res_num_title">예매번호</div>
+			<div id="res_num_area">${reservation.res_num}</div>
+			<img src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1">
 		</div>
 		<div class="movie-info-area">
 			<div class="movie-info-top">
 				<strong>예매가 완료되었습니다 !</strong>
 				<span>
 					<i class="icon"></i>
-					고객님의 적립 포인트는 <em>700P</em>입니다.
+					고객님의 적립 포인트는 <em>${add_point} point</em> 입니다.
 				</span>
 			</div>
 			<div class="movie-info-middle">
 				<ul>
 					<li>
-						<span>예매영화</span>${reservationVO.m_title}
+						<span>예매영화</span>${reservation.m_title}
 					</li>
 					<li>
-						<span>관람극장/상영관</span>${reservationVO.th_name} / ${reservationVO.hall_name}
+						<span>관람극장/상영관</span>${reservation.th_name} / ${reservation.hall_name}
 					</li>
 					<li>
-						<span>관람일시</span>${reservationVO.sch_date} ${reservationVO.sch_start}
+						<span>관람일시</span>${reservation.sch_date} ${reservation.sch_start}
 					</li>
 					<li>
-						<span>관람인원</span>${reservationVO.res_people}명
+						<span>관람인원</span>${reservation.res_people}명
 					</li>
 					<li>
-						<span>좌석번호</span>${reservationVO.res_seats}
+						<span>좌석번호</span>${reservation.res_seats}
 					</li>
 					<li>
-						<span>전화번호</span>${reservationVO.phone}
+						<span>전화번호</span>${reservation.phone}
 					</li>
 					<li>
-						<span>결제정보</span><strong><fmt:formatNumber value="${reservationVO.res_total}" type="number" pattern="#,##0" /></strong> 원
+						<span>결제정보</span><strong><fmt:formatNumber value="${reservation.res_total}" type="number" pattern="#,##0" /></strong> 원
 					</li>
 				</ul>
 			</div>

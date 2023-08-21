@@ -39,11 +39,11 @@ $(function(){
             $(this).val('0');
             inputValue = 0;
         }
-       /* //보유포인트보다 많은 수를 입력했을 경우
+        //보유포인트보다 많은 수를 입력했을 경우
         if(inputValue > havePoint){
             $(this).val(havePoint);
             inputValue = havePoint;
-        }*/
+        }
 		//총 금액보다 많은 수를 입력했을 경우
 		if(inputValue > allTotal){
             $(this).val(allTotal);

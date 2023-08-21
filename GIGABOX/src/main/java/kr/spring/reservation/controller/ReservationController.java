@@ -104,6 +104,12 @@ public class ReservationController {
 	public String submitSchedule(@Valid ScheduleVO scheduleVO, BindingResult result,HttpServletRequest request,HttpSession session,Model model) {
 		log.debug("<<상영시간표 등록>> : " + scheduleVO);
 		
+		// 상영관 좌석수 불러오기
+		int seat = resService.selectSeats(scheduleVO.getHall_num());
+		scheduleVO.setRemain(seat); // 남은 좌석수 셋팅
+		log.debug("<<seat>> : " + seat);
+		log.debug("<<scheduleVO>> : " + scheduleVO);
+		
 		//글쓰기
 		resService.insertSchedule(scheduleVO);
 		
@@ -231,13 +237,33 @@ public class ReservationController {
 	}
 	
 	/*===============
+	 * 상영시간표
+	 *===============*/
+	@RequestMapping("/reservation/schedule.do")
+	public ModelAndView getChoiceList() {
+		List<TheaterVO> list = theaterService.selectTheaterList();
+		List<Date> dateList = getDate();
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("schedule");
+		mav.addObject("list", list);
+		
+		mav.addObject("dateList", dateList);
+		
+		return mav;
+	}
+	
+	/*===============
 	 * 좌석 선택
 	 *===============*/
 	// 좌석 선택 폼 호출
 	@GetMapping("/reservation/seat.do")
 	public String formSeat(@RequestParam int sch_num,Model model) {
 		ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
+		List<String> seatsDB = resService.getSeatsDB(sch_num);
+		
 		model.addAttribute("scheduleVO",scheduleVO);
+		model.addAttribute("seatsDB",seatsDB);
 		
 		return "seat";
 	}
@@ -309,13 +335,13 @@ public class ReservationController {
 		reservationVO.setAdd_point(add_point); // 적립 포인트 셋팅
 		reservationVO.setM_title(scheduleVO.getM_title());
 		
-		
-		log.debug("<<reservationVO>> : " + reservationVO);
-		
         resService.insertRes(reservationVO);
         
-        // 예매 완료 화면에 예약 번호 넘기기
-        model.addAttribute("res_num",reservationVO.getRes_num());
+        ReservationVO reservation = resService.selectRes(res_num);
+	    model.addAttribute("reservation", reservation);
+	    model.addAttribute("add_point", add_point);
+	    
+	    log.debug("<<reservation>> : " + reservation);
 		
 		return "payment_success";
 	}

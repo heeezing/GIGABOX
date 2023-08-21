@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.data.repository.query.Param;
 
 import kr.spring.hall.vo.HallVO;
@@ -21,6 +22,9 @@ public interface ReservationMapper {
 	public List<ScheduleVO> selectList(Map<String, Object> map);
 	public int selectRowCount(Map<String, Object> map);
 	public void insertSchedule(ScheduleVO schedule);
+	// 상영관 좌석수 불러오기
+	@Select("SELECT seats FROM hall WHERE hall_num=#{hall_num}")
+	public int selectSeats(Integer hall_num);
 	
 	// 영화 목록 불러오기
 	@Select("SELECT * FROM movie ORDER BY movie_num")
@@ -49,7 +53,14 @@ public interface ReservationMapper {
 	public String selectResNum();
 	// 예매
 	public void insertRes(ReservationVO reservation);
+	// 남은좌석수 수정
+	@Update("UPDATE schedule SET remain=#{remain} WHERE sch_num=#{sch_num}")
+	public void updateRemain(ReservationVO reservation);
 	//예매 내역 불러오기
 	public ReservationVO selectRes(String res_num);
+	
+	// 예매완료된 좌석번호 불러오기
+	@Select("SELECT res_seats FROM reservation WHERE sch_num=#{sch_num}")
+	public List<String> getSeatsDB(Integer sch_num);
 	
 }

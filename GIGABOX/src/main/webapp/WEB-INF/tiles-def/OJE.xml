@@ -39,6 +39,11 @@
     	<put-attribute name="title" value="예매 결제"/>
     	<put-attribute name="body" value="/WEB-INF/views/reservation/res_pay.jsp"/>
     </definition>
+    
+    <definition name="schedule" extends="main">
+    	<put-attribute name="title" value="상영시간표"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/schedule.jsp"/>
+    </definition>
 </tiles-definitions>
 
 

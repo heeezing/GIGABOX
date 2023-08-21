@@ -75,8 +75,10 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void insertRes(ReservationVO reservation) {
 		reservationMapper.insertRes(reservation);
-		//포인트 사용 및 적립 
+		// 포인트 사용 및 적립 
 		pointMapper.insertResPoint(reservation);
+		// 남은좌석수 수정
+		reservationMapper.updateRemain(reservation);
 	}
 
 	@Override
@@ -87,6 +89,16 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public String selectResNum() {
 		return reservationMapper.selectResNum();
+	}
+
+	@Override
+	public List<String> getSeatsDB(Integer sch_num) {
+		return reservationMapper.getSeatsDB(sch_num);
+	}
+
+	@Override
+	public int selectSeats(Integer hall_num) {
+		return reservationMapper.selectSeats(hall_num);
 	}
 
 }

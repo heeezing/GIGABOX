@@ -19,7 +19,7 @@
 				<select name="th_num" id="th_num">
 					<option value="0" selected>극장을 선택하세요</option>
 					<c:forEach items="${TheaterList}" var="theater">
-						<option value="${theater.th_num}" name="${theater.th_num}">${theater.th_name}</option>
+						<option value="${theater.th_num}" name="${theater.th_num}"  <c:if test="${hallVO.th_num == theater.th_num}">selected</c:if>>${theater.th_name}</option>
 					</c:forEach>
 				</select>
 			</li>

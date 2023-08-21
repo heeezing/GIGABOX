@@ -1,12 +1,10 @@
 package kr.spring.reservation.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.spring.reservation.service.ReservationService;
@@ -30,8 +28,8 @@ public class OJEController {
 	/*========================
 	 * 결제 완료 페이지
 	 *========================*/
-	@RequestMapping("/reservation/payment_success.do")
-	public String paySuccessForm(@RequestParam String res_num, Model model) {
+	@GetMapping("/reservation/payment_success.do")
+	public String paySuccessForm(@RequestParam("res_num") String res_num, Model model) {
 	    
 	    ReservationVO reservationVO = reservationService.selectRes(res_num);
 	    model.addAttribute("reservationVO", reservationVO);

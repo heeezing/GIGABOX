@@ -20,6 +20,8 @@ public interface ReservationService {
 	public List<ScheduleVO> selectList(Map<String, Object> map);
 	public int selectRowCount(Map<String, Object> map);
 	public void insertSchedule(ScheduleVO schedule);
+	// 상영관 좌석수 불러오기
+	public int selectSeats(Integer hall_num);
 	
 	// 영화 목록 불러오기
 	public List<MovieVO> getMovieList();
@@ -44,5 +46,8 @@ public interface ReservationService {
 	public void insertRes(ReservationVO reservation);
 	//예매 내역 불러오기
 	public ReservationVO selectRes(String res_num);
+	
+	// 예매완료된 좌석번호 불러오기
+	public List<String> getSeatsDB(Integer sch_num);
 
 }

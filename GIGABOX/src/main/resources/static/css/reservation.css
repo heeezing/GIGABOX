@@ -294,6 +294,16 @@
 .seat-select-section .seat-section .title-util {
     padding: 8px 0 7px 0;
 }
+.seat-select-section .seat-section .seat-title {
+    padding: 8px 0 7px 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.seat-title h3{
+    margin:0;
+    font-size:18px;
+}
 .seat-select-section .seat-section .title-util h3{
 	margin:0;
 }
@@ -328,13 +338,13 @@
 .seat-select-section .seat-section .seat-area .seat-count .cell .count .number{
 	position: relative;
     float: left;
-    width: 42px;
-    width: 42px;
+    width: 37px;
     height: 21px;
     border: 1px solid #ccc;
     border-width: 1px 0;
     background-color:white;
     margin:0;
+    text-align:right;
 }
 .seat-select-section .seat-section .seat-area .seat-count .cell .count .up{
     float: left;
@@ -364,8 +374,17 @@
 	line-height: 20px;
 	padding:0;
 }
+.seat.hovered{
+	background-color:#503396;
+	cursor:pointer;
+}
 .seat.selected{
 	background-color:#503396;
+	cursor:pointer;
+}
+.seat.after{
+	background-image:url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-seat-condition-finish.png)!important;
+	cursor:default;
 }
 .seat-layout .A input{
 	position:absolute;
@@ -592,7 +611,7 @@
 .discout-setting .use_point{
 	color:#02bfd3;
 	margin-left:10px;
-	padding:0 2px 5px 10px;
+	padding:0 2px 5px 55px;
 	border-bottom: 1px solid black;
 }
 .discout-setting .use_point input{
@@ -613,6 +632,9 @@
 }
 .discout-setting{
 	margin:10px 0 30px 10px;
+}
+.discout-setting a{
+	cursor:pointer;
 }
 .payment-method{
 	border-top:1px solid black;
@@ -758,11 +780,34 @@
     background-color: #329eb1;
     cursor:pointer;
 }
-/* .seat-select-section .seat-result .wrap .btn-group #btn_booking_pay:disabled{
+.seat-select-section .seat-result .wrap .btn-group #btn_booking_pay:disabled{
 	cursor:default;
-	background-color:#434547;
-	color:#aaa;
-} */
+	background-color:#e0e0e0;
+	color:#777!important;
+}
+#reset_btn{
+	float:right;
+	color:#444;
+	background-color:#fff;
+	border:1px solid #c1c1c1;
+	height:30px;
+	font-size:15px;
+	border-radius:4px;
+	padding:1px;
+	cursor:pointer;
+}
+#reset_btn span{
+	float:right;
+	margin-right:4px;
+}
+
+#reset_img{
+	height:14px;
+	width:14px;
+	float:left;
+	background-image:url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-reset-small.png);
+	margin:5px;
+}
 
 /*====================================================================*/
 /*예매 완료*/
@@ -774,7 +819,7 @@
 }
 .reserve-info-box .movie-poster-area{
 	float: left;
-    padding: 60px 0;
+    padding: 22px 0;
     width: 270px;
     text-align: center;
 }
@@ -878,6 +923,16 @@
 }
 .notice-box li{
 	padding:4px 0;
+}
+#res_num_title{
+	color:#c4c4c4;
+	font-size:14px;
+}
+#res_num_area{
+	color:#55b0ba;
+	font-size:21px;
+	font-weight:700;
+	padding-bottom:12px; 
 }
 
 

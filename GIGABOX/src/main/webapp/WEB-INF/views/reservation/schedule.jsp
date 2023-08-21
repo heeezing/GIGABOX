@@ -7,7 +7,8 @@
 <div class="page-util">
    <div class="location">
 		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
-		<a href="../theater/theaterDetail.do">극장</a>
+		<a href="../reservation/quick_res.do">예매</a> 
+		<a href="../reservation/schedule.do">상영시간표</a>
    </div>
 </div>
 <div class="page-main">
@@ -27,29 +28,11 @@
 		</div>
 	</div>
 	<!-- 극장 선택 목록 끝 -->
-	
 	<!-- 극장 정보 시작 -->
 	<div class="wrap-theater">
-		<h3>
-			<img src="${pageContext.request.contextPath}/images/h3_theater.gif">
-		</h3>
 		<h1><span id="info_title"></span> <span id="info_title_sub">상영시간표</span></h1>
-		<div id="wrap_theaterinfo">
-			<div id="box_image">
-				<img id="info_image" src="">
-			</div>
-			<div id="box_contents">
-				<h1 id="theater_name"></h1>
-				<div id="box_text">
-					<div><span id="theater_address"><b></b></span></div>
-					<br>
-					<div><span id="theater_info">1544-1122</span></div>
-				</div> 
-			</div>
-		</div>
 	</div>
 	<!-- 극장 정보 끝 -->
-	
 	<!-- 상영시간표 시작 -->
 	<div class="time-schedule-wrap">
 		<div class="date-area">
@@ -66,5 +49,4 @@
 		<div id="schedule_list_area"></div>
 	</div>
 	<!-- 상영시간표 끝 -->
-	
 </div>

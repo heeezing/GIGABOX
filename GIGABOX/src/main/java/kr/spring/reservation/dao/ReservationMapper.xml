@@ -10,14 +10,16 @@
 		  sch_start,
 		  sch_end,
 		  hall_num,
-		  movie_num)
+		  movie_num,
+		  remain)
 		VALUES(
 		  schedule_seq.nextval,
 		  #{sch_date},
 		  #{sch_start},
 		  #{sch_end},
 		  #{hall_num},
-		  #{movie_num})
+		  #{movie_num},
+		  #{remain})
 	</insert>
 	
 	<!-- 상영시간표 목록 -->
@@ -126,7 +128,7 @@
 	</insert>
 	
 	<!-- 예매 내역 불러오기 -->
-	<select id="selectRes" parameterType="integer">
+	<select id="selectRes" parameterType="string">
 		SELECT
 		  r.*,
 		  s.*,
