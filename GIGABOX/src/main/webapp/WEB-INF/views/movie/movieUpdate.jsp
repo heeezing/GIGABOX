@@ -1,27 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 영화 수정 폼 시작 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/movie_register.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
 <div class="page-main">
 	<div class="title"><a href="movieUpdate.do">영화 등록</a></div>
-	<form:form modelAttribute="movieVO" action="movieUpdate.do" id="Update_form" encType="multipart/form-data">
+	<form:form modelAttribute="movieVO" action="movieUpdate.do" id="Update_form">
 	<form:errors element="div" cssClass="error-color"/>
 		<!--[왼쪽] 사진 미리 보기 -->
 		<div id="m_poster">
-			<img src="imageView.do?movie_num=${movie.movie_num}&movie_type=1" width="300" class="m-poster">
-			<div id="file_detail">
-				(${movieVO.poster_name})파일이 등록되어 있습니다.
-			</div>
+			<img src="${movieVO.m_poster2}" width="400px" height="500px" class="m-poster">
 		</div>
 		<!--[오른쪽] 영화 정보 입력 -->
 		<div id="movie_input">
 			<ul>
 				<li>
-					<label>상영 여부</label>
-					<input type="radio" name="m_status" value="1" id="status1" <c:if test="${movieVO.m_status ==1}">checked</c:if>>상영
-					<input type="radio" name="m_status" value="2" id="status2" <c:if test="${movieVO.m_status ==2}">checked</c:if>>상영중지
+					<input type="radio" name="m_status" value="1" id="status1" <c:if test="${movieVO.m_status == 1}">checked</c:if>>상영
+					<input type="radio" name="m_status" value="2" id="status2" <c:if test="${movieVO.m_status == 2}">checked</c:if>>상영예정
+					<input type="radio" name="m_status" value="3" id="status3" <c:if test="${movieVO.m_status == 3}">checked</c:if>>상영중지
 				</li>
 				<li>
 					<label for="m_title">영화제목</label>
@@ -49,7 +47,7 @@
 				</li>
 				<li>
 					<label for="m_opendate">개봉일</label>
-					<input type="date" name="m_opendate" id="m_opendate" class="form-input" value="${movieVO.m_opendate}">
+					<input type="text" name="m_opendate2" id="m_opendate2" class="form-input" value="${movieVO.m_opendate2}">
 				</li>
 				<li>
 					<label for="m_runtime">상영시간</label>
@@ -65,22 +63,34 @@
 				</li>
 				<li>
 					<label for="m_poster" class="form-label">포스터</label>
-					<input type="file" name="poster" id="poster" accept="image/gif,image/png,image/jpeg" value="${movieVO.poster_name}"><br>
+					<%-- <input type="file" name="poster" id="poster" accept="image/gif,image/png,image/jpeg" value="${movieVO.poster_name}"><br> --%>
+					<input type="url" name="m_poster2" id="m_poster2" value="${movieVO.m_poster2}"><br>
 				</li>
 				<li>
 					<label for="m_stllimg" class="form-label">스틸컷</label>
-					<input type="file" name="stllimg" id="stllimg" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name}"><br>
+					<img src="${movieVO.m_stllimg2}" width="300px" height="300px" class="m-stllimg">
+					<%-- <input type="file" name="stllimg" id="stllimg" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name}"><br> --%>
+					<input type="url" name="m_stllimg2" id="m_stllimg2" class="form-input" value="${movieVO.m_stllimg2}"><br>
 				</li>
 				<li>
 					<label for="m_vod" class="form-label">예고편</label>
-					<input type="url" name="m_vod" id="m_vod" value="${movieVO.m_vod}"><br>
+					<div class="iframe">
+						<c:if test="${movieVO.m_vod == null}">
+							<p>등록된 예고편이 없습니다.</p>
+							<input type="url" name="m_vod" id="m_vod" class="form-input" value="${movieVO.m_vod}"><br>
+						</c:if>
+						<c:if test="${movieVO.m_vod != null}">
+							<iframe width="500" height="300" src="${movieVO.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+							<input type="url" name="m_vod" id="m_vod" class="form-input" value="${movieVO.m_vod}"><br>
+						</c:if>
+					</div>
 				</li>
 			</ul>
 		</div>
 		
 		<div id="movie_text">
 			<label for="m_plot">줄거리</label>
-			<textarea rows="5" cols="60" name="m_plot" id="m_plot" class="form-text" value="${movieVO.m_plot}"></textarea>
+			<textarea rows="5" cols="60" name="m_plot" id="m_plot" class="form-text">${movieVO.m_plot}</textarea>
 		</div>
 		
 		<div id="movie_button">

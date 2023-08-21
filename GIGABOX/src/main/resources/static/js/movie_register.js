@@ -9,13 +9,13 @@ $(function(){
 			$('.m-poster').attr('src',photo_path);
 			return;
 		}
-		//파일 크기 제한
+		/*//파일 크기 제한
 		if(m_poster.size > 1024*1024){
 			alert(Math.round(m_poster.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
 			$('.m-poster').attr('src',photo_path);
 			$(this).val('');
 			return;
-		}
+		}*/
 		//이미지 미리보기 처리
 		let reader = new FileReader();
 		reader.readAsDataURL(m_poster);

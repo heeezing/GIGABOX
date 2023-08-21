@@ -100,7 +100,40 @@ li {
 * {
     box-sizing: border-box;
 }
+  .movie-detailtop {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('${movie.m_poster2}');
+    background-size: cover;
+    filter: blur(10px); /* 흐림 효과 적용 */
+    z-index: -1;
+  }
 
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.7;
+    z-index: -1;
+  }
+  .detail-content{
+  	margin-top:5%;
+  }
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/review.js"></script>
 <div class="page-util">
@@ -114,6 +147,9 @@ li {
 <div class="page-main">
 	<!--movie-detailtop 시작-->
 	<div class="movie-detailtop">
+	 <div class="background-image"></div>
+	  <div class="background-overlay"></div>
+	  <div class="detail-content">
 		<div class="detailtop-left">
 			<div class="left1">
 				<c:set var="ratingNumber" value="${fn:substring(movie.m_rating, 0, 2)}" />
@@ -136,17 +172,20 @@ li {
 			</div>
 		</div>
 		<div class="detailtop-right">
-			<img src="imageView.do?movie_num=${movie.movie_num}&movie_type=1"
-				width="400" height="500">
+			<img src="${movie.m_poster2}">
 		</div>
 		<div class="detailtop-bottom">
 			<c:if test="${movie.m_status == 1 }">
 				<input type="button" value="예매" class="detail-rightbtn" onclick="">
 			</c:if>
-			<c:if test="${movie.m_status != 1 }">
-				<input type="button" class="detail-rightbtn"value="상영종료">
+			<c:if test="${movie.m_status == 2 }">
+				<input type="button" class="detail-rightbtn disabled-btn"value="상영예정">
+			</c:if>
+			<c:if test="${movie.m_status == 3 }">
+				<input type="button" class="detail-rightbtn disabled-btn"value="상영종료">
 			</c:if>
 		</div>
+	</div>
 	</div>	<!-- end of movie-detailtop -->
 	<!--movie-detailmain 시작-->
 	<div class="movie-detailmain">
@@ -180,21 +219,57 @@ li {
 				<!-- movie-info끝 -->
 				<div class="movierating_Avg">
 					<p>실관람 평점</p>
-					<span>${movie.rating_avg}</span>
+					<span class="ratingAvg">0</span>
 				</div>
 				<div class="adminbtn">
 					<c:if test="${user.auth == 9}">
 						<input type="button" value="수정하기" onclick="location.href='movieUpdate.do?movie_num=${movie.movie_num}'">
 					</c:if>
-				</div>
-			</div>
+				</div><br>
+				
+					<!-- 	<!-- 관람평 목록  -->	
+				</div><!--end of pre-review-->
+			</div><!--end of content-main container-->
 		</div>
 		<!-- 주요정보 끝 -->
 		
 		<!-- ================= 실관람평 시작 ================= -->
 		<div id="wrap_review" class="tab-contents">
 			<div class="content-main container">
-				<div id="review_div">
+				<div class="pre-review">
+					<div class="pre-review-countreview">
+						<span>${movie.m_title}</span>
+						<span>에 대한 </span>
+						<span class="reviewCount">0</span>
+						<span>개의 이야기가 있어요!</span>
+					</div>
+					<div class="reviewbox">
+						<div class="reviewbox-profile">
+							<img src="${pageContext.request.contextPath}/member/photoView.do" class="my-photo">
+						</div>
+						<div class="nick-name">
+							<c:if test="${!empty member.nick_name}">
+								${member.nick_name}
+							</c:if>
+							<c:if test="${empty member.nick_nick_name}">
+								${member.id}
+							</c:if>
+						</div>
+						<div class="reviewboxcontent">
+							<div class="reviewbox-title">
+								<span style="color: #503396; font-weight:600; margin-left:15px;">${movie.m_title}</span>
+								<span>재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.</span>
+							</div>
+							<div class="reviewbox-btn">
+							<input type="button" value="관람평 쓰기" id="openrwButton">
+							</div>
+						</div>
+					</div><!-- end of review-box -->
+					<!-- 모달 -->
+					<div class="rw-modal" id="rw-modal">
+    					<div class="rw-content">
+       					 <!-- 모달 내용 -->
+       				<div id="review_div">
 					<form id="review_form">
 						<input type="hidden" name="movie_num" value="${movie.movie_num}" id="movie_num">
 						<!-- 관람평 평점 입력 -->
@@ -215,29 +290,32 @@ li {
 					        <span class="rating-value" style="font-size: 40px; font-weight:1000; color: #000;" >0</span>
 					        <span style="font-size: 14px; font-weight: bold; color: #333; margin-top:25px; margin-left:10px;">&nbsp;/&nbsp; 10</span>
 				        </div>
-				       
 						<!-- 관람평 평점 입력 끝 -->
-						<textarea rows="3" cols="50" name="review_content" id="review_content" class="review-content" <c:if test="${empty user}">disabled="disabled"</c:if>
-						><c:if test="${empty user}">${movie.m_title} 재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.</c:if></textarea>
-						<c:if test="${!empty user}">
-							<div id="review_first">
-								<span class="letter-count align-right">220/220</span>
-							</div>
-							<div id="review_second" class="align-center">
-								<input type="submit" value="작성하기" class="review-btn">
-							</div>
-						</c:if>
-					</form>
-				</div> <!--end of review_div -->
+								<textarea rows="3" cols="50" name="review_content" id="review_content" class="review-content" <c:if test="${empty user}">disabled="disabled"</c:if>
+								><c:if test="${empty user}"></c:if></textarea>
+								<c:if test="${!empty user}">
+									<div id="review_first">
+										<span class="letter-count align-right">220/220</span>
+									</div>
+									<div id="review_second" class="align-center">
+										<input type="button" value="취소하기" class="review-cancel-btn">
+										<input type="button" value="작성하기" class="review-btn">
+									</div>
+								</c:if>
+							</form>
+						</div> <!--end of review_div -->	
+   						</div> <!-- end of reviewwritemodal-content -->
+					</div>
+						
 				<!-- 관람평 목록  -->	
 				<div id="output">
 				</div>
 				<div class="paging-button">
-					<input type="button" value="더보기">
-			</div><!-- end of content-main -->
-		</div>
+					<input type="button" value="더보기 &gt;">
+				</div>
+		</div><!-- end of content-main -->
 		<!-- 실관람평 끝 -->
- 
+ 		</div>
 		</div>
 		<!-- ================= 무비포스트 시작 =================-->
 		<div id="wrap_post" class="tab-contents">
@@ -254,18 +332,18 @@ li {
 				<h2 class="previewtitle">메인 예고편</h2>
 				<hr><br>
 				<div class="iframe">
-					<iframe width="700" height="400" src="${movie.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+					<iframe src="${movie.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 				</div><br>
 				<hr style="border: 1px solid #7d7c7c;">
 				<h2 class="previewtitle"><span style="color:#503396;">${movie.m_title}</span>에 대한 스틸컷이 있어요!</h2>
 				<hr><br>
-				<div><img class="stllimg" src="imageView.do?movie_num=${movie.movie_num}&movie_type=2"></div>
+				<div><img src="${movie.m_stllimg2}"></div>
 			</div>
 		</div>
 		<!-- 예고편/스틸컷 끝 -->
 	</div>
 	<!--end of movie-detailmain -->
-</div>
+
 
 
 	<script type="text/javascript">

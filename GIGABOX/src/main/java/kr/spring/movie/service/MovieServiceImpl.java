@@ -1,12 +1,16 @@
 package kr.spring.movie.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.spring.movie.dao.MovieMapper;
 import kr.spring.movie.vo.MovieVO;
@@ -96,8 +100,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public int averageRatingScore(Integer rating_score) {
-		// TODO Auto-generated method stub
-		return 0;
+		return moviemapper.averageRatingScore(rating_score);
 	}
 
 
@@ -169,13 +172,59 @@ public class MovieServiceImpl implements MovieService{
 
 
 	@Override
-	public int selectCountReportByUser(Integer mem_num, Integer review_num) {
+	public int selectCountReportByUser(@RequestParam(value="mem_num") Integer mem_num,@RequestParam(value="review_num") Integer review_num) {
 		return moviemapper.selectCountReportByUser(mem_num, review_num);
 	}
+
+
+	@Override
+	public void saveMovies(List<MovieVO> movielist) {
+		
+		for(MovieVO vo : movielist) {
+			moviemapper.insertMovie(vo);
+		}
+	}
+
+
+	@Override
+	public List<MovieVO> removeDuplicateMovies(List<MovieVO> movielist,List<String> existingMovieSeqList) {
+		Set<String> movieSeqSet = new HashSet<>();
+	    List<MovieVO> uniqueMovies = new ArrayList<>();
+			  
+		    for (MovieVO vo : movielist) {
+		        String movieSeq = vo.getMovieSeq();
+	
+		        if (!movieSeqSet.contains(movieSeq) && !existingMovieSeqList.contains(movieSeq)) {
+		            movieSeqSet.add(movieSeq);
+		            uniqueMovies.add(vo);
+		        }
+		    }
+
+		    return uniqueMovies;
+	}
+
+
+	@Override
+	public List<String> getExistingMovieSeqList() {
+		return moviemapper.getExistingMovieSeqList();
+	}
+
+
+	@Override
+	public int selectReviewCount(Integer movie_num) {
+		return moviemapper.selectReviewCount(movie_num);
+	}
+
+
+	@Override
+	public List<MovieVO> selectPreList(Map<String, Object> map) {
+		return moviemapper.selectPreList(map);
+	}
+	
+}
 
 
 
 
 	
 
-}

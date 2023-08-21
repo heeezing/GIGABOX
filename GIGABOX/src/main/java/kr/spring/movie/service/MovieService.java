@@ -17,6 +17,7 @@ public interface MovieService {
 	//영화목록
 	public List<MovieVO> selectList(Map<String,Object>map);
 	public int selectRowCount(Map<String,Object> map);
+	public List<MovieVO> selectPreList(Map<String,Object>map);
 	//영화등록
 	public void registerMovie(MovieVO movie);
 	//영화 상세페이지
@@ -28,9 +29,10 @@ public interface MovieService {
 	public void deleteMovieCheck(String[] selectmovies);
 	
 	//api정보 저장
-	//public void saveMovies(MovieVO movielist);
-	//api정보 불러오기
-	//public void insertMovie(MovieVO movelist);
+	public void saveMovies(List<MovieVO> movielist);
+	//api 중복체크
+	public List<MovieVO> removeDuplicateMovies(List<MovieVO> movielist,List<String> existingMovieSeqList);
+	public List<String> getExistingMovieSeqList();
 	
 	//댓글
 	public List<ReviewVO> selectListReview(Map<String,Object> map);
@@ -39,6 +41,7 @@ public interface MovieService {
 	public void insertReview(ReviewVO review);
 	public void updateReview(ReviewVO review);
 	public void deleteReview(Integer review_num);
+	public int selectReviewCount(Integer movie_num);
 	
 	//평점 평균 구하기
 	public int averageRatingScore(Integer rating_score);

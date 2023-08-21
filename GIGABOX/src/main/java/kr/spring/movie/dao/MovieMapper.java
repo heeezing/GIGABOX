@@ -19,20 +19,24 @@ import kr.spring.movie.vo.Review_ReportVO;
 @Mapper
 public interface MovieMapper {
 	public List<MovieVO> selectList(Map<String,Object>map);
+	public List<MovieVO> selectPreList(Map<String,Object>map);
 	public int selectRowCount(Map<String,Object> map);
+	//등록폼으로 영화 등록
 	public void registerMovie(MovieVO movie);
-	//public void insertMovie(MovieVO movielist);
+	//api 불러오기
+	public void insertMovie(MovieVO movie);
+	//movie테이블의 movieSeq값 찾기
+	@Select("SELECT movieSeq FROM movie")
+	public List<String> getExistingMovieSeqList();
 	@Select("SELECT * FROM movie WHERE movie_num=#{movie_num}")
 	public MovieVO selectMovie(Integer movie_num);
-	@Update("UPDATE movie SET m_title=#{m_title},m_titleEng=#{m_titleEng},m_director=#{m_director},m_actor=#{m_actor},m_company=#{m_company},m_plot=#{m_plot},m_runtime=#{m_runtime},m_rating=#{m_rating},m_genre=#{m_genre},m_opendate=#{m_opendate},m_poster=#{m_poster},poster_name=#{poster_name},m_stllimg=#{m_stllimg},stllimg_name=#{stllimg_name},m_vod=#{m_vod},m_nation=#{m_nation},m_status=#{m_status}"
+	@Update("UPDATE movie SET m_title=#{m_title},m_titleEng=#{m_titleEng},m_director=#{m_director},m_actor=#{m_actor},m_company=#{m_company},m_plot=#{m_plot},m_runtime=#{m_runtime},m_rating=#{m_rating},m_genre=#{m_genre},m_opendate2=#{m_opendate2},m_poster2=#{m_poster2},m_stllimg2=#{m_stllimg2},m_vod=#{m_vod},m_nation=#{m_nation},m_status=#{m_status}"
 			+ "WHERE movie_num=#{movie_num}")
 	public void updateMovie(MovieVO movie);
 	@Delete("DELETE FROM movie WHERE movie_num=#{movie_num}")
 	public void deleteMovie(Integer movie_num);
 	public void deleteMovieCheck(String[] selectmovies);
 	
-	//api
-	//public void saveMovies(MovieVO movielist);
 	
 	
 	//관람평
@@ -46,8 +50,11 @@ public interface MovieMapper {
 	public void updateReview(ReviewVO review);
 	@Delete("DELETE FROM review WHERE review_num=#{review_num}")
 	public void deleteReview(Integer review_num);
+	@Select("SELECT COUNT(*)review_cnt FROM review WHERE movie_num=#{movie_num} GROUP BY #{movie_num} ")
+	public int selectReviewCount(Integer movie_num);
 	
 	//평점 평균 구하기
+	@Select("SELECT round(AVG(rating_score),1)rating_avg FROM review WHERE movie_num = #{movie_num}")
 	public int averageRatingScore(Integer rating_score);
 	
 	//관람평 좋아요

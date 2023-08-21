@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 관리자 - 영화관리 시작 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/movieapi.js"></script>
 <script type="text/javascript">
 	$(function() {
 		//검색 유효성 체크
@@ -17,6 +18,9 @@
 </script>
 <div class="page-main">
 	<h2>영화관리</h2>
+	<div class="apipreview">
+	
+	</div>
 	<form action="movieAdmin.do" id="search_form" method="get">
 		<ul class="search">
 			<li><select name="keyfield" id="keyfield">
@@ -33,6 +37,7 @@
 		<div class="align-right">
 			<input type="button" value="등록"
 				onclick="location.href='movieRegister.do'">
+			<input type="button" value="영화 정보 불러오기" id="insertApi">
 		</div>
 		<div class="align-left">
 			<input type="button" value="삭제" class="delete_btn">
@@ -59,7 +64,7 @@
 			<c:forEach var="movie" items="${movies}">	
 				<tr align="center">
 					<td><input type="checkbox" class="moviecheck" name="moviecheck" value="${movie.movie_num}"></td>
-					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}"><img src="imageView.do?movie_num=${movie.movie_num}&movie_type=1" width="50" height="80"></a></td>
+					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}"><img src="${movie.m_poster2}" width="50" height="80"></a></td>
 					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}">&nbsp;${movie.movie_num}&nbsp;</a></td>
 					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}">${movie.m_title}</a></td>
 					<td>${movie.m_opendate}</td>

@@ -82,7 +82,6 @@
 		
 		<div id="movie_button">
 			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/movie/movieList.do'">
-			<input type="button" value="영화 정보 불러오기" id="insertApi">
 			<input type="submit" value="등록">
 		</div>
 	</form:form>

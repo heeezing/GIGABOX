@@ -21,48 +21,48 @@
 
 
 /*===== movieDetail =====*/
-.movie-detailtop {
+/* .movie-detailtop {
  	background-color:rgba(0, 0, 0, 0.85);
-    overflow: hidden; /* 해상도에 따른 overflow 관리 */
-    padding: 20px; /* 내부 여백 추가 */
+    overflow: hidden; 
+    padding: 20px; 내부 여백 추가
     width:100%;
     margin-bottom:30px;
     margin-top:5px;
-}
+} */
+
 .title{
 	font-size: 400%;
 	font-weight: 1500;
 	margin-top:37px;
 	margin-bottom:0;
-	margin-left:5%;
 	color:white;
 }
 .titleEng{
 	font-size:150%;
 	margin-top:0;
-	margin-left:7%;
+	margin-left:2%;
 	color:white;
 }
 .ratingicon{
 	width:100px;
 	height:100px;
 	margin-top:53px;	
-	margin-left:10%;
+	margin-left:13%;
 }
 
 .detailtop-left {
     float: left;
     width: 70%; /* 왼쪽 영역은 50%로 설정 */
-    padding-right: 20px; /* 내부 여백 추가 */
+    padding-right: 10px; /* 내부 여백 추가 */
     box-sizing: border-box; /* 내부 여백을 width에 포함 */
 }
 .left1{
 	float:left;
-	width:10%;
+	width:15%;
 }
 .left2{
 	float:left;
-	width:90%;	
+	width:85%;	
 }
 .detailtop-right {
     float: right;
@@ -98,6 +98,11 @@
     cursor: pointer; /* 포인터 형태로 변경 */
     font-size: 16px;
     font-weight: bold;
+}
+.disabled-btn {
+    background-color: #cccccc; /* 회색 배경색 */
+    cursor: not-allowed; /* 비활성화 상태 포인터 변경 */
+    background-color: #666;
 }
 
 .movie-detailmain {
@@ -158,8 +163,54 @@
   font-size: 30px;
   margin-left:46.5%;
 }
+.pre-review{
+	margin-top:20px;
+}
+.pre-review-countreview > span{
+	font-size: 1.4666em;
+    color: #503396;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    padding: 0!important;
+}
+.reviewCount{
+    color: #01738b!important;	
+}
+.reviewbox{
+	display:flex;
+	margin-top:25px;
+	margin-bottom:15px;
+}
+.reviewboxcontent{
+	width:100% !important;
+	display:flex;	
+	background-color: #fff;
+    border: 1px solid #e1e1e1;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
+}
 
+.reviewbox-btn input[type="button"] {
+	float:right;
+    background-color: #fff;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+.reviewbox-btn input[type="button"]:hover {
+   border:dashed 1px;
+}
+.reviewbox-profile{
+	margin-top:20px;
+	margin-right:20px;
+}
 
 /*실관람평*/
 
@@ -223,11 +274,11 @@
     height: 100px; /* 원하는 높이로 설정 */
     width: 100%; /* 원하는 너비로 설정 */
 }
-.review-btn {
-    width: 40%;
+.review-btn, .review-cancel-btn {
+    width: 35%;
     margin-top: 10%;
     margin-bottom: 40px;
-    margin-right:33px;
+    margin-right:25px;
     height: 43.2px;
     background-color: #bbb;
     color: white; /* 버튼 텍스트 색상 설정 */
@@ -236,6 +287,32 @@
     cursor: pointer; /* 포인터 형태로 변경 */
     font-size: 16px;
     font-weight: bold;
+}
+.review-btn{
+	background-color:rgb(128, 128, 128);
+}
+.review-btn:hover, .review-cancel-btn:hover{
+	 border:dashed 1px;
+}
+.rw-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.rw-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 /*관람평 신고하기*/
 .modal {
@@ -413,6 +490,24 @@
 }
 .repo_btn{
 	margin-top:70%;
+}
+
+.paging-button input[type="button"] {
+    background-color: #fff;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.paging-button input[type="button"]:hover {
+    text-decoration: underline;
+}
+.morereviewbtn{
+	font-size: 16px;
 }
 /*무비포스트*/
 /*예고편 스틸컷*/

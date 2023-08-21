@@ -186,11 +186,11 @@ img {
 <div class="page-util">
 	<div class="location">
 		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
-		<a href="../movie/movieList.do">현재 상영작</a>  
+		<a href="../movie/premovieList.do">상영예정작</a>  
 	</div>
 </div><br>
 <div class="page-main">
-	<form action="movieList.do" id="search_form" class="list-search" method="get">
+	<form action="premovieList.do" id="search_form" class="list-search" method="get">
 		<ul class="search">
 			<li><select name="keyfield" id="keyfield">
 					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
@@ -200,7 +200,7 @@ img {
 			<li><input type="search" name="keyword" id="keyword"
 				value="${param.keyword}"></li>
 			<li><input type="submit" value="찾기"> <input
-				type="button" value="목록" onclick="location.href='movieList.do'">
+				type="button" value="목록" onclick="location.href='premovieList.do'">
 			</li>
 		</ul>
 		<br>

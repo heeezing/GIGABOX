@@ -2,6 +2,36 @@ $(function(){
 	let rowCount = 10; //20개가 보여지고싶으면 20이라고 명시하면 됨
 	let currentPage;
 	let count;
+	
+	
+	//관람평 수 표시
+	$.ajax({
+		url:'reviewCount.do',
+		type:'post',
+		data:{movie_num:$('#movie_num').val()},
+		dataType:'json',
+		success:function(param){
+       		 $('.reviewCount').text(param.reviewCount);
+		},
+		error:function(){
+			alert('관람평 표시 네트워크 오류');
+		}
+	});
+	
+	//관람평 평점 표시
+	$.ajax({
+		url:'reviewAvg.do',
+		type:'post',
+		data:{movie_num:$('#movie_num').val()},
+		dataType:'json',
+		success:function(param){
+       		 $('.ratingAvg').text(param.ratingAvg);
+		},
+		error:function(){
+			alert('관람평 표시 네트워크 오류');
+		}
+	});	
+	
 	//관람평 목록
 	function selectList(pageNum){
 		currentPage = pageNum;
@@ -25,16 +55,13 @@ $(function(){
 					$('#output').empty();
 				}
 				
-				//관람평수 읽어오기
-				displayReviewCount(param);
-				
 				$(param.list).each(function(index,item){
 					let output = '<div class="item">';
 					output += '<ul class="detail-info">';
 					output += '<li>';
 					output += '<img src="../member/viewProfile.do?mem_num='+item.mem_num+'" width="40" height="40" class="my-photo">'; 
 					output += '</li>';
-					output == '<li class="nick-name">';
+					output += '<li class="nick-name">';
 					if(item.nick_name){
 						output += item.nick_name + '<br>';
 					}else{
@@ -61,25 +88,25 @@ $(function(){
 					}
 					//좋아요 버튼
 					output += '<div class="favcontainer">';
-					output += '<img class="output_fav" id="output_fav' + item.review_num + '" data-num="' + item.review_num + '" data-movie-num = "'+ item.movie_num +'"src="../images/fav01.gif" width="40">';
+					output += '<img class="output_fav" id="output_fav' + item.review_num + '" data-num="' + item.review_num + '" data-movie-num = "'+ item.movie_num +'"src="../images/like.png" width="40">';
 					output += '<span class="output_fcount" id="output_fcount' + item.review_num + '">'+ item.fav_cnt+'</span>';
 					output += '</div>';
 					//좋아요 끝
 					//신고하기 버튼 
 					output += '<div class="button-group">';
-					output += '<input type="button" value="신고하기" class="repo_btn" data-num="'+item.review_num+'" data-movie-num="'+ item.movie_num+'" data-mem-num="'+ item.mem_num +'">';
+					output += '<input type="button" value="신고하기" class="repo_btn" data-num="'+item.review_num+'" data-movie-num="'+ item.movie_num+'">';
 					output += '<div id="modal'+item.review_num+'" class="modal">';
 					output += '<div class="modal_container">';
 					output += '<div class="modal_head"><h2>신고하기</h2></div>';
 					output += '<div class="modal_body">';
-					output += '<form style="border:none;" id="repo_modal'+item.review_num+'" action="writeReport.do" method="post">';
+					output += '<form style="border:none;" id="repo_modal'+item.review_num+'" class="repo-modal" action="writeReport.do" method="post">';
 					output += '<input type="hidden" name="review_num" value="'+item.review_num+'">';
 					output += '<input type="hidden" name="movie_num" value="'+item.movie_num+'">';
 					output += '<input type="hidden" name="mem_num" value="'+item.mem_num+'">';
 					output += '<span>정말로 해당 글을 신고하시겠습니까?</span>'
 					output += '<div class="modal_btn_group">';
 					output += '<input type="button" value="취소" class="repo_cancel">';
-					output += '<input type="submit" value="신고하기" class="repo_submit">';
+					output += '<input type="submit" value="신고하기" class="repo_submit" id="repo_submit'+item.review_num+'">';
 					output += '</div>';
 					output += '</form>';
 					output += '</div>';
@@ -128,6 +155,36 @@ $(function(){
 	$('.paging-button input').click(function(){
 		selectList(currentPage + 1);
 	});
+	
+	// 모달 열기 버튼 클릭 시
+	document.getElementById('openrwButton').addEventListener('click', function() {
+    document.getElementById('rw-modal').style.display = 'block';
+	});
+	// 모달 닫기
+	function closeModal() {
+   		document.getElementById('rw-modal').style.display = 'none';
+	}
+	// 모달 내에서 평점 선택 시
+	document.querySelector('.rating_score').addEventListener('click', function(event) {
+    	if (event.target.tagName === 'INPUT') {
+        	const ratingValue = event.target.value;
+       		document.querySelector('.rating-value').textContent = ratingValue;
+    	}
+	});
+	// 취소 버튼 클릭 이벤트 처리
+	$(document).on('click','input[class="review-cancel-btn"]',function(){
+          closeModal(); // 모달 닫기
+    });
+ 	// 작성하기 버튼 클릭 시
+    $('.review-btn').click(function(){
+		let choice = confirm('관람평은 실관람 이후 작성가능합니다. 기가박스에서 관람하신 경우 [예매내역] 확인 후 이용하실 수 있습니다.');
+		if(choice){
+			location.href='../board/reservationList.do';
+		}
+	});
+	
+	//submit버튼을 누르면 작성이 되어야하는데 이건 마이페이지에서만 예매내역 확인 후 구현되어야해
+	/*
 	//리뷰 등록 
 	$('#review_form').submit(function(event){
 		if($('#review_content').val().trim()==''){
@@ -168,7 +225,10 @@ $(function(){
 		
 		//기본 이벤트 제거
 		event.preventDefault();
+		closeModal();
 	});
+	
+	*/
 	
 	//리뷰 작성 폼 초기화
 	function initForm(){
@@ -343,21 +403,7 @@ $(function(){
 			}
 		});
 	});
-	
-	//관람평수 표시
-	function displayReviewCount(data){
-		let count = data.count;
-		let output;
-		if(count==0){
-			output = '관람평수(0)';
-		}else{
-			output = '관람평수(' + count + ')';
-		}
-		//문서 객체에 추가
-		$('#output_reviewcount').text(output);
-	}
-	
-	
+
 	//초기 데이터(목록) 호출
 	selectList(1);
 
@@ -368,8 +414,6 @@ $(function(){
 			$(this).parents('.rating-wrap').find('.rating-value').text(rating);
 		}
 	});
-	
-	//let reviewnum;
 	
     // 신고하기 버튼 클릭 이벤트 처리
    $(document).on('click','input[class="repo_btn"]',function(){
@@ -382,19 +426,18 @@ $(function(){
           $('.modal').css('display', 'none'); // 모달 창 숨기기
     });
 	
-	let repo_modal;
-	
 	// 신고 폼 제출 이벤트 처리
-    $(document).on('submit',repo_modal,function(event,review_num) {
-	repo_modal = $('#repo_modal'+review_num);
+    $(document).on('submit','.repo-modal',function(event) {
+		//repo_modal = $('#repo_modal'+review_num);
         event.preventDefault(); // 기본 제출 동작 막기
+		alert("!!!");
+		
+		let form_data = $(this).serialize();
 
         $.ajax({
             url: 'writeReport.do',
             type: 'post',
-            data:{review_num:$('.repo_btn').attr('data-num'),
-					movie_num:$('.repo_btn').attr('data-movie-num'),
-					mem_num:$('.repo_btn').attr('data-mem-num')},
+            data:form_data,
             dataType: 'json',
             success: function(param) {
                 if(param.result == 'logout'){
@@ -465,9 +508,9 @@ $(function(){
 	function displayFav(param,review_num){
 		let output;
 		if(param.status=='yesFav'){
-			output = '../images/fav02.gif';
+			output = '../images/like.png';
 		}else if(param.status=='noFav'){
-			output = '../images/fav01.gif';
+			output = '../images/dontlike.png';
 		}else{
 			alert('좋아요 표시 오류 발생');
 		}
