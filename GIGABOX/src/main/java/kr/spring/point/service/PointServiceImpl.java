@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.spring.order.vo.OrderVO;
 import kr.spring.point.dao.PointMapper;
 import kr.spring.point.vo.PointVO;
 

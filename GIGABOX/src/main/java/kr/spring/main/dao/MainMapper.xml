@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.main.dao.MainMapper">
+	<!-- 박스오피스 목록 -->
+	<select id="selectBoxOffice" resultType="movieVO">
+	SELECT * 
+	FROM (SELECT * 
+		  FROM movie m JOIN(SELECT movie_num, COUNT(*) as reservation_count
+						  FROM reservation r JOIN schedule s USING (sch_num)
+						  GROUP BY movie_num
+						  ORDER BY reservation_count DESC)a USING(movie_num)
+		  WHERE m_status = 1) 
+	<![CDATA[
+	WHERE rownum <= 4
+	]]>
+	</select>
+
+
+</mapper>
