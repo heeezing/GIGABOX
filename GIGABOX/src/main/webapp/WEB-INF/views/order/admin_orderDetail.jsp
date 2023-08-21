@@ -15,10 +15,10 @@
 			<dd class="border-right margin" id="orders_num">${orders.orders_num}</dd>
 			<dt>사용현황</dt>
 			<dd class="margin">
-				<c:if test="${orders.orders_status == 1}">미사용</c:if>
-				<c:if test="${orders.orders_status == 2}">${modify_date} 사용완료</c:if>
-				<c:if test="${orders.orders_status == 3}">기간만료</c:if>
-				<c:if test="${orders.orders_status == 4}">${modify_date} 주문취소</c:if>
+								<c:if test="${orders.orders_status == 1}"><span style="color:blue;">사용가능</span></c:if>
+				<c:if test="${orders.orders_status == 2}">${modify_date} <span style="color:green;"> 사용완료</span></c:if>
+				<c:if test="${orders.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
+				<c:if test="${orders.orders_status == 4}">${modify_date} <span style="color:red;"> 주문취소</span></c:if>
 			</dd>
 	 	</dl>
 	 	<div class="button-container">

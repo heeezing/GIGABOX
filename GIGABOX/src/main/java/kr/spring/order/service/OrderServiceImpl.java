@@ -128,4 +128,9 @@ public class OrderServiceImpl implements OrderService{
 		return orderMapper.selectListGiftByTo_id(map);
 	}
 
+	@Override
+	public List<OrderVO> selectListOrderByMem_num3(Integer mem_num) {
+		return orderMapper.selectListOrderByMem_num3(mem_num);
+	}
+
 }

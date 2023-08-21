@@ -56,8 +56,6 @@ public class AppConfig implements WebMvcConfigurer{
 		         .addPathPatterns("/member/delete.do")
 		         .addPathPatterns("/board/memberReservationList.do")
 		         .addPathPatterns("/cart/list.do")
-		         .addPathPatterns("/order/directOrderForm.do")
-		         .addPathPatterns("/order/orderForm.do")
 		         .addPathPatterns("/order/order.do")
 		         .addPathPatterns("/order/orderFail.do")
 		         .addPathPatterns("/order/searchMember.do");

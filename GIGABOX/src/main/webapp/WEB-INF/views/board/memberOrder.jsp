@@ -52,7 +52,7 @@
 			<th>구매일</th>
 			<th>주문번호</th>
 			<th>상품명</th>
-			<th>결제금액</th>
+			<th>구매금액</th>
 			<th>내역</th>
 			<th>상태</th>
 		</tr>
@@ -71,10 +71,10 @@
 				<c:if test="${order.orders_type == 2}">선물</c:if>
 			</td>
 			<td class="align-center">
-				<c:if test="${order.orders_status == 1}">사용가능</c:if>
-				<c:if test="${order.orders_status == 2}">사용완료</c:if>
-				<c:if test="${order.orders_status == 3}">기간만료</c:if>
-				<c:if test="${order.orders_status == 4}">주문취소</c:if>
+				<c:if test="${order.orders_status == 1}"><span style="color:blue;">사용가능</span></c:if>
+				<c:if test="${order.orders_status == 2}"><span style="color:green;">사용완료</span></c:if>
+				<c:if test="${order.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
+				<c:if test="${order.orders_status == 4}"><span style="color:red;">주문취소</span></c:if>
 			</td>
 		</tr>
 		</c:forEach>

@@ -113,7 +113,7 @@ $(document).ready(function () {
 		<img src="https://img.megabox.co.kr/static/pc/images/2023/01/card_img.png" alt="맴버쉽 카드">
 		-->
 		<div class="mbs-btn-wrap">
-		<button class="mbs-btn">구독하러 가기 ></button>
+		<button class="mbs-btn" onclick="location.href='${pageContext.request.contextPath}/membership/membership_list.do'">구독하러 가기 ></button>
 		</div>
 	</div>
 </div>
@@ -145,6 +145,7 @@ $(document).ready(function () {
 
 <!-- 공지사항/고객센터 -->
 <div class="page-main">
+
 	<div class="main_cont_wrap notice">
 		<div class="sec_tit">공지사항</div>
 		<div class="rolling_menu_wrap">
@@ -156,9 +157,10 @@ $(document).ready(function () {
 		</div>
 		<a href="${pageContext.request.contextPath}/cs/csNotiList.do" class="btn_txt_more ty2">더보기</a>
 	</div>
-
+	
 	<div class="noticeClient_wrap">
 		<div class="contents">
+			<!-- 고객센터 박스 -->
 			<div class="noticeClient_container">
 				<div class="noticeClient_content">
 					<div class="client_wrap">
@@ -175,28 +177,24 @@ $(document).ready(function () {
 					</div>
 				</div>
 			</div>
-				
-				<div class="table">
-					<div class="cell">
+			<!-- 자주묻는질문, 1:1문의 아이콘 -->
+			<div class="table">
+				<div class="cell">
 					<a href="${pageContext.request.contextPath}/cs/csQnaList.do">
 						<img src="${pageContext.request.contextPath}/images/main_question_icon.png" width="90px"><br>
 						<span class="cs-sub">자주 묻는 질문</span>
 					</a>
-					</div>
-		
-					<div class="cell">
-					<a href="${pageContext.request.contextPath}/cs/csPersonalWrite.do">
-						<img src="${pageContext.request.contextPath}/images/main_one_icon.png" width="90px"><br>
-						<span class="cs-sub">1:1 문의</span>
-					</a>
 				</div>
 	
-				
+				<div class="cell">
+				<a href="${pageContext.request.contextPath}/cs/csPersonalWrite.do">
+					<img src="${pageContext.request.contextPath}/images/main_one_icon.png" width="90px"><br>
+					<span class="cs-sub">1:1 문의</span>
+				</a>
+				</div>
 			</div>
 		</div>
 	</div>
-	
-	
 	
 </div>
 

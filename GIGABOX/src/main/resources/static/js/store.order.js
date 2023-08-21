@@ -160,9 +160,6 @@ $(function(){
 			    결제
   	  =======================*/
 	
-	//데이터 확인
-	//console.log($('#orders_num').val()+"//"+$('#sn_name').val()+"//"+finalTotal+"//"+$('#email').val()+"//"+$('#name').val()+"//"+$('#phone').val()+"//"+$('#address1').val()+"//"+$('#zipcode').val());
-	
 	//결제하기 버튼 클릭 이벤트
 	$('#pay_btn').click(function iamport(){
 		let usePoint = parseInt($("#use_point").val());

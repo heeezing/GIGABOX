@@ -69,6 +69,14 @@ public class OrderController {
 							Model model, HttpServletRequest request) {
 		log.debug("<<orderVO>> : " + orderVO);
 		
+		//로그인 체크
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null) {
+			model.addAttribute("message", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", request.getContextPath()+"/member/login.do");
+			return "common/resultView";
+		}
+		
 		//상품 정보 호출
 		SnackVO snack = snackService.selectSnack(orderVO.getSn_num());
 		log.debug("<<snack>> : " + snack);
@@ -110,7 +118,6 @@ public class OrderController {
 		model.addAttribute("orders_num", orders_num);
 		
 		//회원 정보 읽어오기
-		MemberVO user = (MemberVO)session.getAttribute("user");
 		MemberVO member = memberService.selectMember(user.getMem_num());
 		log.debug("<<member>> : " + member);
 		int totalPoint = pointService.myTotalPoint(user.getMem_num());
@@ -154,13 +161,20 @@ public class OrderController {
 		//장바구니에서 선택한 상품번호들 debug로 확인
 		log.debug("<<cart_numbers>> : " + orderVO.getCart_numbers());
 		
+		//로그인 체크
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null) {
+			model.addAttribute("message", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", request.getContextPath()+"/member/login.do");
+			return "common/resultView";
+		}
+		
 		if(orderVO.getCart_numbers() == null || orderVO.getCart_numbers().length == 0) {
 			model.addAttribute("message", "정상적인 주문이 아닙니다.");
 			model.addAttribute("url", request.getContextPath()+"/cart/list.do");
 			return "common/resultView"; //자바스크립트 공용 파일로 이동
 		}
 
-		MemberVO user = (MemberVO)session.getAttribute("user");
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mem_num", user.getMem_num());
 		map.put("cart_numbers", orderVO.getCart_numbers());

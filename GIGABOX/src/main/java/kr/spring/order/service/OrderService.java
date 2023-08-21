@@ -29,6 +29,8 @@ public interface OrderService {
 	public int selectOrderCountByMem_num(Map<String,Object> map);
 	//[사용자] 전체or검색 목록
 	public List<OrderVO> selectListOrderByMem_num(Map<String,Object> map);
+	//[사용자-마이페이지] 최근 3개 구매 목록
+	public List<OrderVO> selectListOrderByMem_num3(Integer mem_num);
 	//주문 상세
 	public OrderVO selectOrder(String orders_num);
 	//개별 상품 목록

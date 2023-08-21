@@ -48,8 +48,9 @@ public class CartController {
 			cartVO.setMem_num(user.getMem_num());
 			//동일 상품이 있는지 체크를 위해 정보를 가져옴
 			CartVO db_cart = cartService.selectCart(cartVO);
-			//장바구니에 담긴 상품 수를 가져옴
+			//장바구니에 담긴 총 상품 수를 가져옴
 			int cartCount = cartService.selectCartCount(user.getMem_num());
+			log.debug("<<cartCount>> : " + cartCount);
 			
 			if(db_cart == null) { //등록된 동일 상품이 없음
 				if(cartCount < 10) {
@@ -62,12 +63,18 @@ public class CartController {
 			}else { //등록된 동일 상품이 있음
 				//구매 수량 합치기 (기존 구매수량 + 새로 입력한 구매수량)
 				int orders_quantity = db_cart.getOrders_quantity()+cartVO.getOrders_quantity();
-				//수량 합산 처리
-				cartVO.setOrders_quantity(orders_quantity);
-				//장바구니 업데이트
-				cartService.updateCartBySn_num(cartVO);
-				
-				mapJson.put("result", "success");
+				//장바구니에 있는 수량 + 새로 담은 수량이 10개가 넘을 경우
+				if (orders_quantity > 10) {
+					mapJson.put("result", "overQuantity");
+				}else {
+					//수량 합산 처리
+					cartVO.setOrders_quantity(orders_quantity);
+					//장바구니 업데이트
+					cartService.updateCartBySn_num(cartVO);
+					
+					mapJson.put("result", "success");
+				}
+
 			}
 		}
 		
