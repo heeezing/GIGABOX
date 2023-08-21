@@ -65,8 +65,8 @@ $(document).ready(function () {
               			<span class="rank">${movieIndex}</span>
               			
 						<img src="${pageContext.request.contextPath}/movie/imageView.do?movie_num=${movie.movie_num}&movie_type=1">
-						
-						<!--<em class="num_info">${movie.m_rank}</em> 영화 랭킹 일단 비활성화해뒀어  -->
+						 <!-- <img src="${movie.m_poster2}">-->
+						 
 					</span>
 					<span class="over_box"> <!-- 박스 안 버튼 -->
 							${movie.m_plot}

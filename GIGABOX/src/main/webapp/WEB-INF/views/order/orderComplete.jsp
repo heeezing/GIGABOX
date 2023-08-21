@@ -42,7 +42,7 @@
 			<p style="font-size:14pt;">주문 내역은 마이페이지에서 확인 가능합니다.</p>
 			<div class="btn_wrap" style="margin-top:60px;">
 				<a href="${pageContext.request.contextPath}/snack/list.do">스토어 홈</a>
-				<a href="${pageContext.request.contextPath}/order/orderList.do">마이페이지</a>
+				<a href="${pageContext.request.contextPath}/board/orderList.do">마이페이지</a>
 			</div>
 		</li>
 	</ul>
