@@ -18,6 +18,8 @@ $(function(){
 	if($('.date-button').length > 0){
 		$('.date-button').first().click();
 	}
+	
+	
 });
 
 // 극장 번호
@@ -60,6 +62,7 @@ function selectTheater(prop){
 	
 }
 
+
 // 날짜 버튼 선택 함수
 function selectDate(prop){
 	// 클릭된 항목에 on 클래스 추가
@@ -91,12 +94,11 @@ function selectDate(prop){
 			            GroupOutput += '</div>';
 			            GroupOutput += '</div>';
 			        }
-			
 			        // 새로운 그룹 시작
 			        GroupOutput += '<div class="schedule-box">';
 			        GroupOutput += '<div class="movie-name-area">';
 			        GroupOutput += '<a href="/movie/movieDetail.do?movie_num=' + item.movie_num + '" class="movie-name">' + item.m_title + '</a>';
-			        GroupOutput += '<p class="information"><span>상영중</span> / 상영시간 130분</p>';
+			        GroupOutput += '<p class="information"><span>상영중</span> / 상영시간 ' + item.m_runtime + '분</p>';
 			        GroupOutput += '</div>';
 					GroupOutput += '<div class="hall-schedule-box">';
 					GroupOutput += '<div class="hall-type">';
@@ -129,7 +131,7 @@ function selectDate(prop){
 			    GroupOutput += '<p class="remain-seats">' + item.remain + '석</p>';
 			    GroupOutput += '</a>';
 			    GroupOutput += '</td>';
-			
+				
 			    // 현재 영화와 상영관 정보를 이전 정보로 업데이트
 			    prevMovieTitle = item.m_title;
 			    prevHallNum = item.hall_num;
@@ -154,6 +156,7 @@ function selectDate(prop){
 					location.href="/member/login.do";
 			    }
 			});
+			
 
 		},
 		error:function(){
