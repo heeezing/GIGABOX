@@ -19,9 +19,11 @@
 		<div class="theater-list-section">
 			<ul class="theater-list">
 				<c:forEach var="theater" items="${list}">
+				<c:if test="${theater.th_num != 101}">
 				<li>
 					<button class="th-name" data-num="${theater.th_num}" onclick="selectTheater(this)">${theater.th_name}</button>
 				</li>
+				</c:if> 
 				</c:forEach>
 			</ul>
 		</div>
@@ -53,8 +55,9 @@
 	<!-- 상영시간표 시작 -->
 	<div class="time-schedule-wrap">
 		<div class="date-area">
+			 <c:set var="today" value="${dateList[0]}"/>
+			 <div class="year"><fmt:formatDate value="${today}" pattern="yyyy.MM"/></div>
 			 <c:forEach var="date" items="${dateList}">
-			 	<div class="year"><fmt:formatDate value="${date}" pattern="yyyy.MM"/></div>
 			 	<fmt:formatDate var="pattern_date" value="${date}" pattern="yyyy-MM-dd"/>
 			 	<button class="date-button" data-num="${pattern_date}" onclick="selectDate(this)">
 			 		<div class="day-of-month"><fmt:formatDate value="${date}" pattern="d"/></div>

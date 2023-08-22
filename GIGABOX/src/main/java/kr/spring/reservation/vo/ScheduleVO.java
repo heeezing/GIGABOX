@@ -22,6 +22,6 @@ public class ScheduleVO {
 	private String hall_name;//상영관
 	private int seats;//좌석수
 	private int remain;//남은 좌석수
-	
+	private String m_runtime; // 상영시간
 	
 }

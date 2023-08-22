@@ -134,22 +134,28 @@ public class OrderAdminController {
 				}else if(orders_status == 4) {
 					//취소 주문 건의 적립,사용 포인트 조회
 					PointVO db_point = pointService.selectCancelPoint(orders_num);
-					int add_point = db_point.getUse_point();
-					int use_point = db_point.getAdd_point();
-					//사용 포인트는 환불, 적립 포인트는 차감
-					PointVO pointVO = new PointVO();
-					pointVO.setAdd_point(add_point);
-					pointVO.setUse_point(use_point);
-					pointVO.setOrders_num(orders_num);
-					pointVO.setMem_num(user.getMem_num());
+					int db_use_point = db_point.getUse_point();
+					int db_add_point = db_point.getAdd_point();
 					
-					//주문 취소 처리
-					orderService.statusChange(orders_num, orders_status);
-					pointService.insertRefundPoint(pointVO);
-					
-					mapAjax.put("result","success");
+					//현재 내 포인트 조회
+					int my_point = pointService.myTotalPoint(user.getMem_num());
+					if(my_point + db_use_point < db_add_point) {
+						mapAjax.put("result", "shortage");
+					}else {
+						//사용 포인트는 환불, 적립 포인트는 차감
+						PointVO pointVO = new PointVO();
+						pointVO.setAdd_point(db_use_point);
+						pointVO.setUse_point(db_add_point);
+						pointVO.setOrders_num(orders_num);
+						pointVO.setMem_num(user.getMem_num());
+						
+						//주문 취소 처리
+						orderService.statusChange(orders_num, orders_status);
+						pointService.insertRefundPoint(pointVO);
+						
+						mapAjax.put("result","success");
+					}
 				}
-				
 			}
 		}
 
