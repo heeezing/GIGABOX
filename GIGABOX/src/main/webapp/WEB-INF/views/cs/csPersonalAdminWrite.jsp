@@ -55,6 +55,7 @@
                     </table>
                 </div>
                 <div class="btn-group pt40">
+                	
                     <button type="submit" class="button purple large">답변 등록</button>
                 </div>
             </form>

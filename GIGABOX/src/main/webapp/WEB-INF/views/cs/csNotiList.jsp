@@ -12,7 +12,6 @@
 					<a href="/support" title="고객센터 페이지로 이동">고객센터</a>
 					<a href="/support/notice" title="공지사항 페이지로 이동">공지사항</a>
 				</div>
-
 			</div>
 		</div>
 
@@ -52,17 +51,19 @@
 					</ul>
 				</div>
 				<div class="board-list-util">
-					<p class="result-count">전체 <em class="font-gblue">0</em>건</p>
+					<p class="result-count">전체 <em class="font-gblue">${count}</em>건</p>
 					<select id="theater02" name="th_num" title="극장 선택" class="mr07">
 						<option value="">극장 선택</option>
 						<c:forEach var="th" items="${theater}">
 							<option value="${th.th_num}">${th.th_name}</option>
 						</c:forEach>
 					</select>
-					<div class="board-search">
-						<input type="text" id="searchTxt" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text" value="" maxlength="15">
-						<button type="button" id="searchBtn" class="btn-search-input">검색</button>
-					</div>
+					<!-- <form action="csNotiList.do" method="post" > -->
+						<div class="board-search">
+							<input type="text" name="keyword" id="searchTxt" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text" value="" maxlength="15">
+							<button type="submit" id="searchBtn" class="btn-search-input">검색</button>
+						</div>
+					<!-- </form> -->	
 				</div>
 
 				<div class="table-wrap">
@@ -84,91 +85,37 @@
 								<th scope="col">등록일</th>
 							</tr>
 						</thead>
-						<tbody></tbody>
+						<tbody>
+							<c:if test="${count == 0}">
+								<tr>
+									<td colspan="5">표시할 게시물이 없습니다.</div>
+								</tr>
+							</c:if>
+							<c:if test="${count != 0}">						
+								<c:forEach var="cs_noti" items="${list}">
+									<tr>
+										<td class="align-center">${cs_noti.noti_num}</td>
+										<td class="align-center">${cs_noti.th_name}</td>
+										<td class="align-center">공지</td>
+										<td>
+											<a href="csDetail.do?detail_num=${cs_noti.noti_num}&table=2">${cs_noti.title}</a>
+										</td>
+										<td class="align-center">${cs_noti.reg_date}</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
 					</table>
 				</div>
 
 				<!-- pagination -->
-				<nav class="pagination"></nav>
+				<nav class="pagination">${page}</nav>
 				<!--// pagination -->
 			</div>
 		</div>
 	</div>
 	<!--// container -->
-<!-- 		</div> -->
-        
 
-<!-- 게시판 목록 시작 -->
-<div class="page-main">
-	<h2>게시판 목록</h2>
-	<form action="csNotiList.do" id="search_form" method="get">
-		<ul class="search">
-			<li>
-				<select name="theater" id="theater">
-					<c:forEach var="th" items="${theater}">
-						<option value="${th.th_num}">${th.th_name}</option>
-					</c:forEach>
-				</select>
-			</li>
-			<li>
-				<select name="keyfield" id="keyfield">
-					<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>제목</option>
-					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>내용</option>
-					<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>제목+내용</option>
-				</select>
-			</li>
-			<li>
-				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
-			</li>
-			<li>
-				<input type="submit" value="찾기">
-				<input type="button" value="목록" onclick="location.href='csNotiList.do'">
-			</li>
-		</ul>
-		<div class="align-right">
-			<c:if test="${!empty user}">
-				<input type="button" value="글쓰기" 
-			                     onclick="location.href='csWrite.do'">
-			</c:if>
-		</div>
-		<div>
-		<table>
-		<tr>
-			<td>전체</td>
-			<td>기가박스 공지</td>
-			<td>지점 공지</td>
-		</tr>
-		</table>
-		</div>
-	</form>
-	<c:if test="${count == 0}">
-	<div class="result-display">표시할 게시물이 없습니다.</div>
-	</c:if>
-	<c:if test="${count > 0}">
-	<table class="striped-table">
-		<tr>
-			<th>번호</th>			
-			<th>극장</th>
-			<th>구분</th>
-			<th>제목</th>
-			<th>등록일</th>
-		</tr>
-		<c:forEach var="cs_noti" items="${list}">
-		<tr>
-			<td class="align-center">${cs_noti.noti_num}</td>
-			<td class="align-center">${cs_noti.th_name}</td>
-			<td class="align-center">공지</td>
-			<td>
-				<a href="detail.do?board_num=${cs_noti.noti_num}">${cs_noti.title}</a>
-			</td>
-			<td class="align-center">${cs_noti.reg_date}</td>
-		</tr>
-		</c:forEach>
-	</table>
-	<div class="align-center">${page}</div>
-	</c:if>
-</div>
-<!-- 게시판 목록 끝 -->
 
 
 

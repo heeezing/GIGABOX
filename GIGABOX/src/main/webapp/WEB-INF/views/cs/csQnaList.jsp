@@ -14,6 +14,12 @@
 				return false;
 			}
 		});
+	 
+	        $(".qut").on("click", function(){  
+	            $(".qut").removeClass("on");
+	            $(this).addClass("on");
+	        });    
+	  
 	});
 </script>
 	<!-- container -->
@@ -75,121 +81,72 @@
 				<div class="tab-block small mb30">
 					<ul>
 						<li class="on"><button type="button" class="btn tabBtn" id="totalTab" data-no="" title="전체">전체</button></li>
-
-						
-
-						
 							<li><button type="button" class="btn tabBtn" data-no="88" data-nm="영화예매" title="영화예매" >영화예매</button></li><!-- (14) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="89" data-nm="할인혜택" title="할인혜택" >할인혜택</button></li><!-- (3) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="90" data-nm="결제수단/관람권" title="결제수단/관람권" >결제수단/관람권</button></li><!-- (6) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="91" data-nm="멤버십" title="멤버십" >멤버십</button></li><!-- (13) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="92" data-nm="VIP" title="VIP" >VIP</button></li><!-- (4) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="93" data-nm="극장/특별관" title="극장/특별관" >극장/특별관</button></li><!-- (8) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="95" data-nm="스토어" title="스토어" >스토어</button></li><!-- (6) -->
-
-							
-						
 							<li><button type="button" class="btn tabBtn" data-no="96" data-nm="홈페이지/모바일" title="홈페이지/모바일" >홈페이지/모바일</button></li><!-- (11) -->
-
-					
-						
 							<li><button type="button" class="btn tabBtn" data-no="8007" data-nm="기프트카드" title="기프트카드" >기프트카드</button></li><!-- (12) -->
-
 					</ul>
 					<input type="hidden" id="bbsTotalCnt" value="77" />
 				</div>
+				 <div class="faq-list-box">
+			        <p class="reset mb10">
+			            <strong>
+			                <span id="totalTitle">
+			                전체
+			                </span>
+			                <span class="font-green" id="totalCnt">
+			                ${count}
+			                </span>
+			                건
+			            </strong>
+			        </p>
+			        <div class="faq-list">
+			            <ul>
+			                <ul>
+			                <c:forEach var="cs_qna" items="${list}">
+			                    <li>
+			                        <div class="qut">
+			                           <a>
+			                                <p class="tit">
+			                                    <span class="font-green">[${cs_qna.category_name}]</span>
+			                                </p>
+			                                <p class="txt">
+			                                    <span>
+			                                        ${cs_qna.title}
+			                                    </span>
+			                                </p>
+			                            </a>
+			                        </div>
+			                        <div class="awn">
+			                            <p class="cont">
+			                                <span style="font-size:10.0pt">
+			                                    <span style="line-height:107%">
+			                                       <span>
+			                                       		<br>${cs_qna.content}
+			                                        </span>
+			                                    </span>
+			                                </span>
+			                            </p>
+			                        </div>
+			                    </li>
+			                </c:forEach>
+			                </ul>
+			            </ul>
+			        </div>
+			    </div>
 				<!-- pagination -->
-				<nav class="pagination"></nav>
+				<nav class="pagination">${page}</nav>
 				<!--// pagination -->
 			</div>
 		</div>
 	</div>
 	<!--// container -->
-<!-- 		</div> -->
 
-<div class="page-main">
-	<h2>csQnaList.do</h2>
-	<form action="csQnaList.do" id="search_form" method="get">
-		<ul class="search">
-			<li>
-				<select name="keyfield" id="keyfield">
-					<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>제목</option>
-					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>내용</option>
-					<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>제목+내용</option>
-				</select>
-			</li>
-			<li>
-				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
-			</li>
-			<li>
-				<input type="submit" value="찾기">
-				<input type="button" value="목록" onclick="location.href='csQnaList.do'">
-			</li>
-		</ul>
-		<div class="align-right">
-			<c:if test="${!empty user}">
-				<input type="button" value="글쓰기" 
-			                     onclick="location.href='csWrite.do'">
-			</c:if>
-		</div>
-	</form>
-	<c:if test="${count == 0}">
-	<div class="result-display">표시할 게시물이 없습니다.</div>
-	</c:if>
-	<c:if test="${count > 0}">
-	<div class="align-center">
-		<table>
-			<tr>
-				<td>전체</td>
-				<td>영화예매</td>
-				<td>할인혜택</td>
-				<td>결제수단/관람권</td>
-				<td>멤버십</td>
-			</tr>
-			<tr>
-				<td>VIP</td>
-				<td>극장/특별관</td>
-				<td>스토어</td>
-				<td>홈페이지/모바일</td>
-				<td>기프트카드</td>
-			</tr>
-		</table>
-	</div>
-	<div>
-	${count} 건
-	</div>
-	
-	<c:forEach var="cs_qna" items="${list}">
-	<div>
-	<p>[${cs_qna.category_name}]</p>
-	<p>Q. ${cs_qna.title}</p>
-	</div>
-	<div>
-	A. ${cs_qna.content}
-	</div>
-	</c:forEach>
-	<div class="align-center">${page}</div>
-	</c:if>
-</div>
-<!-- 게시판 목록 끝 -->
 
 
 

@@ -35,9 +35,12 @@ public interface EventMapper {
 	//조회수 올리기
 	@Update("UPDATE event SET count=count+1 WHERE event_num=#{event_num}")
 	public void updateHit (Integer event_num);
-	//게시글 수정하기 
-	public EventVO updateEvent(EventVO event);
+	//게시글 수정하기
+	//이미지는 어떻게 수정하면 좋을까..?
+	@Update("UPDATE event SET category_num=#{category_num}, category_detail_num=#{category_detail_num}, event_form_type=#{event_form_type},thumb1 = #{thumb1},thumb1_name = #{thumb1_name},thumb2 = #{thumb2}, thumb2_name = #{thumb2_name}, title=#{title}, content=#{content}, event_start = TO_DATE(#{event_start},'YYYY-MM-DD'),event_end = TO_DATE(#{event_end},'YYYY-MM-DD'), modify_date=SYSDATE WHERE event_num=#{event_num}")
+	public void updateEvent(EventVO event);
 	//게시글 삭제하기
+	@Delete("DELETE FROM event WHERE event_num = #{event_num}")
 	public void deleteEvent(Integer event_num);	
 	@Insert("INSERT INTO event_result (result_num, mem_num, event_num, title, content ,reg_date) VALUES (event_result_seq.nextval, #{mem_num}, #{event_num}, #{title}, #{content}, SYSDATE)")
 	public void insertEventResult(EventResultVO eventResultVO);
@@ -51,7 +54,6 @@ public interface EventMapper {
 	public void updateState0(Integer event_num);
 	@Update("UPDATE event SET state = 1 WHERE event_num=#{event_num}")
 	public void updateState1(Integer event_num);
-	
 	public List<EventReplyVO> selectReplyList(Integer event_num);
 	//댓글
 	public List<EventReplyVO> selectListReply(Map<String,Object> map);

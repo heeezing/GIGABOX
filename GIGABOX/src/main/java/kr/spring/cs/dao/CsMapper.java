@@ -72,6 +72,7 @@ public interface CsMapper {
 	
 	//게시글 수 세기 (공용)
 	public int selectRowCount(Map<String,Object> map);
+	
 	//qna 글 목록 가져오기
 	public List<CsVO> selectQnaList(Map<String,Object> map);
 	//noti 글 목록 가져오기
@@ -79,5 +80,23 @@ public interface CsMapper {
 	//personal 글 목록 가져오기 
 	public List<CsPersonalVO> selectPersonalList(Map<String,Object> map);
 	
+	//cs선택하기 
+	@Select("SELECT * FROM cs_qna WHERE qna_num = #{qna_num}")
+	public CsVO selectQna(Integer qna_num);
+	@Select("SELECT * FROM cs_noti WHERE noti_num = #{noti_num}")
+	public CsVO selectNoti(Integer noti_num);
+	
+	//cs삭제 
+	@Delete("DELETE FROM cs_qna WHERE qna_num = #{qna_num}")
+	public void deleteQna(Integer qna_num);
+	
+	@Delete("DELETE FROM cs_noti WHERE noti_num = #{noti_num}")
+	public void deleteNoti(Integer noti_num);
+	
+	//cs수정
+	@Update("UPDATE cs_qna SET category_num=#{category_num},title=#{title}, content=#{content}, modify_date=SYSDATE WHERE qna_num = #{qna_num}")
+	public void updateQna(CsVO csVO);
+	@Update("UPDATE cs_noti SET th_num=#{th_num}, title=#{title}, content=#{content}, modify_date=SYSDATE WHERE noti_num = #{noti_num}")
+	public void updateNoti(CsVO csvVO);
 	
 	}

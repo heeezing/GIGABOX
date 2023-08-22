@@ -63,8 +63,8 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public EventVO updateEvent(EventVO event) {
-		return eventMapper.updateEvent(event);
+	public void updateEvent(EventVO event) {
+		eventMapper.updateEvent(event);
 	}
 
 	@Override

@@ -162,5 +162,36 @@ public class CsServiceImpl implements CsService{
 		return csMapper.selectFile(File_num);
 	}
 
+	@Override
+	public CsVO selectQna(Integer qna_num) {
+		return csMapper.selectQna(qna_num);
+	}
+
+	@Override
+	public CsVO selectNoti(Integer noti_num) {
+		return csMapper.selectNoti(noti_num);
+	}
+
+	@Override
+	public void deleteQna(Integer qna_num) {
+		csMapper.deleteQna(qna_num);
+	}
+
+	@Override
+	public void deleteNoti(Integer noti_num) {
+		csMapper.deleteNoti(noti_num);
+		
+	}
+
+	@Override
+	public void updateQna(CsVO csVO) {
+		csMapper.updateQna(csVO);
+	}
+
+	@Override
+	public void updateNoti(CsVO csvVO) {
+		csMapper.updateNoti(csvVO);
+	}
+
 	
 }

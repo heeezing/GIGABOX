@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
 <div class="container has-lnb">
@@ -92,14 +93,14 @@
 							</div>
 							<div class="">
 								<ol class="decimal-list">
-									
+									<c:forEach var="qna" items="${qna}">
 										<li>
-											<a href="#" class="faqBtn" data-idx="1" title="질문 상세보기">
-												<span class="font-roboto">1</span>&nbsp;
-												<span class="font-gblue">[기프트카드]</span> 기프트카드를 보냈는데 상대방이 받지 못한다고 합니다.
-												<span class="date">2023.07.12</span>
+											<a href="csQnaList.do" class="faqBtn" data-idx="1" title="질문 상세보기">
+												<span class="font-gblue">[${qna.category_name}]</span> ${qna.title}
+												<span class="date">${qna.reg_date}</span>
 											</a>
 										</li>
+									</c:forEach>
 								</ol>
 							</div>
 						</div>
@@ -113,13 +114,15 @@
 
 							<div class="decimal-list">
 								<ol>
+									<c:forEach var="noti" items="${noti}">
 										<li>
-											<a href="#" class="moveBtn" data-no="10936" title="공지사항 상세보기">
+											<a href="csDetail.do?detail_num=${noti.noti_num}&table=2" class="moveBtn" data-no="10936" title="공지사항 상세보기">
 											<span class="font-gblue"><i class="iconset ico-notice"></i> [공지]</span>
-												메가박스 위치기반서비스 이용 약관 변경 안내
-											<span class="date">2023.08.14</span>
+												${noti.title}
+											<span class="date">${noti.reg_date}</span>
 											</a>
 										</li>
+									</c:forEach>
 								</ol>
 							</div>
 						</div>

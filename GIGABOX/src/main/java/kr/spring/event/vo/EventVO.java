@@ -44,4 +44,6 @@ public class EventVO {
 		//파일명을 구한다. 
 		setThumb2_name(upload2.getOriginalFilename());
 	}
+	
+	
 }

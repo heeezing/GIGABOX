@@ -2,6 +2,7 @@ package kr.spring.cs.controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,11 +100,116 @@ public class CsContorller {
 		return "common/resultView";
 	}
 	
-	@RequestMapping("/cs/csMain.do")
-	public String main() {
-		return "csMain";
+	
+	
+	@RequestMapping("/cs/csDetail.do")
+	public ModelAndView csDetail(@RequestParam int detail_num, @RequestParam int table) {
+		
+		CsVO csVO = new CsVO();
+		if(table == 1) {
+			csVO = csService.selectQna(detail_num);
+		}else if(table == 2) {
+			csVO = csService.selectNoti(detail_num);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csDetail");
+		mav.addObject("cs", csVO);
+		
+		return mav;
 	}
 	
+	@GetMapping("/cs/csModify.do")
+	public ModelAndView csModifyForm(@RequestParam int modify_num, 
+			 						 @RequestParam int table ) {
+		ModelAndView mav = new ModelAndView();
+		
+		CsVO csVO = new CsVO();
+		
+		List<CategoryVO> category = new ArrayList<>();
+		category = csService.selectAllQnaCategory();
+		
+		List<TheaterVO> theater = new ArrayList<>();
+		theater = csService.selectAllTheater();
+		
+		if(table == 1) {
+			csVO = csService.selectQna(modify_num);
+		}else if(table == 2) {
+			csVO = csService.selectNoti(modify_num);
+		}
+		
+		mav.setViewName("csModify");
+		mav.addObject("cs", csVO);
+		mav.addObject("table", table);
+		mav.addObject("category", category);
+		mav.addObject("theater", theater);
+		
+		return mav;
+	}
+	
+	@PostMapping("/cs/csModify.do")
+	public String csModify(CsVO csVO,
+			 @RequestParam int table, 
+			 Model model, HttpServletRequest request) {
+		
+		if(table == 1) {
+			csService.updateQna(csVO);
+		}else if(table == 2) {
+			csService.updateNoti(csVO);
+		}
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "정상적으로 수정되었습니다.");
+		model.addAttribute("url", 
+		request.getContextPath()+"/cs/csMain.do");
+		return "common/resultView";
+	}
+	
+	@RequestMapping("/cs/csDelete.do")
+	public String csDelete(@RequestParam int delete_num, 
+						 @RequestParam int table, 
+						 Model model, HttpServletRequest request) {
+		
+		if(table == 1) {
+			csService.deleteQna(delete_num);
+		}else if(table == 2) {
+			csService.deleteNoti(delete_num);
+		}
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "삭제되었습니다.");
+		model.addAttribute("url", 
+		request.getContextPath()+"/cs/csMain.do");
+		return "common/resultView";
+	}
+	
+	//----------------------------------------------------------------
+	@RequestMapping("/cs/csMain.do")
+	public ModelAndView main() {
+		
+		Map<String,Object> map1 = new HashMap<String, Object>();
+		Map<String,Object> map2 = new HashMap<String, Object>();
+		
+		//자주 묻는 질문 best 5개
+		List<CsVO> list1 = null;
+		map1.put("start", 1);
+		map1.put("end", 5);
+		list1 = csService.selectQnaList(map1);
+		
+		//공지사항 latest 5개		
+		List<CsVO> list2 = null;
+		map2.put("start", 1);
+		map2.put("end", 5);
+		list2 = csService.selectNotiList(map2);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("csMain");
+		mav.addObject("qna",list1);
+		mav.addObject("noti",list2);
+
+		return mav;
+	}
+	//----------------------------------------------------------------
 	@RequestMapping("/cs/csQnaList.do")
 	public ModelAndView qnaList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
 								String keyword, String keyfield
@@ -405,4 +511,6 @@ public class CsContorller {
             response.getOutputStream().close();
         
     }
+	
+	
 }

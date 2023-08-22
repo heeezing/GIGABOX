@@ -160,7 +160,7 @@
 					content,
 					reg_date,
 					modify_date FROM cs_noti JOIN theater USING(th_num)
-					<include refid="csSearch"></include>)a) 
+					<include refid="csSearch"></include> ORDER BY reg_date desc)a)
 		<![CDATA[WHERE rnum >= #{start} AND rnum <= #{end}]]>	       
 	</select>
 <!-- csPersonal게시판 -->

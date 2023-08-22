@@ -28,6 +28,7 @@ import kr.spring.event.vo.EventReplyVO;
 import kr.spring.event.vo.EventResultVO;
 import kr.spring.cs.service.CsService;
 import kr.spring.cs.vo.CategoryVO;
+import kr.spring.cs.vo.CsVO;
 import kr.spring.event.service.EventService;
 import kr.spring.event.vo.EventVO;
 import kr.spring.member.vo.MemberVO;
@@ -69,8 +70,46 @@ public class EventController {
 		//View에 표시할 메시지
 		model.addAttribute("message", "정상적으로 업로드되었습니다.");
 		model.addAttribute("url", 
-		request.getContextPath()+"/cs/csMain.do");
+		request.getContextPath()+"/event/eventList.do");
 		
+		return "common/resultView";
+	}
+	
+	@GetMapping("/event/eventModify.do")
+	public ModelAndView eventModifyForm(@RequestParam int event_num) {
+		ModelAndView mav = new ModelAndView();
+		
+		EventVO event = eventService.selectEvent(event_num);
+		
+		mav.setViewName("eventModify");
+		mav.addObject("event", event);
+		return mav;
+	}
+	
+	@PostMapping("/event/eventModify.do")
+	public String evnetModify(EventVO eventVO, 
+			 Model model, HttpServletRequest request) {
+		
+		eventService.updateEvent(eventVO);
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "정상적으로 수정되었습니다.");
+		model.addAttribute("url", 
+		request.getContextPath()+"/event/eventList.do");
+		return "common/resultView";
+	}
+	
+	@RequestMapping("/event/eventDelete.do")
+	public String eventDelete(@RequestParam int event_num,
+						 Model model, HttpServletRequest request) {
+		
+		eventService.deleteReplyByEventNum(event_num);
+		eventService.deleteEvent(event_num);
+		
+		//View에 표시할 메시지
+		model.addAttribute("message", "삭제되었습니다.");
+		model.addAttribute("url", 
+		request.getContextPath()+"/event/eventList.do");
 		return "common/resultView";
 	}
 	

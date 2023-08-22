@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import kr.spring.cs.vo.CategoryVO;
 import kr.spring.cs.vo.CsPersonalVO;
@@ -42,6 +45,18 @@ public interface CsService {
 	public void updateState1(Integer personal_num);
 	public void updateState0(Integer personal_num);
 	
+	//cs선택하기 
+	public CsVO selectQna(Integer qna_num);
+	public CsVO selectNoti(Integer noti_num);
+
+	//cs삭제 
+	public void deleteQna(Integer qna_num);
+	public void deleteNoti(Integer noti_num);
+
+	//cs수정
+	public void updateQna(CsVO csVO);
+	public void updateNoti(CsVO csvVO);
+
 	//글 목록 가져오기(.xml 작성) 
 	public List<CsVO> selectQnaList(Map<String,Object> map);
 	public List<CsVO> selectNotiList(Map<String,Object> map);

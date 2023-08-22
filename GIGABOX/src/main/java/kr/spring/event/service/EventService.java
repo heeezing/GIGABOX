@@ -19,7 +19,7 @@ public interface EventService {
 	public void insertEvent(EventVO event);
 	public EventVO selectEvent(Integer event_num);
 	public void updateHit (Integer event_num);
-	public EventVO updateEvent(EventVO event);
+	public void updateEvent(EventVO event);
 	public void deleteEvent(Integer event_num);	
 	
 	public List<EventReplyVO> selectReplyList(Integer event_num);

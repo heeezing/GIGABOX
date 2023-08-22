@@ -15,6 +15,13 @@
 		${event.content}
 		</div>
 	</div>
+	<div class="btn-group pt40">
+    	 <button class="button purple large" onclick="location.href='eventList.do'">목록</button>
+    <c:if test="${ user.auth == 9 }">
+         <button class="button purple large" onclick="location.href='eventModify.do?event_num=${event.event_num}'">수정</button>
+         <button class="button purple large" onclick="location.href='eventDelete.do?event_num=${event.event_num}'">삭제</button>
+    </c:if>
+    </div>
 	<c:if test="${event.event_form_type == 2}">
 	<script src="${pageContext.request.contextPath}/js/event_reply.js"></script>
 		<!-- 댓글 UI 시작 -->
@@ -42,6 +49,7 @@
 			</c:if>
 		</form>
 	</div>
+	
 	<!-- 댓글 목록 출력 -->
 	<div id="output"></div>
 	<div class="paging-button" style="display:none;">
@@ -52,6 +60,7 @@
 		   width="100" height="100">
 	</div>
 	<!-- 댓글 UI 끝 -->
-		
 	</c:if>
+	
+   
 </div>
