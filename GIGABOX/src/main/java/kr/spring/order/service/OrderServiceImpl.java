@@ -1,9 +1,11 @@
 package kr.spring.order.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -133,4 +135,22 @@ public class OrderServiceImpl implements OrderService{
 		return orderMapper.selectListOrderByMem_num3(mem_num);
 	}
 
+   @Override
+    public void statusChangeValid() {
+        orderMapper.statusChangeValid();
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
+    public void performScheduledTask() {
+        statusChangeValid();
+    }
+    
+    /*
+    // 스케줄링을 바로 실행할 테스트 메서드
+    @Scheduled(initialDelay = 5000, fixedRate =  60000) // 5초 후에 실행하고, 그 후 1분마다 실행
+    public void testScheduledTask() {
+        // 스케줄링 작업 내용
+        System.out.println("Scheduled task executed at " + LocalDateTime.now());
+    }
+	*/
 }

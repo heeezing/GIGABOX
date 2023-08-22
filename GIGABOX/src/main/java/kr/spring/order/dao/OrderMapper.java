@@ -61,6 +61,9 @@ public interface OrderMapper {
 	@Update("UPDATE orders SET orders_status=#{orders_status},modify_date=SYSDATE WHERE orders_num=#{orders_num}")
 	public void statusChange(@Param(value="orders_num") String orders_num,
 							 @Param(value="orders_status") Integer orders_status);
+	//사용 상태 변경 - 기간 만료
+	@Update("UPDATE orders SET orders_status = 3 WHERE valid_date < SYSDATE")
+	public void statusChangeValid();
 	//유효 기간 체크
 //	@Select("SELECT * FROM orders WHERE valid_date < #{currentDate} AND orders_status = 1")
 //	public List<OrderVO> statusNoValid(Date currentDate);

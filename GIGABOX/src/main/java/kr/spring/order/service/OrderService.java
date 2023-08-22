@@ -38,6 +38,8 @@ public interface OrderService {
 	//사용 상태 변경 
 	public void statusChange(@Param(value="orders_num") String orders_num,
 								@Param(value="orders_status") Integer orders_status);
+	//사용 상태 변경 - 기간 만료
+	public void statusChangeValid();
 	//선물함 개수
 	public int selectGiftCountByTo_id(Map<String,Object> map);
 	//선물함 목록
