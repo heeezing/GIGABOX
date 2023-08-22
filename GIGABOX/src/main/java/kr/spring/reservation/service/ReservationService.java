@@ -52,5 +52,8 @@ public interface ReservationService {
 	
 	// 예매취소
 	public void deleteRes(String res_num);
+	
+	//관리자 - 전체 회원 예매 내역
+	public List<ReservationVO> selectResList(Map<String, Object> map);
 
 }

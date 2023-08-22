@@ -25,6 +25,7 @@ public class ReservationVO {
 	private String sch_date; //상영날짜
 	private String sch_start; //상영시작시간
 	private String phone; //회원전화번호
+	private String name; //회원이름
 	
 	private int sch_num;
 	private int mem_num;

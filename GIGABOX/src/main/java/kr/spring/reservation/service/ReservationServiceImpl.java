@@ -106,4 +106,9 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationMapper.deleteRes(res_num);
 	}
 
+	@Override
+	public List<ReservationVO> selectResList(Map<String, Object> map) {
+		return reservationMapper.selectResList(map);
+	}
+
 }

@@ -127,7 +127,7 @@ public class ReservationController {
 	//상영시간표 정보
 	@RequestMapping("/reservation/getScheduleList.do")
 	@ResponseBody
-	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num, @RequestParam("sch_date") String sch_date){
+	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num, @RequestParam("sch_date") String sch_date, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("movie_num", movie_num);
 		map.put("th_num", th_num);
@@ -135,8 +135,15 @@ public class ReservationController {
 		
 		List<ScheduleVO> list = resService.getScheduleList(map);
 		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
 		Map<String, Object> mapJson = new HashMap<String, Object>();
 		mapJson.put("list", list);
+		
+		//====로그인 한 회원정보 셋팅====
+		if(user!=null) {
+			mapJson.put("user_num", user.getMem_num());
+		}
 		
 		return mapJson;
 	}
@@ -356,6 +363,55 @@ public class ReservationController {
 		
 		model.addAttribute("message", "예매가 취소되었습니다.");
 		model.addAttribute("url", request.getContextPath()+"/board/reservationList.do");
+		
+		return "common/resultView";
+		
+	}
+	
+	/*========================
+	 *  회원 예매 내역 목록
+	 *========================*/
+	@RequestMapping("/reservation/admin_resList.do")
+	public ModelAndView getResList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @RequestParam(value="order", defaultValue="1") int order, String keyfield, String keyword){
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("keyfield", keyfield);
+		map.put("keyword", keyword);
+		
+		//전체/검색 레코드수
+		int count = resService.selectRowCount(map);
+		
+		log.debug("<<count>> : " + count);
+		
+		//페이지 처리
+		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10, 10, "admin_resList.do", "&order="+order);
+		
+		List<ReservationVO> list = null;
+		if(count > 0) {
+			map.put("order", order);
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			list = resService.selectResList(map);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin_resList");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		
+		return mav;
+	}
+	
+	/*========================
+	 *  예매 취소 - 관리자
+	 *========================*/
+	@RequestMapping("/reservation/deleteResByAdmin.do")
+	public String DeleteResByAdmin(@RequestParam String res_num,HttpServletRequest request,Model model) {
+		resService.deleteRes(res_num);
+		
+		model.addAttribute("message", "예매가 취소되었습니다.");
+		model.addAttribute("url", request.getContextPath()+"/reservation/admin_resList.do");
 		
 		return "common/resultView";
 		

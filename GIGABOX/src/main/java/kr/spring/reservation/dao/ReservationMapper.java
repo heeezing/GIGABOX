@@ -67,4 +67,7 @@ public interface ReservationMapper {
 	@Update("UPDATE reservation SET res_status=2, del_date=SYSDATE WHERE res_num=#{res_num}")
 	public void deleteRes(String res_num);
 	
+	//관리자 - 전체 회원 예매 내역
+	public List<ReservationVO> selectResList(Map<String, Object> map);
+	
 }
