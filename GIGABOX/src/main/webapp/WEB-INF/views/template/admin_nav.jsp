@@ -25,7 +25,7 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="예매 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/reservation/admin_resList.do'">
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="스토어 관리"
