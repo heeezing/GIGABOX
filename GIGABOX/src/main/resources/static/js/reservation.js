@@ -67,10 +67,13 @@ $(function(){
 	
 	$('.date-button').click(function(event){
 		$('.date-button').removeClass('date-button-on');
-        $(this).addClass('date-button-on');
+        $(this).addClass('date-button-on');		
 		
-		movie_num = null;
-		th_num = null;
+		 $('.movie_choice .btn').removeClass('btn-on');
+        $(this).addClass('btn');
+
+		$('.theater-choice .btn').removeClass('btn-on');
+        $(this).addClass('btn');
 		
 		event.preventDefault();
 		sch_date = $(this).attr('data-num');
@@ -86,7 +89,7 @@ $(function(){
 		
 		if($('.theater-choice .btn').length > 0){
 		$('.theater-choice .btn').first().click();
-	}
+		}
 		
 		console.log(movie_num);
     });
@@ -114,7 +117,7 @@ $(function(){
 			success:function(param){
 				//상영시간표 목록
 				$(param.list).each(function(index,item){
-					let output = '<a href="seat.do?sch_num='+item.sch_num+'">';
+					let output = '<a href="seat.do?sch_num='+item.sch_num+'" class="seatForm">';
 					output += '<li>';
 					output += '<div class="sch_left">';
 					output += '<p class="sch_start">'+item.sch_start+'</p>';
@@ -134,6 +137,15 @@ $(function(){
 					
 					$('.timetable').append(output);
 				})
+				
+				// 로그인 안한 경우 좌석선택 페이지로 이동하지 않고, 로그인 페이지로 이동
+				$('.seatForm').click(function(event){
+				    if(!param.user_num){ // user_num이 없는 경우
+				        event.preventDefault(); // 링크 이동을 중단
+				        alert('로그인이 필요합니다');
+						location.href="/member/login.do";
+				    }
+				});
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
@@ -172,5 +184,8 @@ $(function(){
 	}
 	
 	
-	
+	//메인페이지 박스오피스에서 예매버튼 눌러올 때
+	if(movie_num){
+		$('.movie-choice .btn[data-num="' + movie_num + '"]').first().click();
+	}
 });

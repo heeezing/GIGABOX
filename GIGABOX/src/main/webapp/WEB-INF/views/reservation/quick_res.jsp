@@ -22,7 +22,7 @@
 					<c:forEach var="date" items="${dateList}">
 					 	<div class="year"><fmt:formatDate value="${date}" pattern="yyyy.MM"/></div>
 					 	<fmt:formatDate var="pattern_date" value="${date}" pattern="yyyy-MM-dd"/>
-					 	<button class="date-button" data-num="${pattern_date}">
+					 	<button class="date-button" data-num="${pattern_date}" onclick="selectDate(this)">
 					 		<div class="day-of-month"><fmt:formatDate value="${date}" pattern="d"/></div>&nbsp;
 					 		<span class="day-of-week"><fmt:formatDate value="${date}" pattern="E"/></span>
 					 	</button>
