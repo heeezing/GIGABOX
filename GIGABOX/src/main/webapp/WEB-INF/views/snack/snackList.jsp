@@ -21,6 +21,7 @@
 	<div class='category_wrap'>
 		<div class='category_contents_wrap'>
 	    	<ul class='category_content'>
+				<li><a href='list.do' class="category-group <c:if test="${sn_category==0}">select</c:if>">전체</a></li>
 				<li><a href='list.do?sn_category=1' class="category-group <c:if test="${sn_category==1}">select</c:if>">콤보</a></li>
 				<li><a href='list.do?sn_category=2' class="category-group <c:if test="${sn_category==2}">select</c:if>">팝콘</a></li>
 				<li><a href='list.do?sn_category=3' class="category-group <c:if test="${sn_category==3}">select</c:if>">음료</a></li>
@@ -36,23 +37,12 @@
 	
 	<hr size="1" noshade="noshade">
 	
-	<!-- 검색창 
-	<div class="search-bar" style="float:right;">
-	<form action="list.do" id="search_form" method="get">
-		<ul class="search" style="width:170px;">
-			<li>
-				<input type="search" class="input-search" name="keyword" id="keyword" value="${param.keyword}">
-			</li>
-			<li>
-				<input type="submit" value="검색" class="input-search-submit">
-			</li>
-		</ul>
-	</form>
-	</div>
-	-->
-
 	<!-- 카테고리 멘트 시작 -->	
 	<div class="category-title">
+		<c:if test="${sn_category==0}">
+		<b>전체</b>
+		<span class="category-sub">기가박스의 풍부한 먹거리를 즐겨보세요</span>
+		</c:if>
 		<c:if test="${sn_category==1}">
 		<b>콤보</b>
 		<span class="category-sub">맛있으면 0칼로리, 아는 맛이 제일 맛있어요</span>

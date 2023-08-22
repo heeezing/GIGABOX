@@ -46,7 +46,7 @@ public class SnackController {
 	
 	@RequestMapping("/snack/list.do")
 	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
-								@RequestParam(value="sn_category",defaultValue="1") int sn_category,
+								@RequestParam(value="sn_category",defaultValue="0") int sn_category,
 								HttpSession session) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -62,7 +62,7 @@ public class SnackController {
 		log.debug("<<count>> : " + count);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(currentPage,count,9,10,"list.do","&sn_category="+sn_category);
+		PagingUtil page = new PagingUtil(currentPage,count,12,10,"list.do","&sn_category="+sn_category);
 		
 		//목록 읽어오기
 		List<SnackVO> list = null;

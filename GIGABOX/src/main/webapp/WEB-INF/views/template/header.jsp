@@ -74,16 +74,13 @@ $(document).ready(function() {
 		<div id="main_nav">
 			<ul class="gnb">
 				<li class="has-sub">
-					<a href="#" class="btn4">영화</a>
+					<a href="${pageContext.request.contextPath}/movie/movieList.do" class="btn4">영화</a>
 					<ul>
 						<li>
 							<a href="${pageContext.request.contextPath}/movie/movieList.do">박스오피스</a>
 						</li>
 						<li>
 							<a href="${pageContext.request.contextPath}/movie/premovieList.do">상영예정작</a>
-						</li>
-						<li>
-							<a href="#">무비포스트</a>
 						</li>
 					</ul>
 				</li>

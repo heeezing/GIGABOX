@@ -5,7 +5,9 @@
 	<select id="selectUserSnackCount" parameterType="integer" resultType="integer">
 		SELECT COUNT(*) 
 		FROM snack 
+		<if test="sn_category!=0">
 		WHERE sn_category=#{sn_category}
+		</if>
 	</select>
 	
 	<!-- [사용자]카테고리 별 상품 목록 -->
@@ -14,7 +16,11 @@
 		FROM (SELECT a.*, rownum rnum 
 			  FROM (SELECT * 
 			  		FROM snack 
-			  		WHERE sn_status > #{sn_status} AND sn_category=#{sn_category})a) 
+			  		WHERE sn_status > #{sn_status} 
+			  		<if test="sn_category!=0">
+						AND sn_category=#{sn_category}
+					</if>
+			  		ORDER BY sn_category,sn_name)a) 
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>

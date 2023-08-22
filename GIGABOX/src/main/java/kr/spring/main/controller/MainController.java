@@ -28,12 +28,8 @@ public class MainController {
 	@RequestMapping("/main/main.do")
 	public String main(Model model) {
 		
-//		List<MovieVO> list = mainService.selectBoxOffice();
-//		log.debug("<<박스오피스 - 상위 4개 영화>> : " + list);
-//		model.addAttribute("list", list);
-		
-		List<MovieVO> mList = mainService.selectAllMovie();
-		log.debug("<<상위 4개 영화>> : " + mList);
+		List<MovieVO> mList = mainService.selectBoxOffice();
+		log.debug("<<박스오피스 - 상위 4개 영화>> : " + mList);
 		model.addAttribute("mList", mList);
 		
 		List<EventVO> eList = mainService.selectEvent();

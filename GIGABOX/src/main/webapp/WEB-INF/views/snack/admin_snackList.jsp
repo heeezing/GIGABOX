@@ -79,7 +79,9 @@
 			<td class="align-center">
 				<a href="admin_update.do?sn_num=${snack.sn_num}">${snack.sn_name}</a>
 			</td>
-			<td class="align-center">${snack.sn_detail}</td>
+			<td class="align-center">
+				<a href="admin_update.do?sn_num=${snack.sn_num}">${snack.sn_detail}</a>
+			</td>
 			<td class="align-center"><fmt:formatNumber value="${snack.sn_price}"/></td>
 			<td class="align-center">
 				<c:if test="${snack.sn_category==1}">콤보</c:if>

@@ -63,10 +63,7 @@ $(document).ready(function () {
 					<span class="poster_info">
 						<c:set var="movieIndex" value="${loop.index + 1}" />
               			<span class="rank">${movieIndex}</span>
-              			
-						<img src="${pageContext.request.contextPath}/movie/imageView.do?movie_num=${movie.movie_num}&movie_type=1">
-						 <!-- <img src="${movie.m_poster2}">-->
-						 
+						<img src="${movie.m_poster2}">
 					</span>
 					<span class="over_box"> <!-- 박스 안 버튼 -->
 							${movie.m_plot}
@@ -109,11 +106,8 @@ $(document).ready(function () {
 		<div class="tt">GIGABOX<span>MEMBERSHIP</span></div>
 		<div class="tx">멤버십 구독으로 포인트 적립 혜택을 만나보세요!</div>
 		<img src="${pageContext.request.contextPath}/images/main_card.png">
-		<!--  
-		<img src="https://img.megabox.co.kr/static/pc/images/2023/01/card_img.png" alt="맴버쉽 카드">
-		-->
 		<div class="mbs-btn-wrap">
-		<button class="mbs-btn" onclick="location.href='${pageContext.request.contextPath}/membership/membership_list.do'">구독하러 가기 ></button>
+			<button class="mbs-btn" onclick="location.href='${pageContext.request.contextPath}/membership/membership_list.do'">구독하러 가기 ></button>
 		</div>
 	</div>
 </div>
@@ -121,7 +115,8 @@ $(document).ready(function () {
 <!-- 이벤트 -->
 <div class="event-wrap">
 	<div class="event-list">
-		<div class="ev-title">EVENT</div>
+		<div class="ev-title">E V E N T</div>
+		<span class="ev-sub">혹시 이번엔 내가 당첨자?! 놓치지 말고 신청해보세요!</span>
 		<div class="ev-more">
 			<a href="${pageContext.request.contextPath}/event/eventList.do">+</a>
 		</div>
@@ -129,8 +124,7 @@ $(document).ready(function () {
 			<c:forEach var="event" items="${eList}">
 			<div class="event-detail">
 				<a href="${pageContext.request.contextPath}/event/detail.do?event_num=${event.event_num}">
-					<img src="${pageContext.request.contextPath}/event/imageView.do?thumb=${event.event_num}&thumb_type=1" 
-							width="200px">
+					<img src="${pageContext.request.contextPath}/event/imageView.do?thumb=${event.event_num}&thumb_type=1">
 					<span style="font-size:12pt;">${event.title}</span><br>
 					<span style="color:gray;">
 					<fmt:formatDate value="${event.event_start}" pattern="yy-MM-dd"/>

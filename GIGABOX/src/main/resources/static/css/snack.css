@@ -228,6 +228,17 @@ input.form-input{
 .cart-info ul li{
 	margin:15px auto;
 }
+#update_btn{
+	float:right;
+	margin: 10px 3px 0 0;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight:600;
+    background-color: white;
+    line-height: 30px;
+    border: 1px solid #000;
+    cursor:pointer;
+}
 .cart-info-span{
 	display:inline-block;
 	width:100px;

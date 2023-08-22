@@ -42,8 +42,8 @@
 						<li class="sn-name">
 							${snack.sn_name}
 							<c:if test="${user.auth == 9}">
-							<input type="button" value="수정" style="float:right;"
-							onclick="location.href='${pageContext.request.contextPath}/snack/admin_update.do?sn_num=${snack.sn_num}'">
+							<input type="button" value="수정" id="update_btn" 
+								   onclick="location.href='${pageContext.request.contextPath}/snack/admin_update.do?sn_num=${snack.sn_num}'">
 							</c:if>
 						</li>
 						<li>

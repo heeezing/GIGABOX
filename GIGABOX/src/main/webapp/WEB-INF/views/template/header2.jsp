@@ -102,9 +102,6 @@ $(document).ready(function() {
 						<li>
 							<a href="${pageContext.request.contextPath}/movie/premovieList.do">상영예정작</a>
 						</li>
-						<li>
-							<a href="#">무비포스트</a>
-						</li>
 					</ul>
 				</li>
 				
