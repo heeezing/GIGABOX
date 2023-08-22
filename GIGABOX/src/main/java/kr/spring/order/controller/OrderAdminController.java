@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.member.vo.MemberVO;
 import kr.spring.order.service.OrderService;
 import kr.spring.order.vo.OrderDetailVO;
 import kr.spring.order.vo.OrderVO;
+import kr.spring.point.service.PointService;
+import kr.spring.point.vo.PointVO;
 import kr.spring.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderAdminController {
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private PointService pointService;
 	
 	
 	/*======================
@@ -107,17 +114,43 @@ public class OrderAdminController {
 	@RequestMapping("/order/admin_statusChange.do")
 	@ResponseBody
 	public Map<String,String> statusChange(@RequestParam int orders_status,
-										  @RequestParam String orders_num) {
+										  @RequestParam String orders_num,
+										  HttpSession session) {
 		log.debug("<<주문번호 / 주문상태>> : " + orders_num + " / " + orders_status);
 		Map<String,String> mapAjax = new HashMap<String,String>();
 		
-		OrderVO db_order = orderService.selectOrder(orders_num);
-		if(db_order.getOrders_status() != 1) {
-			mapAjax.put("result","wrongAccess");
-		}else {
-			//수정 처리
-			orderService.statusChange(orders_num, orders_status);
-			mapAjax.put("result","success");
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null) { //로그인 X
+			mapAjax.put("result","logout");
+		}else { //로그인 O
+			OrderVO db_order = orderService.selectOrder(orders_num);
+			if(db_order.getOrders_status() != 1) {
+				mapAjax.put("result","wrongAccess");
+			}else {
+				if(orders_status == 2) {
+					//수정 처리
+					orderService.statusChange(orders_num, orders_status);
+					mapAjax.put("result","success");
+				}else if(orders_status == 4) {
+					//취소 주문 건의 적립,사용 포인트 조회
+					PointVO db_point = pointService.selectCancelPoint(orders_num);
+					int add_point = db_point.getUse_point();
+					int use_point = db_point.getAdd_point();
+					//사용 포인트는 환불, 적립 포인트는 차감
+					PointVO pointVO = new PointVO();
+					pointVO.setAdd_point(add_point);
+					pointVO.setUse_point(use_point);
+					pointVO.setOrders_num(orders_num);
+					pointVO.setMem_num(user.getMem_num());
+					
+					//주문 취소 처리
+					orderService.statusChange(orders_num, orders_status);
+					pointService.insertRefundPoint(pointVO);
+					
+					mapAjax.put("result","success");
+				}
+				
+			}
 		}
 
 		return mapAjax;

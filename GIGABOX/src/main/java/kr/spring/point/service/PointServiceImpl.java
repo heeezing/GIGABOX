@@ -48,4 +48,14 @@ public class PointServiceImpl implements PointService{
 		pointMapper.insertWelcomePoint(mem_num);
 	}
 
+	@Override
+	public void insertRefundPoint(PointVO pointVO) {
+		pointMapper.insertRefundPoint(pointVO);
+	}
+
+	@Override
+	public PointVO selectCancelPoint(String orders_num) {
+		return pointMapper.selectCancelPoint(orders_num);
+	}
+
 }
