@@ -46,6 +46,8 @@
 							alert('로그인 후 사용 가능합니다.')
 						}else if(param.result == 'wrongAccess'){
 							alert('이미 유효하지 않은 주문입니다.')
+						}else if(param.result == 'shortage'){
+							alert('해당 회원이 적립 받은 포인트를 다 사용하여 회수할 수 없습니다.');
 						}else if(param.result = 'success'){
 							alert("주문이 취소되었습니다.");
 							location.replace('admin_detail.do?orders_num='+orders_num);
@@ -87,6 +89,8 @@
 						alert('로그인 후 사용 가능합니다.')
 					}else if(param.result == 'wrongAccess'){
 						alert('이미 유효하지 않은 주문입니다.')
+					}else if(param.result == 'shortage'){
+							alert('적립 받은 포인트를 다 사용하시어 회수할 수 없습니다. 고객센터에 문의해주세요. 1004-1004');
 					}else if(param.result = 'success'){
 						alert("주문이 취소되었습니다.");
 						location.replace('orderList.do');
