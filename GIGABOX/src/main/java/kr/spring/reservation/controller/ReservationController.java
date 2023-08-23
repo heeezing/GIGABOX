@@ -434,18 +434,4 @@ public class ReservationController {
 		
 		return mav;
 	}
-	
-	/*========================
-	 *  예매 취소 - 관리자
-	 *========================*/
-	@RequestMapping("/reservation/deleteResByAdmin.do")
-	public String DeleteResByAdmin(@RequestParam String res_num,HttpServletRequest request,Model model) {
-		resService.deleteRes(res_num);
-		
-		model.addAttribute("message", "예매가 취소되었습니다.");
-		model.addAttribute("url", request.getContextPath()+"/reservation/admin_resList.do");
-		
-		return "common/resultView";
-		
-	}
 }
