@@ -10,7 +10,7 @@
 		<ul>
 			<li>
 				<form:label path="id">아이디</form:label>
-				<form:input path="id" placeholder="영문,숫자 4~12자" authcomplete="off"/>
+				<form:input path="id" placeholder="영문,숫자 4~12자" authcomplete="off" maxlength="12"/>
 				<input type="button" id="confirmId" value="ID중복체크" class="default-btn">
 				<span id="message_id"></span>
 				<form:errors path="id" cssClass="error-color"/>
@@ -26,12 +26,12 @@
 			</li>
 			<li>
 				<form:label path="passwd">비밀번호</form:label>
-				<form:password path="passwd" placeholder="영문, 숫자 4~12자"/>
+				<form:password path="passwd" placeholder="영문, 숫자 4~12자"  maxlength="12"/>
 				<form:errors path="passwd" cssClass="error-color"/>
 			</li>
 			<li>
 				<form:label path="phone">전화번호</form:label>
-				<form:input path="phone"/>
+				<form:input path="phone" placeholder="-없이 입력하세요"  maxlength="13"/>
 				<form:errors path="phone" cssClass="error-color"/>
 			</li>
 			<li>
@@ -42,7 +42,7 @@
 			<li>
 				<form:label path="zipcode">우편번호</form:label>
 				<form:input path="zipcode"/>
-				<input type="button" onclick="execDaumPostcode()" value="우편번호찾기" class="default-btn">
+				<input type="button" onclick="execDaumPostcode()" value="우편번호찾기" class="default-btn" maxlength="5">
 				<form:errors path="zipcode" cssClass="error-color"/>
 			</li>
 			<li>

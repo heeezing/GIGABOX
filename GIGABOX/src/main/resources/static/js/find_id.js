@@ -23,6 +23,11 @@ $(function () {
 	$('#find_id').click(function(){
 		var name = $('#name').val();
 	    var phone = $('#phone').val();
+	    if($('#name').val().trim()=='' || $('#phone').val().trim()==''){
+			alert('이름과 전화번호 모두 입력하세요');
+			$('#name').val('').focus();
+			return;
+		}
 	    
 	    console.log("name:", name);
 	    console.log("phone:", phone);

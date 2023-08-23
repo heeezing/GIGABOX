@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.cs.vo.CsPersonalVO;
+import kr.spring.event.vo.EventVO;
 import kr.spring.member.service.BoardService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.movie.vo.ReviewVO;
@@ -358,7 +359,7 @@ public class BoardController {
 		// 예매내역 전체 레코드 수
 		int count = boardService.selectMemberRowCount(map);
 		
-		log.debug("<<count>> : "+count);
+		log.debug("<<멤버count>> : "+count);
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,
@@ -378,6 +379,76 @@ public class BoardController {
 		mav.addObject("list",list);
 		mav.addObject("page",page.getPage());
 		
+		return mav;
+	}
+	
+	//문의내역 목록
+	@RequestMapping("/board/csList.do")
+	public ModelAndView csList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+			String keyfield, String keyword, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("keyfield",keyfield);
+		map.put("keyword",keyword);
+		map.put("mem_num",user.getMem_num());
+
+		//전체or검색 레코드 수
+		int count = boardService.selectCsRowCount(map);
+		log.debug("<<count>> : " + count);
+
+		//페이지 처리
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"csList.do");
+
+		List<CsPersonalVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+
+			list = boardService.selectCs(map);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("memberCs");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+
+		return mav;
+	}
+	
+	//이벤트내역 목록
+	@RequestMapping("/board/eventList.do")
+	public ModelAndView eventList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+			String keyfield, String keyword, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("keyfield",keyfield);
+		map.put("keyword",keyword);
+		map.put("mem_num",user.getMem_num());
+
+		//전체or검색 레코드 수
+		int count = boardService.selectEventRowCount(map);
+		log.debug("<<count>> : " + count);
+
+		//페이지 처리
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"evnetList.do");
+
+		List<EventVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+
+			list = boardService.selectEvent(map);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("memberEvent");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+
 		return mav;
 	}
 	

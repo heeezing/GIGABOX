@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.spring.cs.vo.CsPersonalVO;
+import kr.spring.event.vo.EventVO;
 import kr.spring.member.dao.BoardMapper;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.movie.vo.ReviewVO;
@@ -74,6 +76,38 @@ public class BoardServiceImpl implements BoardService{
 	public int selectMemberRowCount(Map<String, Object> map) {
 		return boardMapper.selectMemberRowCount(map);
 	}
+
+	@Override
+	public List<CsPersonalVO> selectCs(Map<String, Object> map) {
+		return boardMapper.selectCs(map);
+	}
+
+	@Override
+	public int selectCsRowCount(Map<String, Object> map) {
+		return boardMapper.selectCsRowCount(map);
+	}
+
+	@Override
+	public List<ReservationVO> selectListReservationByMem_num3(Integer mem_num) {
+		return boardMapper.selectListReservationByMem_num3(mem_num);
+	}
+
+	@Override
+	public List<CsPersonalVO> selectListCsByMem_num3(Integer mem_num) {
+		return boardMapper.selectListCsByMem_num3(mem_num);
+	}
+
+	@Override
+	public List<EventVO> selectEvent(Map<String, Object> map) {
+		return boardMapper.selectEvent(map);
+	}
+
+	@Override
+	public int selectEventRowCount(Map<String, Object> map) {
+		return boardMapper.selectEventRowCount(map);
+	}
+
+	
 
 
 }  

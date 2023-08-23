@@ -90,7 +90,7 @@ public class MemberServiceImpl implements MemberService{
 	    String msg = "";
 	    
 	    if(div.equals("findpw")) {
-	        subject = "베프마켓 임시 비밀번호 입니다.";
+	        subject = "임시 비밀번호 입니다.";
 	        msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 	        msg += "<h3 style='color: blue;'>";
 	        msg += vo.getId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";

@@ -18,10 +18,10 @@
 <div class="page-main mypage-reservation">
 	<div class="tit-util mt70">
 		<div>
-			<h2 class="tit">이벤트 내역</h2>
+			<h2 class="tit">문의 내역</h2>
 		</div>
 	</div>
-	<form action="eventList.do" id="search_form" method="get">
+	<form action="csList.do" id="search_form" method="get">
 		<ul class="search">
 			<li>
 				<select name="keyfield" id="keyfield">
@@ -56,7 +56,7 @@
 	<div class="tit-util mt70">
 		<div class="mypage-content">
 			<ul>
-				<li>응모내역이 없습니다.</li>
+				<li>문의내역이 없습니다.</li>
 			</ul>
 		</div>
 	</div>
@@ -64,19 +64,21 @@
 	<c:if test="${count > 0}">
 	<table class="striped-table">
 		<tr>
-			<th>번호</th>
-			<th>이벤트 제목</th>
-			<th>결과</th>
+			<th>문의번호</th>
+			<th>제목</th>
+			<th>문의내용</th>
+			<th>답변여부</th>
 		</tr>
-		<c:forEach var="event" items="${list}">
+		<c:forEach var="cs" items="${list}">
 		<tr>
-			<td class="align-center">${event.rnum}</td>
-			<td class="align-center">${event.title}</td>
-			<td class="align-center">
-			<a href="${pageContext.request.contextPath}/event/eventResultDetail.do?event_num=${event.event_num}">
-			<input type="button"value="결과확인">
-			</a>
-			</td>			
+			<td class="align-center">${cs.personal_num}</td>
+			<td class="align-center">${cs.title}</td>
+			<td class="align-center">${cs.content}</td>
+			<td class="cs">
+				<c:if test="${cs.state == 1}">답변완료</c:if>
+				<c:if test="${cs.state == 0}">답변대기</c:if>
+			</td>
+			
 		</tr>
 		</c:forEach>
 	</table>

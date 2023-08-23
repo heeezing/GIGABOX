@@ -145,6 +145,7 @@
 			COUNT(*)
 		FROM review r JOIN member m
 		ON r.mem_num = m.mem_num
+		WHERE r.mem_num=#{mem_num}
 		<include refid="reviewBoardSearch"></include>
 	</select>
 	
@@ -242,7 +243,7 @@
 		</where>
 	</sql>
 
-	<!-- 포스트내역 전체/검색 레코드수 -->
+	<!-- 관리자내역 전체/검색 레코드수 -->
 	<select id="selectMemberRowCount"  parameterType="map" resultType="integer">
 		SELECT
 		  COUNT(*)
@@ -262,6 +263,105 @@
 		            FROM member m LEFT OUTER JOIN member_detail d
 		            ON m.mem_num = d.mem_num
 			  		<include refid="memberBoardSearch"></include>
+			  		)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 문의내역 목록 -->
+	<sql id="csBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					title LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 2">
+					content LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 3">
+					title LIKE '%' || #{keyword} || '%' or
+					content LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 문의내역 전체/검색 레코드수 -->
+	<select id="selectCsRowCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM cs_personal p JOIN member m
+		ON p.mem_num = m.mem_num
+		WHERE p.mem_num = #{mem_num}
+		<include refid="csBoardSearch"></include>
+	</select>
+	
+	<!-- 문의내역 전체/검색 목록 -->
+	<select id="selectCs" resultType="csPersonalVO">
+		SELECT
+			*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+		  	  FROM(SELECT 
+						p.personal_num,
+						p.title,
+						p.content,
+						p.state
+			  		FROM cs_personal p
+			  		JOIN member m ON p.mem_num = m.mem_num
+			  		WHERE p.mem_num=#{mem_num}
+			  		<include refid="csBoardSearch"></include>
+			  		)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 이벤트내역 목록 -->
+	<sql id="eventBoardSearch">
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<if test="keyfield == 1">
+					title LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 2">
+					content LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="keyfield == 3">
+					title LIKE '%' || #{keyword} || '%' or
+					content LIKE '%' || #{keyword} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 이벤트내역 전체/검색 레코드수 -->
+	<select id="selectEventRowCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM event_reply er JOIN member m
+		ON er.mem_num = m.mem_num
+		WHERE er.mem_num = #{mem_num}
+		<include refid="eventBoardSearch"></include>
+	</select>
+	
+	<!-- 이벤트내역 전체/검색 목록 -->
+	<select id="selectEvent" resultType="eventVO">
+		SELECT
+			*
+		FROM (SELECT
+				a.*,
+				rownum rnum
+		  	  FROM(SELECT 
+						e.title,
+						e.event_num
+			  		FROM event e
+			  		JOIN event_reply er ON er.event_num = e.event_num
+			  		JOIN member m ON er.mem_num = m.mem_num
+			  		WHERE er.mem_num=#{mem_num}
+			  		<include refid="eventBoardSearch"></include>
 			  		)a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
