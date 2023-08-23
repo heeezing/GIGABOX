@@ -89,7 +89,7 @@
 		  sch_start=#{sch_start}, 
 		  sch_end=#{sch_end}
 		  remain=#{remain}
-		WHERE 
+		WHERE  
 		  sch_num=#{sch_num}
 	</update>
 	
