@@ -54,11 +54,6 @@ public class PointServiceImpl implements PointService{
 	}
 
 	@Override
-	public PointVO selectCancelPoint(String orders_num) {
-		return pointMapper.selectCancelPoint(orders_num);
-	}
-
-	@Override
 	public PointVO selectResCancelPoint(String res_num) {
 		return pointMapper.selectResCancelPoint(res_num);
 	}

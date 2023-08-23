@@ -93,6 +93,14 @@ public class OrderAdminController {
 		log.debug("<<order_detail>> : " + detailList);
 		log.debug("<<point>> : " + point);
 		
+		for(OrderDetailVO vo : detailList) {
+			if(vo.getOrders_status() != 1) {
+				model.addAttribute("total_cancel", false);
+				break;
+			}
+			model.addAttribute("total_cancel", true);
+		}
+		
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String orders_date = sdf1.format(order.getOrders_date());
@@ -181,6 +189,67 @@ public class OrderAdminController {
 			}
 		}
 
+		return mapAjax;
+	}
+	
+	
+	
+	/*======================
+		전체 사용 상태 변경
+	======================*/
+	
+	@RequestMapping("/order/admin_statusAllChange.do")
+	@ResponseBody
+	public Map<String,String> statusAllChange(@RequestParam String orders_num, 
+											  @RequestParam int orders_status, 
+											  HttpSession session) {
+		log.debug("<<주문번호>> : " + orders_num);
+		Map<String,String> mapAjax = new HashMap<String,String>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null) { //로그인 X
+			mapAjax.put("result","logout");
+		}else { 
+			//해당 주문 건의 모든 상품이 다 사용가능 상태일때만 가능
+			
+			
+				if(orders_status == 2) {
+					//수정 처리
+					orderService.statusAllChange(orders_num, orders_status);
+					mapAjax.put("result","success");
+				}else if(orders_status == 4) {
+					//해당 주문의 상세 정보 체크
+					OrderVO order = orderService.selectOrder(orders_num);
+					//해당 주문의 적립/사용 포인트 체크
+					PointVO point = pointService.selectPointByOrders_num(orders_num);
+					int db_add_point = point.getAdd_point(); //당시 적립 포인트 (이제 다시 회수될 것)
+					int db_use_point = point.getUse_point(); //당시 사용 포인트 (이제 다시 넣어줄 것)
+					//List<OrderDetailVO> detailList = orderService.selectListOrderDetail(orders_num);
+					
+					//현재 내 포인트 조회
+					int my_point = pointService.myTotalPoint(user.getMem_num());
+					if(my_point + db_use_point < db_add_point) {
+						mapAjax.put("result", "shortage");
+					}else {
+						//당시 적립 포인트는 차감 처리
+						PointVO pointVO = new PointVO();
+						pointVO.setUse_point(db_add_point);
+						pointVO.setAdd_point(db_use_point);
+						pointVO.setOrders_num(orders_num);
+						OrderVO orderVO = orderService.selectOrder(orders_num);
+						pointVO.setMem_num(orderVO.getMem_num());
+						
+						//주문 취소 처리
+						orderService.statusAllChange(orders_num, orders_status);
+						pointService.insertRefundPoint(pointVO);
+						
+						mapAjax.put("result","success");
+					}
+					
+				}
+			
+		}
+		
 		return mapAjax;
 	}
 	

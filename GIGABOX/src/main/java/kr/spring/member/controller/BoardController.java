@@ -85,7 +85,7 @@ public class BoardController {
 	//구매내역 목록
 	@RequestMapping("/board/orderList.do")
 	public ModelAndView orderList(@RequestParam(value="pageNum",defaultValue="1") int currentPage,
-			String keyfield, String keyword, HttpSession session) {
+								  String keyfield, String keyword, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -121,8 +121,17 @@ public class BoardController {
 	@RequestMapping("/board/orderDetail.do")
 	public String adminDetail(@RequestParam String orders_num, Model model) {
 		OrderVO order = orderService.selectOrder(orders_num);
+		PointVO point = pointService.selectPointByOrders_num(orders_num);
 		List<OrderDetailVO> detailList = orderService.selectListOrderDetail(orders_num);
 	
+		for(OrderDetailVO vo : detailList) {
+			if(vo.getOrders_status() != 1) {
+				model.addAttribute("total_cancel", false);
+				break;
+			}
+			model.addAttribute("total_cancel", true);
+		}
+		
 		log.debug("<<order>> : " + order);
 		log.debug("<<order_detail>> : " + detailList);
 		
@@ -136,6 +145,7 @@ public class BoardController {
 
 		model.addAttribute("orders_date", orders_date);
 		model.addAttribute("orders", order);
+		model.addAttribute("point", point);
 		model.addAttribute("detail", detailList);
 
 		return "memberOrderDetail";

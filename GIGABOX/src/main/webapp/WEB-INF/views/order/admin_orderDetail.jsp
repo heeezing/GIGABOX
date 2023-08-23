@@ -18,6 +18,12 @@
 				${orders.orders_date} ~ ${orders.valid_date}
 			</dd>
 	 	</dl>
+	 	<div class="button-container">
+	 		<c:if test="${total_cancel}">
+		 	<input type="button" value="전체사용" class="round inblue" data-status="2" id="status_use" onclick="statusAllChange(this)">
+		 	<input type="button" value="전체취소" class="round inred" data-status="4" id="status_cancel" onclick="statusAllChange(this)">
+		 	</c:if>
+		</div>
 	</div>
 	
 	<!-- 구매 상품 정보 -->
@@ -29,7 +35,6 @@
 				<th>쿠폰번호</th>
 				<th>상품명</th>
 				<th>판매금액</th>
-				<th>구매금액</th>
 				<th>상태</th>
 			</tr>
 			</thead>
@@ -65,20 +70,18 @@
 						</span>
 						</c:if>
 					</td>
-					<!-- (4)구매금액 --> 
-					<td class="align-center">
-						<fmt:formatNumber value="${orders.orders_total}"/>원
-					</td>
-					<!-- (5)사용상태 -->
+					<!-- (4)사용상태 -->
 					<td class="align-center">
 						<c:if test="${detail.orders_status == 1}">
 							<span style="color:blue;">사용가능</span><br>
 							<div class="button-container">
 							<input type="button" value="사용처리" class="round inblue" 
 								   data-status="2"  data-num="${detail.detail_num}" onclick="statusChange(this)">
+							<c:if test="${point.use_point == 0}">
 							<input type="button" value="주문취소" class="round inred" 
 								   data-status="4"  data-num="${detail.detail_num}" onclick="statusChange(this)">
-							</div>						
+							</c:if>		
+							</div>	
 						</c:if>
 						<c:if test="${detail.orders_status == 2}">
 						<span style="color:green;">사용완료</span><br>

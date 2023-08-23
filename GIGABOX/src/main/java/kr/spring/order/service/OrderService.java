@@ -39,7 +39,10 @@ public interface OrderService {
 	public List<OrderDetailVO> selectListOrderDetail(String orders_num);
 	//개별 상품 상세
 	public OrderDetailVO selectDetail(String detail_num);
-	//사용 상태 변경 
+	//전체 사용 상태 변경 - 사용완료, 주문 취소
+	public void statusAllChange(@Param(value="orders_num") String orders_num,
+								@Param(value="orders_status") Integer orders_status);
+	//개별 사용 상태 변경 
 	public void statusChange(@Param(value="orders_num") String orders_num,
 								@Param(value="orders_status") Integer orders_status);
 	//사용 상태 변경 - 기간 만료

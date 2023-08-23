@@ -17,8 +17,6 @@ public interface PointService {
 	
 	//주문번호에 따른 포인트 내역
 	public PointVO selectPointByOrders_num(String orders_num);
-	//스낵 구매 전체 취소 시 해당 주문의 적립/사용 포인트 체크
-	public PointVO selectCancelPoint(String orders_num);
 	//스낵 구매 전체 취소 시 사용 포인트 환불 및 적립 포인트 회수
 	public void insertRefundPoint(PointVO pointVO);
 	//스낵 구매 부분 취소 시 적립 포인트 회수

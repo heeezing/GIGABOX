@@ -62,7 +62,11 @@ public interface OrderMapper {
 	//개별 상품 상세
 	@Select("SELECT * FROM orders_detail WHERE detail_num=#{detail_num}")
 	public OrderDetailVO selectDetail(String detail_num);
-	//사용 상태 변경 - 사용 완료, 주문 취소
+	//전체 사용 상태 변경 - 사용완료, 주문 취소
+	@Update("UPDATE orders_detail SET orders_status=#{orders_status},modify_date=SYSDATE WHERE orders_num=#{orders_num}")
+	public void statusAllChange(@Param(value="orders_num") String orders_num,
+								@Param(value="orders_status") Integer orders_status);
+	//개별 사용 상태 변경 - 사용 완료, 주문 취소
 	@Update("UPDATE orders_detail SET orders_status=#{orders_status},modify_date=SYSDATE WHERE detail_num=#{detail_num}")
 	public void statusChange(@Param(value="detail_num") String detail_num,
 							 @Param(value="orders_status") Integer orders_status);

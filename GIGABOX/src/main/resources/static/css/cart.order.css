@@ -332,7 +332,7 @@ ul.com_box_design > li input[type="number"] {
     color: #6a6f77;
 }
 /*----------선물 정보 입력----------*/
-#searchResult{
+.searchResult{
 	margin-left:10px;
 	color:red;
 	font-weight:bold;
@@ -394,7 +394,6 @@ ul.com_box_design > li input[type="number"] {
 }
 .status-change dt {
     float: left;
-    padding-right: 25px;
     font-size: 14px;
     color: #000;
     line-height: 27px;
@@ -409,7 +408,7 @@ ul.com_box_design > li input[type="number"] {
 }
 .status-change dd {
     float: left;
-    padding-right: 125px;
+    padding-right: 25px;
     font-size: 13px;
     color: #222;
     line-height: 25px;
@@ -444,7 +443,6 @@ dl:after{
 }
 .button-container {
 	display: flex;
-	margin-top:5px;
 	gap: 3px;
 	justify-content: center;
 }

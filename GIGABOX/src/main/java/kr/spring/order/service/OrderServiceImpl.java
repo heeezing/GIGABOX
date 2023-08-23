@@ -154,6 +154,12 @@ public class OrderServiceImpl implements OrderService{
 		return orderMapper.selectDetail(detail_num);
 	}
 
+	@Override
+	public void statusAllChange(String orders_num, Integer orders_status) {
+		orderMapper.statusAllChange(orders_num, orders_status);
+	}
+
+
     /*
     // 스케줄링을 바로 실행할 테스트 메서드
     @Scheduled(initialDelay = 5000, fixedRate =  60000) // 5초 후에 실행하고, 그 후 1분마다 실행
