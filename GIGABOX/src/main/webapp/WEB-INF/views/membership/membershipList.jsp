@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 멤버십 목록 시작-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/membership.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/membership.css"> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/membership.js"></script>
 <div class="page-util">
 	<div class="location">

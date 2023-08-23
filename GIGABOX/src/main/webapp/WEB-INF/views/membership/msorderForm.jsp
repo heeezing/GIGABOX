@@ -10,7 +10,13 @@
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/membership.order.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membership.css">
-
+<div class="page-util">
+	<div class="location">
+		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
+		<a href="../membership/membership_list.do">멤버십</a> 
+		<a href="#">결제</a>
+	</div>
+</div>
 
 <div class="page-main">
 	<div class="title" align="center">
@@ -19,10 +25,10 @@
 	
 	<hr size="2" noshade="noshade">
 	
-    <h2>결제 정보</h2>
+    <strong class="com_box_design_title">결제 정보</strong>
     <form:form modelAttribute="membershipOrderVO" action="msorderForm.do" id="order_register"> 
        <!-- 선택한 멤버십 정보만 출력 -->
-        <table class="basic-table">
+        <table class="membership-table">
         	<thead>
             <tr>
                 <th>멤버십 등급</th>
@@ -30,6 +36,7 @@
                 <th>가격</th>
             </tr>
             </thead>
+            	
             
             <tbody>
             <tr>
@@ -52,14 +59,23 @@
         
         <div class="align-center">
             <input type="button" value="결제" id="membership_pay">
-            <input type="button" value="이전" class="default-btn" onclick="location.href='${pageContext.request.contextPath}/membership/membership_list.do'">
+            <input type="button" value="이전" class="back-btn" onclick="location.href='${pageContext.request.contextPath}/membership/membership_list.do'">
         </div>             
     </form:form>
 </div>
 <!-- 상품구매 끝 -->
 
+<%
+    String billingKeyFromServer = "billing_key"; // 실제 값을 가져오는 코드로 대체해야 합니다.
+%>
+
 <script>
 $(document).ready(function() {
+	
+	
+	var order_num = ${order_num};
+	var billing_key = '<%= billingKeyFromServer %>';
+	
     $("#membership_pay").click(function() {
         BootPay.request({
             price: 0, // 0으로 해야 한다.
@@ -74,18 +90,21 @@ $(document).ready(function() {
                 addr: '사용자 주소',
                 phone: '010-1234-4567'
             },
-            order_id: '고유order_id_1234',
+            order_id: order_num,
             params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
             extra: {
                 start_at: '2019-05-10', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
                 end_at: '2022-05-10' // 정기결제 만료일 -  기간 없음 - 무제한
             }
+            
         }).error(function (data) {
             // 결제 진행시 에러가 발생하면 수행됩니다.
             console.log(data);
+            alert("결제시 문제가 발생되었습니다.");
         }).cancel(function (data) {
             // 결제가 취소되면 수행됩니다.
             console.log(data);
+            alert("결제가 취소되었습니다.");
         }).done(function (data) {
             // 빌링키를 정상적으로 가져오면 해당 데이터를 불러옵니다.
             console.log(data);
@@ -95,17 +114,24 @@ $(document).ready(function() {
             var memNum = ${user.mem_num}; // 사용자 회원 번호
             var membershipId = ${selectedMembership.membership_id}; // 선택한 멤버십 ID
             var price = ${selectedMembership.price}; // 선택한 멤버십 가격
+            var membership_grade = '${selectedMembership.membership_grade}'; //선택한 멤버십 등급
 
             // AJAX 요청을 통해 데이터베이스에 저장합니다.
             $.ajax({
                 url: "${pageContext.request.contextPath}/membership/msorder.do",
                 type: "POST",
                 data: {
-                    order_num: orderNum,
+                    order_num: order_num,
                     mem_num: memNum,
                     membership_id: membershipId,
-                    price: price
-                    // ... (나머지 필요한 데이터)
+                    price: price,
+                    pay_type:'카드결제',
+                    pay_date: '2023-08-23',
+                    next_pay_date: '2023-09-23',
+                    billing_key: billing_key,
+                    result_status: '테스트',
+                    result_message: '테스트',
+                    membership_grade: membership_grade
                 },
                 success: function(result) {
                     console.log("Order saved successfully:", result);

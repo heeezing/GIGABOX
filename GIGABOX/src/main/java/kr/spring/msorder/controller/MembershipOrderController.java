@@ -52,10 +52,11 @@ public class MembershipOrderController {
 		return new MembershipOrderVO();
 	}
 	
-    @GetMapping("/getOrderInfo.do")
+    @GetMapping("membership/getOrderInfo.do")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getOrderInfo(@RequestParam int membership_id) {
         Map<String, Object> result = new HashMap<>();
+            
         
         try {
             MembershipVO selectedMembership = membershipService.getMembershipById(membership_id);
@@ -94,10 +95,8 @@ public class MembershipOrderController {
 	
 	 @RequestMapping("/membership/msorderForm.do")
 	    public String showOrderForm(@RequestParam int membership_id,
-	    							MembershipOrderVO msorderVO,	    							
 	    							HttpSession session, Model model,
 	    							HttpServletRequest request) {
-		 log.debug("<<membershipOrderVO>> : " +msorderVO);
 		 
 		 //회원정보 읽어오기
 	     MemberVO user = (MemberVO)session.getAttribute("user"); 
@@ -126,7 +125,8 @@ public class MembershipOrderController {
 			 			  BindingResult result, Model model,
 			 			  HttpSession session,
 			 			  HttpServletRequest request,
-			 			  @RequestParam int membership_id ) {		
+			 			  @RequestParam int membership_id,
+			 			  @RequestParam String membership_grade) {		
 		 
 		 //회원정보 읽어오기
 		 MemberVO user = (MemberVO)session.getAttribute("user");
@@ -134,9 +134,11 @@ public class MembershipOrderController {
 		 
 		 msorderVO.setMem_num(user.getMem_num());
 		 
+		 
 		 Map<String, Object> map = new HashMap<String, Object>();
 		 map.put("mem_num", user.getMem_num());
 		 map.put("membership_id", msorderVO.getMembership_id());
+		 map.put("membership_grade", msorderVO.getMembership_grade());
 		 
 		 //상품정보 호출
 		MembershipVO membershipVO = membershipService.selectMembership(membership_id);
@@ -144,7 +146,6 @@ public class MembershipOrderController {
 		 
 		 membershipOrderService.insertOrder(msorderVO);
 		 
-		 model.addAttribute("order_num", msorderVO.getOrder_num());
 		 
 		 
 
