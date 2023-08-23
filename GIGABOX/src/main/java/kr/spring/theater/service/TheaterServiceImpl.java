@@ -43,11 +43,6 @@ public class TheaterServiceImpl implements TheaterService{
 	}
 
 	@Override
-	public void deleteTheater(int th_num) {
-		theaterMapper.deleteTheater(th_num);
-	}
-
-	@Override
 	public List<TheaterVO> selectTheaterList() {
 		return theaterMapper.selectTheaterList();
 	}

@@ -31,7 +31,7 @@
 					<div class="discout-setting">
 						<p>보유</p><p class="own_point" id="have_point" data-havePoint="${have_point}"><fmt:formatNumber value="${have_point}"/> point</p>
 						<br>
-						<p class="use">사용</p><p class="use_point"><input type="number" value="0" class="use-point" id="use_point"> point</p><p class="notice"></p>
+						<p class="use">사용</p><p class="use_point"><input type="number" name="use_point" value="0" class="use-point" id="use_point"> point</p><p class="notice"></p>
 						<a class="order_point_input_btn order_point_input_btn_N" data-state="N">전액사용</a>
 				  		<a class="order_point_input_btn order_point_input_btn_Y" data-state="Y">사용취소</a>
 					</div>
@@ -59,7 +59,7 @@
 							<div class="all">
 								<span class="title">금액</span>
 								<span class="price">
-									<em class="all-total" data-alltotal="${reservationVO.res_people*100}"><fmt:formatNumber value="${reservationVO.res_people*100}" type="number" pattern="#,##0"/></em> 원
+									<em class="all-total" data-alltotal="${reservationVO.res_people*12000}"><fmt:formatNumber value="${reservationVO.res_people*12000}" type="number" pattern="#,##0"/></em> 원
 								</span>
 							</div>
 						</div>
@@ -74,8 +74,8 @@
 						<div class="pay">
 							<p class="title">최종결제금액</p>
 							<div class="money">
-								<input type="hidden" id="res_total" name="res_total" value="${reservationVO.res_people*100}">
-								<em class="final-total"><fmt:formatNumber value="${reservationVO.res_people*100}" type="number" pattern="#,##0"/></em> <span>원</span>
+								<input type="hidden" id="res_total" name="res_total" value="${reservationVO.res_people*12000}">
+								<em class="final-total"><fmt:formatNumber value="${reservationVO.res_people*12000}" type="number" pattern="#,##0"/></em> <span>원</span>
 							</div>
 						</div>
 					</div>

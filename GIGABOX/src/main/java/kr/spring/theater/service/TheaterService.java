@@ -17,8 +17,6 @@ public interface TheaterService {
 	public TheaterVO selectTheater(int th_num);
 	// 극장 수정
 	public void updateTheater(TheaterVO theater);
-	// 극장 삭제
-	public void deleteTheater(int th_num);
 
 	// 극장 정보 보기
 	// 극장 목록

@@ -12,15 +12,6 @@
 				return false;
 			}
 		});
-		
-		// 삭제
-		$('.delete_btn').click(function(){
-			let choice = confirm('삭제하시겠습니까?');
-			if(choice){
-				location.replace('theaterDelete.do?th_num='+$(this).attr('data-num'));
-				alert('삭제가 완료되었습니다')
-			}
-		});
 	});
 </script>
 <div class="page-main">
@@ -59,7 +50,7 @@
 			<th>극장명</th>
 			<th>주소</th>
 			<th>전화번호</th>
-			<th width="100px"></th>
+			<th>수정</th>
 		</tr>
 		<c:forEach var="theater" items="${list}">
 		<tr>
@@ -67,9 +58,8 @@
 			<td class="align-center">${theater.th_name}</td>
 			<td class="align-center">${theater.th_address}</td>
 			<td class="align-center">${theater.th_phone}</td>
-			<td>
+			<td class="align-center">
 				<input type="button" value="수정" onclick="location.href='theaterUpdate.do?th_num=${theater.th_num}'">
-				<input type="button" value="삭제" class="delete_btn" data-num="${theater.th_num}">
 			</td>
 		</tr>
 		</c:forEach>

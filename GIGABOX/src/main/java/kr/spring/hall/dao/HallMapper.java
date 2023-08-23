@@ -24,9 +24,6 @@ public interface HallMapper {
 	// 상영관 수정
 	@Update("UPDATE hall SET hall_name=#{hall_name},th_num=#{th_num},hall_status=#{hall_status} WHERE hall_num=#{hall_num}")
 	public void updateHall(HallVO hall);
-	// 상영관 삭제
-	@Delete("DELETE FROM hall WHERE hall_num=#{hall_num}")
-	public void deleteHall(Integer hall_num);
 	
 	// 극장 목록 불러오기
 	public List<TheaterVO> getTheaterList();

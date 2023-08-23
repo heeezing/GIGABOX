@@ -147,19 +147,6 @@ public class TheaterController {
 	}
 	
 	/*===============
-	 * 극장 삭제
-	 *===============*/
-	@RequestMapping("/theater/theaterDelete.do")
-	public String submitDelete(@RequestParam int th_num) {
-		log.debug("<<상영관 삭제 - th_num>> : " + th_num);
-		
-		// 글삭제
-		theaterService.deleteTheater(th_num);
-		
-		return "redirect:/theater/theaterList.do";
-	}
-	
-	/*===============
 	 * 극장 정보
 	 *===============*/
 	@RequestMapping("/theater/theaterDetail.do") // url

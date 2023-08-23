@@ -12,14 +12,6 @@
 				return false;
 			}
 		});
-		
-		//삭제 버튼
-	    $('.delete_btn').click(function() {
-	        var choice = confirm('삭제하시겠습니까?');
-	        if (choice) {
-	            location.replace('admin_scheduleDelete.do?sch_num='+$(this).attr('data-num'));
-	        }
-	    });
 	});
 </script>
 <div class="page-main">
@@ -59,7 +51,7 @@
 			<th>극장/상영관</th>
 			<th>상영날짜</th>
 			<th>상영시간</th>
-			<th>수정/삭제</th>
+			<th>수정</th>
 		</tr>
 		<c:forEach var="schedule" items="${list}">
 		<tr>
@@ -70,7 +62,6 @@
 			<td class="align-center">${schedule.sch_start} ~ ${schedule.sch_end}</td>
 			<td class="align-center">
 				<input type="button" value="수정" onclick="location.href='admin_scheduleUpdate.do?sch_num=${schedule.sch_num}'"> 
-				<input type="button" value="삭제" class="delete_btn" data-num="${schedule.sch_num}">
 			</td>
 		</tr>
 		</c:forEach>

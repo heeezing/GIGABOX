@@ -27,7 +27,7 @@
 			
 			<div class="seat-area">
 				<form id="res_pay" action="${pageContext.request.contextPath}/reservation/pay.do" method="post" name="res_pay">
-					<input type="text" id="seatsDB" value="${seatsDB}"/>
+					<input type="hidden" id="seatsDB" value="${seatsDB}"/>
 					<input type="hidden" id="sch_num" name="sch_num" value="${scheduleVO.sch_num}"/>
 					<input type="hidden" id="res_seats" name="res_seats" value=""/>
 					<div class="seat-count">

@@ -26,7 +26,7 @@ public interface ReservationMapper {
 	@Select("SELECT seats FROM hall WHERE hall_num=#{hall_num}")
 	public int selectSeats(Integer hall_num);
 	// 해당 상영시간표 총 예매완료 수 구하기
-	@Select("SELECT COUNT(*) FROM reservation WHERE sch_num=#{sch_num}")
+	@Select("SELECT SUM(res_people) FROM reservation WHERE sch_num=#{sch_num} AND res_status=1")
 	public int getTotalBySch(Integer sch_num);
 	
 	// 영화 목록 불러오기
@@ -41,15 +41,11 @@ public interface ReservationMapper {
 	// 상영시간표 목록 불러오기
 	public List<ScheduleVO> getScheduleList(Map<String, Object> map);
 	
-	
 	//상영 시간표 정보 가져오기
 	@Select("SELECT * FROM schedule s JOIN hall h ON s.hall_num = h.hall_num JOIN movie m ON s.movie_num = m.movie_num JOIN theater th ON h.th_num = th.th_num WHERE sch_num=#{sch_num}")
 	public ScheduleVO selectSchedule(Integer sch_num);
 	// 상영시간표 수정
 	public void updateSchedule(ScheduleVO schedule);
-	// 상영시간표 삭제
-	@Delete("DELETE FROM schedule WHERE sch_num=#{sch_num}")
-	public void deleteSchedule(Integer sch_num);
 	// 상영시간표 삭제를 위한 예약 삭제
 	@Delete("DELETE FROM reservation r JOIN schedule s ON r.sch_num = s.sch_num WHERE sch_num=#{sch_num}")
 	public void deleteResForSch(Integer sch_num);
@@ -71,7 +67,7 @@ public interface ReservationMapper {
 	
 	// 예매취소
 	@Update("UPDATE reservation SET res_status=2, del_date=SYSDATE WHERE res_num=#{res_num}")
-	public void deleteRes(String res_num);
+	public void deleteRes(ReservationVO reservation);
 	
 	//관리자 - 전체 회원 예매 내역
 	public List<ReservationVO> selectResList(Map<String, Object> map);

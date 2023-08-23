@@ -115,17 +115,4 @@ public class HallController {
 		return "common/resultView";
 	}
 	
-	/*===============
-	 * 상영관 삭제
-	 *===============*/
-	@RequestMapping("/hall/hallDelete.do")
-	public String submitDelete(@RequestParam int hall_num) {
-		log.debug("<<상영관 삭제 - hall_num>> : " + hall_num);
-		
-		// 상영관 삭제
-		hallService.deleteHall(hall_num);
-		
-		return "redirect:/hall/hallList.do";
-	}
-	
 }
