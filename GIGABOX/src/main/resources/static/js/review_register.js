@@ -19,14 +19,14 @@ $(function(){
           closeModal(); // 모달 닫기
     });
  	// 작성하기 버튼 클릭 시 . 리뷰등록
-    $('#openrwButton').click(function(event){
-		if($('#review_content').val().trim()==''){
+    $('#review_form2').submit(function(event){
+		if($('#review_content2').val().trim()==''){
 			alert('내용을 입력하세요!');
-			$('#review_content').val('').focus();
+			$('#review_content2').val('').focus();
 			return false;
 		}else if($('input[name="rating_score"]').val().trim() == ''){
 			alert('평점을 입력하세요!');
-			$('#rating_score').val('').focus();
+			$('#rating_score2').val('').focus();
 			return false;
 		}
 		
@@ -43,16 +43,18 @@ $(function(){
 				if(param.result=='logout'){
 					alert('로그인해야 작성할 수 있습니다.');
 				}else if(param.result == 'success'){
+					alert('관람평이 작성되었습니다.');
 					//폼 초기화
 					initForm();
-					//관람평 작성이 성공하면 새로 삽입한 글을 포함해서 첫번째 페이지의 게시글을 다시 호출함
-					selectList(1);
+					const movieNum = $('#movie_num').val();
+					window.location.href = '../movie/movieDetail.do?movie_num='+ movieNum;
+					
 				}else{
 					alert('관람평 등록 오류 발생');
 				}
 			},
 			error:function(){
-				alert('네트워크 오류 발생');
+				alert('리뷰 작성 네트워크 오류 발생');
 			}
 		});
 		
@@ -60,6 +62,40 @@ $(function(){
 		event.preventDefault();
 		closeModal();
 	});
+	
+	//리뷰 작성 폼 초기화
+	function initForm(){
+		$('textarea').val('');
+		$('#rating_score2').val('') //관람평 평점 초기화
+		$('#review_first2 .letter-count').text('220/220');
+	}
+	
+	//textarea에 내용 입력시 글자수 체크
+	$(document).on('keyup','textarea',function(){
+		//입력한 글자수 구하기
+		let inputLength = $(this).val().length;
+		
+		if(inputLength>220){//220자를 넘어선 경우
+			$(this).val($(this).val().substring(0,220));
+		}else{//300자 이하인 경우
+			//남은 글자수 구하기
+			let remain = 220 - inputLength;
+			remain += '/220';
+			if($(this).attr('id')=='review_content2'){
+				//등록 폼 글자수
+				$('#review_first2 .letter-count').text(remain);
+			}
+		}
+		
 	});
-
+	
+	//별점을 누르면 점수 표출
+	$(document).on('click','input[name="rating_score"]',function(){
+		let rating = $(this).val();
+		if(rating>0){
+			$(this).parents('.rating-wrap').find('.rating-value').text(rating);
+		}
+	});
+	
+});
 

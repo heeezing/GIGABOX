@@ -26,7 +26,10 @@ public interface MovieService {
 	public void updateMovie(MovieVO movie);
 	//영화삭제
 	public void deleteMovie(Integer movie_num);
-	public void deleteMovieCheck(String[] selectmovies);
+	public void updateStatusMovie(Integer movie_num);
+	public void updateStatusMovieCheck(String[] selectmovies);
+	//영화예매순위
+	public int reservationRankByMovie(Integer movie_num);
 	
 	//api정보 저장
 	public void saveMovies(List<MovieVO> movielist);

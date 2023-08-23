@@ -162,21 +162,22 @@
 			  		FROM movie
 			  		<include refid="movieSearch"></include>
 			  		<include refid="movieOrder"></include>
-			  		))a)
+			  		)WHERE m_status = 2)a)
 		<![CDATA[
-		WHERE rnum >= #{start} AND rnum <= #{end} AND m_status = 2
+		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>	  		
 	</select> 	
-	
-	
-	<!-- (체크박스) 영화 삭제 -->	
-	<delete id="deleteMovieCheck">
-		DELETE FROM movie 
+	<!-- (체크박스) 영화 상영종료 -->	
+	<update id="updateStatusMovieCheck">
+		UPDATE 
+			movie
+		SET
+			m_status=3 
 		WHERE movie_num IN 
 		<foreach item="movie" collection="selectmovies" open="(" separator="," close=")">
 			#{movie}
 		</foreach>
-	</delete>
+	</update>
 	
 	
 	<!-- 관람평 시작 -->
@@ -204,7 +205,7 @@
 	<![CDATA[
 	REPLACE(REPLACE(review_content,'<','&lt;'),'>','&gt;') review_content,
 	]]>
-	rating_score,review_date,review_mdate,movie_num,mem_num,id,nick_name FROM review JOIN member USING(mem_num) WHERE movie_num= #{movie_num}
+	rating_score,review_date,review_mdate,r.movie_num,r.mem_num,m.id,m.nick_name FROM review r JOIN member m ON r.mem_num = m.mem_num WHERE r.movie_num= #{movie_num}
 	ORDER BY review_num DESC)a)
 	<![CDATA[ WHERE rnum >= #{start} AND rnum <=#{end} ]]>
 	</select>
