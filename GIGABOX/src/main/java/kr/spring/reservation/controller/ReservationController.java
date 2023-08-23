@@ -193,8 +193,10 @@ public class ReservationController {
 	public String formScheduleUpdate(@RequestParam int sch_num, Model model) {
 	    ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
 	    model.addAttribute("scheduleVO", scheduleVO);
+	    log.debug("<<scheduleVO>> : " + scheduleVO);
 	    model.addAttribute("MovieList", resService.getMovieList());
 	    model.addAttribute("TheaterList", resService.getTheaterList());
+	    model.addAttribute("HallList", resService.getHallsByTheaterId(scheduleVO.getTh_num()));
 	    return "admin_scheduleUpdate"; // 수정 폼 페이지로 이동
 	}
 	//전송된 데이터 처리

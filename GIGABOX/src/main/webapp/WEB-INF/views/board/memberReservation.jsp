@@ -26,9 +26,8 @@
    <c:forEach var="reservation" items="${list}">
    <c:if test="${reservation.res_status == 1}">
 		<div class="res-box">
-			<a href="/movie/movieDetail.do?movie_num=' + item.movie_num + '">
+			<a href="/movie/movieDetail.do?movie_num= ${reservation.movie_num}">
 				<img src="${reservation.m_poster2}" alt="${reservation.m_title}">
-				<!-- <img src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1"> -->
 			</a>
 			<table class="res-table">
 				<tr>
@@ -57,6 +56,8 @@
 					<tr>
 						<th>결제일</th>
 						<td>${reservation.res_date}</td>
+						<th>총 결제금액</th>
+						<td><fmt:formatNumber value="${reservation.res_total}" type="number" pattern="#,##0"/>원</td>
 					</tr>
 				</table>
 			</div>
@@ -130,7 +131,6 @@
 			</c:if>
    </c:forEach>
    </c:if>
-   <%-- 페이지처리 개수 수정해야함!! page가 두개라 나눠야할듯???!?!?!? --%>
    <div class="align-center">${page}</div>
    <div class="tit-util mt70">
       <div>

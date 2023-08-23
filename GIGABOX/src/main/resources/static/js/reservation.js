@@ -1,6 +1,40 @@
 $(function(){
-	//유효성 체크
+	//유효성 체크 - 상영시간표 등록
 	$('#admin_scheduleAdd').submit(function(){
+		if($('#movie_num').val()=='0'){
+			alert('영화를 선택하세요.');
+			$('#movie_num').focus();
+			return false;
+		}
+		if($('#th_num').val()=='0'){
+			alert('극장을 선택하세요.');
+			$('#th_num').focus();
+			return false;
+		}
+		if($('#hall_num').val()=='0'){
+			alert('상영관을 선택하세요.');
+			$('#hall_num').focus();
+			return false;
+		}
+		if($('#sch_date').val()==''){
+			alert('상영날짜를 입력하세요.');
+			$('#sch_date').val('').focus();
+			return false;
+		}
+		if($('#sch_start').val()==''){
+			alert('상영시작시간을 입력하세요.');
+			$('#sch_start').val('').focus();
+			return false;
+		}
+		if($('#sch_end').val()==''){
+			alert('상영종료시간을 입력하세요.');
+			$('#sch_end').val('').focus();
+			return false;
+		}
+	});
+	
+	//유효성 체크 - 상영시간표 수정
+	$('#admin_scheduleUpdate').submit(function(){
 		if($('#movie_num').val()=='0'){
 			alert('영화를 선택하세요.');
 			$('#movie_num').focus();
