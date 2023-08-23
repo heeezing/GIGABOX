@@ -22,6 +22,8 @@ public interface ReservationService {
 	public void insertSchedule(ScheduleVO schedule);
 	// 상영관 좌석수 불러오기
 	public int selectSeats(Integer hall_num);
+	// 해당 상영시간표 총 예매완료 수 구하기
+	public int getTotalBySch(Integer sch_num);
 	
 	// 영화 목록 불러오기
 	public List<MovieVO> getMovieList();

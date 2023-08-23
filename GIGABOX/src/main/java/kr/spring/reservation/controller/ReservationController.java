@@ -200,6 +200,14 @@ public class ReservationController {
 	//전송된 데이터 처리
 	@PostMapping("reservation/admin_scheduleUpdate.do")
 	public String submitScheduleUpdate(@Valid ScheduleVO scheduleVO, BindingResult result, HttpServletRequest request, Model model) {
+		// 상영관 좌석수 불러오기
+		int seat = resService.selectSeats(scheduleVO.getHall_num()); // 상영관 총 좌석 수
+		int db_res = resService.getTotalBySch(scheduleVO.getSch_num()); // 예매된 좌석 수
+		
+		int updateRemain = seat - db_res;
+		
+		scheduleVO.setRemain(updateRemain); // 남은 좌석수 셋팅
+		
 		log.debug("<<상영시간표 수정 - ScheduleVO>>" + scheduleVO);
 		
 		resService.updateSchedule(scheduleVO);

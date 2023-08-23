@@ -111,4 +111,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationMapper.selectResList(map);
 	}
 
+	@Override
+	public int getTotalBySch(Integer sch_num) {
+		return reservationMapper.getTotalBySch(sch_num);
+	}
+
 }
