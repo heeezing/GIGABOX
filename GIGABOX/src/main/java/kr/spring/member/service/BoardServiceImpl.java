@@ -26,6 +26,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<ReservationVO> selectReservation(Map<String, Object> map) {
 		return boardMapper.selectReservation(map);
 	}
+	
+	@Override
+	public List<ReservationVO> selectDelReservation(Map<String, Object> map) {
+		return boardMapper.selectDelReservation(map);
+	}
 
 	@Override
 	public int selectReservationRowCount(Map<String, Object> map) {
@@ -111,6 +116,8 @@ public class BoardServiceImpl implements BoardService{
 	public int selectEventRowCount(Map<String, Object> map) {
 		return boardMapper.selectEventRowCount(map);
 	}
+
+	
 
 
 

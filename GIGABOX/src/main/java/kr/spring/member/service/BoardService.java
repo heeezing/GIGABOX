@@ -16,6 +16,7 @@ import kr.spring.reservation.vo.ReservationVO;
 public interface BoardService{
 	//예매내역 게시판
 	public List<ReservationVO> selectReservation(Map<String,Object> map);
+	public List<ReservationVO> selectDelReservation(Map<String,Object> map);
 	public int selectReservationRowCount(Map<String,Object> map);
 	public int selectDelReservationRowCount(Map<String,Object> map);
 	

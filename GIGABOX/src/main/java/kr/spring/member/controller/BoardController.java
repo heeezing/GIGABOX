@@ -45,17 +45,17 @@ public class BoardController {
 	@RequestMapping("/board/reservationList.do")
 	public ModelAndView getList(@RequestParam(value="pageNum", defaultValue="1") int currentPage,HttpSession session) {
 		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String,Object> mapDel = new HashMap<String,Object>();
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(user != null) {
-			map.put("mem_num", user.getMem_num());
-		}
+		map.put("mem_num", user.getMem_num());
+		mapDel.put("mem_num", user.getMem_num());
 		
 		// 예매내역 전체 레코드 수
 		int count = boardService.selectReservationRowCount(map);
 		
 		// 예매 취소내역 전체 레코드 수
-		int countDel = boardService.selectDelReservationRowCount(map);
+		int countDel = boardService.selectDelReservationRowCount(mapDel);
 		
 		log.debug("<<count>> : "+count);
 		log.debug("<<countDel>> : "+countDel);
@@ -64,13 +64,21 @@ public class BoardController {
 		PagingUtil page = new PagingUtil(currentPage,count,3,10,"reservationList.do");
 		PagingUtil pageDel = new PagingUtil(currentPage,countDel,10,10,"reservationList.do");
 		List<ReservationVO> list = null;
+		List<ReservationVO> DelList = null;
+		
 		if(count > 0) {
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
-			map.put("user", user.getMem_num());
 			
 			list = boardService.selectReservation(map);
 			log.debug("<<list>> : " + list);
+		}
+		if(countDel > 0) {
+			mapDel.put("startDel", pageDel.getStartRow());
+			mapDel.put("endDel", pageDel.getEndRow());
+			
+			DelList = boardService.selectDelReservation(mapDel);
+			log.debug("<<DelList>> : " + DelList);
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -78,6 +86,7 @@ public class BoardController {
 		mav.addObject("count", count);
 		mav.addObject("countDel", countDel);
 		mav.addObject("list",list);
+		mav.addObject("DelList",DelList);
 		mav.addObject("page",page.getPage());
 		mav.addObject("pageDel",pageDel.getPage());
 		

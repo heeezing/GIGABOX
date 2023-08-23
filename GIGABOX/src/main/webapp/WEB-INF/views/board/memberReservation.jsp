@@ -24,7 +24,6 @@
    </c:if>
    <c:if test="${count > 0}">
    <c:forEach var="reservation" items="${list}">
-   <c:if test="${reservation.res_status == 1}">
 		<div class="res-box">
 			<a href="/movie/movieDetail.do?movie_num= ${reservation.movie_num}">
 				<img src="${reservation.m_poster2}" alt="${reservation.m_title}">
@@ -128,7 +127,6 @@
 					</div>
 					<!-- 모달 끝 -->
 				</div>
-			</c:if>
    </c:forEach>
    </c:if>
    <div class="align-center">${page}</div>
@@ -145,16 +143,14 @@
          <th>상영일시</th>
          <th>취소금액</th>
       </tr>
-      <c:forEach var="reservation" items="${list}">
-      <c:if test="${reservation.res_status == 2}">
+      <c:forEach var="delReservation" items="${DelList}">
       <tr>
-         <td class="align-center">${reservation.del_date}</td>
-         <td class="align-center">${reservation.m_title}</td>
-         <td class="align-center">${reservation.th_name}</td>
-         <td class="align-center">${reservation.res_date}</td>
-         <td class="align-center"><fmt:formatNumber value="${reservation.res_total}" type="number" pattern="#,##0"/>원</td>
+         <td class="align-center">${delReservation.del_date}</td>
+         <td class="align-center">${delReservation.m_title}</td>
+         <td class="align-center">${delReservation.th_name}</td>
+         <td class="align-center">${delReservation.res_date}</td>
+         <td class="align-center"><fmt:formatNumber value="${delReservation.res_total}" type="number" pattern="#,##0"/>원</td>
       </tr>
-      </c:if>
       </c:forEach>
    </table>
    <div class="align-center">${pageDel}</div>
