@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- 주문 상세 시작 -->
+<!-- 주문 상세 시작 --> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.order.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/store.orderDetail.js"></script>
 <div class="page-main">

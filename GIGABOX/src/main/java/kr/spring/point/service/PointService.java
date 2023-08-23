@@ -5,7 +5,7 @@ import java.util.Map;
 
 import kr.spring.point.vo.PointVO;
 
-public interface PointService {
+public interface PointService { 
 	//회원가입 시 포인트 적립 - member에서 사용
 	public void insertWelcomePoint(Integer mem_num);
 	//나의 포인트 내역 레코드 수

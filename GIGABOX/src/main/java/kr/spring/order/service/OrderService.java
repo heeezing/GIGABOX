@@ -9,7 +9,7 @@ import kr.spring.member.vo.MemberVO;
 import kr.spring.order.vo.OrderDetailVO;
 import kr.spring.order.vo.OrderVO;
 
-public interface OrderService {
+public interface OrderService { 
 	//회원 번호를 이용한 멤버십 정보 구하기
 	public String selectMembershipByMem_num(Integer mem_num);
 	//주문 폼 - 선물 시 회원 조회

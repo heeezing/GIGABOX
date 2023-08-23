@@ -141,7 +141,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
     public void performScheduledTask() {
-        statusChangeValid();
+        statusChangeValid(); 
     }
 
 	@Override

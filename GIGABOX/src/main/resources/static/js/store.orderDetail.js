@@ -185,7 +185,7 @@
 	}
 	
 	
-	//전체 취소
+	//전체 취소 
 	function statusAllChangeUser(button) {
 	    let num = $(button).data('status'); //4
 		let orders_num = $('#orders_num').text();

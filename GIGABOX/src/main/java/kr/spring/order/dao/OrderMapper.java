@@ -49,7 +49,7 @@ public interface OrderMapper {
 	//[사용자] 전체or검색 레코드 수
 	public int selectOrderCountByMem_num(Map<String,Object> map);
 	//[사용자] 전체or검색 목록
-	public List<OrderVO> selectListOrderByMem_num(Map<String,Object> map);
+	public List<OrderVO> selectListOrderByMem_num(Map<String,Object> map); 
 	//[사용자-마이페이지] 최근 3개 구매 목록
 	@Select("SELECT * FROM (SELECT * FROM orders WHERE mem_num=#{mem_num} ORDER BY orders_num DESC) WHERE rownum <= 3")
 	public List<OrderVO> selectListOrderByMem_num3(Integer mem_num);

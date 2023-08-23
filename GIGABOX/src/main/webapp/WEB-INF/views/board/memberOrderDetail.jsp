@@ -12,7 +12,7 @@
 			<h2 class="tit">주문 상세</h2>
 		</div>
 	</div>
-	<div class="status-change">
+	<div class="status-change"> 
 		<dl>
 			<dt>구매일</dt>
 			<dd class="border-right margin">${orders_date}</dd>
