@@ -13,20 +13,11 @@
 			<dd class="border-right margin">${orders_date}</dd>
 			<dt>주문번호</dt>
 			<dd class="border-right margin" id="orders_num">${orders.orders_num}</dd>
-			<dt>사용현황</dt>
+			<dt>유효기간</dt>
 			<dd class="margin">
-								<c:if test="${orders.orders_status == 1}"><span style="color:blue;">사용가능</span></c:if>
-				<c:if test="${orders.orders_status == 2}">${modify_date} <span style="color:green;"> 사용완료</span></c:if>
-				<c:if test="${orders.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
-				<c:if test="${orders.orders_status == 4}">${modify_date} <span style="color:red;"> 주문취소</span></c:if>
+				${orders.orders_date} ~ ${orders.valid_date}
 			</dd>
 	 	</dl>
-	 	<div class="button-container">
-	 	<c:if test="${orders.orders_status == 1}">
-	 	<input type="button" value="주문취소" class="round inred" data-status="4" onclick="statusChange(this)">
-		<input type="button" value="사용처리" class="round inblue" data-status="2" onclick="statusChange(this)">
-		</c:if>
-		</div>
 	</div>
 	
 	<!-- 구매 상품 정보 -->
@@ -35,17 +26,20 @@
 		<table class="cart-table" style="margin-bottom:65px;">
 			<thead style="background-color: #f8f8f8;">
 			<tr>
+				<th>쿠폰번호</th>
 				<th>상품명</th>
 				<th>판매금액</th>
-				<th>수량</th>
 				<th>구매금액</th>
+				<th>상태</th>
 			</tr>
 			</thead>
 			
 			<tbody>
 				<c:forEach var="detail" items="${detail}">
 				<tr>
-					<!-- (1)상품명 -->
+					<!-- (1)쿠폰번호 -->
+					<td class="align-center" style="width:150px;" class="detail_num">${detail.detail_num}</td>
+					<!-- (2)상품명 -->
 					<td>
 						<span class="product-img">
 						<img src="${pageContext.request.contextPath}/snack/imageView.do?sn_num=${detail.sn_num}">
@@ -53,7 +47,7 @@
 						<span class="product-detail">${detail.sn_detail}</span>
 						</span>
 					</td>
-					<!-- (2)판매금액 -->
+					<!-- (3)판매금액 -->
 					<td class="align-center">
 						<!-- 할인가가 있을 경우 -->
 						<c:if test="${detail.sn_dc_price > 0}">
@@ -71,13 +65,34 @@
 						</span>
 						</c:if>
 					</td>
-					<!-- (3)구매수량 -->
-					<td class="align-center">
-						<fmt:formatNumber value="${detail.orders_quantity}"/>개
-					</td>
 					<!-- (4)구매금액 --> 
 					<td class="align-center">
 						<fmt:formatNumber value="${orders.orders_total}"/>원
+					</td>
+					<!-- (5)사용상태 -->
+					<td class="align-center">
+						<c:if test="${detail.orders_status == 1}">
+							<span style="color:blue;">사용가능</span><br>
+							<div class="button-container">
+							<input type="button" value="사용처리" class="round inblue" 
+								   data-status="2"  data-num="${detail.detail_num}" onclick="statusChange(this)">
+							<input type="button" value="주문취소" class="round inred" 
+								   data-status="4"  data-num="${detail.detail_num}" onclick="statusChange(this)">
+							</div>						
+						</c:if>
+						<c:if test="${detail.orders_status == 2}">
+						<span style="color:green;">사용완료</span><br>
+						<span style="font-size:10pt;">
+							<fmt:formatDate value="${detail.modify_date}" pattern="yy-MM-dd HH:mm:ss"/>
+						</span>
+						</c:if>
+						<c:if test="${detail.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
+						<c:if test="${detail.orders_status == 4}">
+						<span style="color:red;">주문취소</span><br>
+						<span style="font-size:10pt;">
+							<fmt:formatDate value="${detail.modify_date}" pattern="yy-MM-dd HH:mm:ss"/>
+						</span>
+						</c:if>
 					</td>
 				</tr>
 				</c:forEach>
@@ -108,7 +123,7 @@
 		</tr>
 		<tr style="border-bottom:2px solid #dbdbdb;">
 			<td>사용 포인트</td>
-			<td class="payment-price"><fmt:formatNumber value="${orders.use_point}"/>원</td>
+			<td class="payment-price"><fmt:formatNumber value="${point.use_point}"/>원</td>
 		</tr>
 		<tr style="height:60px;color:red;">
 			<td>총 결제 금액</td>

@@ -46,12 +46,12 @@
 	<c:if test="${count > 0}">
 	<table class="striped-table">
 		<tr>
-			<th>주문일</th>
-			<th>주문번호</th>
+			<th style="width:140px;">주문일</th>
+			<th style="width:150px;">주문번호</th>
 			<th>상품명</th>
 			<th>구매금액</th>
 			<th>아이디</th>
-			<th>상태</th>
+			<th>내역</th>
 		</tr>
 		<c:forEach var="order" items="${list}">
 		<tr>
@@ -65,10 +65,8 @@
 			<td class="align-center"><fmt:formatNumber value="${order.orders_total}"/>원</td>
 			<td class="align-center">${order.id}</td>
 			<td class="align-center">
-				<c:if test="${order.orders_status == 1}"><span style="color:blue;">사용가능</span></c:if>
-				<c:if test="${order.orders_status == 2}"><span style="color:green;">사용완료</span></c:if>
-				<c:if test="${order.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
-				<c:if test="${order.orders_status == 4}"><span style="color:red;">주문취소</span></c:if>
+				<c:if test="${order.orders_type == 1}">구매</c:if>
+				<c:if test="${order.orders_type == 2}">선물</c:if>
 			</td>
 		</tr>
 		</c:forEach>

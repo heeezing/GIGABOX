@@ -17,6 +17,8 @@ public interface OrderService {
 								 @Param(value="to_phone") String to_phone);
 	//주문 번호 생성
 	public String selectOrderNum();
+	//기프티콘 번호 생성
+	public String selectDetailNum();
 	//주문 등록
 	public void insertOrder(OrderVO order, List<OrderDetailVO> list);
 	//선물 등록 
@@ -35,6 +37,8 @@ public interface OrderService {
 	public OrderVO selectOrder(String orders_num);
 	//개별 상품 목록
 	public List<OrderDetailVO> selectListOrderDetail(String orders_num);
+	//개별 상품 상세
+	public OrderDetailVO selectDetail(String detail_num);
 	//사용 상태 변경 
 	public void statusChange(@Param(value="orders_num") String orders_num,
 								@Param(value="orders_status") Integer orders_status);

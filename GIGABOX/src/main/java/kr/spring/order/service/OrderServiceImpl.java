@@ -1,6 +1,5 @@
 package kr.spring.order.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -144,7 +143,17 @@ public class OrderServiceImpl implements OrderService{
     public void performScheduledTask() {
         statusChangeValid();
     }
-    
+
+	@Override
+	public String selectDetailNum() {
+		return orderMapper.selectDetailNum();
+	}
+
+	@Override
+	public OrderDetailVO selectDetail(String detail_num) {
+		return orderMapper.selectDetail(detail_num);
+	}
+
     /*
     // 스케줄링을 바로 실행할 테스트 메서드
     @Scheduled(initialDelay = 5000, fixedRate =  60000) // 5초 후에 실행하고, 그 후 1분마다 실행

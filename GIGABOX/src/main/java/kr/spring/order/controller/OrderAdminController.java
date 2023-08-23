@@ -86,10 +86,12 @@ public class OrderAdminController {
 	@RequestMapping("/order/admin_detail.do")
 	public String adminDetail(@RequestParam String orders_num, Model model) {
 		OrderVO order = orderService.selectOrder(orders_num);
+		PointVO point = pointService.selectPointByOrders_num(orders_num);
 		List<OrderDetailVO> detailList = orderService.selectListOrderDetail(orders_num);
 	
 		log.debug("<<order>> : " + order);
 		log.debug("<<order_detail>> : " + detailList);
+		log.debug("<<point>> : " + point);
 		
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -101,6 +103,7 @@ public class OrderAdminController {
 
 		model.addAttribute("orders_date", orders_date);
 		model.addAttribute("orders", order);
+		model.addAttribute("point", point);
 		model.addAttribute("detail", detailList);
 		
 		return "admin_orderDetail";
@@ -108,53 +111,72 @@ public class OrderAdminController {
 
 	
 	/*======================
-		  사용 상태 변경
+		상품 별 사용 상태 변경
 	======================*/
 	
 	@RequestMapping("/order/admin_statusChange.do")
 	@ResponseBody
-	public Map<String,String> statusChange(@RequestParam int orders_status,
-										  @RequestParam String orders_num,
-										  HttpSession session) {
-		log.debug("<<주문번호 / 주문상태>> : " + orders_num + " / " + orders_status);
+	public Map<String,String> statusChange(@RequestParam String detail_num,
+										   @RequestParam String orders_num,
+										   @RequestParam int orders_status,
+										   HttpSession session) {
+		log.debug("<<상세번호/주문번호/상태>> : " + detail_num+"/"+orders_num+"/"+orders_status);
 		Map<String,String> mapAjax = new HashMap<String,String>();
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user == null) { //로그인 X
 			mapAjax.put("result","logout");
 		}else { //로그인 O
-			OrderVO db_order = orderService.selectOrder(orders_num);
-			if(db_order.getOrders_status() != 1) {
+			OrderDetailVO db_detail = orderService.selectDetail(detail_num);
+			log.debug("<<db_detail>> : " + db_detail);
+			if(db_detail.getOrders_status() != 1) {
 				mapAjax.put("result","wrongAccess");
 			}else {
 				if(orders_status == 2) {
 					//수정 처리
-					orderService.statusChange(orders_num, orders_status);
+					orderService.statusChange(detail_num, orders_status);
 					mapAjax.put("result","success");
 				}else if(orders_status == 4) {
-					//취소 주문 건의 적립,사용 포인트 조회
-					PointVO db_point = pointService.selectCancelPoint(orders_num);
-					int db_use_point = db_point.getUse_point();
-					int db_add_point = db_point.getAdd_point();
+					//개별 상품 가격
+					int price = 0;
+					if(db_detail.getSn_dc_price() == 0) {
+						price = db_detail.getSn_price();
+					}else {
+						price = db_detail.getSn_dc_price();
+					}
+					
+					//멤버십에 따른 당시 적립포인트 계산
+					String membership = orderService.selectMembershipByMem_num(user.getMem_num());
+					int add_point = 0;
+					if(membership == "bronze") {
+						add_point = (int) (price * 0.05);
+					}else if(membership == "silver") {
+						add_point = (int) (price * 0.07);
+					}else if(membership == "gold") {
+						add_point = (int) (price * 0.1);
+					}else {
+						add_point = (int) (price * 0.03);
+					}
 					
 					//현재 내 포인트 조회
 					int my_point = pointService.myTotalPoint(user.getMem_num());
-					if(my_point + db_use_point < db_add_point) {
+					if(my_point < add_point) {
 						mapAjax.put("result", "shortage");
 					}else {
-						//사용 포인트는 환불, 적립 포인트는 차감
+						//당시 적립 포인트는 차감 처리
 						PointVO pointVO = new PointVO();
-						pointVO.setAdd_point(db_use_point);
-						pointVO.setUse_point(db_add_point);
-						pointVO.setOrders_num(orders_num);
-						pointVO.setMem_num(user.getMem_num());
+						pointVO.setUse_point(add_point);
+						pointVO.setDetail_num(detail_num);
+						OrderVO orderVO = orderService.selectOrder(orders_num);
+						pointVO.setMem_num(orderVO.getMem_num());
 						
 						//주문 취소 처리
-						orderService.statusChange(orders_num, orders_status);
-						pointService.insertRefundPoint(pointVO);
+						orderService.statusChange(detail_num, orders_status);
+						pointService.minusAddPoint(pointVO);
 						
 						mapAjax.put("result","success");
 					}
+					
 				}
 			}
 		}

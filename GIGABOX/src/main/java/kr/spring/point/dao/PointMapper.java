@@ -22,13 +22,17 @@ public interface PointMapper {
 	public void insertSnackPoint(OrderVO orderVO);
 	
 	//스낵 구매 취소 시 해당 주문의 적립/사용 포인트 체크
-	@Select("SELECT add_point, use_point "
+	@Select("SELECT * "
 		  + "FROM (SELECT * FROM orders JOIN point USING (orders_num) WHERE orders_num=#{orders_num})")
 	public PointVO selectCancelPoint(String orders_num);
-	//스낵 구매 취소 시 포인트 환불
+	//스낵 구매 전체 취소 시 사용 포인트 환불 및 적립 포인트 회수
 	@Insert("INSERT INTO point(pt_num,orders_num,mem_num,add_point,use_point,pt_detail) "
-		  + "VALUES(point_seq.nextval,#{orders_num},#{mem_num},#{add_point},#{use_point},'스낵 구매 취소')")
+		  + "VALUES(point_seq.nextval,#{orders_num},#{mem_num},#{add_point},#{use_point},'스낵전체취소')")
 	public void insertRefundPoint(PointVO pointVO);
+	//스낵 구매 부분 취소 시 적립 포인트 회수
+	@Insert("INSERT INTO point(pt_num,detail_num,mem_num,use_point,pt_detail) "
+		  + "VALUES(point_seq.nextval,#{detail_num},#{mem_num},#{use_point},'스낵부분취소')")
+	public void minusAddPoint(PointVO pointVO);
 	
 	//영화 예매 취소 시 해당 주문의 적립/사용 포인트 체크
 	@Select("SELECT * FROM point WHERE res_num=#{res_num}")
@@ -38,6 +42,9 @@ public interface PointMapper {
 			+ "VALUES(point_seq.nextval,#{res_num},#{mem_num},#{add_point},#{use_point},'영화 예매 취소')")
 	public void insertResRefundPoint(PointVO pointVO);
 	
+	//주문번호에 따른 포인트 내역
+	@Select("SELECT * FROM point WHERE orders_num=#{orders_num}")
+	public PointVO selectPointByOrders_num(String orders_num);
 	//나의 포인트 내역 레코드 수 - 마이페이지(페이지 처리 용)
 	@Select("SELECT COUNT(*) FROM point WHERE mem_num=#{mem_num}")
 	public int selectPointCountByMem_num(Map<String,Object> map);

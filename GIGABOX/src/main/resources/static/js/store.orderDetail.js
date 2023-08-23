@@ -2,7 +2,8 @@
 	   [관리자]사용 상태 변경(사용,취소)
   	==============================*/
 	function statusChange(button) {
-	    let num = $(button).data('status');
+	    let num = $(button).data('status'); 
+		let detail_num = $(button).data('num');
 		let orders_num = $('#orders_num').text();
 		
 	    if(num == 2){
@@ -11,7 +12,7 @@
 				$.ajax({
 					url:'admin_statusChange.do',
 					type:'post',
-					data:{orders_num:orders_num,orders_status:num},
+					data:{detail_num:detail_num,orders_num:orders_num,orders_status:num},
 					dataType:'json',
 					success:function(param){
 						if(param.result == 'logout'){
@@ -39,7 +40,7 @@
 				$.ajax({
 					url:'admin_statusChange.do',
 					type:'post',
-					data:{orders_num:orders_num,orders_status:num},
+					data:{detail_num:detail_num,orders_num:orders_num,orders_status:num},
 					dataType:'json',
 					success:function(param){
 						if(param.result == 'logout'){
@@ -74,15 +75,16 @@
 		 [사용자] 주문 취소
   	=======================*/
 	function statusChangeUser(button) {
-	    let num = $(button).data('status');
-		let orders_num = $('#orders_num').text(); //4
+	    let num = $(button).data('status'); //4
+		let detail_num = $(button).data('num');
+		let orders_num = $('#orders_num').text();
 		
 		let choice = confirm('해당 상품의 주문을 취소하시겠습니까?');
 		if(choice){
 			$.ajax({
 				url:'../order/admin_statusChange.do',
 				type:'post',
-				data:{orders_num:orders_num,orders_status:num},
+				data:{detail_num:detail_num,orders_num:orders_num,orders_status:num},
 				dataType:'json',
 				success:function(param){
 					if(param.result == 'logout'){
@@ -93,7 +95,7 @@
 							alert('적립 받은 포인트를 다 사용하시어 회수할 수 없습니다. 고객센터에 문의해주세요. 1004-1004');
 					}else if(param.result = 'success'){
 						alert("주문이 취소되었습니다.");
-						location.replace('orderList.do');
+						location.replace('orderDetail.do?orders_num='+orders_num);
 					}else{
 						alert('주문 취소 처리 오류');
 					}

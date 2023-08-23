@@ -71,7 +71,7 @@
 			orders_num
 			)
 		VALUES(
-			detail_seq.nextval,
+			#{detail_num},
 			#{sn_num},
 			#{sn_name},
 			#{sn_detail},

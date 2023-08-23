@@ -160,7 +160,13 @@ $(function(){
 			    결제
   	  =======================*/
 	
+	//[테스트 용] 결제 생략, 바로 주문 완료
+	$('#pay_btn').click(function(){
+		orderInsert();
+	});
+	
 	//결제하기 버튼 클릭 이벤트
+	/*
 	$('#pay_btn').click(function iamport(){
 		let usePoint = parseInt($("#use_point").val());
 		console.log('<<사용 금액>> : ' + usePoint);
@@ -244,6 +250,7 @@ $(function(){
 			}
 		}
 	}); //end of click
+	*/
 		
 	//order.do로 submit
 	function orderInsert(){
@@ -256,47 +263,6 @@ $(function(){
 		
 /*
 
-	//데이터 세팅 및 확인
-	const finalTotalText = $(".final-total").text(); // 텍스트 콘텐츠 가져오기
-	const finalTotalValue = parseInt(finalTotalText.replace(/[^0-9]/g, "")); // 숫자만 추출하여 정수로 변환
-	console.log($('#orders_num').val()+"//"+$('#sn_name').val()+"//"+finalTotalValue+"//"+$('#email').val()+"//"+$('#name').val()+"//"+$('#phone').val()+"//"+$('#address1').val()+"//"+$('#zipcode').val());
-	
-	//결제하기 버튼 클릭 이벤트
-	$('#pay_btn').click(function iamport(){
-		if(finalTotalValue <= 0){
-			let choice = confirm('전액 포인트 사용으로 주문을 완료하시겠습니까?');
-			if(choice){
-				//주문 등록 처리
-		   		orderInsert();
-			}else{
-				return;
-			}
-		}else{
-			//결제창과 연결
-			IMP.init("imp51636682"); //가맹점 식별코드
-			IMP.request_pay({
-			    pg : 'html5_inicis', //사용할 PG사 
-			    pay_method : 'card',
-			    merchant_uid : $('#orders_num').val(), //주문번호
-			    name : $('#sn_name').val(), //상품명
-			    amount : finalTotalValue, //결제 금액
-			    buyer_email : $('#email').val(),
-			    buyer_name : $('#name').val(),
-			    buyer_tel : $('#phone').val(),
-			    buyer_addr : $('#address1').val(),
-			    buyer_postcode : $('#zipcode').val()
-			}, function(rsp) {
-				console.log(rsp);
-			    if ( rsp.success ) {
-					//주문 등록 처리
-			        orderInsert();
-			    } else {
-					location.replace('orderFail.do');
-			    }
-			});	
-		}
-	}); //end of click
- */
 
 
 /*	

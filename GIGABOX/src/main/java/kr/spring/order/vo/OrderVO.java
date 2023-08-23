@@ -21,7 +21,6 @@ public class OrderVO {
 	private Date orders_date; //주문일
 	private Date valid_date; //사용만료일
 	private Date modify_date; //주문수정일
-	private String billing_key; //결제 빌링키
 	
 	//orders_type이 2(선물)인 경우 - 입력 받는 데이터
 	private String from_id; //보내는 사람 아이디

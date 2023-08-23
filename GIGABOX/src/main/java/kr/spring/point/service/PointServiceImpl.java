@@ -68,4 +68,14 @@ public class PointServiceImpl implements PointService{
 		pointMapper.insertResRefundPoint(pointVO);
 	}
 
+	@Override
+	public PointVO selectPointByOrders_num(String orders_num) {
+		return pointMapper.selectPointByOrders_num(orders_num);
+	}
+
+	@Override
+	public void minusAddPoint(PointVO pointVO) {
+		pointMapper.minusAddPoint(pointVO);
+	}
+
 }

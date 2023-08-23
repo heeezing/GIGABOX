@@ -306,16 +306,20 @@ public class OrderController {
 			//정상적으로 주문될 시 개별 주문 상품 정보를 저장할 list 생성
 			List<OrderDetailVO> orderDetailList = new ArrayList<OrderDetailVO>();
 			//개별 상품 정보 저장
-			OrderDetailVO orderDetail = new OrderDetailVO();
-			orderDetail.setSn_num(orderVO.getSn_num());
-			orderDetail.setSn_detail(snack.getSn_detail());
-			orderDetail.setSn_name(snack.getSn_name());
-			orderDetail.setSn_price(snack.getSn_price());
-			orderDetail.setSn_dc_price(snack.getSn_dc_price());
-			orderDetail.setOrders_quantity(orderVO.getOrders_quantity());
-			orderDetail.setSn_total(all_total); //동일 상품의 합계 금액 
-			
-			orderDetailList.add(orderDetail);
+			for(int i=1 ; i<=orderVO.getOrders_quantity() ; i++) {
+				OrderDetailVO orderDetail = new OrderDetailVO();
+				String detail_num = orderService.selectDetailNum();
+				orderDetail.setDetail_num(detail_num);
+				orderDetail.setSn_num(orderVO.getSn_num());
+				orderDetail.setSn_detail(snack.getSn_detail());
+				orderDetail.setSn_name(snack.getSn_name());
+				orderDetail.setSn_price(snack.getSn_price());
+				orderDetail.setSn_dc_price(snack.getSn_dc_price());
+				orderDetail.setOrders_quantity(1);
+				
+				orderDetailList.add(orderDetail);
+			}
+
 			
 			//회원 멤버십 정보 확인
 			MemberVO user = (MemberVO)session.getAttribute("user");
@@ -389,18 +393,22 @@ public class OrderController {
 					return "common/resultView";
 				}
 				//개별 상품 정보 저장
-				OrderDetailVO orderDetail = new OrderDetailVO();
-				orderDetail.setSn_num(cart.getSn_num());
-				orderDetail.setSn_detail(cart.getSnackVO().getSn_detail());
-				orderDetail.setSn_name(cart.getSnackVO().getSn_name());
-				orderDetail.setSn_price(cart.getSnackVO().getSn_price());
-				orderDetail.setSn_dc_price(cart.getSnackVO().getSn_dc_price());
-				orderDetail.setOrders_quantity(cart.getOrders_quantity());
-				orderDetail.setSn_total(cart.getSub_total()); //동일 상품의 합계 금액 
-				
-				orderDetailList.add(orderDetail);
+				for(int i=1 ; i<=cart.getOrders_quantity() ; i++) {
+					OrderDetailVO orderDetail = new OrderDetailVO();
+					String detail_num = orderService.selectDetailNum();
+					orderDetail.setDetail_num(detail_num);
+					orderDetail.setSn_num(cart.getSn_num());
+					orderDetail.setSn_detail(cart.getSnackVO().getSn_detail());
+					orderDetail.setSn_name(cart.getSnackVO().getSn_name());
+					orderDetail.setSn_price(cart.getSnackVO().getSn_price());
+					orderDetail.setSn_dc_price(cart.getSnackVO().getSn_dc_price());
+					orderDetail.setOrders_quantity(1);
+					
+					orderDetailList.add(orderDetail);
+					
+				}
 			}
-			
+
 			//주문 상품의 대표 상품명 세팅
 			String sn_name = "";
 			if(cartList.size() == 1) { //상품 하나 구매 시
