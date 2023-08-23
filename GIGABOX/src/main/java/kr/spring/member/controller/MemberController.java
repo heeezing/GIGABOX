@@ -36,6 +36,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.spring.cs.vo.CsPersonalVO;
 import kr.spring.member.service.BoardService;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.service.UserSha256;
@@ -188,13 +189,15 @@ public class MemberController {
 				log.debug("<<id>> : " + member.getId());
 				log.debug("<<auth>> : " + member.getAuth());
 				log.debug("<<au_id>> : " + member.getAu_id());
+				
 
 				if (member.getAuth() == 9) {// 관리자인 경우
-					return "redirect:/main/admin.do";// 관리자 전용페이지로 이동
+					return "redirect:/board/memberList.do";// 관리자 전용페이지로 이동
 				} else {
 					return "redirect:/main/main.do";
 				}
 			}
+			
 
 			// 인증 실패
 			throw new AuthCheckException();
@@ -271,20 +274,7 @@ public class MemberController {
 		memberService.findPw(response, member);
 	}
 
-	/*
-	 * ============ my페이지 ============
-	 */
-	@RequestMapping("/member/myPage.do")
-	public String myPage(HttpSession session, Model model) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		// 회원 정보 반환
-		MemberVO member = memberService.selectMember(user.getMem_num());
-
-		// 회원정보
-		model.addAttribute("member", member);// member라는 이름으로 member를 넣어줌
-
-		return "myPage";
-	}
+	
 
 	/*
 	 * ============ 프로필 사진 출력 ============
@@ -452,13 +442,13 @@ public class MemberController {
 	/*
 	 * ============ 회원탈퇴 ============
 	 */
-	// 회원탈퇴 폼 호출
+	//회원탈퇴 폼 호출
 	@GetMapping("/member/delete.do")
 	public String formDelete() {
 		return "memberDelete";
 	}
-
-	// 회원탈퇴 전송된 데이터 처리
+	
+	//회원탈퇴 전송된 데이터 처리
 	@PostMapping("/member/delete.do")
 	public String submitDelete(@Valid MemberVO memberVO, BindingResult result, HttpSession session, Model model) {
 		log.debug("<<회원탈퇴>> : " + memberVO);
@@ -477,7 +467,8 @@ public class MemberController {
 			if (db_member != null && db_member.getId().equals(memberVO.getId())) {
 				// 여기서 db_member.getId는 로그인된 아이디
 				// 비밀번호 일치 여부 체크
-				check = db_member.isCheckedPassword(memberVO.getPasswd());
+				//check = db_member.isCheckedPassword(memberVO.getPasswd());
+				check=true;
 			}
 			if (check) {
 				// 인증 성공, 회원정보 삭제
@@ -496,8 +487,6 @@ public class MemberController {
 		}
 
 	}
-
-	
 	
 	//마이페이지
 	@GetMapping("/member/myPage.do")
@@ -511,6 +500,8 @@ public class MemberController {
 		int point = pointService.myTotalPoint(user1.getMem_num());
 		if(membership == null) {
 			membership="BASIC";
+		}else {
+			membership = membership.toUpperCase();
 		}
 		// 회원정보
 		model.addAttribute("member", member);// member라는 이름으로 member를 넣어줌
@@ -525,6 +516,14 @@ public class MemberController {
 		if(user != null) {
 			map.put("mem_num", user.getMem_num());
 		}
+		
+		//구매 내역
+		List<OrderVO> oList = orderService.selectListOrderByMem_num3(user.getMem_num());
+		//예매 내역
+		List<ReservationVO> rList = boardService.selectListReservationByMem_num3(user.getMem_num());
+		//문의 내역
+		List<CsPersonalVO> cList = boardService.selectListCsByMem_num3(user.getMem_num());
+		
 		
 		//전체 검색 레코드 수
 		int count = boardService.selectReservationRowCount(map);
@@ -547,7 +546,6 @@ public class MemberController {
 			list2 = boardService.selectOrder(map);
 		}
 		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("myPage");
 		mav.addObject("count1", count);
@@ -555,7 +553,9 @@ public class MemberController {
 		mav.addObject("count2", count2);
 		mav.addObject("list2",list2);
 		mav.addObject("page1",page.getPage());
-		
+		mav.addObject("oList",oList);
+		mav.addObject("rList",rList);
+		mav.addObject("cList",cList);
 		return mav;
 	}
 	

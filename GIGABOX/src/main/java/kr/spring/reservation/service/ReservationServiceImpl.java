@@ -63,11 +63,6 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public void deleteSchedule(Integer sch_num) {
-		reservationMapper.deleteSchedule(sch_num);
-	}
-
-	@Override
 	public List<ScheduleVO> getScheduleList(Map<String,Object> map) {
 		return reservationMapper.getScheduleList(map);
 	}
@@ -102,8 +97,10 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public void deleteRes(String res_num) {
-		reservationMapper.deleteRes(res_num);
+	public void deleteRes(ReservationVO reservation) {
+		reservationMapper.deleteRes(reservation);
+		// 남은좌석수 수정
+		reservationMapper.updateRemain(reservation);
 	}
 
 	@Override

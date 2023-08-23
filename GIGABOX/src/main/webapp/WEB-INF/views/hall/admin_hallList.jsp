@@ -56,21 +56,22 @@
 			<th>번호</th>
 			<th>상영관명</th>
 			<th>극장명</th>
+			<th>좌석수</th>
 			<th>상영 가능 여부</th>
-			<th width="100px"></th>
+			<th>수정</th>
 		</tr>
 		<c:forEach var="hall" items="${list}">
 		<tr>
 			<td class="align-center">${hall.hall_num}</td>
 			<td class="align-center">${hall.hall_name}</td>
 			<td class="align-center">${hall.th_name}</td>
+			<td class="align-center">${hall.seats}</td>
 			<td class="align-center">
 				<c:if test="${hall.hall_status==1}">상영 불가능</c:if>
 				<c:if test="${hall.hall_status==2}">상영 가능</c:if>
 			</td>
-			<td>
+			<td class="align-center">
 				<input type="button" value="수정" onclick="location.href='hallUpdate.do?hall_num=${hall.hall_num}'">
-				<input type="button" value="삭제" class="delete_btn" data-num="${hall.hall_num}">
 			</td>
 		</tr>
 		</c:forEach>

@@ -19,6 +19,9 @@ public class ReviewVO {
 	private String review_date;
 	private String review_mdate;
 	
+	private String id;
+	private String nick_name;
+	
 	private int fav_cnt; //좋아요 개수
 	
 	public void  setReview_date(String review_date) {

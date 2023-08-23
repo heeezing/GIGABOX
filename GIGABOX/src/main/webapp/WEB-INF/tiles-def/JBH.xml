@@ -125,6 +125,18 @@
 	    <put-attribute name="body" value="/WEB-INF/views/board/memberList.jsp"/>
     </definition>
 	
+	<!-- 문의 내역 -->
+    <definition name="memberCs" extends="myPage">
+    	<put-attribute name="title" value="리뷰내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberCs.jsp"/>
+    </definition>
+    
+    <!-- 이벤트 내역 -->
+    <definition name="memberEvent" extends="myPage">
+    	<put-attribute name="title" value="이벤트내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/board/memberEvent.jsp"/>
+    </definition>
+	
 </tiles-definitions>
   
 

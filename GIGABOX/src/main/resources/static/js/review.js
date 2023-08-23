@@ -4,6 +4,20 @@ $(function(){
 	let count;
 	
 	
+	//예매순위 구하기
+	$.ajax({
+		url:'reservationRankByMovie.do',
+		type:'post',
+		data:{movie_num:$('#movie_num').val()},
+		dataType:'json',
+		success:function(param){
+       		 $('.rank').text(param.rank);
+		},
+		error:function(){
+			alert('예매순위 구하기 오류');
+		}
+	});
+	
 	//관람평 수 표시
 	$.ajax({
 		url:'reviewCount.do',
@@ -14,7 +28,6 @@ $(function(){
        		 $('.reviewCount').text(param.reviewCount);
 		},
 		error:function(){
-			alert('관람평 표시 네트워크 오류');
 		}
 	});
 	
@@ -28,7 +41,7 @@ $(function(){
        		 $('.ratingAvg').text(param.ratingAvg);
 		},
 		error:function(){
-			alert('관람평 표시 네트워크 오류');
+			alert('관람평 평점 표시 네트워크 오류');
 		}
 	});	
 	
@@ -430,7 +443,6 @@ $(function(){
     $(document).on('submit','.repo-modal',function(event) {
 		//repo_modal = $('#repo_modal'+review_num);
         event.preventDefault(); // 기본 제출 동작 막기
-		alert("!!!");
 		
 		let form_data = $(this).serialize();
 

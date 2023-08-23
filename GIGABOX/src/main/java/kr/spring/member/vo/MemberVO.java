@@ -20,13 +20,16 @@ import lombok.ToString;
 public class MemberVO {
 	private int mem_num;//회원번호
 	@Pattern(regexp="^[A-Za-z0-9]{4,12}$")
+	@NotEmpty
 	private String id;//아이디
 	private String nick_name;//닉네임
 	private int auth;//등급
 	@NotEmpty
 	private String name;//이름
-	@Pattern(regexp="^[A-Za-z0-9]{4,12}$")
+	
 	private String passwd;//비밀번호
+	@Pattern(regexp="^[0-9]{4,13}$")
+	@NotEmpty
 	private String phone;//전화번호
 	@Email
 	@NotEmpty

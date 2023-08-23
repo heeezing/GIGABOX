@@ -36,7 +36,7 @@ $(function(){
 	$('.down').click(function(){
 		if(number>0 && number>clicked){ // 인원수가 0명 이상이고, 인원수보다 선택한 좌석수가 적은 경우 빼기
 			--number;
-		}else if(number==clicked){ // 인원수만큼 좌석 선택되어있는 경우 좌석 초기화
+		}else if(number>0 && number==clicked){ // 인원수만큼 좌석 선택되어있는 경우 좌석 초기화
 			let choice = confirm('선택한 좌석이 존재합니다. 좌석 정보를 초기화하겠습니까?');
 			if(choice){
 				// 선택한 좌석 초기화

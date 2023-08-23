@@ -44,11 +44,6 @@ public class HallServiceImpl implements HallService{
 	}
 
 	@Override
-	public void deleteHall(Integer hall_num) {
-		hallMapper.deleteHall(hall_num);
-	}
-
-	@Override
 	public List<TheaterVO> getTheaterList() {
 		return hallMapper.getTheaterList();
 	}

@@ -4,12 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <!-- myPage 시작 -->
-<div class="page-util">
-	<div class="location">
-		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
-		<a href="../member/myPage.do">마이페이지</a>
-	</div>
-</div>
 <div class="mypage">
 	<div class="mypage-top">
 		<div class="mypage-photo"><img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="my-photo"></div>
@@ -31,7 +25,7 @@
 		</div>
 	</div>
 	<div class="mypage-content">
-		<c:if test="${empty rList}">
+		<c:if test="${count1 == 0}">
 		<div class="">
 			<div class="">
 				<ul>
@@ -40,16 +34,16 @@
 			</div>
 		</div>
 		</c:if>
-		<c:if test="${!empty rList}">
+		<c:if test="${count1 > 0}">
 		<table class="striped-table">
 			<tr>
 				<th>예매번호</th>
 				<th>예매날짜</th>
-				<th>인원</th>
+				<th>사람수</th>
 				<th>가격</th>
 				<th>총 가격</th>
 			</tr>
-			<c:forEach var="reservation" items="${rList}">
+			<c:forEach var="reservation" items="${list1}">
 			<tr>
 				<td class="align-center">${reservation.res_num}</td>
 				<td class="align-center">${reservation.res_date}</td>
@@ -127,38 +121,13 @@
 		<div class="mypage-right">
 			<div class="tit-util">
 				<h2 class="tit">문의 내역</h2>
-				<a href="${pageContext.request.contextPath}/board/csList.do">더보기></a>
+				<a href="${pageContext.request.contextPath}/board/memberQuestion.do">더보기></a>
 			</div>
-			<c:if test="${empty cList}">
-			<div class="tit-util mt70">
-				<div class="mypage-content">
-					<ul>
-						<li>문의내역이 없습니다.</li>
-					</ul>
-				</div>
+			<div class="mypage-content">
+				<ul>
+					<li>문의 내역이 없습니다.</li>
+				</ul>
 			</div>
-			</c:if>
-			<c:if test="${!empty cList}">
-			<table class="striped-table">
-				<tr>
-					<th>문의번호</th>
-					<th>제목</th>
-					<th>문의내용</th>
-					<th>답변여부</th>
-				</tr>
-				<c:forEach var="cs" items="${cList}">
-				<tr>
-					<td class="align-center">${cs.personal_num}</td>
-					<td class="align-center" style="max-width: 5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cs.title}</td>
-					<td class="align-center"style="max-width: 5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cs.content}</td>
-					<td class="cs">
-						<c:if test="${cs.state == 1}">답변완료</c:if>
-						<c:if test="${cs.state == 0}">답변대기</c:if>
-					</td>
-				</tr>
-				</c:forEach>
-			</table>
-			</c:if>
 		</div>
 	</div>
 </div>

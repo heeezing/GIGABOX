@@ -16,8 +16,6 @@ public interface HallService {
 	public HallVO selectHall(Integer hall_num);
 	// 상영관 수정
 	public void updateHall(HallVO hall);
-	// 상영관 삭제
-	public void deleteHall(Integer hall_num);
 	
 	// 극장 목록 불러오기
 	public List<TheaterVO> getTheaterList();

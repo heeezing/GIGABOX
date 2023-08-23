@@ -35,8 +35,12 @@ public interface MovieMapper {
 	public void updateMovie(MovieVO movie);
 	@Delete("DELETE FROM movie WHERE movie_num=#{movie_num}")
 	public void deleteMovie(Integer movie_num);
-	public void deleteMovieCheck(String[] selectmovies);
-	
+	@Update("UPDATE movie SET m_status=3")
+	public void updateStatusMovie(Integer movie_num);
+	public void updateStatusMovieCheck(String[] selectmovies);
+	//영화 예매 순위
+	@Select("SELECT sub.movie_num, COALESCE(sub.rank, (SELECT COUNT(*) FROM movie)) AS rank FROM (SELECT s.movie_num, ROW_NUMBER() OVER (ORDER BY COALESCE(COUNT(r.res_num), 0) DESC) AS rank FROM schedule s LEFT JOIN reservation r ON s.sch_num = r.sch_num GROUP BY s.movie_num) sub WHERE sub.movie_num = #{movieNum}")
+	public int reservationRankByMovie(Integer movie_num);
 	
 	
 	//관람평
@@ -50,11 +54,11 @@ public interface MovieMapper {
 	public void updateReview(ReviewVO review);
 	@Delete("DELETE FROM review WHERE review_num=#{review_num}")
 	public void deleteReview(Integer review_num);
-	@Select("SELECT COUNT(*)review_cnt FROM review WHERE movie_num=#{movie_num} GROUP BY #{movie_num} ")
+	@Select("SELECT COALESCE(COUNT(*), 0) AS review_cnt FROM review WHERE movie_num = #{movie_num} GROUP BY movie_num")
 	public int selectReviewCount(Integer movie_num);
 	
 	//평점 평균 구하기
-	@Select("SELECT round(AVG(rating_score),1)rating_avg FROM review WHERE movie_num = #{movie_num}")
+	@Select("SELECT COALESCE(round(AVG(rating_score), 1), 0) AS rating_avg FROM review WHERE movie_num = #{movie_num}")
 	public int averageRatingScore(Integer rating_score);
 	
 	//관람평 좋아요

@@ -51,13 +51,6 @@ public class MovieServiceImpl implements MovieService{
 	public void deleteMovie(Integer movie_num) {
 		moviemapper.deleteMovie(movie_num);
 	}
-	
-	@Override
-	public void deleteMovieCheck(String[] selectmovies) {
-		moviemapper.deleteMovieCheck(selectmovies);
-		
-	}
-
 
 	@Override
 	public int selectRowCount(Map<String, Object> map) {
@@ -220,6 +213,25 @@ public class MovieServiceImpl implements MovieService{
 	public List<MovieVO> selectPreList(Map<String, Object> map) {
 		return moviemapper.selectPreList(map);
 	}
+
+
+	@Override
+	public void updateStatusMovie(Integer movie_num) {
+		moviemapper.updateStatusMovie(movie_num);
+	}
+
+
+	@Override
+	public void updateStatusMovieCheck(String[] selectmovies) {
+		moviemapper.updateStatusMovieCheck(selectmovies);
+	}
+
+
+	@Override
+	public int reservationRankByMovie(Integer movie_num) {
+		return moviemapper.reservationRankByMovie(movie_num);
+	}
+	
 	
 }
 

@@ -22,6 +22,10 @@
 					</c:forEach>
 				</select>
 			</li>
+			<li>
+				<label for="seats">좌석수</label>
+				<input type="number" name="seats" id="seats" minmaxlength="50" width="200" min="0">
+			</li>
 		</ul>
 		<div class="align-center">
 			<input type="submit" value="등록" class="button">

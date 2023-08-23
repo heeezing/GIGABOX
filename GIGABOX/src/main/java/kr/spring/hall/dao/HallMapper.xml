@@ -6,11 +6,13 @@
 	INSERT INTO hall(
 		hall_num,
 		hall_name,
-		th_num)
+		th_num,
+		seats)
 	VALUES(
 		hall_seq.nextval,
 		#{hall_name},
-		#{th_num})
+		#{th_num},
+		#{seats})
 </insert>
 
 <!-- 상영관 목록 -->

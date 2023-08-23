@@ -14,6 +14,10 @@
     	<put-attribute name="title" value="영화목록"/>
 	    <put-attribute name="body" value="/WEB-INF/views/movie/movieList.jsp"/>
     </definition>
+    <definition name="premovieList" extends="main">
+    	<put-attribute name="title" value="상영예정영화목록"/>
+	    <put-attribute name="body" value="/WEB-INF/views/movie/premovieList.jsp"/>
+    </definition>
     <definition name="movieRegister" extends="main">
     	<put-attribute name="title" value="영화등록"/>
 	    <put-attribute name="body" value="/WEB-INF/views/movie/movieRegister.jsp"/>
@@ -33,6 +37,10 @@
     <definition name="reportAdmin" extends="admin">
     	<put-attribute name="title" value="관람평신고목록"/>
 	    <put-attribute name="body" value="/WEB-INF/views/movie/reportAdmin.jsp"/>
+    </definition> 
+    <definition name="reviewDetail" extends="admin">
+    	<put-attribute name="title" value="관람평신고상세"/>
+	    <put-attribute name="body" value="/WEB-INF/views/movie/reviewDetail.jsp"/>
     </definition> 
 </tiles-definitions>
 

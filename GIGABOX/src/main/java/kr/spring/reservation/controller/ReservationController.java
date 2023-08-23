@@ -193,8 +193,10 @@ public class ReservationController {
 	public String formScheduleUpdate(@RequestParam int sch_num, Model model) {
 	    ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
 	    model.addAttribute("scheduleVO", scheduleVO);
+	    log.debug("<<scheduleVO>> : " + scheduleVO);
 	    model.addAttribute("MovieList", resService.getMovieList());
 	    model.addAttribute("TheaterList", resService.getTheaterList());
+	    model.addAttribute("HallList", resService.getHallsByTheaterId(scheduleVO.getTh_num()));
 	    return "admin_scheduleUpdate"; // 수정 폼 페이지로 이동
 	}
 	//전송된 데이터 처리
@@ -202,10 +204,16 @@ public class ReservationController {
 	public String submitScheduleUpdate(@Valid ScheduleVO scheduleVO, BindingResult result, HttpServletRequest request, Model model) {
 		// 상영관 좌석수 불러오기
 		int seat = resService.selectSeats(scheduleVO.getHall_num()); // 상영관 총 좌석 수
-		int db_res = resService.getTotalBySch(scheduleVO.getSch_num()); // 예매된 좌석 수
+		int db_res = 0; // 예매된 좌석 수
+		
+		int sch_num = scheduleVO.getSch_num();
+		
+		if(!resService.getSeatsDB(sch_num).isEmpty()) {
+			db_res = resService.getTotalBySch(sch_num);
+		}
 		
 		int updateRemain = seat - db_res;
-		
+	
 		scheduleVO.setRemain(updateRemain); // 남은 좌석수 셋팅
 		
 		log.debug("<<상영시간표 수정 - ScheduleVO>>" + scheduleVO);
@@ -217,19 +225,6 @@ public class ReservationController {
 		model.addAttribute("url", request.getContextPath()+"/reservation/admin_schedule.do");
 		
 		return "common/resultView";
-	}
-	
-	/*========================
-	 *  상영 시간표 삭제
-	 *========================*/
-	@RequestMapping("/reservation/admin_scheduleDelete.do")
-	public String submitScheduleDelete(@RequestParam int sch_num) {
-		log.debug("<<상영시간표 삭제 - sch_num>> : " + sch_num);
-		
-		//상영시간표 삭제
-		resService.deleteSchedule(sch_num);
-		
-		return "redirect:/reservation/admin_schedule.do";
 	}
 	
 	/*===============
@@ -372,6 +367,8 @@ public class ReservationController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		Map<String,String> mapAjax = new HashMap<String,String>();
 		
+		ReservationVO reservationVO = resService.selectRes(res_num);
+		
 		log.debug("<<res_num>> : " + res_num);
 		
 		if(user == null) { // 로그인 X
@@ -386,6 +383,11 @@ public class ReservationController {
 			log.debug("<<db_use_point>> : " + db_point);
 			log.debug("<<db_add_point>> : " + db_point);
 			
+			// 남은좌석수 수정
+			int db_remain = reservationVO.getRemain();
+			int db_people = reservationVO.getRes_people();
+			reservationVO.setRemain(db_remain + db_people);
+			
 			// 현재 내 포인트 조회
 			int my_point = pointService.myTotalPoint(db_point.getMem_num());
 			if(my_point + db_use_point < db_add_point) {
@@ -399,7 +401,7 @@ public class ReservationController {
 				pointVO.setMem_num(db_point.getMem_num());
 				
 				// 예매 취소 처리
-				resService.deleteRes(res_num);
+				resService.deleteRes(reservationVO);
 				pointService.insertResRefundPoint(pointVO);
 				
 				mapAjax.put("result","success");

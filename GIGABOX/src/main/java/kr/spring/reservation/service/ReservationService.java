@@ -36,8 +36,6 @@ public interface ReservationService {
 	public ScheduleVO selectSchedule(Integer sch_num);
 	// 상영시간표 수정
 	public void updateSchedule(ScheduleVO schedule);
-	// 상영시간표 삭제
-	public void deleteSchedule(Integer sch_num);
 	
 	// 상영시간표 목록 불러오기
 	public List<ScheduleVO> getScheduleList(Map<String, Object> map);
@@ -53,7 +51,7 @@ public interface ReservationService {
 	public List<String> getSeatsDB(Integer sch_num);
 	
 	// 예매취소
-	public void deleteRes(String res_num);
+	public void deleteRes(ReservationVO reservation);
 	
 	//관리자 - 전체 회원 예매 내역
 	public List<ReservationVO> selectResList(Map<String, Object> map);
