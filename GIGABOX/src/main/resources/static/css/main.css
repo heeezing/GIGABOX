@@ -331,25 +331,26 @@
 	float:right;
 	font-size:20pt;
 	font-weight:bold;
-	margin:10px 40px 0 0;
+	margin:13px 55px 0 0;
 	color:gray;
 }
 
 .ev-list{
 	clear:both;
-	margin: 0 0 0 20px;
+	margin: 0 0 0 40px;
 }
 
 .event-detail{
-	width:430px;
-	padding:0 0 30px 30px;
+	width:270px;
+	height:355px;
+	padding:0 45px 20px 0;
 	float:left;
 	font-weight:bold;
 	text-align:center;
 	overflow:hidden;
 }
 .event-detail img{
-	width:420px;
+	width:270px;
 	height:270px;
 	margin-bottom:10px;
 	border-radius:20px;

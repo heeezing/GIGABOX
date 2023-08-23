@@ -24,11 +24,6 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public List<MovieVO> selectAllMovie() {
-		return mainMapper.selectAllMovie();
-	}
-
-	@Override
 	public List<EventVO> selectEvent() {
 		return mainMapper.selectEvent();
 	}

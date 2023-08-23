@@ -17,7 +17,7 @@ public interface MainMapper {
 	@Select("SELECT movie_num,m_plot,m_rating,m_title,m_runtime FROM movie WHERE rownum <= 4 ORDER BY movie_num")
 	public List<MovieVO> selectAllMovie();
 	//이벤트 정보 불러오기 (최신 4건)
-	@Select("SELECT event_num,title,event_start,event_end FROM event WHERE rownum <= 4 ORDER BY event_num DESC")
+	@Select("SELECT event_num,title,event_start,event_end FROM event WHERE rownum <= 6 ORDER BY event_num DESC")
 	public List<EventVO> selectEvent();
 	//공지사항 정보 불러오기 (최신 1건)
 	@Select("SELECT noti_num,title FROM (SELECT * FROM cs_noti ORDER BY reg_date DESC) WHERE rownum = 1")

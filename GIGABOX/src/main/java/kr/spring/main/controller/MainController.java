@@ -33,7 +33,7 @@ public class MainController {
 		model.addAttribute("mList", mList);
 		
 		List<EventVO> eList = mainService.selectEvent();
-		log.debug("<<이벤트 - 최신 4개 이벤트>> : " + eList);
+		log.debug("<<이벤트 - 최신 6개 이벤트>> : " + eList);
 		model.addAttribute("eList", eList);
 		
 		List<CsVO> nList = mainService.selectNotice();
