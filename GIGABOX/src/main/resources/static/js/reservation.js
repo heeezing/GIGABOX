@@ -1,4 +1,5 @@
 $(function(){
+	
 	//유효성 체크
 	$('#admin_scheduleAdd').submit(function(){
 		if($('#movie_num').val()=='0'){
@@ -79,8 +80,6 @@ $(function(){
 		sch_date = $(this).attr('data-num');
 		console.log(sch_date);
 	});
-	
-	let movie_num;
 	
 	$('.movie_choice .btn').click(function() {
         $('.movie_choice .btn').removeClass('btn-on');
@@ -186,6 +185,6 @@ $(function(){
 	
 	//메인페이지 박스오피스에서 예매버튼 눌러올 때
 	if(movie_num){
-		$('.movie-choice .btn[data-num="' + movie_num + '"]').first().click();
+		$('.movie-choice .btn[data-num="' + movie_num + '"]').click();
 	}
 });

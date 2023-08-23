@@ -22,7 +22,7 @@
 					<c:forEach var="date" items="${dateList}">
 					 	<div class="year"><fmt:formatDate value="${date}" pattern="yyyy.MM"/></div>
 					 	<fmt:formatDate var="pattern_date" value="${date}" pattern="yyyy-MM-dd"/>
-					 	<button class="date-button" data-num="${pattern_date}" onclick="selectDate(this)">
+					 	<button class="date-button" data-num="${pattern_date}">
 					 		<div class="day-of-month"><fmt:formatDate value="${date}" pattern="d"/></div>&nbsp;
 					 		<span class="day-of-week"><fmt:formatDate value="${date}" pattern="E"/></span>
 					 	</button>
@@ -31,12 +31,12 @@
 			</div>
 			<div class="quick_resArea">
 					<div class="movie_choice">
-						<p class="title">영화</p>
+						<p class="title title-cinema" data-num="${param.movie_num}">영화</p>
 						<div class="all-list">
-							<ul>
+						<ul>
 								<c:forEach var="movie" items="${movieList}">
 						            <li>
-						            	<button type="button" class="btn" id="movie_btn" data-num="${movie.movie_num}">${movie.m_title}</button>
+						            	<button type="button" class="btn" data-num="${movie.movie_num}">${movie.m_title}</button>
 						            </li>
 						        </c:forEach>
 							</ul>
