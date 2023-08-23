@@ -108,7 +108,7 @@ public class BoardController {
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
 
-			list = orderService.selectListOrderByMem_num(map);
+			list = orderService.selectListOrderByMem_num(map); 
 		}
 
 		ModelAndView mav = new ModelAndView();
