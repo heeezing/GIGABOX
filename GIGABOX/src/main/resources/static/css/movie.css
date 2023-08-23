@@ -1,24 +1,64 @@
 @charset "UTF-8";
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+/*---------- 상단 링크 레이아웃 -----------*/
+hr{
+	margin:0;
+}
+.page-util {
+    display: block;
+    position: static;
+    width: 100%;
+    height: 42px;
+    background-color: #f8f8fa;
+}
+.page-util .location {
+    float: left;
+    height: 42px;
+    margin-left:190px;
+}
+.page-util .location span {
+    overflow: hidden;
+    display: block;
+    float: left;
+    width: 13px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-home.png) no-repeat center;
+} 
+.page-util .location a {
+    display: block;
+    position: relative;
+    float: left;
+    height: 42px;
+    margin: 0 0 0 25px;
+    padding: 0;
+    line-height: 46px;
+    color: #666;
+}
+.page-util .location a:before, .page-util .location span.no-link:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -14px;
+    top: 0;
+    width: 5px;
+    height: 42px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-location-arr.png) no-repeat left center;
+}
+.page-util.fixed {
+    position: fixed;
+    left: 0;
+    right: inherit;
+    top: 0;
+    z-index: 51;
+    background-color: #444;
+}
+.page-util.fixed .location a {
+    color: #fff;
+}
 /*===== movieList =====*/
-/* .list-search{
-	margin-left:40%;
-	margin-right:0;
-	margin-bottom:30px;
-}
-.movie-list{
-	width:80%;
-	height:30%;
-}
-.movie-list-parent{
-	display:flex;
-}
-.card-img-top{
-	width: 230px!important;
-    height:331px;
-    flex-wrap:wrap;
-} */
-
 
 /*===== movieDetail =====*/
 /* .movie-detailtop {
@@ -182,6 +222,7 @@
 	margin-top:25px;
 	margin-bottom:15px;
 }
+
 .reviewboxcontent{
 	width:100% !important;
 	display:flex;	
@@ -261,6 +302,11 @@
 	border-style: none;
 	margin-top:4%;
 }
+#review_form2{
+	border-style: none;
+	margin-top:4%;
+}
+
 .rating-wrap{
 	display:flex;
 	margin-left:20%;
@@ -274,7 +320,7 @@
     height: 100px; /* 원하는 높이로 설정 */
     width: 100%; /* 원하는 너비로 설정 */
 }
-.review-btn, .review-cancel-btn {
+.review-btn, #review-btn2, .review-cancel-btn {
     width: 35%;
     margin-top: 10%;
     margin-bottom: 40px;
@@ -288,10 +334,10 @@
     font-size: 16px;
     font-weight: bold;
 }
-.review-btn{
+.review-btn , #review-btn2{
 	background-color:rgb(128, 128, 128);
 }
-.review-btn:hover, .review-cancel-btn:hover{
+.review-btn:hover, .review-cancel-btn:hover, #review-btn2:hover{
 	 border:dashed 1px;
 }
 .rw-modal {
@@ -539,3 +585,15 @@ hr {
 
 /*===== movieRegister =====*/
 /*===== movieUpdate =====*/
+.del-res2{
+		color:#fff;
+	border:0;
+	background-color:#666;
+	height:36px;
+	padding:0 15px;
+	text-align:center;
+	border-radius:4px;
+	cursor:pointer;
+	margin:15px 15px 0 0;
+	float:right;
+}

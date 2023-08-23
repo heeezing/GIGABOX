@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.cs.vo.CsPersonalVO;
@@ -305,6 +307,28 @@ public class BoardController {
 		mav.addObject("page",page.getPage());
 		
 		return mav;
+	}
+	
+	//관람평 글 등록
+	@RequestMapping("/board/reviewWrite.do")
+	@ResponseBody
+	public Map<String,String> writeReview(ReviewVO reviewVO, HttpSession session, HttpServletRequest request){
+		log.debug("<<관람평 작성>> : " + reviewVO);
+		
+		Map<String,String> mapJson = new HashMap<String,String>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) {
+			mapJson.put("result","logout");
+		}else {
+			//회원번호 등록
+			reviewVO.setMem_num(user.getMem_num());
+			//관람평 등록
+			boardService.insertReview(reviewVO);
+			
+			mapJson.put("result", "success");
+		}
+		return mapJson;
 	}
 	
 	

@@ -171,6 +171,21 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
 	</select>
+	<!-- 관람평 쓰기 -->
+	<insert id="insertReview" parameterType="reviewVO">
+		INSERT INTO review(
+			review_num,
+			movie_num,
+			mem_num,
+			rating_score,
+			review_content)
+		VALUES(
+			review_seq.nextval,
+			#{movie_num},
+			#{mem_num},
+			#{rating_score},
+			#{review_content})
+	</insert>
 	
 	
 	<!-- 포스트내역 목록 -->

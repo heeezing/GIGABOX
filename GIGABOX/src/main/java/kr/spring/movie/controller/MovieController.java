@@ -302,24 +302,27 @@ public class MovieController {
 
 		// 전체/검색 레코드 수
 		int count = movieService.selectRowCount(map); // 페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 8, 10, "movieList.do",
+		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 8, 10, "premovieList.do",
 				"&order=" + order);
 
 		List<MovieVO> list = null;
 		if (count > 0) {
 			map.put("order", order);
 			map.put("start", page.getStartRow());
-
 			map.put("end", page.getEndRow());
 
 			list = movieService.selectPreList(map);
 		}
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("movieList");
+		mav.setViewName("premovieList");
 		mav.addObject("count", count);
 		mav.addObject("movies", list);
 		mav.addObject("page", page.getPage());
+		
+		log.debug("<list :>>" + list);
+		log.debug("<page :>>" + page.getPage());
+		
 
 		return mav;
 	}	
@@ -386,7 +389,7 @@ public class MovieController {
 		
 		//view에 표시할 메세지
 		model.addAttribute("message","영화 수정이 완료되었습니다!");
-		model.addAttribute("url",request.getContextPath() + "/movie/movieDetail.do?movie_num=" + movie.getMovie_num());
+		model.addAttribute("url",request.getContextPath() + "/movie/movieList.do");
 		
 		return "common/resultView";
 	}
@@ -400,10 +403,18 @@ public class MovieController {
 		return "redirect:/movie/movieAdmin.jsp";
 	}
 	
+	/* =========================영화 상영 종료=============================== */
+	@RequestMapping("/movie/movieUpdateStatus.do")
+	public String updateStatus(@RequestParam int movie_num) {
+		log.debug("<<영화 상영종료 >> : " + movie_num);
+		
+		movieService.updateStatusMovie(movie_num);
+		return "redirect:/movie/movieAdmin.jsp";
+	}
 	
-	@RequestMapping("/movie/moviecheckDelete.do")
+	@RequestMapping("/movie/moviecheckUpdateStatus.do")
 	@ResponseBody
-	public Map<String,String> deleteMovieCheck(@RequestParam String selectmovies,HttpSession session) {
+	public Map<String,String> updateStatusMovieCheck(@RequestParam String selectmovies,HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		
 		Map<String,String> mapJson = new HashMap<String,String>();
@@ -412,10 +423,26 @@ public class MovieController {
 			mapJson.put("result", "logout");
 		}else {
 			String[] Selectmovies = selectmovies.split(",");
-			movieService.deleteMovieCheck(Selectmovies);
+			movieService.updateStatusMovieCheck(Selectmovies);
 			
 			mapJson.put("result", "success");
 		}
+		
+		return mapJson;
+	}
+	/* =========================영화 예매 순위 구하기=============================== */
+	@RequestMapping("/movie/reservationRankByMovie.do")
+	@ResponseBody
+	public Map<String,Object> getRank(Integer movie_num) {
+	    int rank = movieService.reservationRankByMovie(movie_num);
+	    
+	    
+		Map<String,Object> mapJson = new HashMap<String,Object>();
+
+		log.debug("<<rank값? : >>" + rank);
+		log.debug("<<movie_num값? : >>" + movie_num);
+
+	    mapJson.put("rank", rank);
 		
 		return mapJson;
 	}
@@ -531,7 +558,7 @@ public class MovieController {
 	/* =========================관람평 글 개수 세기=============================== */
 	@RequestMapping("/movie/reviewCount.do")
 	@ResponseBody
-	public Map<String,Object> CountReview(int movie_num) {
+	public Map<String,Object> CountReview(Integer movie_num) {
 	    int reviewCount = movieService.selectReviewCount(movie_num);
 	    
 	    
@@ -716,6 +743,20 @@ public class MovieController {
 		log.debug("<<관람평 신고목록>> : " + list);
 		
 		return mav;
+	}
+	
+	/* ========================관람평(신고) 상세=============================== */
+	@RequestMapping("/movie/reviewDetail.do")
+	public ModelAndView getReviewDetail(@RequestParam int review_num) {
+		log.debug("<<관람평 상세>> : " + review_num);
+		
+		//글 상세
+		ReviewVO review = movieService.selectReview(review_num);
+		
+		//내용에 태그 불허
+		review.setReview_content(StringUtil.useBrNoHtml(review.getReview_content()));
+		
+		return new ModelAndView("reviewDetail","review",review);
 	}
 	
 	/* =========================신고 삭제=============================== */	

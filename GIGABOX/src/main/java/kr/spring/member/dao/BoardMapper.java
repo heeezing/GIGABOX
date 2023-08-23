@@ -28,6 +28,7 @@ public interface BoardMapper {
 	//리뷰내역 게시판
 	public List<ReviewVO> selectReview(Map<String,Object> map);
 	public int selectReviewRowCount(Map<String,Object> map);
+	public void insertReview(ReviewVO review);
 	
 	//무비포스트 게시판
 	public List<PostVO> selectPost(Map<String,Object> map);

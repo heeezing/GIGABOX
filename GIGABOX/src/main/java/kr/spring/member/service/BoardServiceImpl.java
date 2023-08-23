@@ -56,6 +56,11 @@ public class BoardServiceImpl implements BoardService{
 	public int selectReviewRowCount(Map<String, Object> map) {
 		return boardMapper.selectReviewRowCount(map);
 	}
+	
+	@Override
+	public void insertReview(ReviewVO review) {
+		boardMapper.insertReview(review);
+	}
 
 	@Override
 	public List<PostVO> selectPost(Map<String, Object> map) {
@@ -107,7 +112,6 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.selectEventRowCount(map);
 	}
 
-	
 
 
 }  
