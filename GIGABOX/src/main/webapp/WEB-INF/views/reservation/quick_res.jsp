@@ -11,7 +11,7 @@
 		<a href="../reservation/quick_res.do">빠른예매</a>
 	</div>
 </div>
-<div class="page-main">
+<div class="page-main" id="speed_reservation">
 	<div class="title">
 		빠른예매
 	</div>

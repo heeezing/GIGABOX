@@ -47,6 +47,9 @@ public interface ReservationMapper {
 	// 상영시간표 삭제
 	@Delete("DELETE FROM schedule WHERE sch_num=#{sch_num}")
 	public void deleteSchedule(Integer sch_num);
+	// 상영시간표 삭제를 위한 예약 삭제
+	@Delete("DELETE FROM reservation r JOIN schedule s ON r.sch_num = s.sch_num WHERE sch_num=#{sch_num}")
+	public void deleteResForSch(Integer sch_num);
 	
 	//주문번호 생성
 	@Select("SELECT 'M' || TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(reservation_seq.NEXTVAL, 6, '0') FROM dual")

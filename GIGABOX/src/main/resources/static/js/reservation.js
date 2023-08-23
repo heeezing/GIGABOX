@@ -1,5 +1,4 @@
 $(function(){
-	
 	//유효성 체크
 	$('#admin_scheduleAdd').submit(function(){
 		if($('#movie_num').val()=='0'){
@@ -81,6 +80,8 @@ $(function(){
 		console.log(sch_date);
 	});
 	
+	
+	
 	$('.movie_choice .btn').click(function() {
         $('.movie_choice .btn').removeClass('btn-on');
         $(this).addClass('btn-on');
@@ -88,6 +89,10 @@ $(function(){
 		
 		if($('.theater-choice .btn').length > 0){
 		$('.theater-choice .btn').first().click();
+		}
+		
+		if($('#speed_reservation').length>0 && location.search.replace(/[?&]+(^=&]+)=([^&]*)/gi).includes('movie_num')){
+			$(this).parents('ul').prepend($(this).parent());
 		}
 		
 		console.log(movie_num);
@@ -182,9 +187,10 @@ $(function(){
 		$('.date-button').first().click();
 	}
 	
-	
-	//메인페이지 박스오피스에서 예매버튼 눌러올 때
-	if(movie_num){
-		$('.movie-choice .btn[data-num="' + movie_num + '"]').click();
+	//초기값 셋팅
+	let cinema_num = $('.title-cinema').attr('data-num');
+	if(cinema_num){
+       $('button[data-num="'+cinema_num+'"]').trigger('click');
 	}
+	
 });
