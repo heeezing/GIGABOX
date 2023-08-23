@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/review_register.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/del_res.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservation.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
@@ -24,42 +25,41 @@
    <c:if test="${count > 0}">
    <c:forEach var="reservation" items="${list}">
    <c:if test="${reservation.res_status == 1}">
-				<div class="res-box">
-					<a href="/movie/movieDetail.do?movie_num=' + item.movie_num + '">
-						<img
-						src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1">
-					</a>
-					<table class="res-table">
-						<tr>
-							<th>예매번호</th>
-							<td colspan="3" class="res-num-text">${reservation.res_num}</td>
-						</tr>
-						<tr>
-							<th>영화명</th>
-							<td colspan="3">${reservation.m_title}</td>
-						</tr>
-						<tr>
-							<th>극장/상영관</th>
-							<td>${reservation.th_name}/${reservation.hall_name}</td>
-							<th>관람인원</th>
-							<td>${reservation.res_people}명</td>
-						</tr>
-						<tr>
-							<th>관람일시</th>
-							<td>${reservation.sch_date}${reservation.sch_start}</td>
-							<th>관람좌석</th>
-							<td>${reservation.res_seats}</td>
-						</tr>
-					</table>
-					<div class="bg-ground">
-						<table class="res-table">
-							<tr>
-								<th>결제일</th>
-								<td>${reservation.res_date}</td>
-							</tr>
-						</table>
-					</div>
-					<input type="button" value="예매취소" class="del-res"> 
+		<div class="res-box">
+			<a href="/movie/movieDetail.do?movie_num=' + item.movie_num + '">
+				<!-- <img src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1"> -->
+			</a>
+			<table class="res-table">
+				<tr>
+					<th>예매번호</th>
+					<td colspan="3" class="res-num-text">${reservation.res_num}</td>
+				</tr>
+				<tr>
+					<th>영화명</th>
+					<td colspan="3">${reservation.m_title}</td>
+				</tr>
+				<tr>
+					<th>극장/상영관</th>
+					<td>${reservation.th_name}/${reservation.hall_name}</td>
+					<th>관람인원</th>
+					<td>${reservation.res_people}명</td>
+				</tr>
+				<tr>
+					<th>관람일시</th>
+					<td>${reservation.sch_date}${reservation.sch_start}</td>
+					<th>관람좌석</th>
+					<td>${reservation.res_seats}</td>
+				</tr>
+			</table>
+			<div class="bg-ground">
+				<table class="res-table">
+					<tr>
+						<th>결제일</th>
+						<td>${reservation.res_date}</td>
+					</tr>
+				</table>
+			</div>
+			<input type="button" value="예매취소" class="del-res" data-num="${reservation.res_num}"> 
 					<input type="button" value="관람평 작성" id="openrwButton">
 <%-- 					<!-- 모달 -->
 					<div class="rw-modal" id="rw-modal">
