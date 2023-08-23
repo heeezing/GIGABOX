@@ -4,12 +4,14 @@ import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class PointVO {
 	private int pt_num;
-	private int res_num;
+	private String res_num;
 	private String orders_num;
 	private String pt_detail;
 	private int mem_num;

@@ -23,6 +23,11 @@ public interface PointService {
 	//스낵 구매 취소 시 포인트 환불
 	public void insertRefundPoint(PointVO pointVO);
 	
+	//영화 예매 취소 시 해당 주문의 적립/사용 포인트 체크
+	public PointVO selectResCancelPoint(String res_num);
+	//영화 예매 취소 시 포인트 환불
+	public void insertResRefundPoint(PointVO pointVO);
+	
 	//[관리자] 회원 포인트 내역 레코드 수
 	public int selectPointCount(Map<String,Object> map);
 	//[관리자] 회원 포인트 내역 목록

@@ -28,6 +28,7 @@ import kr.spring.member.vo.MemberVO;
 import kr.spring.movie.vo.MovieVO;
 import kr.spring.order.service.OrderService;
 import kr.spring.point.service.PointService;
+import kr.spring.point.vo.PointVO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ScheduleVO;
@@ -358,14 +359,45 @@ public class ReservationController {
 	 *  예매 취소
 	 *========================*/
 	@RequestMapping("/reservation/deleteRes.do")
-	public String DeleteRes(@RequestParam String res_num,HttpServletRequest request,Model model) {
-		resService.deleteRes(res_num);
+	@ResponseBody
+	public Map<String,String> DeleteRes(@RequestParam String res_num,HttpSession session,HttpServletRequest request,Model model) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		Map<String,String> mapAjax = new HashMap<String,String>();
 		
-		model.addAttribute("message", "예매가 취소되었습니다.");
-		model.addAttribute("url", request.getContextPath()+"/board/reservationList.do");
+		log.debug("<<res_num>> : " + res_num);
 		
-		return "common/resultView";
-		
+		if(user == null) { // 로그인 X
+			mapAjax.put("result","logout");
+		}else { // 로그인 O
+			// 취소 주문 건의 적립, 사용 포인트 조회
+			PointVO db_point = pointService.selectResCancelPoint(res_num);
+			int db_use_point = db_point.getUse_point();
+			int db_add_point = db_point.getAdd_point();
+			
+			log.debug("<<db_point>> : " + db_point);
+			log.debug("<<db_use_point>> : " + db_point);
+			log.debug("<<db_add_point>> : " + db_point);
+			
+			// 현재 내 포인트 조회
+			int my_point = pointService.myTotalPoint(db_point.getMem_num());
+			if(my_point + db_use_point < db_add_point) {
+				mapAjax.put("result", "shortage");
+			}else {
+				// 사용 포인트는 환불, 적립 포인트는 차감
+				PointVO pointVO = new PointVO();
+				pointVO.setAdd_point(db_use_point);
+				pointVO.setUse_point(db_add_point);
+				pointVO.setRes_num(res_num);
+				pointVO.setMem_num(db_point.getMem_num());
+				
+				// 예매 취소 처리
+				resService.deleteRes(res_num);
+				pointService.insertResRefundPoint(pointVO);
+				
+				mapAjax.put("result","success");
+			}
+		}
+		return mapAjax;
 	}
 	
 	/*========================
