@@ -23,7 +23,7 @@
 				${orders.orders_date} ~ ${orders.valid_date}
 			</dd>
 	 	</dl>
-	 	<div class="button-container">
+	 	<div class="button-container-user">
 	 		<c:if test="${total_cancel}">
 		 	<input type="button" value="전체취소" class="round inred" data-status="4" id="status_cancel" onclick="statusAllChangeUser(this)">
 			</c:if>
@@ -39,8 +39,7 @@
 				<th>쿠폰번호</th>
 				<th>상품명</th>
 				<th>판매금액</th>
-				<th>수량</th>
-				<th>상태</th>
+				<th style="width:80px;">상태</th>
 			</tr>
 			</thead>
 			
@@ -75,31 +74,27 @@
 						</span>
 						</c:if>
 					</td>
-					<!-- (4)구매수량 -->
-					<td class="align-center">
-						<fmt:formatNumber value="${detail.orders_quantity}"/>개
-					</td>
-					<!-- (5)상태 -->
-					<td class="align-center">
+					<!-- (4)상태 -->
+					<td class="align-center status-span">
 						<c:if test="${detail.orders_status == 1}">
 							<span style="color:blue;">사용가능</span><br>
 							<div class="button-container">
 							<c:if test="${point.use_point == 0}">
-							<input type="button" value="주문취소" class="round inred detail_num" 
+							<input type="button" value="주문취소" class="round inwhitered" 
 								   data-status="4" data-num="${detail.detail_num}" onclick="statusChangeUser(this)">
 							</c:if>
 							</div>						
 						</c:if>
 						<c:if test="${detail.orders_status == 2}">
 						<span style="color:green;">사용완료</span><br>
-						<span style="font-size:10pt;">
+						<span style="font-size:9pt;">
 							<fmt:formatDate value="${detail.modify_date}" pattern="yy-MM-dd HH:mm:ss"/>
 						</span>
 						</c:if>
 						<c:if test="${detail.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
 						<c:if test="${detail.orders_status == 4}">
 						<span style="color:red;">주문취소</span><br>
-						<span style="font-size:10pt;">
+						<span style="font-size:9pt;">
 							<fmt:formatDate value="${detail.modify_date}" pattern="yy-MM-dd HH:mm:ss"/>
 						</span>
 						</c:if>
@@ -120,8 +115,11 @@
 	</div>
 	</c:if>
 	
-	<!-- 결제 -->
-	<div class="com_box_design_title payment-info">결제 정보</div>	
+	<!-- 결제 정보 -->
+	<div class="com_box_design_title payment-info">
+		결제 정보
+		<span class="searchResult" style="font-size:11pt;">[ * 포인트 사용 결제 시 부분 취소가 불가합니다.]</span>
+	</div>	
 	<table class="cart-table payment-table">
 		<tr>
 			<td>총 상품 금액</td>

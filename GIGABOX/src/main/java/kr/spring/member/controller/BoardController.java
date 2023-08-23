@@ -135,7 +135,8 @@ public class BoardController {
 		OrderVO order = orderService.selectOrder(orders_num);
 		PointVO point = pointService.selectPointByOrders_num(orders_num);
 		List<OrderDetailVO> detailList = orderService.selectListOrderDetail(orders_num);
-	
+		
+		//하나라도 주문 상태가 1(사용가능)이 아닌 경우 false 반환 -> 전체 취소 버튼 X
 		for(OrderDetailVO vo : detailList) {
 			if(vo.getOrders_status() != 1) {
 				model.addAttribute("total_cancel", false);

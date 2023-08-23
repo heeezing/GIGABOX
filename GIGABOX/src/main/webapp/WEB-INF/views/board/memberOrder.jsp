@@ -49,8 +49,8 @@
 	<c:if test="${count > 0}">
 	<table class="striped-table">
 		<tr>
-			<th style="width:140px;">주문일</th>
-			<th style="width:150px;">주문번호</th>
+			<th style="width:130px;">주문일</th>
+			<th style="width:140px;">주문번호</th>
 			<th>상품명</th>
 			<th>구매금액</th>
 			<th>내역</th>

@@ -18,12 +18,9 @@
 			<dd class="border-right margin">${orders_date}</dd>
 			<dt>주문번호</dt>
 			<dd class="border-right margin" id="orders_num">${orders.orders_num}</dd>
-			<dt>사용현황</dt>
+			<dt>유효기간</dt>
 			<dd class="margin">
-				<c:if test="${orders.orders_status == 1}">사용가능</c:if>
-				<c:if test="${orders.orders_status == 2}">${modify_date} 사용완료</c:if>
-				<c:if test="${orders.orders_status == 3}">기간만료</c:if>
-				<c:if test="${orders.orders_status == 4}">${modify_date} 주문취소</c:if>
+				${orders.orders_date} ~ ${orders.valid_date}
 			</dd>
 	 	</dl>
 	</div>
@@ -46,6 +43,7 @@
 			<tr>
 				<th>상품명</th>
 				<th>수량</th>
+				<th>상태</th>
 			</tr>
 			</thead>
 			
@@ -65,6 +63,23 @@
 						<span style="padding:0 20px;">
 						<fmt:formatNumber value="${detail.orders_quantity}"/>개
 						</span>
+					</td>
+					<!-- (4)상태 -->
+					<td class="align-center status-span">
+						<c:if test="${detail.orders_status == 1}"><span style="color:blue;">사용가능</span></c:if>
+						<c:if test="${detail.orders_status == 2}">
+						<span style="color:green;">사용완료</span><br>
+						<span style="font-size:9pt;">
+							<fmt:formatDate value="${detail.modify_date}" pattern="yy-MM-dd HH:mm:ss"/>
+						</span>
+						</c:if>
+						<c:if test="${detail.orders_status == 3}"><span style="color:gray;">기간만료</span></c:if>
+						<c:if test="${detail.orders_status == 4}">
+						<span style="color:red;">주문취소</span><br>
+						<span style="font-size:9pt;">
+							<fmt:formatDate value="${detail.modify_date}" pattern="yy-MM-dd HH:mm:ss"/>
+						</span>
+						</c:if>
 					</td>
 				</tr>
 				</c:forEach>

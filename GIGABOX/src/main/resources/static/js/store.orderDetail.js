@@ -112,7 +112,7 @@
 			let choice = confirm('해당 주문을 전체 취소하시겠습니까?');
 			if(choice){
 				$.ajax({
-					url:'admin_statusChange.do',
+					url:'admin_statusAllChange.do',
 					type:'post',
 					data:{orders_num:orders_num,orders_status:num},
 					dataType:'json',

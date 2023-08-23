@@ -43,6 +43,7 @@
 	<table class="striped-table">
 		<tr>
 			<th>거래일</th>
+			<th>NO.</th>
 			<th>아이디</th>
 			<th>내용</th>
 			<th>상품금액</th>
@@ -52,6 +53,14 @@
 		<c:forEach var="point" items="${list}">
 		<tr>
 			<td class="align-center">${point.pt_date}</td>
+			<td class="align-center">
+				<c:if test="${!empty point.res_num}">
+				${point.res_num}
+				</c:if>
+				<c:if test="${!empty point.orders_num}">
+				${point.orders_num}
+				</c:if>
+			</td>
 			<td class="align-center">${point.id}</td>
 			<td class="align-center">${point.pt_detail}</td>
 			<td class="align-center"><fmt:formatNumber value="${point.orders_total}"/>원</td>

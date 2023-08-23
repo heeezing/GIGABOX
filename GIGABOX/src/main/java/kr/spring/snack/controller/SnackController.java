@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.cart.service.CartService;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.order.service.OrderService;
 import kr.spring.snack.service.SnackService;
 import kr.spring.snack.vo.SnackVO;
 import kr.spring.util.PagingUtil;
@@ -30,6 +31,9 @@ public class SnackController {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	/*======================
 		   자바빈 초기화
@@ -51,10 +55,14 @@ public class SnackController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		int cartCount = 0;
-		//로그인 회원 정보 가져옴
+		int giftCount = 0;
+		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user != null) { //로그인 O
 			cartCount = cartService.selectCartCount(user.getMem_num());
+			Map<String,Object> g_map = new HashMap<String,Object>();
+			g_map.put("to_id", user.getId());
+			giftCount = orderService.selectGiftCountByTo_id(g_map);
 		}
 		
 		//전체or검색 레코드 수
@@ -80,6 +88,7 @@ public class SnackController {
 		mav.setViewName("snackList"); //tiles 설정
 		mav.addObject("count", count);
 		mav.addObject("cartCount", cartCount); 
+		mav.addObject("giftCount", giftCount); 
 		mav.addObject("list", list);
 		mav.addObject("sn_category", sn_category);
 		mav.addObject("page", page.getPage());

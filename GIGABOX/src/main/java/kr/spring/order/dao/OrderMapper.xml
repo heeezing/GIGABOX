@@ -161,34 +161,39 @@
 	
 	
 	
-	<!-- 선물 목록 -->
+	<!-- 내 선물함 -->
 	<!-- 검색창 용 sql 조각 -->
 	<sql id="giftSearchByUser">
-		WHERE to_id = #{to_id} 
+		WHERE o.to_id = #{to_id} 
 		<if test="keyword != null and keyword != ''">
 			<if test="keyfield == 1">
-				AND sn_name LIKE '%' || #{keyword} || '%' 
+				AND o.sn_name LIKE '%' || #{keyword} || '%' 
 			</if>
 		</if>
+		AND d.orders_status != 4
 	</sql>
 	
 	<!-- 전체or검색 레코드 수 -->
 	<select id="selectGiftCountByTo_id" parameterType="map">
-		SELECT COUNT(*) 
-		FROM orders 
-		<include refid="giftSearchByUser"></include>
+		SELECT COUNT(*)
+		FROM (SELECT *
+		      FROM orders 
+		      WHERE orders_num IN (SELECT DISTINCT o.orders_num
+                          		   FROM orders o JOIN orders_detail d ON o.orders_num = d.orders_num 
+                             	   <include refid="giftSearchByUser"></include>))
 	</select>
 	
 	<select id="selectListGiftByTo_id" parameterType="map" resultType="orderVO">
 		SELECT * 
 		FROM (SELECT a.*, rownum rnum 
-			  FROM (SELECT * 
-			  		FROM orders 
-			  		<include refid="giftSearchByUser"></include> 
-			  		ORDER BY orders_num DESC)a) 
+		      FROM (SELECT *
+		            FROM orders 
+		            WHERE orders_num IN (SELECT DISTINCT o.orders_num
+						                 FROM orders o JOIN orders_detail d ON o.orders_num = d.orders_num 
+						                <include refid="giftSearchByUser"></include>))a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
-		]]>		  		
+		]]>		
 	</select>
 	
 	

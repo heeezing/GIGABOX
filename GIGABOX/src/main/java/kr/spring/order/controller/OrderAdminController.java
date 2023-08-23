@@ -93,6 +93,7 @@ public class OrderAdminController {
 		log.debug("<<order_detail>> : " + detailList);
 		log.debug("<<point>> : " + point);
 		
+		//하나라도 주문 상태가 1(사용가능)이 아닌 경우 false 반환 -> 전체 취소&사용 버튼 X
 		for(OrderDetailVO vo : detailList) {
 			if(vo.getOrders_status() != 1) {
 				model.addAttribute("total_cancel", false);
@@ -175,6 +176,7 @@ public class OrderAdminController {
 						PointVO pointVO = new PointVO();
 						pointVO.setUse_point(add_point);
 						pointVO.setDetail_num(detail_num);
+						pointVO.setOrders_num(orders_num);
 						OrderVO orderVO = orderService.selectOrder(orders_num);
 						pointVO.setMem_num(orderVO.getMem_num());
 						
@@ -210,43 +212,40 @@ public class OrderAdminController {
 		if(user == null) { //로그인 X
 			mapAjax.put("result","logout");
 		}else { 
-			//해당 주문 건의 모든 상품이 다 사용가능 상태일때만 가능
-			
-			
-				if(orders_status == 2) {
-					//수정 처리
+			if(orders_status == 2) {
+				//수정 처리
+				orderService.statusAllChange(orders_num, orders_status);
+				mapAjax.put("result","success");
+			}else if(orders_status == 4) {
+				//해당 주문의 상세 정보 체크
+				OrderVO order = orderService.selectOrder(orders_num);
+				//해당 주문의 적립/사용 포인트 체크
+				PointVO point = pointService.selectPointByOrders_num(orders_num);
+				int db_add_point = point.getAdd_point(); //당시 적립 포인트 (이제 다시 회수될 것)
+				int db_use_point = point.getUse_point(); //당시 사용 포인트 (이제 다시 넣어줄 것)
+				//List<OrderDetailVO> detailList = orderService.selectListOrderDetail(orders_num);
+				
+				//현재 내 포인트 조회
+				int my_point = pointService.myTotalPoint(user.getMem_num());
+				if(my_point + db_use_point < db_add_point) {
+					mapAjax.put("result", "shortage");
+				}else {
+					//당시 적립 포인트는 차감 처리
+					PointVO pointVO = new PointVO();
+					pointVO.setUse_point(db_add_point);
+					pointVO.setAdd_point(db_use_point);
+					pointVO.setOrders_num(orders_num);
+					OrderVO orderVO = orderService.selectOrder(orders_num);
+					pointVO.setMem_num(orderVO.getMem_num());
+					
+					//주문 취소 처리
 					orderService.statusAllChange(orders_num, orders_status);
+					pointService.insertRefundPoint(pointVO);
+					
 					mapAjax.put("result","success");
-				}else if(orders_status == 4) {
-					//해당 주문의 상세 정보 체크
-					OrderVO order = orderService.selectOrder(orders_num);
-					//해당 주문의 적립/사용 포인트 체크
-					PointVO point = pointService.selectPointByOrders_num(orders_num);
-					int db_add_point = point.getAdd_point(); //당시 적립 포인트 (이제 다시 회수될 것)
-					int db_use_point = point.getUse_point(); //당시 사용 포인트 (이제 다시 넣어줄 것)
-					//List<OrderDetailVO> detailList = orderService.selectListOrderDetail(orders_num);
-					
-					//현재 내 포인트 조회
-					int my_point = pointService.myTotalPoint(user.getMem_num());
-					if(my_point + db_use_point < db_add_point) {
-						mapAjax.put("result", "shortage");
-					}else {
-						//당시 적립 포인트는 차감 처리
-						PointVO pointVO = new PointVO();
-						pointVO.setUse_point(db_add_point);
-						pointVO.setAdd_point(db_use_point);
-						pointVO.setOrders_num(orders_num);
-						OrderVO orderVO = orderService.selectOrder(orders_num);
-						pointVO.setMem_num(orderVO.getMem_num());
-						
-						//주문 취소 처리
-						orderService.statusAllChange(orders_num, orders_status);
-						pointService.insertRefundPoint(pointVO);
-						
-						mapAjax.put("result","success");
-					}
-					
 				}
+				
+			}
 			
 		}
 		

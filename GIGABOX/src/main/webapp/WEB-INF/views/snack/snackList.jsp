@@ -29,8 +29,14 @@
 			</ul>
 			<ul></ul>
 			<ul class='cart_content'>
-       			<li><a href='${pageContext.request.contextPath}/board/giftList.do'>내 선물함</a><span id='giftconcnt'>0</span></li>
-       			<li><a href='${pageContext.request.contextPath}/cart/list.do'>장바구니</a><span id='cartviewcnt'>${cartCount}</span></li>
+       			<li>
+       				<a href='${pageContext.request.contextPath}/board/giftList.do'>내 선물함</a>
+       				<span id='giftconcnt'>${giftCount}</span>
+       			</li>
+       			<li>
+       				<a href='${pageContext.request.contextPath}/cart/list.do'>장바구니</a>
+       				<span id='cartviewcnt'>${cartCount}</span>
+       			</li>
        		</ul>
 		 </div>
 	</div>

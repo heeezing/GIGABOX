@@ -52,7 +52,6 @@
 			<th>보내신분</th>
 			<th>선물수신일</th>
 			<th>유효기간</th>
-			<th>상태</th>
 		</tr>
 		<c:forEach var="gift" items="${list}">
 		<tr>
@@ -65,12 +64,6 @@
 			<td class="align-center">${gift.from_id}</td>
 			<td class="align-center">${gift.orders_date}</td>
 			<td class="align-center">~${gift.valid_date}</td>
-			<td class="align-center">
-				<c:if test="${gift.orders_status == 1}">사용가능</c:if>
-				<c:if test="${gift.orders_status == 2}">사용완료</c:if>
-				<c:if test="${gift.orders_status == 3}">기간만료</c:if>
-				<c:if test="${gift.orders_status == 4}">주문취소</c:if>
-			</td>
 		</tr>
 		</c:forEach>
 	</table>

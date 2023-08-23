@@ -423,9 +423,6 @@ dl:after{
     line-height: 21px;
     font-weight: bold;
     font-size: 12px;
-    text-align: center;
-    vertical-align: middle;
-    float: right;
     cursor: pointer;
     margin-top: 10px;
     padding: 3px;
@@ -441,11 +438,30 @@ dl:after{
 	background: #fb4357;
     border: 2px solid #fb4357;
 }
+.inwhiteblue{
+	background:#fff;
+	border: 2px solid #037b94;
+	color: #037b94;
+	margin-right:4px;
+}
+.inwhitered{
+	background:#fff;
+	border: 2px solid #fb4357;
+	color: #fb4357;
+}
 .button-container { 
 	display: flex;
 	gap: 3px;
 	justify-content: center;
+	text-align:right;
 }
+.button-container-user, .button-container-admin { 
+	text-align:right;
+}
+.status-span span{
+	font-size:11pt;
+}
+
 /*선물 정보*/
 .gift-to, .gift-from, .gift-msg{
 	font-size:11pt;

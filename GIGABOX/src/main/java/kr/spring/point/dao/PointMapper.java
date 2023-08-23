@@ -21,16 +21,16 @@ public interface PointMapper {
 	//스낵 구매 시 포인트 적립 및 사용 - order에서 사용
 	public void insertSnackPoint(OrderVO orderVO);
 	
-	//스낵 구매 취소 시 해당 주문의 적립/사용 포인트 체크
+	//스낵 구매 취소 시 해당 주문의 최초 적립/사용 포인트 체크
 	@Select("SELECT * FROM point WHERE orders_num=#{orders_num} AND pt_detail NOT LIKE '%' || '취소'")
 	public PointVO selectPointByOrders_num(String orders_num);
 	//스낵 구매 전체 취소 시 사용 포인트 환불 및 적립 포인트 회수
 	@Insert("INSERT INTO point(pt_num,orders_num,mem_num,add_point,use_point,pt_detail) "
-		  + "VALUES(point_seq.nextval,#{orders_num},#{mem_num},#{add_point},#{use_point},'스낵전체취소')")
+		  + "VALUES(point_seq.nextval,#{orders_num},#{mem_num},#{add_point},#{use_point},'스낵 전체 취소')")
 	public void insertRefundPoint(PointVO pointVO);
 	//스낵 구매 부분 취소 시 적립 포인트 회수
-	@Insert("INSERT INTO point(pt_num,detail_num,mem_num,use_point,pt_detail) "
-		  + "VALUES(point_seq.nextval,#{detail_num},#{mem_num},#{use_point},'스낵부분취소')")
+	@Insert("INSERT INTO point(pt_num,orders_num,detail_num,mem_num,use_point,pt_detail) "
+		  + "VALUES(point_seq.nextval,#{orders_num},#{detail_num},#{mem_num},#{use_point},'스낵 부분 취소')")
 	public void minusAddPoint(PointVO pointVO);
 	
 	//영화 예매 취소 시 해당 주문의 적립/사용 포인트 체크

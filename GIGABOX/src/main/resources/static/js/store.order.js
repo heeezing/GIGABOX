@@ -32,7 +32,7 @@ $(function(){
 					alert('일치하는 회원이 없습니다.')
 					checkMember = 0;
 				}else if(param.result = 'success'){
-					$('#searchResult').text(to_id + '님에게 선물을 발송해드릴게요!');
+					$('#search_result').text(to_id + '님에게 선물을 발송해드릴게요!');
 					checkMember = 1;
 				}else{
 					checkMember = 0;
@@ -51,11 +51,11 @@ $(function(){
 	//조회 성공 후에 수정 시 초기화
 	$('#to_id').keydown(function(){
 		checkMember = 0; //중복값 초기화
-		$('#searchResult').text(''); //메시지 초기화
+		$('#search_result').text(''); //메시지 초기화
 	}); 
 	$('#to_phone').keydown(function(){
 		checkMember = 0; //중복값 초기화
-		$('#searchResult').text(''); //메시지 초기화
+		$('#search_result').text(''); //메시지 초기화
 	}); 
 
 	

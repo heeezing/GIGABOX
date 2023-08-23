@@ -187,7 +187,7 @@
 		<c:if test="${orders_type == 2}">
 		<div class="com_box_design_wrap">
 		<strong class="com_box_design_title" style="margin:0 0 10px 0;">선물 받는 분 정보</strong>
-		<span class="searchResult"></span>
+		<span id="search_result" class="searchResult"></span>
 	       <ul class="com_box_design">
 	           <li>
 	               <label for="to_id">아이디</label>
@@ -222,7 +222,7 @@
 		<!-- 포인트 사용 정보 -->
 		<div class="com_box_design_wrap">
 		<strong class="com_box_design_title" style="margin:0 0 10px 0;">포인트</strong>
-		<span class="searchResult" style="font-size:11pt;">( * 포인트 사용 시 부분 취소가 불가합니다.)</span>
+		<span class="searchResult" style="font-size:11pt;">[ * 포인트 사용 시 부분 취소가 불가합니다.]</span>
 	       <ul class="com_box_design">
 	           <li>
 	               <label for="have_point">보유</label>
