@@ -16,6 +16,7 @@ public class ScheduleVO {
 	private int th_num; //극장 번호
 	private int hall_num; //상영관 번호
 	private int movie_num; //영화 번호
+	private String m_poster2; // 영화 포스터(api)
 	
 	private String m_title;//영화 이름
 	private String th_name;//극장

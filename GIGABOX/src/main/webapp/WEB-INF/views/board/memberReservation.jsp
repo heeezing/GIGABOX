@@ -27,6 +27,7 @@
    <c:if test="${reservation.res_status == 1}">
 		<div class="res-box">
 			<a href="/movie/movieDetail.do?movie_num=' + item.movie_num + '">
+				<img src="${reservation.m_poster2}" alt="${reservation.m_title}">
 				<!-- <img src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1"> -->
 			</a>
 			<table class="res-table">

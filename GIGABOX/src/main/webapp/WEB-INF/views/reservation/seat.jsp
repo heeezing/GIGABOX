@@ -195,7 +195,7 @@
 						<p class="date">${scheduleVO.sch_date}</p>
 						<p class="time">${scheduleVO.sch_start} ~ ${scheduleVO.sch_end}</p>
 						<p class="poster">
-							<img src="../movie/imageView.do?movie_num=${scheduleVO.movie_num}&movie_type=1">
+							<img src="${scheduleVO.m_poster2}" alt="${scheduleVO.m_title}">
 						</p>
 					</div>
 					<div class="choice-seat-area">
