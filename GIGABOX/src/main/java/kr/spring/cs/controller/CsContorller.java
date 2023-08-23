@@ -2,7 +2,6 @@ package kr.spring.cs.controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.cs.service.CsService;
 import kr.spring.cs.vo.CsVO;
 import kr.spring.cs.vo.FileVO;
+
+import kr.spring.mail.vo.MailVO;
 import kr.spring.cs.vo.CategoryVO;
 import kr.spring.cs.vo.CsPersonalVO;
 import kr.spring.member.service.MemberService;
@@ -50,6 +54,10 @@ public class CsContorller {
 	MemberService MemberService;
 	@Autowired
 	FileUtils fileUtils;
+	@Autowired
+    JavaMailSender javaMailSender;
+	@Autowired
+	MemberService memberService;
 	
 	/*========================
 	 * 자바빈(VO) 초기화
@@ -183,7 +191,7 @@ public class CsContorller {
 		return "common/resultView";
 	}
 	
-	//----------------------------------------------------------------
+
 	@RequestMapping("/cs/csMain.do")
 	public ModelAndView main() {
 		
@@ -209,7 +217,7 @@ public class CsContorller {
 
 		return mav;
 	}
-	//----------------------------------------------------------------
+
 	@RequestMapping("/cs/csQnaList.do")
 	public ModelAndView qnaList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
 								String keyword, String keyfield
@@ -385,10 +393,32 @@ public class CsContorller {
 		csService.insertAdminPersonal(csPersonalVO);
 		csService.updateState1(csPersonalVO.getPersonal_num());
 		
-		//View에 표시할 메시지
-		model.addAttribute("message", "정상적으로 업로드되었습니다.");
-		model.addAttribute("url", request.getContextPath()+"/cs/csPersonalList.do");
+		//질문글 검색 => 작성자 mem_num
+		CsPersonalVO cs = csService.selectCsPersonal(csPersonalVO.getPersonal_num());
 		
+		MemberVO member = memberService.selectMember(cs.getMem_num());
+		log.debug("<<email주소>> : "+ member.getEmail());
+		
+		//이메일 쓰기
+		MailVO mail = new MailVO();
+		mail.setEmail(member.getEmail());
+		mail.setTitle( csPersonalVO.getTitle());
+		mail.setContent(csPersonalVO.getContent());
+		
+		log.debug("<<mail>> : " + mail);
+		
+		//안내 이메일 보내기 
+		ResponseEntity<Object> output = send(mail);
+		log.debug("<<output>> : " + output);
+		
+		//View에 표시할 메시지
+		if(output != null) {
+			model.addAttribute("message", "답변 이메일이 전송되었습니다.");
+		}else {
+			model.addAttribute("message", "답변 이메일 전송중 문제가 발생하였습니다.");
+		}
+	
+		model.addAttribute("url",request.getContextPath()+"/cs/csPersonalList.do");
 		return "common/resultView";
 	}
 	
@@ -430,7 +460,6 @@ public class CsContorller {
 			csService.deleteCsFile(personal_num);//첨부파일 삭제
 			csService.deleteCsPersonal(personal_num);
 		}
-		
 		
 		//View에 표시할 메시지
 		model.addAttribute("message", "삭제되었습니다.");
@@ -509,8 +538,21 @@ public class CsContorller {
             response.getOutputStream().write(fileByte);
             response.getOutputStream().flush();
             response.getOutputStream().close();
-        
-    }
+	}
 	
+		public ResponseEntity<Object> send(MailVO mailVO) {
 	
+	        // 이메일 발신될 데이터 적재
+	        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+	        simpleMailMessage.setTo(mailVO.getEmail());//받는사람 주소
+	        simpleMailMessage.setSubject(mailVO.getTitle());
+	        simpleMailMessage.setText(mailVO.getContent());
+	
+	        // 이메일 발신
+	        javaMailSender.send(simpleMailMessage);
+	
+	        // 결과 반환
+	        return ResponseEntity.ok(true);
+	    }
+
 }

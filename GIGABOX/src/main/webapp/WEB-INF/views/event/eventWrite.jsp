@@ -2,18 +2,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
-<!-- 이벤트 작성 폼 시작 -->
-<!-- include libraries (jquery,bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<style>
-.ck-editor__editable_inline{
-	min-height:250px;
-}
-</style>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!-- include ckeditor js -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/ckeditor.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploadAdapter.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
+<script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
+ -->
+
+
 <div>
 
 	<form action="eventWrite.do" method="post" enctype="multipart/form-data" style="width: 80%;border: none;">
@@ -65,26 +64,25 @@
                                 <td colspan="3">
                                     <div class="textarea">
                                         <!-- CK editor 시작 -->
-		<textarea name="content" id="content"></textarea>
-			<script>
-					function MyCustomUploadAdapterPlugin(editor){
-						editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-							return new UploadAdapter(loader);
-						}
-					}
-					
-					ClassicEditor.create(document.querySelector('#content'),{
-						           extraPlugins:[MyCustomUploadAdapterPlugin]
-					             })
-					             .then(editor => {
-					            	 window.editor = editor;
-					             })
-					             .catch(error => {
-					            	 console.error(error);
-					             });
-				</script>
-		<!-- CK editor 끝 -->
-                                       
+										<textarea id="summernote" name="content"></textarea>
+                                        	  <script>
+                                        	  $(document).ready(function() {
+                                        		  $('#summernote').summernote({
+                                        		        placeholder: 'Hello stand alone ui',
+                                        		        tabsize: 2,
+                                        		        height: 120,
+                                        		        toolbar: [
+                                        		          ['style', ['style']],
+                                        		          ['font', ['bold', 'underline', 'clear']],
+                                        		          ['color', ['color']],
+                                        		          ['para', ['ul', 'ol', 'paragraph']],
+                                        		          ['table', ['table']],
+                                        		          ['insert', ['link', 'picture', 'video']],
+                                        		          ['view', ['fullscreen', 'codeview', 'help']]
+                                        		        ]
+                                        		      });
+                                        	  });
+										    </script>
                                     </div>
                                 </td>
                             </tr>  

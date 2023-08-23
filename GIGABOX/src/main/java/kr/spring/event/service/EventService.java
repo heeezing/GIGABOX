@@ -30,6 +30,10 @@ public interface EventService {
 	public void deleteEventResult(Integer result_num);
 	public void updateState0(Integer event_num);
 	public void updateState1(Integer event_num);
+	
+	public List<Integer> selectRandom(Map<String,Object> map);
+	public List<Integer> selectRandomReg_date(Map<String,Object> map);
+	
 	//댓글
 	public List<EventReplyVO> selectListReply(Map<String,Object> map);
 	public int selectRowCountReply(Map<String,Object> map);

@@ -55,6 +55,10 @@ public interface EventMapper {
 	@Update("UPDATE event SET state = 1 WHERE event_num=#{event_num}")
 	public void updateState1(Integer event_num);
 	public List<EventReplyVO> selectReplyList(Integer event_num);
+	
+
+	public List<Integer> selectRandom(Map<String,Object> map);
+	public List<Integer> selectRandomReg_date(Map<String,Object> map);
 	//댓글
 	public List<EventReplyVO> selectListReply(Map<String,Object> map);
 	public int selectRowCountReply(Map<String,Object> map);

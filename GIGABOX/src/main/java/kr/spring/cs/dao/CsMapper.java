@@ -89,7 +89,7 @@ public interface CsMapper {
 	//cs삭제 
 	@Delete("DELETE FROM cs_qna WHERE qna_num = #{qna_num}")
 	public void deleteQna(Integer qna_num);
-	
+
 	@Delete("DELETE FROM cs_noti WHERE noti_num = #{noti_num}")
 	public void deleteNoti(Integer noti_num);
 	

@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.event.vo.EventReplyVO;
@@ -442,9 +444,11 @@ public class EventController {
 	public ModelAndView resultWriteForm(@RequestParam int event_num) {
 		
 		List<EventReplyVO> list = eventService.selectReplyList(event_num);
+		EventVO event = eventService.selectEvent(event_num);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("event_num", event_num);
+		mav.addObject("eventName", event.getTitle());
 		mav.addObject("list", list);
 		mav.setViewName("eventResultWrite");
 		return mav;
@@ -453,7 +457,9 @@ public class EventController {
 	@PostMapping("/event/eventResultWrite.do")
 	public String resultWrite(EventResultVO eventResultVO, HttpSession session ,Model model, HttpServletRequest request) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
+	
 		eventResultVO.setMem_num(user.getMem_num());
+		
 		eventService.insertEventResult(eventResultVO);
 		eventService.updateState1(eventResultVO.getEvent_num());
 		
@@ -503,4 +509,32 @@ public class EventController {
 			
 		return "common/resultView";
 	}
+
+	@PostMapping("/event/randomSelect.do")
+	@ResponseBody
+	public Map<String,Object> ranbomList(
+		@RequestParam(value="event_num") int event_num,
+		@RequestParam(value="method") int method,
+		@RequestParam(value="selectNum") int selectNum){
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		log.debug("<<what....?>> : " + event_num + method + selectNum);
+		
+		map.put("event_num", event_num);
+		map.put("selectNum", selectNum);
+		List<Integer> numbers = null;
+		if(method == 1){ // 무작위
+			numbers = eventService.selectRandom(map);
+		}else if(method == 2) { //선착순
+			numbers = eventService.selectRandomReg_date(map);
+		}
+		log.debug("<<>> :" + numbers);
+		Map<String,Object> mapJson =
+				new HashMap<String,Object>();
+		mapJson.put("list", numbers);
+		return mapJson;
+	}
+
+	
 }

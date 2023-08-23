@@ -14,5 +14,4 @@ public class EventResultVO {
 	private int result_num,mem_num,event_num;
 	private String title, content;
 	private Date reg_date,modify_date;
-	
 }

@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
+<!-- include libraries (jquery,bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+.ck-editor__editable_inline{
+	min-height:250px;
+}
+</style>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- include ckeditor js -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploadAdapter.js"></script>
 <div class="page-main">
 <div class="event-detail">
             <h2>이벤트 결과</h2>
@@ -26,12 +35,25 @@
                                 <th scope="row"><label for="textarea">내용</label> <em class="font-orange">*</em></th>
                                 <td colspan="3">
                                     <div class="textarea">
-                                        <textarea id="textarea" name="content" rows="5" cols="30" title="내용입력" class="input-textarea">${event.content}</textarea>
-                                        <div class="util">
-                                            <p class="count">
-                                                <span id="textareaCnt">0</span> / 2000
-                                            </p>
-                                        </div>
+                                        <textarea name="content" id="content"></textarea>
+										<script>
+												function MyCustomUploadAdapterPlugin(editor){
+													editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+														return new UploadAdapter(loader);
+													}
+												}
+												
+												ClassicEditor.create(document.querySelector('#content'),{
+													           extraPlugins:[MyCustomUploadAdapterPlugin]
+												             })
+												             .then(editor => {
+												            	 window.editor = editor;
+												             })
+												             .catch(error => {
+												            	 console.error(error);
+												             });
+											</script>
+									<!-- CK editor 끝 -->
                                     </div>
                                 </td>
                             </tr>  

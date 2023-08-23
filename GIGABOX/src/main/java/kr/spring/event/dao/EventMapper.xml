@@ -171,13 +171,25 @@
 		DELETE FROM event_reply WHERE event_num=#{event_num}
 	</delete>
 	<select id="selectReplyList" parameterType="integer" resultType="eventReplyVO">
-	
-SELECT event_num, name, phone, email, th_name,content,
+SELECT event_num,reply_num, name, phone, email, th_name,content,
 		CASE WHEN TO_CHAR(r.reg_date,'YY/MM/DD') > TO_CHAR(r.modify_date,'YY/MM/DD') THEN r.reg_date
 		    WHEN TO_CHAR(r.reg_date,'YY/MM/DD')  <![CDATA[ < ]]> TO_CHAR(r.modify_date,'YY/MM/DD') THEN r.modify_date
 		    ELSE r.reg_date
 		                      END reg_date
 		                      FROM event_reply r JOIN member_detail d USING(mem_num)
-		                                        JOIN theater USING(th_num) WHERE event_num = #{event_num} ORDER BY reg_date ASC
+		                                        JOIN theater USING(th_num) 
+		                                        WHERE event_num = #{event_num} ORDER BY reg_date ASC
+	</select>
+	<select id="selectRandom" parameterType="map" resultType="integer">
+		select reply_num from  (select * from event_reply
+                    where event_num = #{event_num}
+                    order by dbms_random.value)
+                    where rownum <![CDATA[ < ]]>= #{selectNum}
+	</select>
+	<select id="selectRandomReg_date" parameterType="map" resultType="integer">
+		 select reply_num from  (select * from event_reply
+                   where event_num = #{event_num}
+                    order by to_char(reg_date,'YYYY-MM-DD') ASC)
+                    where rownum <![CDATA[ < ]]>= #{selectNum}
 	</select>
 </mapper>

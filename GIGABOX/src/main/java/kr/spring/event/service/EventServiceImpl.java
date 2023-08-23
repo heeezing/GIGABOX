@@ -151,4 +151,16 @@ public class EventServiceImpl implements EventService{
 		return eventMapper.selectReplyList(event_num);
 	}
 
+	@Override
+	public List<Integer> selectRandom(Map<String, Object> map) {
+		
+		return eventMapper.selectRandom(map);
+	}
+
+	@Override
+	public List<Integer> selectRandomReg_date(Map<String, Object> map) {
+		
+		return eventMapper.selectRandomReg_date(map);
+	}
+
 }
