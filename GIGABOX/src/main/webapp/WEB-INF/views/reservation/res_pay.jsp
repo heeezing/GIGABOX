@@ -86,7 +86,7 @@
 								window.history.back();
 							}
 						</script>
-						<input type="button" value="결제" id="btn_booking_pay">
+						<input type="submit" value="결제" id="btn_booking_pay">
 					</div>
 				</div>
 			</div>
