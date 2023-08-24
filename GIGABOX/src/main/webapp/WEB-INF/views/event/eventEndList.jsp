@@ -28,7 +28,7 @@
 	<div id="contents" class="">
 	    <div id="boardSearch" class="inner-wrap" style="">
 	            <div class="board-list-util mt0">
-	            <p class="result-count"><strong>전체 <b>${count}</b>건</strong></p>
+	            <p class="result-count"><strong>전체 <b id="count_number"> </b>건</strong></p>
 	
 	            <div class="board-search">
 	                <input type="text" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text">

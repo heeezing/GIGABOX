@@ -104,7 +104,7 @@ $(function(){
 				<h2 class="tit">진행중인 이벤트</h2>
 				<div class="tab-list fixed">
 					<ul>
-						<li class="on" id="eventTab_0"><a href="eventList.do" title="전체">전체</a></li>
+						<li id="eventTab_0"><a href="eventList.do" title="전체">전체</a></li>
 						<c:forEach var="event3" items="${list3}">
 						<li id="eventTab_${event3.category_num}"><a href="eventActiList.do?detail=${event3.category_num}" title="메가Pick 탭으로 이동">${event3.category_name}</a></li>
 						</c:forEach>

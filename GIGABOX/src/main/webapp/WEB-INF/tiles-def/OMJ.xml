@@ -14,9 +14,13 @@
     	<put-attribute name="title" value="진행중인 이벤트"/>
 	    <put-attribute name="body" value="/WEB-INF/views/event/eventActiList.jsp"/>
     </definition>
-    <definition name="eventActiList" extends="main">
-    	<put-attribute name="title" value="진행중인 이벤트"/>
-	    <put-attribute name="body" value="/WEB-INF/views/event/eventActiList.jsp"/>
+    <definition name="eventAdminList" extends="admin">
+    	<put-attribute name="title" value="이벤트 관리자창"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventAdminList.jsp"/>
+    </definition>
+    <definition name="eventResultAdminList" extends="admin">
+    	<put-attribute name="title" value="이벤트 관리자창"/>
+	    <put-attribute name="body" value="/WEB-INF/views/event/eventResultAdminList.jsp"/>
     </definition>
     <definition name="eventEndList" extends="main">
     	<put-attribute name="title" value="지난 이벤트"/>
@@ -90,6 +94,14 @@
     <definition name="csPersonalAdminUpdate" extends="admin">
     	<put-attribute name="title" value="1:1문의 답변수정"/>
 	    <put-attribute name="body" value="/WEB-INF/views/cs/csPersonalAdminUpdate.jsp"/>
+    </definition> 
+      <definition name="csNotiAdminList" extends="admin">
+    	<put-attribute name="title" value="공지사항"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csNotiAdminList.jsp"/>
+    </definition> 
+     <definition name="csQnaAdminList" extends="admin">
+    	<put-attribute name="title" value="자주 묻는 질문"/>
+	    <put-attribute name="body" value="/WEB-INF/views/cs/csQnaAdminList.jsp"/>
     </definition> 
      <definition name="csPersonalDetail" extends="main">
     	<put-attribute name="title" value="1:1문의 보기"/>

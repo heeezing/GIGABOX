@@ -31,10 +31,12 @@
 	            </div>
 	        </div>
 	        <div class="board-list-util">
-	            <p class="result-count"><strong>전체 <b>0</b>건</strong></p>
+	            <p class="result-count"><strong>전체 <b>${count}</b>건</strong></p>
 	            <div class="board-search">
-	                <input type="text" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text">
-	                <button type="button" class="btn-search-input">검색</button>
+	               <form action="eventResultList.do" style="border:none; padding:0;" >
+						<input type="text" name="keyword" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text">
+						<button type="submit" class="btn-search-input">검색</button>
+					</form>
 	            </div>
 	        </div>
 	

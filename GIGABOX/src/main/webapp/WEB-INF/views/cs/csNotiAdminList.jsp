@@ -15,9 +15,9 @@
 </script>
 <div class="page-main">
 	<div class="title">
-		이벤트 목록
+		공지 목록
 	</div>
-	<form action="eventResultAdminList.do" method="get" id="search_form">
+	<form action="csNotiAdminList.do" method="get" id="search_form">
 		<ul class="search">
 			<li>
 				<select name="keyfield" id="keyfield">
@@ -32,10 +32,10 @@
 			</li>
 			<li>
 				<input type="submit" value="검색">
-				<input type="button" value="목록" onclick="location.href='eventAdminList.do'">
+				<input type="button" value="목록" onclick="location.href='csNotiAdminList.do'">
 			</li>
 		</ul>
-		<input type="button" value="이벤트등록" onclick="location.href='eventWrite.do'">
+		<input type="button" value="공지등록" onclick="location.href='csWrite.do'">
 	</form>
 	<c:if test="${count == 0}">
 	<div class="result-display">표시할 게시물이 없습니다.</div>
@@ -45,21 +45,19 @@
 		<tr>
 			<th>번호</th>
 			<th>카테고리</th>
-			<th>세부 카테고리</th>
-			<th>이벤트명</th>
-			<th>이벤트 기간</th>
+			<th>공지명</th>
+			<th>등록일</th>
 			<th></th>
 		</tr>
-		<c:forEach var="event" items="${list}">
+		<c:forEach var="cs" items="${list}">
 		<tr>
-			<td class="align-center">${event.event_num}</td>
-			<td class="align-center">${event.category_name}</td>
-			<td class="align-center">${event.category_detail_name}</td>
-			<td class="align-center">${event.title}</td>
-			<td class="align-center">${event.event_start}~${event.event_end}</td>
+			<td class="align-center">${cs.noti_num}</td>
+			<td class="align-center">${cs.category_name}</td>
+			<td class="align-center">${cs.title}</td>
+			<td class="align-center">${cs.reg_date}</td>
 			<td>
-				<input type="button" value="수정" onclick="location.href='eventResultModify.do?event_num=${event.event_num}'">
-				<input type="button" value="삭제" onclick="location.href='eventResultDelete.do?event_num=${event.event_num}'">
+				<input type="button" value="수정" onclick="location.href='csModify.do?modify_num=${cs.noti_num}&table=2'">
+				<input type="button" value="삭제" onclick="location.href='csDelete.do?delete_num=${cs.noti_num}&table=2'">
 			</td>
 		</tr>
 		</c:forEach>

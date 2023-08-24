@@ -220,13 +220,14 @@ public class CsContorller {
 
 	@RequestMapping("/cs/csQnaList.do")
 	public ModelAndView qnaList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+								@RequestParam(value="category_num",defaultValue = "0") int category_num,
 								String keyword, String keyfield
 								) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 		map.put("table", 1); //cs_qna
 		map.put("keyword", keyword);
-		map.put("keyfield",keyfield);
+		map.put("keyfield",1);
 		
 		//레코드 수 
 		int count = csService.selectRowCount(map);
@@ -261,7 +262,7 @@ public class CsContorller {
 		
 		map.put("table", 2); //cs_noti
 		map.put("keyword", keyword);
-		map.put("keyfield",keyfield);
+		map.put("keyfield",1);
 		
 		//레코드 수 
 		int count = csService.selectRowCount(map);
@@ -554,5 +555,70 @@ public class CsContorller {
 	        // 결과 반환
 	        return ResponseEntity.ok(true);
 	    }
-
+		
+		@RequestMapping("/cs/csNotiAdminList.do")
+		public ModelAndView notiAdminList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+									String keyword, String keyfield) {
+			
+			Map<String,Object> map = new HashMap<String, Object>();
+			
+			map.put("table", 2); //cs_noti
+			map.put("keyword", keyword);
+			map.put("keyfield",1);
+			
+			//레코드 수 
+			int count = csService.selectRowCount(map);
+			//페이지 처리 
+			PagingUtil page = new PagingUtil(keyfield, keyword, 
+					currentPage, count, 20,10,"csNotiAdminList.do");
+			List<CsVO> list = null;
+	
+			if(count > 0) {
+				map.put("start", page.getStartRow());
+				map.put("end", page.getEndRow());
+				
+				list = csService.selectNotiList(map);
+			}
+	
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("csNotiAdminList");
+			mav.addObject("count",count);
+			mav.addObject("list",list);
+			mav.addObject("page",page.getPage());
+				
+			return mav;
+		}	
+		
+		@RequestMapping("/cs/csQnaAdminList.do")
+		public ModelAndView qnaAdminList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+									String keyword, String keyfield) {
+			
+			Map<String,Object> map = new HashMap<String, Object>();
+			
+			map.put("table", 1); 
+			map.put("keyword", keyword);
+			map.put("keyfield",1);
+			
+			//레코드 수 
+			int count = csService.selectRowCount(map);
+			//페이지 처리 
+			PagingUtil page = new PagingUtil(keyfield, keyword, 
+					currentPage, count, 20,10,"csQnaAdminList.do");
+			List<CsVO> list = null;
+	
+			if(count > 0) {
+				map.put("start", page.getStartRow());
+				map.put("end", page.getEndRow());
+				
+				list = csService.selectQnaList(map);
+			}
+	
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("csQnaAdminList");
+			mav.addObject("count",count);
+			mav.addObject("list",list);
+			mav.addObject("page",page.getPage());
+				
+			return mav;
+		}	
 }

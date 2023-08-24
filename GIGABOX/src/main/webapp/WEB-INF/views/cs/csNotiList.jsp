@@ -14,7 +14,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="inner-wrap">
 			<div class="lnb-area addchat">
 				<nav id="lnb" class="ty2">
@@ -22,7 +21,7 @@
 						<a href="csMain.do" title="고객센터">고객센터</a>
 					</p>
 					<ul>
-						<li class="on"><a href="csMain.do" title="고객센터 홈">고객센터
+						<li><a href="csMain.do" title="고객센터 홈">고객센터
 								홈</a></li>
 						<li><a href="csQnaList.do" title="자주 묻는 질문">자주 묻는 질문</a></li>
 						<li><a href="csNotiList.do" title="공지사항">공지사항</a></li>
@@ -43,25 +42,15 @@
 			<div id="contents">
 				<h2 class="tit">공지사항</h2>
 
-				<div class="tab-block mb30">
-					<ul>
-						<li class="on tabBtn"><button type="button" class="btn tabBtn" data-no="" title="전체공지 보기">전체</button></li>
-						<li class="tabBtn"><button type="button" class="btn" data-no="81" title="메가박스 공지 보기" >메가박스 공지</button></li>
-						<li class="tabBtn"><button type="button" class="btn" data-no="82" title="지점 공지 보기" >지점 공지</button></li>
-					</ul>
-				</div>
+		
 				<div class="board-list-util">
 					<p class="result-count">전체 <em class="font-gblue">${count}</em>건</p>
-					<select id="theater02" name="th_num" title="극장 선택" class="mr07">
-						<option value="">극장 선택</option>
-						<c:forEach var="th" items="${theater}">
-							<option value="${th.th_num}">${th.th_name}</option>
-						</c:forEach>
-					</select>
 					<!-- <form action="csNotiList.do" method="post" > -->
 						<div class="board-search">
-							<input type="text" name="keyword" id="searchTxt" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text" value="" maxlength="15">
-							<button type="submit" id="searchBtn" class="btn-search-input">검색</button>
+							<form method ="post" action="csNotiList.do" style="border:none; padding:0;">
+							<input type="search" name="keyword" id="searchTxt" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text" maxlength="15">
+							<button type="submit" class="btn-search-input" id="searchBtn">검색</button>
+						</form>
 						</div>
 					<!-- </form> -->	
 				</div>

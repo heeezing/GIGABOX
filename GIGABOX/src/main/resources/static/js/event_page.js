@@ -38,6 +38,7 @@ $(function(){
         			output += '</ul>';
    					
                     $('#output').append(output);
+                    $('#count_number').append(count);
                 });
                
                 //paging button 처리
@@ -55,6 +56,8 @@ $(function(){
             
         });
     }
+    
+    
     //다음 댓글 보기 버튼 클릭시 데이터 추가
     $('.paging-button button').click(function(){
         selectList(currentPage + 1);

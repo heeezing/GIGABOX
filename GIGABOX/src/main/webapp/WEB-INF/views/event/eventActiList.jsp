@@ -19,7 +19,7 @@
 				<h2 class="tit">진행중인 이벤트</h2>
 				<div class="tab-list fixed">
 					<ul>
-						<li class="on" id="eventTab_0"><a href="eventList.do" title="전체">전체</a></li>
+						<li id="eventTab_0"><a href="eventList.do" title="전체">전체</a></li>
 						
 						<c:forEach var="event3" items="${list3}">
 						<li id="eventTab_${event3.category_num}"><a href="eventActiList.do?detail=${event3.category_num}" title="메가Pick 탭으로 이동">${event3.category_name}</a></li>
@@ -31,8 +31,11 @@
 				<div class="board-list-util mt40">
 				<p class="result-count"><strong>전체 <b>${count}</b>건</strong></p>
 				<div class="board-search">
-					<input type="text" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text">
-					<button type="button" class="btn-search-input">검색</button>
+					<form action="eventActiList.do" style="border:none; padding:0;" >
+						<input type="hidden" name="detail" value="${detail}"/>
+						<input type="text" name="keyword" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text">
+						<button type="submit" class="btn-search-input">검색</button>
+					</form>
 				</div>
 			</div>
 		</div>

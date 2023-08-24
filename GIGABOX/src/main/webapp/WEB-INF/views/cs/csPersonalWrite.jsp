@@ -22,7 +22,7 @@
 						<a href="csMain.do" title="고객센터">고객센터</a>
 					</p>
 					<ul>
-						<li class="on"><a href="csMain.do" title="고객센터 홈">고객센터
+						<li><a href="csMain.do" title="고객센터 홈">고객센터
 								홈</a></li>
 						<li><a href="csQnaList.do" title="자주 묻는 질문">자주 묻는 질문</a></li>
 						<li><a href="csNotiList.do" title="공지사항">공지사항</a></li>

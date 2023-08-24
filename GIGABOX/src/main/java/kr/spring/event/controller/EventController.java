@@ -119,7 +119,7 @@ public class EventController {
 	@RequestMapping("/event/eventList.do")
 	public ModelAndView list() {
 		//가장 최근에 작성된 게시글 10개
-		List<EventVO> list1 = new ArrayList<EventVO>();
+		List<EventVO> list1 = new ArrayList<>();
 		list1 = eventService.selectEventTop10List();
 		
 		//카테고리별 가장 최근에 작성된 4개의 게시글
@@ -145,11 +145,11 @@ public class EventController {
 								) {
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("keyfield", keyfield);
+		map.put("keyfield", 1); //제목에서만 검색
 		map.put("keyword", keyword);
 		map.put("category_num", 1);
 		map.put("category_detail_num",category_detail_num);
-		map.put("order", 2);//가장 최근에 시작한 이벤트 기준으로 정렬
+		map.put("order", 2); //가장 최근에 시작한 이벤트 기준으로 정렬
 		
 		int count = eventService.selectRowCount(map);
 		
@@ -169,6 +169,8 @@ public class EventController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("eventActiList");
+		mav.addObject("detail",category_detail_num );
+		mav.addObject("count",count);
 		mav.addObject("list", list);
 		mav.addObject("list3", list3);
 		return mav;
@@ -225,7 +227,7 @@ public class EventController {
 		List<EventVO> list = new ArrayList<EventVO>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
-		map.put("keyfield", keyfield);
+		map.put("keyfield", 1);
 		map.put("keyword", keyword);
 		map.put("category_num",3);
 		map.put("order",1);
@@ -535,6 +537,69 @@ public class EventController {
 		mapJson.put("list", numbers);
 		return mapJson;
 	}
+	
+	@RequestMapping("/event/eventAdminList.do")
+	public ModelAndView AdminList(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+								  String keyfield, String keyword) {
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("keyfield", keyfield); //제목에서만 검색
+		map.put("keyword", keyword);
+
+		int count = eventService.selectRowCount(map);
+		
+		PagingUtil page = new PagingUtil(keyfield, keyword,currentPage, count, 20,10,"eventAdminList.do");
+				
+		List<EventVO> list = new ArrayList<EventVO>();
+		
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			list = eventService.selectEventList(map);
+			
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("eventAdminList");
+		mav.addObject("count",count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		return mav;
+	}
+	
 
 	
+	@GetMapping("/event/eventResultAdminList.do")
+	public ModelAndView resultAdminList(@RequestParam(value="pageNum", defaultValue = "1") int currentPage,
+									String keyfield, String keyword) {
+		List<EventVO> list = new ArrayList<EventVO>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("keyfield", 1);
+		map.put("keyword", keyword);
+		map.put("category_num",3);
+		map.put("order",1);
+		
+		log.debug("<<map>> :" + map);
+		int count = eventService.selectRowCount(map);
+		log.debug("<<count>> :" + count);
+		
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"eventResultAdminList.do");
+		if(count >0) {
+			
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			list = eventService.selectEventList(map);
+			log.debug("<<list>> :" + list);
+		}
+	
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("eventResultAdminList");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		return mav;
+	}
 }

@@ -55,11 +55,22 @@
 		</li>
 		<li>
 			<input type="button" class="menu-btn" value="이벤트 관리"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			  onclick="location.href='${pageContext.request.contextPath}/event/eventAdminList.do'">
+			<ul>
+			  	<li><input type="button" class="menu-btn" value="추첨 이벤트 관리"
+			  onclick="location.href='${pageContext.request.contextPath}/event/eventResultAdminList.do'"></li>
+			</ul>
 		</li>
 		<li>
-			<input type="button" class="menu-btn" value="고객센터"
-			  onclick="location.href='${pageContext.request.contextPath}/#'">
+			<input type="button" class="menu-btn" value="고객센터">
+			<ul>
+				<li><input type="button" class="menu-btn" value="자주묻는 질문 관리"
+			  onclick="location.href='${pageContext.request.contextPath}/cs/csQnaAdminList.do'"></li>
+				<li><input type="button" class="menu-btn" value="공지사항 관리"
+			  onclick="location.href='${pageContext.request.contextPath}/cs/csNotiAdminList.do'"></li>
+			  	<li><input type="button" class="menu-btn" value="1:1문의 관리"
+			  onclick="location.href='${pageContext.request.contextPath}/cs/csPersonalList.do'"></li>
+			</ul>
 		</li>
 	</ul>
 </div>

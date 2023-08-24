@@ -1,3 +1,6 @@
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,11 +16,13 @@
 		});
 	});
 </script>
+
+
 <div class="page-main">
 	<div class="title">
-		이벤트 목록
+		추첨 이벤트
 	</div>
-	<form action="eventResultAdminList.do" method="get" id="search_form">
+	<form action="eventAdminList.do" method="get" id="search_form">
 		<ul class="search">
 			<li>
 				<select name="keyfield" id="keyfield">
@@ -42,27 +47,32 @@
 	</c:if>
 	<c:if test="${count > 0}">
 	<table class="striped-table">
-		<tr>
-			<th>번호</th>
-			<th>카테고리</th>
-			<th>세부 카테고리</th>
-			<th>이벤트명</th>
-			<th>이벤트 기간</th>
-			<th></th>
-		</tr>
-		<c:forEach var="event" items="${list}">
-		<tr>
-			<td class="align-center">${event.event_num}</td>
-			<td class="align-center">${event.category_name}</td>
-			<td class="align-center">${event.category_detail_name}</td>
-			<td class="align-center">${event.title}</td>
-			<td class="align-center">${event.event_start}~${event.event_end}</td>
-			<td>
-				<input type="button" value="수정" onclick="location.href='eventResultModify.do?event_num=${event.event_num}'">
-				<input type="button" value="삭제" onclick="location.href='eventResultDelete.do?event_num=${event.event_num}'">
-			</td>
-		</tr>
-		</c:forEach>
+			<tr>
+				<th scope="col">번호</th>
+				<th scope="col">분류</th>
+				<th scope="col">이벤트명</th>
+				<th scope="col">발표일</th>
+				<th scope="col">당첨자발표</th>
+			</tr>
+			<c:forEach var="event" items="${list}">
+		                    <tr>
+		                       <td>${event.event_num}</td>
+							   <td>${event.category_detail_name}</td>
+							   <td><a href="${pageContext.request.contextPath}/event/detail.do?event_num=${event.event_num}">${event.title}</a></td>
+							   <td>${event.event_end}</td>
+							   <td>
+									<c:if test="${event.state == 1}">
+									<button onClick="location.href='eventResultDetail.do?event_num=${event.event_num}'">결과확인</button>
+									</c:if>
+									<c:if test="${event.state == 0}">
+									대기중
+									</c:if>
+									<c:if test="${event.state == 0 && user.auth == 9 }">
+									<button onclick="location.href='eventResultWrite.do?event_num=${event.event_num}'">결과작성</button>
+									</c:if>
+								</td>
+		                    </tr>
+	                	</c:forEach>
 	</table>
 	<div class="align-center">${page}</div>
 	</c:if>

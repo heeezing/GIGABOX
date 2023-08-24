@@ -23,7 +23,7 @@
 					<a href="csMain.do" title="고객센터">고객센터</a>
 				</p>
 				<ul>
-					<li class="on"><a href="csMain.do" title="고객센터 홈">고객센터
+					<li><a href="csMain.do" title="고객센터 홈">고객센터
 							홈</a></li>
 					<li><a href="csQnaList.do" title="자주 묻는 질문">자주 묻는 질문</a></li>
 					<li><a href="csNotiList.do" title="공지사항">공지사항</a></li>
@@ -48,8 +48,10 @@
 						<label for="search01" class="label">빠른검색</label>
 
 						<div class="board-search w460px">
-							<input type="search" id="searchTxt" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text" maxlength="15">
-							<button type="button" class="btn-search-input" id="searchBtn">검색</button>
+						<form method ="post" action="csQnaList.do" style="border:none; padding:0;">
+							<input type="search" name="keyword" id="searchTxt" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." class="input-text" maxlength="15">
+							<button type="submit" class="btn-search-input" id="searchBtn">검색</button>
+						</form>
 						</div>
 					</div>
 				</div>
@@ -89,7 +91,7 @@
 							<div class="tit-area">
 								<h3 class="tit small">자주 묻는 질문 BEST5</h3>
 
-								<a href="support/faq.html" class="more" title="더보기">더보기 <i class="iconset ico-arr-right-gray ml07"></i></a>
+								<a href="csQnaList.do" class="more" title="더보기">더보기 <i class="iconset ico-arr-right-gray ml07"></i></a>
 							</div>
 							<div class="">
 								<ol class="decimal-list">
@@ -109,7 +111,7 @@
 							<div class="tit-area">
 								<h3 class="tit small">공지사항</h3>
 
-								<a href="support/notice.html" class="more" title="더보기">더보기 <i class="iconset ico-arr-right-gray ml07"></i></a>
+								<a href="csNotiList.do" class="more" title="더보기">더보기 <i class="iconset ico-arr-right-gray ml07"></i></a>
 							</div>
 
 							<div class="decimal-list">

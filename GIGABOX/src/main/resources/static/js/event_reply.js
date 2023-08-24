@@ -32,10 +32,10 @@ $(function(){
 	            $(param.list).each(function(index,item){
 	                let output = '<div class="item">';
 	                output += '<ul class="detail-info">';
-	                output += '<li>';
+	                //output += '<li>';
 	                
-	                output += '<img src="../event/viewProfile.do?mem_num='+item.mem_num+'" width="40" height="40" class="my-photo">';
-	                output += '</li>';
+	                //output += '<img src="../event/viewProfile.do?mem_num='+item.mem_num+'" width="40" height="40" class="my-photo">';
+	                //output += '</li>';
 	                output += '<li>';
 	                output += item.id + '(<span id="new_theater">'+ item.th_name + '</span>)<br>';
 	                output += '<span class="modify-date">등록일 : ' + item.reg_date + '</span>';
@@ -55,6 +55,7 @@ $(function(){
 	                
 	                //문서 객체 추가
 	                $('#output').append(output);
+	                $('#count_number').append(count);
 	            });
 	            
 	            //paging button 처리

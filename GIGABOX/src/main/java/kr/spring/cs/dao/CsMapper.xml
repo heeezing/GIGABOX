@@ -104,6 +104,12 @@
 					title LIKE '%' || #{keyword} || '%' or
 					content LIKE '%' || #{keyword} || '%'
 				</if>
+				<if test="keyword != null and keyword != '' and category_num != null">
+					AND
+				</if>
+				<if test="category_num != null and category_num != 0">
+					category_num = #{category_num}
+				</if>
 			</if>
 		</where>
 	</sql>
