@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -92,7 +93,7 @@ $(function(){
 <div class="container">
 	<div class="page-util">
 		<div class="inner-wrap">
-			<div class="location">
+			<div class="location" style="margin-left:0;">
 				<span>Home</span>
                 <a href="eventList.do" title="이벤트 메인 페이지로 이동">이벤트</a>
                 <a href="eventList.do" title="진행중 이벤트 페이지로 이동">진행중 이벤트</a>
@@ -142,7 +143,11 @@ $(function(){
 
 									<div class="cont">
 										<p class="tit">${event1.title}</p>
-										<p class="date">${event1.event_start}~${event1.event_end}</p>
+										<p class="date">
+											<fmt:formatDate value="${event1.event_start}" pattern="yy-MM-dd" />
+											~
+											<fmt:formatDate value="${event1.event_end}" pattern="yy-MM-dd" />
+										</p>
 									</div>
 								</a>
 							</div>
@@ -175,7 +180,9 @@ $(function(){
 							${event2.title}
 							</p>
 							<p class="date">
-							${event2.event_start}~${event2.event_end}
+							<fmt:formatDate value="${event2.event_start}" pattern="yy-MM-dd" />
+							~
+							<fmt:formatDate value="${event2.event_end}" pattern="yy-MM-dd" />
 							</p>
 							</a>
 		        		</li>

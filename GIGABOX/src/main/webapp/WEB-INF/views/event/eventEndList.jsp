@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/event_page.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
 <div class="container">
 	<div class="page-util">
 		<div class="inner-wrap">
-			<div class="location">
+			<div class="location" style="margin-left:0;">
 				<span>Home</span>
                 <a href="eventList.do" title="이벤트 메인 페이지로 이동">이벤트</a>
                 <a href="eventEndList.do" title="지난 이벤트 페이지로 이동">지난 이벤트</a>

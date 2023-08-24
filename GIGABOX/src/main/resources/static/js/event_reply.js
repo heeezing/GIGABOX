@@ -75,6 +75,12 @@ $(function(){
 	    });
 	}
 	
+	//댓글 작성 폼 초기화
+	function initForm(){
+		$('textarea').val('');
+		$('#re_first .letter-count').text('300/300');
+	}
+	
 	//댓글수 표시
 	function displayReplyCount(data){
 		let count = data.count;
@@ -109,11 +115,12 @@ $(function(){
 				if(param.result == 'logout'){
 					alert('로그인해야 작성할 수 있습니다.');
 				}else if(param.result == 'success'){
+				
 					//폼 초기화
 					initForm();
-					//댓글 작성이 성공하면 새로 삽입한 글을 포함해서 첫번째 페이지의 게시글을 다시
-					//호출함
+					//댓글 작성이 성공하면 새로 삽입한 글을 포함해서 첫번째 페이지의 게시글을 다시 호출함
 					selectList(1);
+					
 				}else if(param.result=='duplicated'){
 	           		 alert('댓글은 한번만 작성 가능합니다.');
 				}else{
@@ -236,7 +243,7 @@ $(function(){
 	            }
 	        },
 	        error:function(){
-	            alert('뭐가 문제냐 네트워크 오류 발생');
+	            alert('네트워크 오류 발생');
 	        }
 	    });
 	    //기본 이벤트 제거

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.event.vo.EventReplyVO;
@@ -313,11 +312,7 @@ public class EventController {
 		db_reply.setMem_num(user.getMem_num());
 		
 		boolean check = eventService.checkReply(db_reply);
-		//이게 왜 데드 코드야.. 
-		if(user==null) {//로그인이 되지 않은 경우
-			mapJson.put("result", "logout");
-		
-		}else if(check == true){//이미 참여한 전적이 있는 경우
+		if(check == true){//이미 참여한 전적이 있는 경우
 			mapJson.put("result", "duplicated");
 		}else {
 			eventReplyVO.setMem_num(user.getMem_num());

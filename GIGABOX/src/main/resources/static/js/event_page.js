@@ -31,7 +31,7 @@ $(function(){
                     output += item.title;
                     output += '</p>';
                     output += '<p class="date">';
-                    output += item.event_start+' ~ '+item.event_end;
+                    output += item.event_start.substr(2)+' ~ '+item.event_end.substr(2);
                     output += '</p>';
                		output += '</a>';
            			output += '</li>';

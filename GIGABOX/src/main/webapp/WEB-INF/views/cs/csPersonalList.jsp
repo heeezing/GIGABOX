@@ -6,13 +6,7 @@
 	<div id="container">
 	        <div class="page-util" style="background-color:white;">
 	            <div class="inner-wrap">
-	            <!-- 
-	                <div class="location">
-	                    <span>Home</span>
-	                    <a href="eventList.do" title="이벤트 메인 페이지로 이동">이벤트</a>
-	                    <a href="eventResultlist.do" title="당첨자발표 페이지로 이동">당첨자발표</a>
-	                </div>
-	             -->
+	            
 	            </div>
 	        </div>
 	        <div id="contents">

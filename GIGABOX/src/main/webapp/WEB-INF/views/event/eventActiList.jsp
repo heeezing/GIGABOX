@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
@@ -7,7 +9,7 @@
 <div class="container">
 	<div class="page-util">
 		<div class="inner-wrap">
-			<div class="location">
+			<div class="location" style="margin-left:0;">
 				<span>Home</span>
                 <a href="eventList.do" title="이벤트 메인 페이지로 이동">이벤트</a>
                 <a href="eventList.do" title="진행중 이벤트 페이지로 이동">진행중 이벤트</a>
@@ -51,7 +53,9 @@
 									${event.title}
 									</p>
 									<p class="date">
-									${event.event_start}~${event.event_end}
+										<fmt:formatDate value="${event.event_start}" pattern="yy-MM-dd" />
+											~
+										<fmt:formatDate value="${event.event_end}" pattern="yy-MM-dd" />
 									</p>
 									</a>
 				        		</li>

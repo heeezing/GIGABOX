@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
 <div id="container">
 	<div class="page-util">
 		<div class="inner-wrap">
-			<div class="location">
+			<div class="location" style="margin-left:0;">
 				<span>Home</span>
                 <a href="eventList.do" title="이벤트 메인 페이지로 이동">이벤트</a>
 				<a href="eventResultlist.do" title="당첨자발표 페이지로 이동">당첨자발표</a>
@@ -65,7 +66,7 @@
 		                       <td>${event.event_num}</td>
 							   <td>${event.category_detail_name}</td>
 							   <td><a href="${pageContext.request.contextPath}/event/detail.do?event_num=${event.event_num}">${event.title}</a></td>
-							   <td>${event.event_end}</td>
+							   <td><fmt:formatDate value="${event.event_end}" pattern="yy-MM-dd" /></td>
 							   <td>
 									<c:if test="${event.state == 1}">
 									<button onClick="location.href='eventResultDetail.do?event_num=${event.event_num}'">결과확인</button>

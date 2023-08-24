@@ -6,7 +6,7 @@
 <div class="container has-lnb">
 		<div class="page-util">
 			<div class="inner-wrap">
-				<div class="location">
+				<div class="location" style="margin-left:0;">
 					<span>Home</span>
 					<a href="csMain.do" title="고객센터 페이지로 이동">고객센터</a>
 					<a href="csMain.do" title="고객센터 페이지로 이동">고객센터 홈</a>

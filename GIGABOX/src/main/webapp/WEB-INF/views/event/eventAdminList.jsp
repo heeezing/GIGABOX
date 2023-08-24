@@ -58,8 +58,8 @@
 			<td class="align-center">${event.title}</td>
 			<td class="align-center">${event.event_start}~${event.event_end}</td>
 			<td>
-				<input type="button" value="수정" onclick="location.href='eventResultModify.do?event_num=${event.event_num}'">
-				<input type="button" value="삭제" onclick="location.href='eventResultDelete.do?event_num=${event.event_num}'">
+				<input type="button" value="수정" onclick="location.href='eventModify.do?event_num=${event.event_num}'">
+				<input type="button" value="삭제" onclick="location.href='eventDelete.do?event_num=${event.event_num}'">
 			</td>
 		</tr>
 		</c:forEach>
