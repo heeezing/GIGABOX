@@ -20,7 +20,7 @@
 		<div>
 			<h2 class="tit">문의 내역</h2>
 		</div>
-	</div>
+	</div> 
 	<form action="csList.do" id="search_form" method="get">
 		<ul class="search">
 			<li>

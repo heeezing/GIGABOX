@@ -19,7 +19,7 @@
 	<div class="tit-util mt70">
 		<div>
 			<h2 class="tit">리뷰 내역</h2>
-		</div>
+		</div> 
 	</div>
 	<form action="reviewList.do" id="search_form" method="get">
 		<ul class="search">

@@ -50,7 +50,7 @@ public class AppConfig implements WebMvcConfigurer{
 		         //"/**"로 전체 호출하는데 exclude로 호출안할거 명시
 		//LoginCheckInterceptor 설정
 		   registry.addInterceptor(loginCheck)
-		         .addPathPatterns("/member/myPage.do")
+		         .addPathPatterns("/member/myPage.do") 
 		         .addPathPatterns("/member/update.do")
 		         .addPathPatterns("/member/changePassword.do")
 		         .addPathPatterns("/member/delete.do")

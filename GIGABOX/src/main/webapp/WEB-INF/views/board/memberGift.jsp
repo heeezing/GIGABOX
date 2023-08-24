@@ -38,7 +38,7 @@
 				<input type="submit" value="조회">
 			</li>
 		</ul>
-	</form>
+	</form> 
 	<!-- 검색창 끝 -->
 	<!-- 목록 시작 -->
 	<c:if test="${count == 0}">

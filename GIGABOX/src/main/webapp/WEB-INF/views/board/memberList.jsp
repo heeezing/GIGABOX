@@ -33,7 +33,7 @@
 				<input type="button" value="목록" 
 				   onclick="location.href='memberList.do'">
 			</li>
-		</ul>
+		</ul> 
 	</form>
 	<c:if test="${count == 0}">
 	<div class="result-display">표시할 회원정보가 없습니다.</div>

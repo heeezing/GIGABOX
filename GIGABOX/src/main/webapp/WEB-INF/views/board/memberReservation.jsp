@@ -17,7 +17,7 @@
    </div>
    <c:if test="${count == 0}">
    <div class="mypage-content">
-      <ul>
+      <ul> 
          <li>예매 내역이 없습니다.</li>
       </ul>
    </div>

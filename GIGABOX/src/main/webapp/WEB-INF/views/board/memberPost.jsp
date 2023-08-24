@@ -29,7 +29,7 @@
 					<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>영화명</option>
 				</select>
 			</li>
-			<li>
+			<li> 
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
