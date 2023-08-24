@@ -23,12 +23,14 @@ $(function(){
 				// 선택한 좌석 초기화
 				seats = [];
 				$('#res_seats').val(seats.toString());
+				
+				$('.number').val(number);
+				$('.person').text(number);
+				
+				$('#btn_booking_pay').prop('disabled', true); // 결제버튼 비활성화
 			}
 		}
-		$('.number').val(number);
-		$('.person').text(number);
 		
-		$('#btn_booking_pay').prop('disabled', true); // 결제버튼 비활성화
 		
 	});
 	

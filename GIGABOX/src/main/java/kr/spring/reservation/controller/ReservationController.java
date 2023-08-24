@@ -324,12 +324,6 @@ public class ReservationController {
         
         int sch_num = reservationVO.getSch_num();
         
-        //전송된 데이터 유효성 체크 결과, 오류 있으면 폼을 다시 호출
-		/*
-		 * if(result.hasErrors()) { return formPay(sch_num, model, reservationVO,
-		 * session); }
-		 */
-        
         // 상영시간표 정보 호출
         ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
         log.debug("<<schedule>> : " + scheduleVO);
