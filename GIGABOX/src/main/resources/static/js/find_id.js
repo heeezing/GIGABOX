@@ -39,7 +39,7 @@ $(function () {
 	        dataType: "json",
 	        success: function (param) {
 	            if(param.result == "null"){
-	                $('#id_value').text("회원 정보를 확인해주세요!");
+	                $('#id_value').text("일치하는 회원정보가 없습니다 !");
 	                $('#name').val('');
 	                $('#phone').val('');
 	            } else {

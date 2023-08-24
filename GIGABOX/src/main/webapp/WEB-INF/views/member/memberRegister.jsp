@@ -22,7 +22,7 @@
 			</li>
 			<li> 
 				<form:label path="nick_name">별명</form:label>
-				<form:input path="nick_name"/>
+				<form:input path="nick_name"  maxlength="10"/>
 			</li>
 			<li>
 				<form:label path="passwd">비밀번호</form:label>
@@ -31,7 +31,7 @@
 			</li>
 			<li>
 				<form:label path="phone">전화번호</form:label>
-				<form:input path="phone" placeholder="-없이 입력하세요"  maxlength="13"/>
+				<form:input path="phone" placeholder="-없이 입력하세요"  maxlength="11"/>
 				<form:errors path="phone" cssClass="error-color"/>
 			</li>
 			<li>
