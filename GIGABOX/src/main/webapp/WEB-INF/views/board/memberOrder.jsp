@@ -44,7 +44,13 @@
 	<!-- 검색창 끝 -->
 	<!-- 목록 시작 -->
 	<c:if test="${count == 0}">
-		<div class="result-display">표시할 주문 정보가 없습니다.</div>
+		<div class="tit-util mt70">
+		<div class="mypage-content">
+			<ul>
+				<li>주문 내역이 없습니다.</li>
+			</ul>
+		</div>
+	</div>
 	</c:if>
 	<c:if test="${count > 0}">
 	<table class="striped-table">
