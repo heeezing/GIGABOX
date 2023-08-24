@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <style>
+#modal{
+	z-index:10;
+}
  #modal.modal-overlay {
             width: 100%;
             height: 100%;

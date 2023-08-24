@@ -202,3 +202,6 @@ ol, ul {
 	text-align: center;
 	color:red;
 }
+.mypage-side-bar ul li input:hover{
+	cursor:pointer;
+}

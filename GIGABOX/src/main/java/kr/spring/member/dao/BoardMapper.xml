@@ -389,6 +389,16 @@
 		]]>
 	</select>
 	
+	<select id="selectListEventByMem_num3" resultType="eventVO">
+		SELECT 
+						e.title,
+						e.event_num
+			  		FROM event e
+			  		JOIN event_reply er ON er.event_num = e.event_num
+			  		JOIN member m ON er.mem_num = m.mem_num
+			  		WHERE er.mem_num=#{mem_num}
+	</select>
+	
 </mapper>  
 
 

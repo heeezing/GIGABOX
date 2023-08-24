@@ -53,4 +53,6 @@ public interface BoardMapper {
 	//[사용자-마이페이지] 최근 3개 문의 목록
 	@Select("SELECT * FROM (SELECT * FROM cs_personal WHERE mem_num=#{mem_num} ORDER BY personal_num DESC) WHERE rownum <= 3")
 	public List<CsPersonalVO> selectListCsByMem_num3(Integer mem_num);
+	//[사용자-마이페이지] 최근 3개 이벤트 목록
+	public List<EventVO> selectListEventByMem_num3(Integer mem_num);
 }  

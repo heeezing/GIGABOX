@@ -50,5 +50,7 @@ public interface BoardService{
 
 	//[사용자-마이페이지] 최근 3개 문의 목록
 	public List<CsPersonalVO> selectListCsByMem_num3(Integer mem_num);
+	
+	public List<EventVO> selectListEventByMem_num3(Integer mem_num);
 }
   

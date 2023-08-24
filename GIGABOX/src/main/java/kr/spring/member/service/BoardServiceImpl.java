@@ -117,6 +117,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.selectEventRowCount(map);
 	}
 
+	@Override
+	public List<EventVO> selectListEventByMem_num3(Integer mem_num) {
+		return boardMapper.selectListEventByMem_num3(mem_num);
+	}
+
 	
 
 

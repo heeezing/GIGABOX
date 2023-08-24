@@ -46,7 +46,7 @@
 				<th>예매번호</th>
 				<th>예매날짜</th>
 				<th>인원</th>
-				<th>가격</th>
+				<th>결제방법</th>
 				<th>총 가격</th>
 			</tr>
 			<c:forEach var="reservation" items="${rList}">
@@ -111,11 +111,35 @@
 				<h2 class="tit">참여 이벤트</h2>
 				<a href="${pageContext.request.contextPath}/board/memberEvent.do">더보기></a>
 			</div>
-			<div class="mypage-content">
-				<ul>
-					<li>참여 이벤트 내역이 없습니다.</li>
-				</ul>
+			<c:if test="${empty eList}">
+			<div class="tit-util mt70">
+				<div class="mypage-content">
+					<ul>
+						<li>응모내역이 없습니다.</li>
+					</ul>
+				</div>
 			</div>
+			</c:if>
+			<c:if test="${!empty eList}">
+			<table class="striped-table">
+				<tr>
+					<th>번호</th>
+					<th>이벤트 제목</th>
+					<th>결과</th>
+				</tr>
+				<c:forEach var="event" items="${eList}">
+				<tr>
+					<td class="align-center">${event.rnum}</td>
+					<td class="align-center" style="max-width: 12em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${event.title}</td>
+					<td class="align-center">
+					<a href="${pageContext.request.contextPath}/event/eventResultDetail.do?event_num=${event.event_num}">
+					<input type="button"value="결과확인">
+					</a>
+					</td>			
+				</tr>
+				</c:forEach>
+			</table>
+			</c:if>
 		</div>
 		<div class="mypage-right">
 			<div class="tit-util">
@@ -145,7 +169,7 @@
 					<td class="align-center" style="max-width: 5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cs.title}</td>
 					<td class="align-center"style="max-width: 5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cs.content}</td>
 					<td class="cs">
-						<c:if test="${cs.state == 1}">답변완료</c:if>
+						<c:if test="${cs.state == 1}"><b style="color:blue">답변완료</b></c:if>
 						<c:if test="${cs.state == 0}">답변대기</c:if>
 					</td>
 				</tr>

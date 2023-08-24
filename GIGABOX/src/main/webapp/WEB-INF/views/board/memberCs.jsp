@@ -72,10 +72,10 @@
 		<c:forEach var="cs" items="${list}">
 		<tr>
 			<td class="align-center">${cs.personal_num}</td>
-			<td class="align-center">${cs.title}</td>
-			<td class="align-center">${cs.content}</td>
+			<td class="align-center" style="max-width: 10em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cs.title}</td>
+			<td class="align-center" style="max-width: 30em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cs.content}</td>
 			<td class="cs">
-				<c:if test="${cs.state == 1}">답변완료</c:if>
+				<c:if test="${cs.state == 1}"><b style="color:blue">답변완료</b></c:if>
 				<c:if test="${cs.state == 0}">답변대기</c:if>
 			</td>
 			

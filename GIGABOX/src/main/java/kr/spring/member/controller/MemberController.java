@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.spring.cs.vo.CsPersonalVO;
+import kr.spring.event.vo.EventVO;
 import kr.spring.member.service.BoardService;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.service.UserSha256;
@@ -523,7 +524,8 @@ public class MemberController {
 		List<ReservationVO> rList = boardService.selectListReservationByMem_num3(user.getMem_num());
 		//문의 내역
 		List<CsPersonalVO> cList = boardService.selectListCsByMem_num3(user.getMem_num());
-		
+		//이벤트 내역
+		List<EventVO> eList = boardService.selectListEventByMem_num3(user.getMem_num());
 		
 		//전체 검색 레코드 수
 		int count = boardService.selectReservationRowCount(map);
@@ -556,6 +558,7 @@ public class MemberController {
 		mav.addObject("oList",oList);
 		mav.addObject("rList",rList);
 		mav.addObject("cList",cList);
+		mav.addObject("eList", eList);
 		return mav;
 	}
 	
