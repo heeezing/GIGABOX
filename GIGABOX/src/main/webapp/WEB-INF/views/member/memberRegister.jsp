@@ -5,12 +5,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/confirmId.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <div class="page-main">
-	<h2>회원가입</h2>
+	<h2 class="regis">회원가입</h2>
 	<form:form modelAttribute="memberVO" action="registerUser.do" id="member_register"><!-- modelAttribute로 자바빈 초기화 -->
 		<ul>
 			<li>
 				<form:label path="id">아이디</form:label>
-				<form:input path="id" placeholder="영문,숫자 4~12자" authcomplete="off" maxlength="12"/>
+				<form:input class="idd" path="id" placeholder="영문,숫자 4~12자" authcomplete="off" maxlength="12"/>
 				<input type="button" id="confirmId" value="ID중복체크" class="default-btn">
 				<span id="message_id"></span>
 				<form:errors path="id" cssClass="error-color"/>
@@ -41,7 +41,7 @@
 			</li>
 			<li>
 				<form:label path="zipcode">우편번호</form:label>
-				<form:input path="zipcode"/>
+				<form:input class="idd" path="zipcode"/>
 				<input type="button" onclick="execDaumPostcode()" value="우편번호찾기" class="default-btn" maxlength="5">
 				<form:errors path="zipcode" cssClass="error-color"/>
 			</li>

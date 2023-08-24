@@ -21,7 +21,7 @@
 			</div>
 		</li>
 	</ul> --%>
-	<p><a>나의 기가박스</a></p>
+	<p><a href="${pageContext.request.contextPath}/member/myPage.do">나의 기가박스</a></p>
 	<ul>
 		<li>
 			<input type="button" class="menu-btn" value="예매 내역"

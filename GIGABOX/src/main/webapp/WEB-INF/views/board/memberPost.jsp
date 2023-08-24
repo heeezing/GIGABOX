@@ -34,7 +34,6 @@
 			</li>
 			<li>
 				<input type="submit" value="찾기">
-				<input type="button" value="목록" onclick="location.href='postList.do'"> 
 			</li>
 		</ul>
 		<div class="aligh-right">

@@ -34,8 +34,7 @@
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="찾기">
-				<input type="button" value="목록" onclick="location.href='reviewList.do'"> 
+				<input type="submit" value="찾기"> 
 			</li>
 		</ul>
 		<%-- <div class="aligh-right">
