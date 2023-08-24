@@ -154,27 +154,41 @@ $(function(){
 			dataType:'json',
 			success:function(param){
 				//상영시간표 목록
-				$(param.list).each(function(index,item){
-					let output = '<a href="seat.do?sch_num='+item.sch_num+'" class="seatForm">';
-					output += '<li>';
-					output += '<div class="sch_left">';
-					output += '<p class="sch_start">'+item.sch_start+'</p>';
-					output += '<p class="sch_end">~ '+item.sch_end+'</p>';
-					output += '</div>';
-					output += '<p class="m_title">'+item.m_title+'</p>';
-					output += '<div class="sch_right">';
-					output += '<span class="hall_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.hall_name+'</span>';
-					output += '<span class="seat_count">';
-					output += '<span class="now">50</span>';
-					output += '<span class="slash">/</span>';
-					output += '<span class="all">120</span>';
-					output += '</span>';
-					output += '</div>';
-					output += '</li>';
-					output += '</a>';
-					
-					$('.timetable').append(output);
-				})
+				console.log(param.list.length);
+				if(param.list.length > 0){
+					$(param.list).each(function(index,item){
+						let output = '<a href="seat.do?sch_num='+item.sch_num+'" class="seatForm">';
+						output += '<li>';
+						output += '<div class="sch_left">';
+						output += '<p class="sch_start">'+item.sch_start+'</p>';
+						output += '<p class="sch_end">~ '+item.sch_end+'</p>';
+						output += '</div>';
+						output += '<p class="m_title">'+item.m_title+'</p>';
+						output += '<div class="sch_right">';
+						output += '<span class="hall_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.hall_name+'</span>';
+						output += '<span class="seat_count">';
+						output += '<span class="now">'+item.remain+'</span>';
+						output += '<span class="slash">/</span>';
+						output += '<span class="all">'+item.seats+'</span>';
+						output += '</span>';
+						output += '</div>';
+						output += '</li>';
+						output += '</a>';
+						
+						$('.timetable').append(output);
+				
+					})
+				}else{
+					// 상영시간표가 없는 경우 메시지 출력
+			        let output = '<div class="no-result">';
+			        output += '<i class="ico-movie-time"></i>';
+			        output += '<p class="txt">';
+			        output += '해당하는 상영시간표가 없습니다.';
+			        output += '</p>';
+			        output += '</div>';
+			
+			        $('.timetable').append(output);
+				}
 				
 				// 로그인 안한 경우 좌석선택 페이지로 이동하지 않고, 로그인 페이지로 이동
 				$('.seatForm').click(function(event){

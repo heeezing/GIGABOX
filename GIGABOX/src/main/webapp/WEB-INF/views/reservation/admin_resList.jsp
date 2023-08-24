@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/del_res.js"></script>
 <!-- 상영시간표 목록 시작 -->
 <script type="text/javascript">
@@ -55,10 +56,10 @@
 		<tr>
 			<td class="align-center">${reservation.res_num}</td>
 			<td class="align-center">${reservation.name}</td>
-			<td class="align-center" width="300">${reservation.m_title}</td>
+			<td class="align-center">${reservation.m_title}</td>
 			<td class="align-center">${reservation.sch_date} ${reservation.sch_start}</td>
 			<td class="align-center">${reservation.th_name} / ${reservation.hall_name}</td>
-			<td class="align-center">${reservation.th_name} / ${reservation.hall_name}</td>
+			<td class="align-center"><fmt:formatNumber value="${reservation.res_total}" type="number" pattern="#,##0" />원 / ${reservation.res_people}명</td>
 			<td class="align-center">
 				<c:if test="${reservation.res_status == 2}"><span style="color: red;">취소</span></c:if>
 				<c:if test="${reservation.res_status == 1}"><span style="color: blue;">완료</span></c:if>

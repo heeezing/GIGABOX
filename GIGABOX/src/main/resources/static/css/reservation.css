@@ -74,6 +74,13 @@
     width: 1098px;
 }
 /*영화*/
+.ratingicon{
+	width:35px;
+	height:35px;
+}
+.movie-grade, .movie-title{
+	vertical-align: middle;
+}
 .quick_resArea .movie_choice {
     position: relative;
     float: left;
@@ -106,8 +113,30 @@
 	padding:0;
 	margin:0;
 }
+.movie_choice .all-list ul li{
+	padding :0;
+}
+.theater-choice .all-list ul li{
+	padding :0;
+}
 .all-list ul li{
 	padding-bottom:12px;
+}
+.theater-choice .all-list ul li button.btn{
+	background-color: white;
+	border:none;
+	cursor: pointer;
+	width:100%;
+	text-align: left;
+	padding : 11px 0;
+}
+.theater-choice .all-list ul li button.btn-on{
+	background-color: #666;
+	color:white;
+	border:none;
+	cursor: pointer;
+	width:100%;
+	text-align: left;
 }
 .all-list ul li button.btn{
 	background-color: white;
@@ -959,6 +988,7 @@
 }
 .res-box img{
 	height:230px;
+	width: 150px;
 }
 .res-num-text{
 	font-size:17px;
