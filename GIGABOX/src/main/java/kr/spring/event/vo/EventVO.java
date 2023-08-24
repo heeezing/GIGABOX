@@ -12,7 +12,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(exclude = {"thumb1","thumb2"})
+@ToString(exclude = {"thumb1","thumb2","content"})
 public class EventVO {
 	private int event_num,mem_num,category_num;
 	private int category_detail_num;
