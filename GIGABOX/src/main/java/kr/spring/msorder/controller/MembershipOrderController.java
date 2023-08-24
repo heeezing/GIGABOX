@@ -120,7 +120,7 @@ public class MembershipOrderController {
 	 
 	 //전송된 데이터 처리
 	 @PostMapping("membership/msorder.do")
-	 public String submit(@RequestParam int order_num,
+	 public String submit(
 			 			  @Valid MembershipOrderVO msorderVO,
 			 			  BindingResult result, Model model,
 			 			  HttpSession session,
@@ -130,9 +130,12 @@ public class MembershipOrderController {
 		 
 		 //회원정보 읽어오기
 		 MemberVO user = (MemberVO)session.getAttribute("user");
-		 log.debug("<<order_num>> : " + order_num);
 		 
 		 msorderVO.setMem_num(user.getMem_num());
+		 
+		 int order_num = membershipOrderService.selectOrderNum();
+	     
+	     model.addAttribute("order_num", order_num);
 		 
 		 
 		 Map<String, Object> map = new HashMap<String, Object>();

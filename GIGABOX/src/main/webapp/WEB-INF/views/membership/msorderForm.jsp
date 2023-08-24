@@ -110,7 +110,7 @@ $(document).ready(function() {
             console.log(data);
 
             // 결제가 완료되었으므로 데이터베이스에 저장하고자 하는 정보를 변수에 담습니다.
-            var orderNum = data.order_id; // 결제한 주문번호
+            var orderNum = ${order_num}; // 결제한 주문번호
             var memNum = ${user.mem_num}; // 사용자 회원 번호
             var membershipId = ${selectedMembership.membership_id}; // 선택한 멤버십 ID
             var price = ${selectedMembership.price}; // 선택한 멤버십 가격
@@ -121,7 +121,7 @@ $(document).ready(function() {
                 url: "${pageContext.request.contextPath}/membership/msorder.do",
                 type: "POST",
                 data: {
-                    order_num: order_num,
+                    order_num: orderNum,
                     mem_num: memNum,
                     membership_id: membershipId,
                     price: price,
@@ -129,14 +129,15 @@ $(document).ready(function() {
                     pay_date: '2023-08-23',
                     next_pay_date: '2023-09-23',
                     billing_key: billing_key,
-                    result_status: '테스트',
-                    result_message: '테스트',
+                    result_status: '테스트 결제',
+                    result_message: '결제 성공',
                     membership_grade: membership_grade
                 },
                 success: function(result) {
                     console.log("Order saved successfully:", result);
                     // 결제가 완료되었으므로 사용자에게 알림을 표시합니다.
                     alert("결제가 완료되었습니다.");
+                    window.location.href = "${pageContext.request.contextPath}msorderComplete.do"
                 },
                 error: function(error) {
                     console.log("Error saving order:", error);
