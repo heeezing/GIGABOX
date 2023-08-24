@@ -86,6 +86,11 @@ public class MembershipController {
 		return mav;
 	}
 	
+	//결제 성공 화면
+	@RequestMapping("/membership/msorderComplete.do")
+	public String complete() {
+		return "msorderComplete"; //tiles 설정
+	}
 
 }
 

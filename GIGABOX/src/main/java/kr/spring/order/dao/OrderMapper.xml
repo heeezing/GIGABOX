@@ -140,7 +140,7 @@
 	</sql>
 	
 	<!-- 전체or검색 레코드 수 -->
-	<select id="selectOrderCountByMem_num" parameterType="map">
+	<select id="selectOrderCountByMem_num" parameterType="map" resultType="integer">
 		SELECT COUNT(*) 
 		FROM orders 
 		<include refid="orderSearchByUser"></include>
@@ -161,7 +161,7 @@
 	
 	
 	
-	<!-- 내 선물함 -->
+	<!-- [마이페이지] 내 선물함 -->
 	<!-- 검색창 용 sql 조각 -->
 	<sql id="giftSearchByUser">
 		WHERE o.to_id = #{to_id} 
@@ -169,20 +169,24 @@
 			<if test="keyfield == 1">
 				AND o.sn_name LIKE '%' || #{keyword} || '%' 
 			</if>
+			<if test="keyfield == 2">
+				AND o.from_id LIKE '%' || #{keyword} || '%' 
+			</if>
 		</if>
 		AND d.orders_status != 4
 	</sql>
 	
 	<!-- 전체or검색 레코드 수 -->
-	<select id="selectGiftCountByTo_id" parameterType="map">
+	<select id="selectGiftCountByTo_id" parameterType="map" resultType="integer">
 		SELECT COUNT(*)
-		FROM (SELECT *
+		FROM (SELECT * 
 		      FROM orders 
 		      WHERE orders_num IN (SELECT DISTINCT o.orders_num
                           		   FROM orders o JOIN orders_detail d ON o.orders_num = d.orders_num 
                              	   <include refid="giftSearchByUser"></include>))
 	</select>
 	
+	<!-- 전체or검색 목록 -->
 	<select id="selectListGiftByTo_id" parameterType="map" resultType="orderVO">
 		SELECT * 
 		FROM (SELECT a.*, rownum rnum 
@@ -196,7 +200,15 @@
 		]]>		
 	</select>
 	
-	
+	<!-- [스토어 스낵 목록] 사용가능한 주문이 들어있는 선물 내역count -->
+	<select id="selectGiftCountPossible" parameterType="String" resultType="integer">
+		SELECT COUNT(*)
+		FROM (SELECT *
+	          FROM orders 
+	          WHERE orders_num IN (SELECT DISTINCT o.orders_num
+                                   FROM orders o JOIN orders_detail d ON o.orders_num = d.orders_num 
+                                   WHERE o.to_id=#{to_id} AND d.orders_status = 1))
+	</select>
 </mapper>
 
 

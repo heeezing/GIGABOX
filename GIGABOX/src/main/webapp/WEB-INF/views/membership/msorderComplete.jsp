@@ -5,8 +5,8 @@
 <div class="page-util">
 	<div class="location">
 		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
-		<a href="../snack/list.do">스토어</a> 
-	</div>
+		<a href="../membership/membership_list.do">멤버십</a>
+	</div> 
 </div>
 <div class="page-main">
 	
@@ -14,11 +14,9 @@
 		<li class="no_data">
 			<img src="${pageContext.request.contextPath}/images/orderComplete.png" width="50">
 			<p style="font-size:20pt; margin:14px auto;">결제가 완료되었습니다.</p>
-			<p style="font-size:10pt; margin-bottom::14px; color:gray;">주문 번호 : ${orders_num}</p>
-			<p style="font-size:14pt;">주문 내역은 마이페이지에서 확인 가능합니다.</p>
 			<div class="btn_wrap" style="margin-top:60px;">
-				<a href="${pageContext.request.contextPath}/snack/list.do">스토어 홈</a>
-				<a href="${pageContext.request.contextPath}/board/orderList.do">마이페이지</a>
+				<a href="${pageContext.request.contextPath}/main/main.do">메인페이지</a>
+				<a href="${pageContext.request.contextPath}/member/myPage.do">마이페이지</a>
 			</div>
 		</li>
 	</ul>

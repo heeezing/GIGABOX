@@ -191,7 +191,7 @@ public class BoardController {
 		int count = orderService.selectGiftCountByTo_id(map);
 		log.debug("<<count>> : " + count);
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"gift_list.do");
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage,count,10,10,"giftList.do");
 		
 		//전체or검색 목록 읽어오기
 		List<OrderVO> list = null;

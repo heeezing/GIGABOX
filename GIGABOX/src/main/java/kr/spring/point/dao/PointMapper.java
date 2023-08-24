@@ -42,13 +42,11 @@ public interface PointMapper {
 	public void insertResRefundPoint(PointVO pointVO);
 	
 	//나의 포인트 내역 레코드 수 - 마이페이지(페이지 처리 용)
-	@Select("SELECT COUNT(*) FROM point WHERE mem_num=#{mem_num}")
+	@Select("SELECT COUNT(*) FROM point WHERE mem_num=#{mem_num}") 
 	public int selectPointCountByMem_num(Map<String,Object> map);
 	//나의 포인트 내역 목록 - 마이페이지
-	@Select("SELECT * FROM point p LEFT OUTER JOIN orders o ON p.orders_num=o.orders_num "
-			+ "                    LEFT OUTER JOIN reservation r ON p.res_num=r.res_num "
-			+ "WHERE p.mem_num=#{mem_num} ORDER BY pt_num DESC")
 	public List<PointVO> selectPointListByMem_num(Map<String,Object> map);
+	
 	//회원 별 총 보유 포인트 - 마이페이지, 주문, 예매에서 사용
 	@Select("SELECT NVL(SUM(add_point) - SUM(use_point), 0) AS result FROM point WHERE mem_num = #{mem_num}")
 	public int myTotalPoint(Integer mem_num);

@@ -159,6 +159,11 @@ public class OrderServiceImpl implements OrderService{
 		orderMapper.statusAllChange(orders_num, orders_status);
 	}
 
+	@Override
+	public int selectGiftCountPossible(String to_id) {
+		return orderMapper.selectGiftCountPossible(to_id); 
+	}
+
 
     /*
     // 스케줄링을 바로 실행할 테스트 메서드

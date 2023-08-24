@@ -351,9 +351,16 @@ public class MemberController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		// 회원 정보 반환
 		MemberVO member = memberService.selectMember(user.getMem_num());
-
+		//멤버십 정보
+		String membership = orderService.selectMembershipByMem_num(user.getMem_num());
+		if(membership == null) {
+			membership="BASIC";
+		}else {
+			membership = membership.toUpperCase();
+		}
 		// 회원정보
 		model.addAttribute("member", member);// member라는 이름으로 member를 넣어줌
+		model.addAttribute("membership", membership);
 
 		return "memberView";
 	}

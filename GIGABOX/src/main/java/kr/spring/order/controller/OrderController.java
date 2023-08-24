@@ -122,29 +122,7 @@ public class OrderController {
 		log.debug("<<member>> : " + member);
 		int totalPoint = pointService.myTotalPoint(user.getMem_num());
 		log.debug("<<totalPoint>> : " + totalPoint);
-		/*
-		//나의 멤버십
-		String membership = orderService.selectMembershipByMem_num(user.getMem_num());
-		if(membership == null) {
-			membership = "BASIC";
-		}else {
-			membership = membership.toUpperCase();
-		}
-			
-		String pointRate = "";
-		if(membership == "BASIC") {
-			pointRate = "3%";
-		}else if(membership == "BRONZE") {
-			pointRate = "5%";
-		}else if(membership == "SILVER") {
-			pointRate = "7%";
-		}else if(membership == "GOLD") {
-			pointRate = "10%";
-		}
-		
-		model.addAttribute("membership",membership);
-		model.addAttribute("pointRate",pointRate);
-		*/
+
 		model.addAttribute("member", member);
 		model.addAttribute("have_point", totalPoint);
 		
@@ -225,29 +203,7 @@ public class OrderController {
 		log.debug("<<member>> : " + member);
 		int totalPoint = pointService.myTotalPoint(user.getMem_num());
 		log.debug("<<totalPoint>> : " + totalPoint);
-		/*
-		//나의 멤버십
-		String membership = orderService.selectMembershipByMem_num(user.getMem_num());
-		if(membership == null) {
-			membership = "BASIC";
-		}else {
-			membership = membership.toUpperCase();
-		}
-			
-		String pointRate = "";
-		if(membership == "BASIC") {
-			pointRate = "3%";
-		}else if(membership == "BRONZE") {
-			pointRate = "5%";
-		}else if(membership == "SILVER") {
-			pointRate = "7%";
-		}else if(membership == "GOLD") {
-			pointRate = "10%";
-		}
-		
-		model.addAttribute("membership",membership);
-		model.addAttribute("pointRate",pointRate);
-		*/
+
 		model.addAttribute("member", member);
 		model.addAttribute("have_point", totalPoint);
 		
@@ -352,7 +308,7 @@ public class OrderController {
 			//완료 화면에 주문 번호 넘기기
 			model.addAttribute("orders_num", orderVO.getOrders_num());
 			
-			return "orderComplete"; 
+			return "redirect:/order/orderComplete.do";
 			
 		}else { //장바구니 경유 구매 시
 			//전송된 데이터 유효성 체크 결과, 오류 있으면 폼을 다시 호출
@@ -453,7 +409,7 @@ public class OrderController {
 			//완료 화면에 주문 번호 넘기기
 			model.addAttribute("orders_num", orderVO.getOrders_num());
 			
-			return "orderComplete"; 
+			return "redirect:/order/orderComplete.do";
 		}
 
 	}
@@ -461,8 +417,15 @@ public class OrderController {
 
 	
 	/*======================
-	 	 결제 실패 시 화면
+	 	 결제 결과 화면 
 	======================*/
+	//성공
+	@RequestMapping("/order/orderComplete.do")
+	public String complete() {
+		return "orderComplete"; //tiles 설정
+	}
+	
+	//실패
 	@RequestMapping("/order/orderFail.do")
 	public String fail() {
 		return "orderFail"; //tiles 설정

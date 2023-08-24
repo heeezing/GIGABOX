@@ -307,16 +307,19 @@
 /*--------이벤트--------*/
 .event-wrap{
 	background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(232, 232, 232, 0.37));
-	height:880px;
+	height:900px; 
 }
 .event-list{
 	width:65%;
 	margin:110px auto 0;
 }
+.ev-title-wrap{
+	padding:0 20px 0;
+}
 .ev-title{
 	font-size:25pt;
 	font-weight:bold;
-	margin:0 0 25px 50px;
+	margin:0 0 25px 0;
 	float:left;
 	width:160px;
 }
@@ -331,29 +334,29 @@
 	float:right;
 	font-size:20pt;
 	font-weight:bold;
-	margin:13px 55px 0 0;
+	margin:13px 0 0 0;
 	color:gray;
 }
 
 .ev-list{
 	clear:both;
-	margin: 0 0 0 40px;
 }
 
-.event-detail{
-	width:270px;
-	height:355px;
-	padding:0 45px 20px 0;
-	float:left;
-	font-weight:bold;
-	text-align:center;
-	overflow:hidden;
+.event-detail {
+    width: 270px;
+    height: 355px;
+    padding: 0 20px 20px 20px;
+    float: left;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
 }
 .event-detail img{
-	width:270px;
-	height:270px;
+	width:280px;
+	height:280px;
 	margin-bottom:10px;
 	border-radius:20px;
+	text-align:center;
 }
 
 /*--------공지사항/고객센터--------*/

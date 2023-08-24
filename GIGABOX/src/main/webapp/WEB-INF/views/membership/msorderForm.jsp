@@ -137,7 +137,7 @@ $(document).ready(function() {
                     console.log("Order saved successfully:", result);
                     // 결제가 완료되었으므로 사용자에게 알림을 표시합니다.
                     alert("결제가 완료되었습니다.");
-                    window.location.href = "${pageContext.request.contextPath}msorderComplete.do"
+                    location.href = "msorderComplete.do"
                 },
                 error: function(error) {
                     console.log("Error saving order:", error);

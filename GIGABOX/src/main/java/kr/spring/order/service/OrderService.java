@@ -30,7 +30,7 @@ public interface OrderService {
 	//[사용자] 전체or검색 레코드 수
 	public int selectOrderCountByMem_num(Map<String,Object> map);
 	//[사용자] 전체or검색 목록
-	public List<OrderVO> selectListOrderByMem_num(Map<String,Object> map);
+	public List<OrderVO> selectListOrderByMem_num(Map<String,Object> map); 
 	//[사용자-마이페이지] 최근 3개 구매 목록
 	public List<OrderVO> selectListOrderByMem_num3(Integer mem_num);
 	//주문 상세
@@ -47,8 +47,10 @@ public interface OrderService {
 								@Param(value="orders_status") Integer orders_status);
 	//사용 상태 변경 - 기간 만료
 	public void statusChangeValid();
-	//선물함 개수
+	//사용 가능한 선물이 하나라도 껴있는 주문의 개수 - 스토어 스낵 목록 메뉴의 선물함 카운트 용
+	public int selectGiftCountPossible(String to_id);
+	//선물함 개수 - 마이페이지 페이지 처리 용 (전체 주문 취소의 경우 카운트X)
 	public int selectGiftCountByTo_id(Map<String,Object> map);
-	//선물함 목록
+	//선물함 목록 - 마이페이지 (전체 주문 취소의 경우 표시X)
 	public List<OrderVO> selectListGiftByTo_id(Map<String,Object> map);
 }

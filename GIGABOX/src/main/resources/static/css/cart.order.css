@@ -14,7 +14,7 @@
     overflow: hidden;
     position: relative;
     padding: 100px 0 40px;
-    border-top: 1px solid #d6d6d6;
+    border-top: 1px solid #d6d6d6; 
 }
 .go-store{
 	display: inline-block;

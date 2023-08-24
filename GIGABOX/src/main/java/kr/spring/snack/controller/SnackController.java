@@ -60,14 +60,12 @@ public class SnackController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user != null) { //로그인 O
 			cartCount = cartService.selectCartCount(user.getMem_num());
-			Map<String,Object> g_map = new HashMap<String,Object>();
-			g_map.put("to_id", user.getId());
-			giftCount = orderService.selectGiftCountByTo_id(g_map);
+			giftCount = orderService.selectGiftCountPossible(user.getId());
 		}
 		
 		//전체or검색 레코드 수
 		int count = snackService.selectUserSnackCount(sn_category);
-		log.debug("<<count>> : " + count);
+		log.debug("<<count>> : " + count); 
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(currentPage,count,12,10,"list.do","&sn_category="+sn_category);

@@ -115,10 +115,12 @@ $(document).ready(function () {
 <!-- 이벤트 -->
 <div class="event-wrap">
 	<div class="event-list">
-		<div class="ev-title">E V E N T</div>
-		<span class="ev-sub">혹시 이번엔 내가 당첨자?! 놓치지 말고 신청해보세요!</span>
-		<div class="ev-more">
-			<a href="${pageContext.request.contextPath}/event/eventList.do">+</a>
+		<div class="ev-title-wrap"> 
+			<div class="ev-title">E V E N T</div>
+			<span class="ev-sub">혹시 이번엔 내가 당첨자?! 놓치지 말고 신청해보세요!</span>
+			<div class="ev-more">
+				<a href="${pageContext.request.contextPath}/event/eventList.do">+</a>
+			</div>
 		</div>
 		<div class="ev-list">
 			<c:forEach var="event" items="${eList}">

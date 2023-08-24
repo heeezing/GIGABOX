@@ -77,7 +77,7 @@ $(document).ready(function() {
 					<a href="${pageContext.request.contextPath}/movie/movieList.do" class="btn4">영화</a>
 					<ul>
 						<li>
-							<a href="${pageContext.request.contextPath}/movie/movieList.do">박스오피스</a>
+							<a href="${pageContext.request.contextPath}/movie/movieList.do">현재상영작</a>
 						</li>
 						<li>
 							<a href="${pageContext.request.contextPath}/movie/premovieList.do">상영예정작</a>

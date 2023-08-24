@@ -19,7 +19,7 @@
 <div class="page-main mypage-reservation">
 	<div class="tit-util mt70">
 		<div>
-			<h2 class="tit">내 선물함</h2>
+			<h2 class="tit">내 선물함</h2> 
 		</div>
 	</div>
 	<!-- 검색창 시작 -->
@@ -27,8 +27,8 @@
 		<ul class="search">
 			<li>
 				<select name="keyfield">
-					<option value="1" 
-					 <c:if test="${param.keyfield==1}">selected</c:if>>상품명</option>
+					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>상품명</option>
+					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>보내는분</option>
 				</select>
 			</li>
 			<li>
@@ -38,17 +38,11 @@
 				<input type="submit" value="조회">
 			</li>
 		</ul>
-	</form> 
+	</form>
 	<!-- 검색창 끝 -->
 	<!-- 목록 시작 -->
 	<c:if test="${count == 0}">
-		<div class="tit-util mt70">
-		<div class="mypage-content">
-			<ul>
-				<li>선물 내역이 없습니다.</li>
-			</ul>
-		</div>
-	</div>
+		<div class="result-display">표시할 선물 정보가 없습니다.</div>
 	</c:if>
 	<c:if test="${count > 0}">
 	<table class="striped-table">

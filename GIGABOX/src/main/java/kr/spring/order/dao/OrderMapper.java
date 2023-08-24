@@ -74,9 +74,11 @@ public interface OrderMapper {
 	@Update("UPDATE orders_detail SET orders_status = 3 WHERE valid_date < SYSDATE")
 	public void statusChangeValid();
 	
-	//선물함 개수
-	public int selectGiftCountByTo_id(Map<String,Object> map);
-	//선물함 목록
+	//사용 가능한 선물이 하나라도 껴있는 주문의 개수 - 스토어 스낵 목록 메뉴의 선물함 카운트 용
+	public int selectGiftCountPossible(String to_id);
+	//선물함 개수 - 마이페이지 페이지 처리 용 (전체 주문 취소의 경우 카운트X)
+	public int selectGiftCountByTo_id(Map<String,Object> map); 
+	//선물함 목록 - 마이페이지 (전체 주문 취소의 경우 표시X)
 	public List<OrderVO> selectListGiftByTo_id(Map<String,Object> map);
 	
 }

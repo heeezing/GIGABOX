@@ -20,6 +20,10 @@
 		<li>우편번호 : ${member.zipcode}</li>
 		<li>주소 : ${member.address1} ${member.address2}</li>
 		<li>가입일 : ${member.reg_date}</li>
+		<li>멤버십 등급 : ${membership}</li>
+		<c:if test="${membership != 'BASIC'}">
+		<input type="button" value="구독취소">
+		</c:if>
 	</ul>
 	<br>
 	<ul>
