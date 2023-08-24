@@ -45,7 +45,9 @@
 				<input type="button" value="목록" onclick="location.href='hallList.do'">
 			</li>
 		</ul>
-		<input type="button" value="상영관등록" onclick="location.href='hallAdd.do'">
+		<div class="align-right">
+			<input type="button" value="상영관등록" onclick="location.href='hallAdd.do'">
+		</div>
 	</form>
 	<c:if test="${count == 0}">
 	<div class="result-display">표시할 게시물이 없습니다.</div>

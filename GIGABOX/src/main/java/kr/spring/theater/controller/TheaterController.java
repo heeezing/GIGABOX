@@ -74,9 +74,9 @@ public class TheaterController {
 
 		if(theaterVO==null || theaterVO.getTh_photoname()==null) {
 			// 기본 이미지 읽기
-			byte[] readbyte = FileUtil.getBytes(request.getServletContext().getRealPath("/image_bundle/preview.png"));
+			byte[] readbyte = FileUtil.getBytes(request.getServletContext().getRealPath("/image_bundle/no_image.jpg"));
 			model.addAttribute("imageFile",readbyte);
-			model.addAttribute("filename","preview.png");
+			model.addAttribute("filename","no_image.jpg");
 
 		}else { // 업로드한 사진이 있는 경우
 			model.addAttribute("imageFile", theaterVO.getTh_photo());
