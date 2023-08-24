@@ -1,5 +1,6 @@
 package kr.spring.reservation.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,7 +78,7 @@ public class ReservationController {
 		
 		// 날짜
 		List<Date> dateList = getDate(); 
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("quick_res");
 		
@@ -130,9 +131,22 @@ public class ReservationController {
 	@ResponseBody
 	public Map<String,Object> getScheduleList(@RequestParam("movie_num") int movie_num, @RequestParam("th_num") int th_num, @RequestParam("sch_date") String sch_date, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
+
+		// 현재시간 구하기
+		Date nowDate = new Date();
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		String now_time = timeFormat.format(nowDate);
+		// 오늘 날짜 구하기
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String now_date = dateFormat.format(nowDate);
+		log.debug("<<now_time>> : " + now_time);
+		log.debug("<<now_date>> : " + now_date);
+
 		map.put("movie_num", movie_num);
 		map.put("th_num", th_num);
 		map.put("sch_date", sch_date);
+		map.put("now_time", now_time);
+		map.put("now_date", now_date);
 		
 		List<ScheduleVO> list = resService.getScheduleList(map);
 		
