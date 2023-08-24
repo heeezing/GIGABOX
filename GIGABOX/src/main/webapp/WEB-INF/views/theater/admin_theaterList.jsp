@@ -15,9 +15,7 @@
 	});
 </script>
 <div class="page-main">
-	<div class="title">
-		극장목록
-	</div>
+	<h2>극장목록</h2>
 	<form action="theaterList.do" method="get" id="search_form">
 		<ul class="search">
 			<li>
@@ -34,7 +32,7 @@
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="검색">
+				<input type="submit" value="검색" class="sub-button">
 				<input type="button" value="목록" onclick="location.href='theaterList.do'">
 			</li>
 		</ul>

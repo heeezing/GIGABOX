@@ -4,9 +4,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/hall.js"></script>
 <!-- 상영관 수정 시작 -->
 <div class="page-main">
-	<div class="title">
-		상영관수정
-	</div>
+	<h2>상영관수정</h2>
 	<form action="hallUpdate.do" id="hall_update" method="post">
 		<input type="hidden" name="hall_num" value="${hallVO.hall_num}"/>
 		<ul>

@@ -3,9 +3,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/theater.js"></script>
 <!-- 극장 등록 시작 -->
 <div class="page-main">
-	<div class="title">
-		극장등록
-	</div>
+	<h2>극장등록</h2>
 	<form action="theaterAdd.do" id="theater_add" method="post" enctype="multipart/form-data">
 		<ul>
 			<li>

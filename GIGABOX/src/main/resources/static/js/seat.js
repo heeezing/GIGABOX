@@ -57,9 +57,16 @@ $(function(){
 				seats = [];
 				$('#res_seats').val(seats.toString());
 				
-				$('#btn_booking_pay').prop('disabled', true); // 결제버튼 비활성화
 			}
 		}
+		
+		// 인원수가 0이상이고, 인원수만큼 좌석을 클릭한 경우 결제버튼 활성화
+		if(number>0 && number==clicked){
+			$('#btn_booking_pay').prop('disabled', false);
+		}else{
+			$('#btn_booking_pay').prop('disabled', true);
+		}
+		
 		$('.number').val(number);
 		$('.person').text(number);
 	});

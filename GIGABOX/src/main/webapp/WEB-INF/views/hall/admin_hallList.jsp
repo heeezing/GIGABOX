@@ -24,9 +24,7 @@
 	});
 </script>
 <div class="page-main">
-	<div class="title">
-		상영관목록
-	</div>
+	<h2>상영관목록</h2>
 	<form action="hallList.do" method="get" id="search_form">
 		<ul class="search">
 			<li>

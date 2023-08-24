@@ -3,9 +3,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/theater.js"></script>
 <!-- 극장 수정 시작 -->
 <div class="page-main">
-	<div class="title">
-		극장수정
-	</div>
+	<h2>극장수정</h2>
 	<form action="theaterUpdate.do" id="theater_update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="th_num" value="${theaterVO.th_num}"/>
 		<ul>

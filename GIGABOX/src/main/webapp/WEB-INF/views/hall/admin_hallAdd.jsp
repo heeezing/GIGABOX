@@ -4,9 +4,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/hall.js"></script>
 <!-- 상영관 등록 시작 -->
 <div class="page-main">
-	<div class="title">
-		상영관등록
-	</div>
+	<h2>상영관등록</h2>
 	<form action="hallAdd.do" id="hall_add" method="post">
 		<ul>
 			<li>
