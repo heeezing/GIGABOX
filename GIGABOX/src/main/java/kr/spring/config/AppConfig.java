@@ -63,7 +63,8 @@ public class AppConfig implements WebMvcConfigurer{
 		   		 .addPathPatterns("/order/writeReport.do")
 		   		 .addPathPatterns("/reservation/seat.do")
 		   		 .addPathPatterns("/reservation/pay.do")
-		   		 .addPathPatterns("/reservation/reservation.do");
+		   		 .addPathPatterns("/reservation/reservation.do")
+		   		.addPathPatterns("/cs/csPersonalWrite.do");
 		//AdminCheckInterceptor 설정
 		registry.addInterceptor(adminCheck)
 				.addPathPatterns("/snack/admin_list.do")
@@ -83,7 +84,25 @@ public class AppConfig implements WebMvcConfigurer{
 				 .addPathPatterns("/reservation/admin_schedule.do") 
 				.addPathPatterns("/reservation/admin_scheduleAdd.do")
 				.addPathPatterns("/reservation/admin_scheduleUpdate.do")
-				.addPathPatterns("/reservation/admin_resList.do");
+				.addPathPatterns("/reservation/admin_resList.do")
+				.addPathPatterns("/event/eventWrite.do")
+				.addPathPatterns("/event/eventModify.do")
+				.addPathPatterns("/event/eventDelete.do")
+				.addPathPatterns("/event/eventAdminList.do")
+				.addPathPatterns("/event/eventResultAdminList.do")
+				.addPathPatterns("/event/eventResultWrite.do")
+				.addPathPatterns("/event/eventResultUpdate.do")
+				.addPathPatterns("/event/eventResultDelete.do")
+				.addPathPatterns("/cs/csWrite.do")
+				.addPathPatterns("/cs/csModify.do")
+				.addPathPatterns("/cs/csDelete.do")
+				.addPathPatterns("/cs/csPersonalList.do")
+				.addPathPatterns("/cs/csPersonalAdminWrite.do")
+				.addPathPatterns("/cs/csPersonalAdminUpdate.do")
+				.addPathPatterns("/cs/csPersonalAdminDelete.do")
+				.addPathPatterns("/cs/csNotiAdminList.do")
+				.addPathPatterns("/cs/csQnaAdminList.do");
+
 	}
 	
 	
