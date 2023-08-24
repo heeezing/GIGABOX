@@ -55,11 +55,15 @@ public class AppConfig implements WebMvcConfigurer{
 		         .addPathPatterns("/member/changePassword.do")
 		         .addPathPatterns("/member/delete.do")
 		         .addPathPatterns("/board/memberReservationList.do")
+		         .addPathPatterns("/board/reservationList.do")
 		         .addPathPatterns("/cart/list.do")
 		         .addPathPatterns("/order/order.do")
 		         .addPathPatterns("/order/orderFail.do")
 		         .addPathPatterns("/order/searchMember.do")
-		   		 .addPathPatterns("/order/writeReport.do");
+		   		 .addPathPatterns("/order/writeReport.do")
+		   		 .addPathPatterns("/reservation/seat.do")
+		   		 .addPathPatterns("/reservation/pay.do")
+		   		 .addPathPatterns("/reservation/reservation.do");
 		//AdminCheckInterceptor 설정
 		registry.addInterceptor(adminCheck)
 				.addPathPatterns("/snack/admin_list.do")
@@ -69,7 +73,17 @@ public class AppConfig implements WebMvcConfigurer{
 				.addPathPatterns("/snack/admin_deleteChBox.do")
 				.addPathPatterns("/point/admin_list.do")
 				.addPathPatterns("/order/admin_list.do")
-				.addPathPatterns("/order/admin_detail.do");
+				.addPathPatterns("/order/admin_detail.do")
+				.addPathPatterns("/theater/theaterList.do")
+				.addPathPatterns("/theater/theaterAdd.do")
+				.addPathPatterns("/theater/theaterUpdate.do")
+				.addPathPatterns("/hall/hallList.do")
+				.addPathPatterns("/hall/hallAdd.do")
+				.addPathPatterns("/hall/hallUpdate.do")
+				 .addPathPatterns("/reservation/admin_schedule.do") 
+				.addPathPatterns("/reservation/admin_scheduleAdd.do")
+				.addPathPatterns("/reservation/admin_scheduleUpdate.do")
+				.addPathPatterns("/reservation/admin_resList.do");
 	}
 	
 	
