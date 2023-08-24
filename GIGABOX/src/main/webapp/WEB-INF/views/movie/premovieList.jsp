@@ -49,6 +49,9 @@ ul {
     width: 184px;
     margin: 0 7.5px;
     text-align: center;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
 }
 li {
     display: list-item;
@@ -59,10 +62,15 @@ li {
     position: relative;
     height: 262px;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
 }
 .movie_list li .btm_info {
     display: block;
     margin-top: 14px;
+    width: 100%; 
+    text-align: center;
 }
 .movie_list li .top_info .poster_info {
     display: block;
@@ -70,11 +78,7 @@ li {
 }
 .movie_list li .top_info .poster_info img {
     width: 100%;
-}
-
-img {
-    border: none;
-    vertical-align: top;
+    align-self: center;
 }
 img {
     overflow-clip-margin: content-box;
@@ -94,19 +98,22 @@ img {
 }
 .btn_col3 {
     display: block;
-    line-height: 26px;
-    margin-top: 10px;
+    margin-top: 20px;
     background: transparent;
     color: #fff !important;
     border-color: #fff;
+    width:100px;
+    height:25px;
 }
 .movie_list li .btm_info .sub_info1 .time.blacktype {
     position: relative;
     padding-left: 15px;
     font-weight: 600;
+    text-align: center;
 }
 .movie_list li .btm_info .sub_info1 > span {
     position: relative;
+    margin-left: 8px;
     margin-left: 8px;
 }
 
@@ -139,7 +146,7 @@ img {
 }
 
 .movie_list li .top_info:hover .over_box .btn_col3 {
-    display: block;
+    /* display: block; */
     margin-top: 10px;
     background: transparent;
     color: #fff !important;
@@ -158,23 +165,97 @@ img {
 .ratingicon{
 	width:50px;
 	height:50px;
+	margin-left:17%;
 }
 .movie_list li .btm_info .ratingicon,
 .movie_list li .btm_info .title_info {
     display: inline-block;
     vertical-align: middle;
 }
+.title_info{
+   	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+    text-align: center;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
 
 .movie_list li .btm_info{
  	margin-right:10%;
  	margin-top:0;
+}
+.movie-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-search select,
+.movie-search .search {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.movie-search select {
+  background-color: white;
+  cursor: pointer;
+}
+.movie-search .searchbtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.movie-search .searchbtn img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.movie-search input[type="button"] {
+  background: #e1e1e1;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #333;
+}
+#search_form{
+	margin-left:30%;
+	margin-bottom:30px;
+	margin-top:10px;
+}
+#keyword{
+	border-style:none;
+}
+#keyfield{
+	height:35px;
+	width:60px;
+}
+.searchbox{
+	border: 1px solid #ccc;
+  	border-radius: 5px;
+	width:200px;
+}
+.tit_info{
+	display:flex;
 }
 
 </style>
 <script type="text/javascript">
 	$(function() {
 		//검색 유효성 체크
-		$('#search_form').submit(function() {
+		$('#pre_search_form').submit(function() {
 			if ($('#keyword').val().trim() == '') {
 				alert('검색어를 입력하세요!');
 				$('#keyword').val('').focus();
@@ -190,22 +271,26 @@ img {
 	</div>
 </div><br>
 <div class="page-main">
-	<form action="premovieList.do" id="search_form" class="list-search" method="get">
-		<ul class="search">
-			<li><select name="keyfield" id="keyfield">
-					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>영화감독</option>
-					<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>영화배우</option>
-			</select></li>
-			<li><input type="search" name="keyword" id="keyword"
-				value="${param.keyword}"></li>
-			<li><input type="submit" value="찾기"> <input
-				type="button" value="목록" onclick="location.href='premovieList.do'">
-			</li>
-		</ul>
+	<form action="premovieList.do" id="pre_search_form" class="list-search" method="get" style="border-style:none;">
+		<div >
+			<div class="movie-search">
+				<div class="searchfield">
+					<select name="keyfield" id="keyfield">
+						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>영화감독</option>
+						<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>영화배우</option>
+					</select>
+				</div>	
+				<div class="searchbox">
+					<input type="search" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="input-text" value="${param.keyword}">
+					<button type="submit" name="searchbtn" class="searchbtn">
+						<img src="${pageContext.request.contextPath}/images/searchbtn.png" alt="찾기">
+					</button>
+					<!-- <input type="button" value="목록" onclick="location.href='movieList.do'"> -->
+				</div>
+			</div>
+		</div>
 		<br>
-		<%-- <c:if test="${!empty user}"></c:if>
-			<input type="button" value="글쓰기"onclick="location.href='movieRegister.do'"> --%>
 	</form>
 <c:if test="${count == 0}">
 	<div class="result-display">표시할 영화가 없습니다.</div>
@@ -218,32 +303,37 @@ img {
 					<li class="screen_add_box">
 					<div class="top_info">
 						<span class="poster_info">
-							<img src="${movie.m_poster2}" alt="${movie.m_title}">
+							<c:if test="${!empty movie.m_poster}"><img src="../movie/imageView.do?movie_num=${movie.movie_num}&movie_type=1"></c:if>
+							<c:if test="${empty movie.m_poster}"><img src="${movie.m_poster2}" alt="${movie.m_title}"></c:if>
 							<!--<em class="num_info">${movie.m_rank}</em> 영화 랭킹 일단 비활성화해뒀어  -->
 						</span>
 						<div class="over_box"> <!-- 박스 안 버튼 -->
 							<div class="inner" style="margin-top: -33px;">
-								<span><a href="" class="btn_col3 ty3 btn_booking">예매하기</a></span>
+								<span><a href="${pageContext.request.contextPath}/reservation/quick_res.do?movie_num=${movie.movie_num}"  class="btn_col3 ty3 btn_booking">예매하기</a></span>
 								<span><a href="movieDetail.do?movie_num=${movie.movie_num}" class="btn_col3 ty3 btn_details">상세정보</a></span>
 							</div>
 						</div>
 					</div>
 					<div class="btm_info"> <!-- 포스터 밑에!! -->
-						<c:set var="ratingNumber" value="${fn:substring(movie.m_rating, 0, 2)}" />
-						<c:if test="${ratingNumber == '12'}">
-					 		<img src="${pageContext.request.contextPath}/images/12.png"  class="ratingicon">
-						</c:if>
-						<c:if test="${ratingNumber == '15'}">
-					  		<img src="${pageContext.request.contextPath}/images/15.png"  class="ratingicon">
-						</c:if>
-						<c:if test="${ratingNumber == '전체'}">
-					   		<img src="${pageContext.request.contextPath}/images/ALL.png"  class="ratingicon">
-						</c:if>
-						<c:if test="${ratingNumber == '청소'}">
-					   		<img src="${pageContext.request.contextPath}/images/18.png"  class="ratingicon">
-						</c:if>
-						<strong class="title_info"><span>${movie.m_title}</span></strong><br>
-						<span class="sub_info1 time blacktype">${movie.m_runtime}분</span>
+						<div class="tit_info">
+							<c:set var="ratingNumber" value="${fn:substring(movie.m_rating, 0, 2)}" />
+							<c:if test="${ratingNumber == '12'}">
+						 		<img src="${pageContext.request.contextPath}/images/12.png"  class="ratingicon">
+							</c:if>
+							<c:if test="${ratingNumber == '15'}">
+						  		<img src="${pageContext.request.contextPath}/images/15.png"  class="ratingicon">
+							</c:if>
+							<c:if test="${ratingNumber == '전체'}">
+						   		<img src="${pageContext.request.contextPath}/images/ALL.png"  class="ratingicon">
+							</c:if>
+							<c:if test="${ratingNumber == '청소'}">
+						   		<img src="${pageContext.request.contextPath}/images/18.png"  class="ratingicon">
+							</c:if>
+							<strong class="title_info"><span>${movie.m_title}</span></strong><br>
+						</div>
+						<div class="sub_info">
+							<span class="sub_info1 time blacktype">${movie.m_runtime}분</span>
+						</div>
 					</div>
 				</li>
 			</c:forEach>

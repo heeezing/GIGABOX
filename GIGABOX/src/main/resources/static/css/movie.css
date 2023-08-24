@@ -112,7 +112,7 @@ hr{
 .detailtop-right > img{
 	width:90%;
 	height:60%;
-	margin-top:30px;
+	margin-top:30xp;
 }
 
 .detailtop-bottom::after {
@@ -159,9 +159,16 @@ hr{
 	margin-top: 35px;
 }
 .movie-plot{
-	font-size: 18px;
+	font-size: 20px;
+	font-weight:580;
 	white-space: pre-line;
 	line-height: 1.5; /* 줄 간격 설정 */
+	margin-bottom: 35px; 
+}
+.movie-info{
+	font-size: 18px;
+	font-weight:500;
+	line-height: 1.5; 
 	margin-bottom: 35px; 
 }
 .movie-info > ul > li{
@@ -204,10 +211,14 @@ hr{
   margin-left:46.5%;
 }
 .pre-review{
-	margin-top:20px;
+	margin-top:15px;
+	margin-left:10px;
+}
+.pre-review-countreview{
+	margin-bottom:50px;
 }
 .pre-review-countreview > span{
-	font-size: 1.4666em;
+	font-size: 1.8em;
     color: #503396;
     font-weight: 700;
     letter-spacing: -1px;
@@ -234,6 +245,14 @@ hr{
     justify-content: space-between;
     align-items: center;
 }
+.reviewbox-title > span{
+	font-size:15px;
+	font-weight:500;
+}
+#openrwButton{
+	font-size:15px;
+	font-weight:500;	
+}
 
 .reviewbox-btn input[type="button"] {
 	float:right;
@@ -252,9 +271,50 @@ hr{
 	margin-top:20px;
 	margin-right:20px;
 }
-
+.detail-bottom {
+  display: flex;
+  justify-content: initial;
+  color: white;
+  font-size: 17px;
+  margin-top:555px;
+  margin-left:80px;
+  font-family:NanumBarunGothic,Dotum,'돋움',sans-serif;
+}
+#wrap_review{
+	margin-top:50px;
+}
+.det-1{
+	margin-bottom:15px;
+}
+.det-2 {
+  text-align: center;
+  display:flex;
+}
+.det-2 > div{
+	display:flex;
+}
+.det2-num {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 40px;
+}
+.det-rating-box{
+	display:flex;
+	flex-direction: column;
+	margin-right:53px;
+}
+.det-icon {
+  width: 30px;
+  height: 30px;
+  margin-right:13px;
+  margin-top:18px;
+}
+.ratingAvg{
+	color:#329eb1;
+	font-weight:900!important;
+}
 /*실관람평*/
-
 #rating-value{
 	width:110px;
 	margin:40px auto 0 ;
@@ -371,7 +431,6 @@ hr{
     background-color: rgba(0, 0, 0, 0.15);
     z-index: 999999999999;
     align-items: center;
-    
 }
 .modal_container {
     background-color: #fefefe;
@@ -471,9 +530,9 @@ hr{
 /* 좋아요 버튼 스타일 */
 .output_fav {
   margin-right: 10px;
-  margin-top:18px;
-  width:50px;
-  height:50px;
+  margin-top:20px;
+  width:40px;
+  height:40px;
 }
 
 .output_fcount {
@@ -506,7 +565,8 @@ hr{
 }
 .modifybtn{
 	flex-direction: row;
-	margin-top:10px;
+	margin-top:13px;
+	margin-right:10px;
 }
 .sub-item {
   display: flex;
@@ -555,7 +615,7 @@ hr{
 .morereviewbtn{
 	font-size: 16px;
 }
-/*무비포스트*/
+
 /*예고편 스틸컷*/
 hr {
   border: none;
@@ -563,7 +623,18 @@ hr {
   margin: 20px 0;
 }
 .iframe{
-	margin-left:20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-left:100px;
+  margin-bottom:0;
+}
+.novod{
+	font-size:18px;
+	text-align:center;
+	margin-top:70px;
+	margin-bottom:70px;
 }
 
 /* 스틸컷 스타일 */
@@ -572,13 +643,9 @@ hr {
   margin-bottom: 10px;
 }
 
-.stllimg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.stllimg > img {
+  	width: 80%;
+	height:80%;
 }
 
 

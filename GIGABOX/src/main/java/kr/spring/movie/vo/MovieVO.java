@@ -18,7 +18,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(exclude = {"m_poster","m_stillimg"})
+@ToString(exclude = {"m_poster","m_stllimg","m_stllimg3","m_stllimg4","m_stllimg5","m_stllimg6"})
 public class MovieVO {
 	private int movie_num; //영화번호
 	private int m_rank; //박스오피스 순위
@@ -41,6 +41,14 @@ public class MovieVO {
 		private byte[] m_stllimg;
 		private String m_stllimg2; //api...
 		private String stllimg_name;
+		private byte[] m_stllimg3;
+		private byte[] m_stllimg4;
+		private byte[] m_stllimg5;
+		private byte[] m_stllimg6;
+		private String stllimg_name3;
+		private String stllimg_name4;
+		private String stllimg_name5;
+		private String stllimg_name6;
 		private String m_vod;
 		private String m_nation;
 		private int m_status;
@@ -64,6 +72,28 @@ public class MovieVO {
 			//파일명 구하기
 			setStllimg_name(stllimg.getOriginalFilename());
 		}	
-	
-	
+		public void setStllimg3(MultipartFile stllimg3) throws IOException{
+			//MultipartFile -> byte[] 변환
+			setM_stllimg3(stllimg3.getBytes());
+			//파일명 구하기
+			setStllimg_name3(stllimg3.getOriginalFilename());
+		}	
+		public void setStllimg4(MultipartFile stllimg4) throws IOException{
+			//MultipartFile -> byte[] 변환
+			setM_stllimg4(stllimg4.getBytes());
+			//파일명 구하기
+			setStllimg_name4(stllimg4.getOriginalFilename());
+		}
+		public void setStllimg5(MultipartFile stllimg5) throws IOException{
+			//MultipartFile -> byte[] 변환
+			setM_stllimg5(stllimg5.getBytes());
+			//파일명 구하기
+			setStllimg_name5(stllimg5.getOriginalFilename());
+		}
+		public void setStllimg6(MultipartFile stllimg6) throws IOException{
+			//MultipartFile -> byte[] 변환
+			setM_stllimg6(stllimg6.getBytes());
+			//파일명 구하기
+			setStllimg_name6(stllimg6.getOriginalFilename());
+		}
 }

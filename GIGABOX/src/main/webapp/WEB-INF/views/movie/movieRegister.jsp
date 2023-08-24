@@ -1,18 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<style>
+.title{
+	font-size:30px;
+}
+form{
+	border-style:none;
+}  
+#m_poster{
+	width:40%;
+	float:left;
+	text-align:center;
+	margin-left:18%	;
+	margin-bottom:20px;
+}
+.m_status{
+	margin-bottom:15px;
+}
+#form_input{
+	width:60%;
+	float:right;
+}
+#insert_form, #update_form{
+	width:880px;
+	margin:0 auto;
+	padding-top:40px;
+	border:1px solid #000;
+}
+#insert_form label, #update_form label{
+	font-weight:bold;
+	width:80px;
+	margin:0 auto;
+	vertical-align:middle;
+}
+#insert_form ul li, #update_form ul li{
+	margin:10px 0;
+	vertical-align:middle;
+}
+input.form-input{
+	width:300px;
+}
+#movie_text{
+	clear:both;
+	margin:0 auto;
+	height:90px;
+}
+#movie_text label{
+	margin-left:50px;
+	margin-bottom:20px;
+}
+
+#movie_text textarea{
+	float:right;
+	margin-right:66px;
+	resize:none;
+	width:80%;
+	height:60px;
+}
+
+#movie_button{
+	text-align:center;
+	margin:20px auto;
+	clear:both;
+}
+#m_poster2{
+	margin-bottom:20px;
+}
+#m_vod{
+	margin-right:145px;
+}
+#movie_button {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  gap: 40px; /* 버튼 사이 간격 설정 */
+  margin-top: 30px;
+}
+
+.mbtn {
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  width:100px;
+  height:35px;
+}
+.mbtn:hover{
+	border:solid 1px;
+	background-color:#f7f8f9;
+}
+</style>
 <!-- 영화 등록 폼 시작 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/movie_register.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
 <div class="page-main">
-	<div class="title"><a href="movieRegister.do">영화 등록</a></div>
+	<h4 class="title"><a href="movieRegister.do">영화 등록</a></h4>
 	<form:form modelAttribute="movieVO" action="movieRegister.do" id="register_form" encType="multipart/form-data">
 	<form:errors element="div" cssClass="error-color"/>
-		<!--[왼쪽] 사진 미리 보기 -->
 		<div id="m_poster">
 			<img src="${pageContext.request.contextPath}/images/no_image.jpg" width="300" class="m-poster">
 		</div>
-		<!--[오른쪽] 영화 정보 입력 -->
 		<div id="movie_input">
 			<ul>
 				<li>
@@ -45,7 +134,7 @@
 					<input type="text" name="m_company" id="m_company" maxlength="10" class="form-input">
 				</li>
 				<li>
-					<label for="m_opendate">개봉일</label>
+					<label for="m_opendate2">개봉일</label>
 					<input type="date" name="m_opendate" id="m_opendate" class="form-input">
 				</li>
 				<li>
@@ -65,9 +154,25 @@
 					<input type="file" name="poster" id="poster" accept="image/gif,image/png,image/jpeg"><br>
 				</li>
 				<li>
-					<label for="m_stllimg" class="form-label">스틸컷</label>
+					<label for="m_stllimg" class="form-label">스틸컷1</label>
 					<input type="file" name="stllimg" id="stllimg" accept="image/gif,image/png,image/jpeg"><br>
 				</li>
+				<li>
+					<label for="m_stllimg3" class="form-label">스틸컷2</label>
+					<input type="file" name="stllimg3" id="stllimg3" accept="image/gif,image/png,image/jpeg"><br>
+				</li>
+				<li>
+					<label for="m_stllimg4" class="form-label">스틸컷3</label>
+					<input type="file" name="stllimg4" id="stllimg4" accept="image/gif,image/png,image/jpeg"><br>
+				</li>
+				<li>
+					<label for="m_stllimg5" class="form-label">스틸컷4</label>
+					<input type="file" name="stllimg5" id="stllimg5" accept="image/gif,image/png,image/jpeg"><br>
+				</li>	
+				<li>
+					<label for="m_stllimg6" class="form-label">스틸컷5</label>
+					<input type="file" name="stllimg6" id="stllimg6" accept="image/gif,image/png,image/jpeg"><br>
+				</li>																			
 				<li>
 					<label for="m_vod" class="form-label">예고편</label>
 					<input type="url" name="m_vod" id="m_vod"><br>
@@ -81,8 +186,8 @@
 		</div>
 		
 		<div id="movie_button">
-			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/movie/movieList.do'">
-			<input type="submit" value="등록">
+			<input type="button" class="mbtn" value="목록" onclick="location.href='${pageContext.request.contextPath}/movie/movieList.do'">
+			<input type="submit" class="mbtn" value="등록">
 		</div>
 	</form:form>
 </div>

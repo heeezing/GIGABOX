@@ -19,8 +19,11 @@ import kr.spring.movie.vo.Review_ReportVO;
 @Mapper
 public interface MovieMapper {
 	public List<MovieVO> selectList(Map<String,Object>map);
-	public List<MovieVO> selectPreList(Map<String,Object>map);
 	public int selectRowCount(Map<String,Object> map);
+	public List<MovieVO> selectPreList(Map<String,Object>map);
+	public int selectRowCountPreList(Map<String,Object> map);
+	public List<MovieVO> selectAdminList(Map<String,Object>map);
+	public int selectRowCountAdminList(Map<String,Object>map);
 	//등록폼으로 영화 등록
 	public void registerMovie(MovieVO movie);
 	//api 불러오기
@@ -30,7 +33,7 @@ public interface MovieMapper {
 	public List<String> getExistingMovieSeqList();
 	@Select("SELECT * FROM movie WHERE movie_num=#{movie_num}")
 	public MovieVO selectMovie(Integer movie_num);
-	@Update("UPDATE movie SET m_title=#{m_title},m_titleEng=#{m_titleEng},m_director=#{m_director},m_actor=#{m_actor},m_company=#{m_company},m_plot=#{m_plot},m_runtime=#{m_runtime},m_rating=#{m_rating},m_genre=#{m_genre},m_opendate2=#{m_opendate2},m_poster2=#{m_poster2},m_stllimg2=#{m_stllimg2},m_vod=#{m_vod},m_nation=#{m_nation},m_status=#{m_status}"
+	@Update("UPDATE movie SET m_title=#{m_title},m_titleEng=#{m_titleEng},m_director=#{m_director},m_actor=#{m_actor},m_company=#{m_company},m_plot=#{m_plot},m_runtime=#{m_runtime},m_rating=#{m_rating},m_genre=#{m_genre},m_opendate=#{m_opendate},m_opendate2=#{m_opendate2},m_poster=#{m_poster},poster_name=#{poster_name},m_poster2=#{m_poster2},m_stllimg=#{m_stllimg},stllimg_name=#{stllimg_name},m_stllimg2=#{m_stllimg2},m_stllimg3=#{m_stllimg3},stllimg_name3=#{stllimg_name3},m_stllimg4=#{m_stllimg4},stllimg_name4=#{stllimg_name4},m_stllimg5=#{m_stllimg5},stllimg_name5=#{stllimg_name5},m_stllimg6=#{m_stllimg6},stllimg_name6=#{stllimg_name6},m_vod=#{m_vod},m_nation=#{m_nation},m_status=#{m_status}"
 			+ "WHERE movie_num=#{movie_num}")
 	public void updateMovie(MovieVO movie);
 	@Delete("DELETE FROM movie WHERE movie_num=#{movie_num}")
@@ -39,7 +42,7 @@ public interface MovieMapper {
 	public void updateStatusMovie(Integer movie_num);
 	public void updateStatusMovieCheck(String[] selectmovies);
 	//영화 예매 순위
-	@Select("SELECT sub.movie_num, COALESCE(sub.rank, (SELECT COUNT(*) FROM movie)) AS rank FROM (SELECT s.movie_num, ROW_NUMBER() OVER (ORDER BY COALESCE(COUNT(r.res_num), 0) DESC) AS rank FROM schedule s LEFT JOIN reservation r ON s.sch_num = r.sch_num GROUP BY s.movie_num) sub WHERE sub.movie_num = #{movieNum}")
+	@Select("SELECT COALESCE(sub.rank, (SELECT COUNT(*) FROM movie)) AS rank FROM (SELECT s.movie_num, ROW_NUMBER() OVER (ORDER BY COALESCE(COUNT(r.res_num), 0) DESC) AS rank FROM schedule s LEFT JOIN reservation r ON s.sch_num = r.sch_num GROUP BY s.movie_num) sub WHERE sub.movie_num = #{movieNum}")
 	public int reservationRankByMovie(Integer movie_num);
 	
 	
@@ -47,7 +50,7 @@ public interface MovieMapper {
 	public List<ReviewVO> selectListReview(Map<String,Object> map);
 	@Select("SELECT COUNT(*) FROM review WHERE movie_num= #{movie_num}")
 	public int selectRowCountReview(Map<String,Object> map);
-	@Select("SELECT * FROM review WHERE review_num=#{review_num}")
+	@Select("SELECT r.*,m.m_title,me.id FROM review r JOIN movie m ON r.movie_num=m.movie_num JOIN member me ON r.mem_num = me.mem_num WHERE review_num=#{review_num}")
 	public ReviewVO selectReview(Integer review_num);
 	public void insertReview(ReviewVO review);
 	@Update("UPDATE review SET review_content=#{review_content},rating_score=#{rating_score},review_mdate=SYSDATE WHERE review_num=#{review_num}")
@@ -83,6 +86,8 @@ public interface MovieMapper {
 	@Delete("DELETE FROM review_report WHERE repo_num=#{repo_num}")
 	public void deleteRepo(Integer repo_num);
 	public void deleteRepoCheck(String[] selectreports);
+	@Delete("DELETE FROM review_report WHERE review_num=#{review_num}")
+	public void deleteRepoByReviewNum(Integer review_num);
 	//관람평 신고 유효성 검사
 	@Select("SELECT COUNT(*) FROM review_report WHERE mem_num=#{mem_num} AND review_num=#{review_num}")
 	public int selectCountReportByUser(@Param(value="mem_num") Integer mem_num, @Param(value="review_num") Integer review_num);

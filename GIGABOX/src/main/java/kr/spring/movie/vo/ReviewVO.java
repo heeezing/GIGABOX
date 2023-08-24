@@ -19,6 +19,7 @@ public class ReviewVO {
 	private String review_date;
 	private String review_mdate;
 	
+	private String m_title;
 	private String id;
 	private String nick_name;
 	

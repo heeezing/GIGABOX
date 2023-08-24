@@ -86,6 +86,8 @@ public class MovieServiceImpl implements MovieService{
 	public void deleteReview(Integer review_num) {
 		//부모글 좋아요 삭제
 		moviemapper.deleteFavByReviewNum(review_num);
+		//부모글 신고하기 삭제
+		moviemapper.deleteRepoByReviewNum(review_num);
 		//부모글 삭제(부모글: 관람평, 자식글: 관람평 좋아요)
 		moviemapper.deleteReview(review_num);
 	}
@@ -230,6 +232,24 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public int reservationRankByMovie(Integer movie_num) {
 		return moviemapper.reservationRankByMovie(movie_num);
+	}
+
+
+	@Override
+	public int selectRowCountPreList(Map<String, Object> map) {
+		return moviemapper.selectRowCountPreList(map);
+	}
+
+
+	@Override
+	public List<MovieVO> selectAdminList(Map<String, Object> map) {
+		return moviemapper.selectAdminList(map);
+	}
+
+
+	@Override
+	public int selectRowCountAdminList(Map<String, Object> map) {
+		return moviemapper.selectRowCountAdminList(map);
 	}
 	
 	

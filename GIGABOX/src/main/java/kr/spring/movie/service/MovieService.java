@@ -18,6 +18,9 @@ public interface MovieService {
 	public List<MovieVO> selectList(Map<String,Object>map);
 	public int selectRowCount(Map<String,Object> map);
 	public List<MovieVO> selectPreList(Map<String,Object>map);
+	public int selectRowCountPreList(Map<String,Object> map);
+	public List<MovieVO> selectAdminList(Map<String,Object>map);
+	public int selectRowCountAdminList(Map<String,Object>map);
 	//영화등록
 	public void registerMovie(MovieVO movie);
 	//영화 상세페이지

@@ -40,7 +40,7 @@
 			<input type="button" value="영화 정보 불러오기" id="insertApi">
 		</div>
 		<div class="align-left">
-			<input type="button" value="삭제" class="delete_btn">
+			<input type="button" value="상영 종료" class="updateStatus_btn">
 		</div>
 	</form>
 	
@@ -55,21 +55,25 @@
 				<th>포스터</th>
 				<th width="40px">번호</th>
 				<th>제목</th>
-				<th>개봉일</th>
-				<th>감독</th>
-				<th>출연진</th>
+				<th width="100px">개봉일</th>
+				<th>상태</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="movie" items="${movies}">	
 				<tr align="center">
 					<td><input type="checkbox" class="moviecheck" name="moviecheck" value="${movie.movie_num}"></td>
-					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}"><img src="${movie.m_poster2}" width="50" height="80"></a></td>
+					<!-- 직접 입력한 포스터가 있으면 그거 먼저 출력 -->
+					<c:if test="${!empty movie.m_poster}"><td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}"><img src="../movie/imageView.do?movie_num=${movie.movie_num}&movie_type=1" width="50" height="80"></a></td></c:if>
+					<c:if test="${empty movie.m_poster}"><td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}"><img src="${movie.m_poster2}" width="50" height="80"></a></td></c:if>
 					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}">&nbsp;${movie.movie_num}&nbsp;</a></td>
+					
 					<td><a href="${pageContext.request.contextPath}/movie/movieDetail.do?movie_num=${movie.movie_num}">${movie.m_title}</a></td>
-					<td>${movie.m_opendate}</td>
-					<td>${movie.m_director}</td>
-					<td>${movie.m_actor}</td>
+					<c:if test="${!empty movie.m_opendate}"><td>${movie.m_opendate}</td></c:if>
+					<c:if test="${empty movie.m_opendate}"><td>${movie.m_opendate2}</td></c:if>
+					<c:if test="${movie.m_status==1}"><td>상영중</td></c:if>
+					<c:if test="${movie.m_status==2}"><td>상영예정</td></c:if>
+					<c:if test="${movie.m_status==3}"><td>상영종료</td></c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -99,9 +103,9 @@
 	});
 
 //선택 삭제
-$(".delete_btn").click(function(){
+$(".updateStatus_btn").click(function(){
 	if($("input[class='moviecheck']:checked").length < 1){
-		alert('삭제할 항목을 선택하세요');
+		alert('상영을 중지 시킬 영화를 선택하세요');
 		return false;
 	}
 	
@@ -112,17 +116,17 @@ $(".delete_btn").click(function(){
 	});
 	
 	$.ajax({
-		url:'../movie/moviecheckDelete.do',
+		url:'../movie/moviecheckUpdateStatus.do',
 		type:'post',
 		data:{selectmovies:selectmovies.toString()},
 		dataType:'json',
 		success:function(param){
-			let choice = confirm("정말 삭제하시겠습니까?");
+			let choice = confirm("영화 상영을 중지시키시겠습니까?");
 			if(choice){
 				if(param.result == 'logout'){
-					alert('로그인 후 삭제할 수 있습니다.');
+					alert('로그인 후 변경할 수 있습니다.');
 				}else if(param.result == 'success'){
-					alert('영화가 삭제 되었습니다.')
+					alert('영화가 상영종료 되었습니다.')
 					history.go(0);
 				}else{
 					alert('알 수 없는 오류 발생');

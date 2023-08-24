@@ -31,7 +31,7 @@
 		</ul>
 	</form>
 	<div class="align-left">
-		<input type="button" value="삭제" class="delete_btn">
+		<input type="button" value="신고 삭제" class="delete_btn">
 	</div>
 	
 	<c:if test="${count == 0}">
@@ -55,7 +55,7 @@
 					<td>&nbsp;${review_report.repo_num}&nbsp;</td>
 					<td>${review_report.id}</td> 
 					<td>${review_report.repo_date}</td>
-					<td><a href="${pageContext.request.contextPath}/movie/reviewDetail.do?review_num=${review.review_num}">${review_report.review_content}</a></td>
+					<td><a href="${pageContext.request.contextPath}/movie/reviewDetail.do?review_num=${review_report.review_num}">${review_report.review_content}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

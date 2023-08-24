@@ -14,7 +14,6 @@ $(function(){
        		 $('.rank').text(param.rank);
 		},
 		error:function(){
-			alert('예매순위 구하기 오류');
 		}
 	});
 	
@@ -286,9 +285,9 @@ $(function(){
 		
 		modifyUI += '<textarea row="3" cols="50" name="review_content" id="mreview_content" class="review-content">'+review_content+'</textarea>'
 		modifyUI += '<div id="mreview_first"><span class="letter-count align-right">220/220</span></div>';
-		modifyUI += '<div id="mreview_second" class="align-right">';
-		modifyUI += ' <input type="submit" value="수정">';
-		modifyUI += ' <input type="button" value="취소" class="review-reset">';
+		modifyUI += '<div id="mreview_second" class="align-center">';
+		modifyUI += ' <input type="submit" class="review-btn" value="수정">';
+		modifyUI += ' <input type="button" class="review-btn review-reset" value="취소">';
 		modifyUI += '</div>';
 		modifyUI += '<hr size="1" noshade width="96%">';
 		modifyUI += '</form>';

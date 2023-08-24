@@ -22,6 +22,14 @@ CREATE TABLE movie (
 	m_date	date	default SYSDATE not null,
 	m_vod	clob,
 	m_status number not null, -- 1: 상영 / 2: 상영예정 / 3: 상영중지
+	m_stllimg3 blob,
+	m_stllimg4 blob,
+	m_stllimg5 blob,
+	m_stllimg6 blob,
+	stllimg_name3 varchar2(60),
+	stllimg_name4 varchar2(60),
+	stllimg_name5 varchar2(60),
+	stllimg_name6 varchar2(60),
 	constraint movie_pk primary key (movie_num)
 );
 create sequence movie_seq;

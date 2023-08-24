@@ -2,24 +2,142 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<style>
+.title{
+	font-size:30px;
+}
+form{
+	border-style:none;
+}  
+li{
+	list-style-type: none;
+}
+#m_poster{
+	width:40%;
+	float:left;
+	text-align:center;
+	margin-left:18%	;
+	margin-bottom:20px;
+}
+.m_status{
+	margin-bottom:15px;
+}
+#form_input{
+	width:60%;
+	float:right;
+}
+#insert_form, #update_form{
+	width:880px;
+	margin:0 auto;
+	padding-top:40px;
+	border:1px solid #000;
+}
+#insert_form label, #update_form label{
+	font-weight:bold;
+	width:80px;
+	margin:0 auto;
+	vertical-align:middle;
+}
+#insert_form ul li, #update_form ul li{
+	margin:10px 0;
+	vertical-align:middle;
+}
+input.form-input{
+	width:300px;
+}
+#movie_text{
+	clear:both;
+	margin:0 auto;
+	height:90px;
+}
+#movie_text label{
+	margin-left:50px;
+	margin-bottom:20px;
+}
+
+#movie_text textarea{
+	float:right;
+	margin-right:66px;
+	resize:none;
+	width:80%;
+	height:60px;
+}
+
+#movie_button{
+	text-align:center;
+	margin:20px auto;
+	clear:both;
+}
+#m_poster2{
+	margin-bottom:20px;
+}
+#m_stllimg2{
+	margin-left:100px;
+	margin-bottom:20px;
+}
+.iframe{
+  text-align: center; /* iframe을 가로로 가운데로 정렬 */
+  margin: 0 auto;     /* 컨테이너 자체를 가로로 가운데로 정렬 */
+}
+.iframe iframe {
+  max-width: 100%;
+  width: auto;
+  display: inline-block; 
+  vertical-align: middle; 
+  margin-bottom:30px;
+}
+#m_vod{
+	margin-right:145px;
+}
+#movie_button {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  gap: 40px; /* 버튼 사이 간격 설정 */
+  margin-top: 30px;
+}
+
+.mbtn {
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  width:100px;
+  height:35px;
+}
+.mbtn:hover{
+	border:solid 1px;
+	background-color:#f7f8f9;
+}
+</style>
 <!-- 영화 수정 폼 시작 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/movie_register.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
+
 <div class="page-main">
-	<div class="title"><a href="movieUpdate.do">영화 등록</a></div>
+	<h4 class="title"><a href="movieUpdate.do">영화 수정</a></h4>
 	<form:form modelAttribute="movieVO" action="movieUpdate.do" id="Update_form">
 	<form:errors element="div" cssClass="error-color"/>
-		<!--[왼쪽] 사진 미리 보기 -->
-		<div id="m_poster">
-			<img src="${movieVO.m_poster2}" width="400px" height="500px" class="m-poster">
-		</div>
-		<!--[오른쪽] 영화 정보 입력 -->
+		<li style="border-style:none;">
+			<c:if test="${!empty movieVO.m_poster}">
+				<img src="../movie/imageView.do?movie_num=${movieVO.movie_num}&movie_type=1" width="400px" height="500px" class="m-poster">
+			</c:if>
+			<c:if test="${empty movieVO.m_poster}">
+				<img src="${movieVO.m_poster2}" width="400px" height="500px" class="m-poster">
+			</c:if>
+		</li>
+		<br>
+
 		<div id="movie_input">
 			<ul>
 				<li>
-					<input type="radio" name="m_status" value="1" id="status1" <c:if test="${movieVO.m_status == 1}">checked</c:if>>상영
-					<input type="radio" name="m_status" value="2" id="status2" <c:if test="${movieVO.m_status == 2}">checked</c:if>>상영예정
-					<input type="radio" name="m_status" value="3" id="status3" <c:if test="${movieVO.m_status == 3}">checked</c:if>>상영중지
+					<input type="hidden" value="${movieVO.movie_num}" name="movie_num">
+				</li>
+				<li>	
+					<input type="radio" name="m_status" class="m_status" value="1" id="status1" <c:if test="${movieVO.m_status == 1}">checked</c:if>>상영
+					<input type="radio" name="m_status" class="m_status"  value="2" id="status2" <c:if test="${movieVO.m_status == 2}">checked</c:if>>상영예정
+					<input type="radio" name="m_status" class="m_status"  value="3" id="status3" <c:if test="${movieVO.m_status == 3}">checked</c:if>>상영중지
 				</li>
 				<li>
 					<label for="m_title">영화제목</label>
@@ -45,10 +163,16 @@
 					<label for="m_company">제작사</label>
 					<input type="text" name="m_company" id="m_company" maxlength="10" class="form-input" value="${movieVO.m_company}">
 				</li>
-				<li>
-					<label for="m_opendate">개봉일</label>
-					<input type="text" name="m_opendate2" id="m_opendate2" class="form-input" value="${movieVO.m_opendate2}">
-				</li>
+				<c:if test="${!empty movieVO.m_opendate}">
+					<li><label for="m_opendate">개봉일</label> 
+					<input type="date" name="m_opendate" id="m_opendate" class="form-input" value="${movieVO.m_opendate2}"></li>
+				</c:if>
+				<c:if test="${empty movieVO.m_opendate}">
+					<li>
+						<label for="m_opendate2">개봉일</label>
+						<input type="text" name="m_opendate2" id="m_opendate2" class="form-input" value="${movieVO.m_opendate2}">
+					</li>
+				</c:if>
 				<li>
 					<label for="m_runtime">상영시간</label>
 					<input type="text" name="m_runtime" id="m_runtime" maxlength="3" class="form-input" value="${movieVO.m_runtime}">
@@ -61,17 +185,50 @@
 					<label for="m_genre">장르</label>
 					<input type="text" name="m_genre" id="m_genre" maxlength="10" class="form-input" value="${movieVO.m_genre}">
 				</li>
+				
 				<li>
-					<label for="m_poster" class="form-label">포스터</label>
-					<%-- <input type="file" name="poster" id="poster" accept="image/gif,image/png,image/jpeg" value="${movieVO.poster_name}"><br> --%>
-					<input type="url" name="m_poster2" id="m_poster2" value="${movieVO.m_poster2}"><br>
+				<c:if test="${!empty movieVO.m_poster}">
+					<label for="m_poster" class="form-label">포스터</label> 
+					<input type="file" name="poster" id="poster" accept="image/gif,image/png,image/jpeg" value="${movieVO.poster_name}"><br>
+				</c:if>
+				<c:if test="${empty movieVO.m_poster}">
+					<li>
+						<label for="m_poster2" class="form-label">포스터</label> 
+						<input type="url" name="m_poster2" id="m_poster2" value="${movieVO.m_poster2}"><br>
+					</li>
+				</c:if>
+				
+				<c:if test="${!empty movieVO.m_stllimg}">
+					<li> 
+						<label for="m_stllimg" class="form-label">스틸컷</label>
+						<img src="../movie/imageView.do?movie_num=${movieVO.movie_num}&movie_type=2"  width="300px" height="300px" class="m-stllimg">
+						<input type="file" name="stllimg" id="stllimg" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name}"><br>
+					</li>
+				</c:if>
+				<c:if test="${empty movieVO.m_stllimg}"> <!-- api 스틸컷 -->
+					<li>
+						<label for="m_stllimg2" class="form-label">스틸컷</label> 
+						<img src="${movieVO.m_stllimg2}" width="300px" height="300px" class="m-stllimg">
+						<input type="url" name="m_stllimg2" id="m_stllimg2" class="form-input" value="${movieVO.m_stllimg2}"><br>
+					</li>
+				</c:if>
+				<!-- 스틸컷 3,4,5,6 -->
+				<li> 
+					<label for="m_stllimg3" class="form-label">스틸컷2</label>
+					<input type="file" name="stllimg3" id="stllimg3" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name3}"><br>
 				</li>
-				<li>
-					<label for="m_stllimg" class="form-label">스틸컷</label>
-					<img src="${movieVO.m_stllimg2}" width="300px" height="300px" class="m-stllimg">
-					<%-- <input type="file" name="stllimg" id="stllimg" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name}"><br> --%>
-					<input type="url" name="m_stllimg2" id="m_stllimg2" class="form-input" value="${movieVO.m_stllimg2}"><br>
+				<li> 
+					<label for="m_stllimg4" class="form-label">스틸컷3</label>
+					<input type="file" name="stllimg4" id="stllimg4" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name4}"><br>
 				</li>
+				<li> 
+					<label for="m_stllimg5" class="form-label">스틸컷4</label>
+					<input type="file" name="stllimg5" id="stllimg5" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name5}"><br>
+				</li>
+				<li> 
+					<label for="m_stllimg6" class="form-label">스틸컷5</label>
+					<input type="file" name="stllimg6" id="stllimg6" accept="image/gif,image/png,image/jpeg" value="${movieVO.stllimg_name6}"><br>
+				</li>				
 				<li>
 					<label for="m_vod" class="form-label">예고편</label>
 					<div class="iframe">
@@ -80,8 +237,11 @@
 							<input type="url" name="m_vod" id="m_vod" class="form-input" value="${movieVO.m_vod}"><br>
 						</c:if>
 						<c:if test="${movieVO.m_vod != null}">
-							<iframe width="500" height="300" src="${movieVO.m_vod}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-							<input type="url" name="m_vod" id="m_vod" class="form-input" value="${movieVO.m_vod}"><br>
+							<input type="url" name="m_vod" id="m_vod" class="form-input" value="${movieVO.m_vod}" maxlength=10000>
+							<div class="iframe">
+							<iframe src="${movieVO.m_vod}" style="width: 500px; height: 300px; border: none;"></iframe>
+							</div>
+							<br>
 						</c:if>
 					</div>
 				</li>
@@ -94,21 +254,8 @@
 		</div>
 		
 		<div id="movie_button">
-			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/movie/movieList.do'">
-			<input type="submit" value="수정">
-			<input type="button" value="삭제" class="movie_deletebtn">
-			<script type="text/javascript">
-				let movie_deletebtn = document.getElementById('movie_deletebtn');
-				//이벤트 연결
-				movie_deletebtn.onclick = function() {
-					let choice = confirm('삭제하겠습니까?');
-					if (choice) {
-						alert("상품 삭제가 완료되었습니다.");
-						//히스토리를 지우면서 이동
-						location.replace('movieDelete.do?movie_num=${movieVO.movie_num}');
-					}
-				};
-			</script>
+			<input type="button" class="mbtn" value="목록" onclick="location.href='${pageContext.request.contextPath}/movie/movieList.do'">
+			<input type="submit" class="mbtn" value="수정">
 		</div>
 	</form:form>
 </div>

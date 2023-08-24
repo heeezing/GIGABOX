@@ -301,7 +301,7 @@ public class MovieController {
 		map.put("keyword", keyword);
 
 		// 전체/검색 레코드 수
-		int count = movieService.selectRowCount(map); // 페이지 처리
+		int count = movieService.selectRowCountPreList(map);// 페이지 처리
 		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 8, 10, "premovieList.do",
 				"&order=" + order);
 
@@ -342,6 +342,18 @@ public class MovieController {
 		}else if(movie_type==2) {//stllimg
 			mav.addObject("imageFile", movie.getM_stllimg());
 			mav.addObject("filename", movie.getStllimg_name());
+		}else if(movie_type==3) {//stllimg3
+			mav.addObject("imageFile", movie.getM_stllimg3());
+			mav.addObject("filename", movie.getStllimg_name3());
+		}else if(movie_type==4) {//stllimg4
+			mav.addObject("imageFile", movie.getM_stllimg4());
+			mav.addObject("filename", movie.getStllimg_name4());
+		}else if(movie_type==5) {//stllimg5
+			mav.addObject("imageFile", movie.getM_stllimg5());
+			mav.addObject("filename", movie.getStllimg_name5());
+		}else if(movie_type==6) {//stllimg6
+			mav.addObject("imageFile", movie.getM_stllimg6());
+			mav.addObject("filename", movie.getStllimg_name6());
 		}
 		
 		return mav;
@@ -457,7 +469,7 @@ public class MovieController {
 		map.put("keyword", keyword);
 
 		// 전체/검색 레코드 수
-		int count = movieService.selectRowCount(map); // 페이지 처리
+		int count = movieService.selectRowCountAdminList(map);// 페이지 처리
 		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 5, 10, "movieAdmin.do",
 				"&order=" + order);
 
@@ -468,7 +480,7 @@ public class MovieController {
 
 			map.put("end", page.getEndRow());
 
-			list = movieService.selectList(map);
+			list = movieService.selectAdminList(map);
 		}
 
 		ModelAndView mav = new ModelAndView();
@@ -594,7 +606,33 @@ public class MovieController {
 		
 		return mapJson;
 	}
-	
+	/* =========================관람평 삭제(관리자)=============================== */	
+/*
+	@RequestMapping("/movie/reviewDeleteAdmin.do")
+	@ResponseBody
+	public Map<String,String> deleteReplyAdmin(@RequestParam int review_num, HttpSession session){
+		log.debug("<<리뷰 삭제 review_num>> : " + review_num);
+		
+		Map<String,String> mapJson = new HashMap<String,String>();
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) {
+			//로그인이 되지 않은 경우
+			mapJson.put("result", "logout");
+		}else if(user!=null) {
+			movieService.deleteReview(review_num);
+			mapJson.put("result", "success");
+		}
+		return mapJson;
+	}
+	*/
+	/* =========================관람평 삭제(관리자)=============================== */	
+	@RequestMapping("/movie/reviewDeleteAdmin.do")
+	public String deleteReviewAdmin(@RequestParam int review_num) {
+		log.debug("<<관람평 삭제 >> : " + review_num);
+		
+		movieService.deleteReview(review_num);
+		return "redirect:/movie/reportAdmin.do";
+	}
 	/* =========================관람평 수정=============================== */
 	@RequestMapping("/movie/reviewUpdate.do")
 	@ResponseBody
@@ -694,9 +732,8 @@ public class MovieController {
 		log.debug("<<review_num ? >> : " + review_num);
 		
 		Map<String, Object> mapJson = new HashMap<String,Object>();
-		
-		if(user==null) {
-			mapJson.put("result","logout");
+		if(user == null) {
+			mapJson.put("result", "logout");
 		}else if(user!=null && hasReported > 0) {
 			mapJson.put("result", "alreadydonereport");
 		}else {
@@ -747,16 +784,20 @@ public class MovieController {
 	
 	/* ========================관람평(신고) 상세=============================== */
 	@RequestMapping("/movie/reviewDetail.do")
-	public ModelAndView getReviewDetail(@RequestParam int review_num) {
+	public String getReviewDetail(@RequestParam int review_num,Model model) {
 		log.debug("<<관람평 상세>> : " + review_num);
 		
 		//글 상세
-		ReviewVO review = movieService.selectReview(review_num);
+		ReviewVO reviewVO = movieService.selectReview(review_num);
 		
 		//내용에 태그 불허
-		review.setReview_content(StringUtil.useBrNoHtml(review.getReview_content()));
+		reviewVO.setReview_content(StringUtil.useBrNoHtml(reviewVO.getReview_content()));
 		
-		return new ModelAndView("reviewDetail","review",review);
+	    reviewVO.setId(reviewVO.getId()); 
+	    reviewVO.setM_title(reviewVO.getM_title());
+		model.addAttribute("review", reviewVO);
+		
+		return "reviewDetail";
 	}
 	
 	/* =========================신고 삭제=============================== */	
@@ -787,5 +828,28 @@ public class MovieController {
 		
 		return mapJson;
 	}
-}
+	 /* =======================
+	 *	직접 등록한 포스터 출력
+	 * =======================*/
+	//프로필 사진 출력(회원번호 지정)
+	@RequestMapping("/movie/photoView.do")
+	public String getPosterByMovienum(@RequestParam int movie_num, HttpServletRequest request, Model model) {
+		MovieVO movieVO = movieService.selectMovie(movie_num);
+		viewProfile(movieVO,request,model);
+		
+		
+		return "imageView";
+	}
+	
+	//프로필 사진 처리를 위한 공통 코드
+	public void viewProfile(MovieVO movieVO,HttpServletRequest request,Model model) {
+			model.addAttribute("imageFile",movieVO.getM_poster());
+			model.addAttribute("filename",movieVO.getPoster_name());
+			model.addAttribute("imageFile2",movieVO.getM_stllimg());
+			model.addAttribute("filename2",movieVO.getStllimg_name());
+		}
+	}
+
+
+
 
