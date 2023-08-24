@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/seat.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservation.css">
 <div class="page-util">
@@ -19,7 +20,8 @@
 		<div class="movie-poster-area">
 			<div id="res_num_title">예매번호</div>
 			<div id="res_num_area">${reservation.res_num}</div>
-			<img src="${reservation.m_poster2}" alt="${reservation.m_title}">
+			<c:if test="${!empty reservation.m_poster}"><img src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1"></c:if>
+			<c:if test="${empty reservation.m_poster}"><img src="${reservation.m_poster2}" alt="${reservation.m_title}"></c:if>
 		</div>
 		<div class="movie-info-area">
 			<div class="movie-info-top">

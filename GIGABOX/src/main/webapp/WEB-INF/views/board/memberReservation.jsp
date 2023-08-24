@@ -26,7 +26,8 @@
    <c:forEach var="reservation" items="${list}">
 		<div class="res-box">
 			<a href="/movie/movieDetail.do?movie_num= ${reservation.movie_num}">
-				<img src="${reservation.m_poster2}" alt="${reservation.m_title}">
+				<c:if test="${!empty reservation.m_poster}"><img src="../movie/imageView.do?movie_num=${reservation.movie_num}&movie_type=1"></c:if>
+				<c:if test="${empty reservation.m_poster}"><img src="${reservation.m_poster2}" alt="${reservation.m_title}"></c:if>
 			</a>
 			<table class="res-table">
 				<tr>
