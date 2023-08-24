@@ -48,7 +48,7 @@ public interface BoardMapper {
 	public int selectEventRowCount(Map<String,Object> map);
 	
 	//[사용자-마이페이지] 최근 3개 예매 목록
-	@Select("SELECT * FROM (SELECT * FROM reservation WHERE mem_num=#{mem_num} ORDER BY res_num DESC) WHERE rownum <= 3")
+	@Select("SELECT * FROM (SELECT * FROM reservation WHERE mem_num=#{mem_num} ORDER BY res_num DESC) WHERE rownum <= 3 AND res_status=1")
 	public List<ReservationVO> selectListReservationByMem_num3(Integer mem_num);
 	//[사용자-마이페이지] 최근 3개 문의 목록
 	@Select("SELECT * FROM (SELECT * FROM cs_personal WHERE mem_num=#{mem_num} ORDER BY personal_num DESC) WHERE rownum <= 3")
