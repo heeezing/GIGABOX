@@ -26,7 +26,7 @@ $(function(){
            			let output = '<li>';
                 	output += '<a href="../event/detail.do?event_num='+item.event_num+'" data-netfunnel="N" class="eventBtn" title="'+item.title+'">';
                     output += '<p class="cate">'+item.category_detail_name+'</p>'
-                    output += '<p class="img"> <img src="../event/imageView.do?thumb='+ item.event_num +'&thumb_type=2" alt="'+item.title+'"></p>';
+                    output += '<p class="img"> <img src="../event/imageView.do?thumb='+ item.event_num +'&thumb_type=1" alt="'+item.title+'"></p>';
                     output += '<p class="tit">';
                     output += item.title;
                     output += '</p>';
@@ -38,9 +38,11 @@ $(function(){
         			output += '</ul>';
    					
                     $('#output').append(output);
-                    $('#count_number').append(count);
+                   
                 });
-               
+                
+                $('#count_number').append(count);
+                
                 //paging button 처리
                 if(currentPage>=Math.ceil(count/rowCount)){
                     //다음 페이지가 없음

@@ -15,7 +15,7 @@
 </script>
 <div class="page-main">
 	<div class="title">
-		공지 목록
+		공지사항 관리
 	</div>
 	<form action="csNotiAdminList.do" method="get" id="search_form">
 		<ul class="search">

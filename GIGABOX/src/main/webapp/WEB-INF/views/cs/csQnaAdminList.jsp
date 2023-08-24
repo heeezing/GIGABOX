@@ -15,7 +15,7 @@
 </script>
 <div class="page-main">
 	<div class="title">
-		공지 목록
+		자주 묻는 질문 목록 관리
 	</div>
 	<form action="csQnaAdminList.do" method="get" id="search_form">
 		<ul class="search">

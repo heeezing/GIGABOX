@@ -111,6 +111,9 @@
 					category_num = #{category_num}
 				</if>
 			</if>
+			<if test="category_num != null and category_num != 0">
+				category_num = #{category_num}
+			</if>
 		</where>
 	</sql>
 

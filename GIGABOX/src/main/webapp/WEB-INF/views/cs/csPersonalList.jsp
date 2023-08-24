@@ -6,11 +6,12 @@
 	<div id="container">
 	        <div class="page-util" style="background-color:white;">
 	            <div class="inner-wrap">
-	            
+	            	
 	            </div>
 	        </div>
 	        <div id="contents">
 	            <div class="inner-wrap">
+	                <h2>1:1 문의 관리</h2>
 	                </div>
 	                <div class="board-list-util">
 	                    <p class="result-count"><strong>전체 <b>${count}</b>건</strong></p>

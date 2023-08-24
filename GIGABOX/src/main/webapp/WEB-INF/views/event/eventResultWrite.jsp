@@ -132,19 +132,7 @@
                                 	</script>
                                 </td>
                             </tr>
-                           <tr>
-                           		<th scope="row"><label for="textarea">테이블 추가</label> <em class="font-orange">*</em></th>
-                                <td colspan="3">
-                                	<button id="testButton">입력합니다.</button>
-                                	<script type="text/javascript">
-                                	 $(function(){
-                                			$('#testButton').click(function(){
-                                				let text = "<h2>정보를 추가합니다. </h2>"
-                                			});
-                                	 });
-                                	</script>
-                                </td>
-                           </tr>
+                          
                             <tr>
                                 <th scope="row"><label for="textarea">내용</label> <em class="font-orange">*</em></th>
                                 <td colspan="3">

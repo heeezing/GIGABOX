@@ -26,7 +26,7 @@
 	                </ul>
 	            </div>
 	            <div class="right">
-	                        <button type="button" class="button tooltip click">
+	                        <button type="button" class="button tooltip click" onclick="location.href='/board/eventList.do'">
 	                            <span>나의 응모결과확인</span>
 	                        </button>
 	            </div>

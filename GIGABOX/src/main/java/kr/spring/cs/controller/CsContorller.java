@@ -226,6 +226,7 @@ public class CsContorller {
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 		map.put("table", 1); //cs_qna
+		map.put("category_num", category_num);
 		map.put("keyword", keyword);
 		map.put("keyfield",1);
 		

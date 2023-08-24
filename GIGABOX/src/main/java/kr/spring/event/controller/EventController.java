@@ -207,6 +207,7 @@ public class EventController {
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
 			list = eventService.selectEventList(map);
+			
 		}else {
 			list = Collections.emptyList();
 		}
