@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<th>관람일시</th>
-					<td>${reservation.sch_date}${reservation.sch_start}</td>
+					<td>${reservation.sch_date} &nbsp;${reservation.sch_start}</td>
 					<th>관람좌석</th>
 					<td>${reservation.res_seats}</td>
 				</tr>

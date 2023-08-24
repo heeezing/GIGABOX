@@ -120,14 +120,19 @@ $(function(){
 	});
 	
 	// 이미 예약한 좌석의 경우 button 비활성화 및 css 처리
-	const seatsDB = $('#seatsDB').val();
+	const seatsDB = [];
+	let temp_seats = $('#seatsDB').val().split(',');
+	for(let i = 0;i<temp_seats.length;i++){
+		seatsDB.push(temp_seats[i]);
+	}
 
     $('.seat').each(function() {
-		let selectedSeat = $(this).attr('data-num');
-		console.log(selectedSeat);
+		let eachSeat = $(this).attr('data-num');
+		console.log(eachSeat);
 		console.log(seatsDB);
 
-        if (seatsDB.includes(selectedSeat)) {
+        if(seatsDB.includes(eachSeat)) {
+			console.log("-->"+eachSeat);
             $(this).prop('disabled', true); // 버튼 비활성화
             $(this).addClass('after');
 			$(this).val('');

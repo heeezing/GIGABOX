@@ -166,7 +166,7 @@ public class ReservationController {
 		log.debug("<<count>> : " + count);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 20, 10, "list.do", "&order="+order);
+		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10, 10, "list.do", "&order="+order);
 		
 		List<ScheduleVO> list = null;
 		if(count > 0) {
@@ -273,9 +273,14 @@ public class ReservationController {
 	public String formSeat(@RequestParam int sch_num,Model model) {
 		ScheduleVO scheduleVO = resService.selectSchedule(sch_num);
 		List<String> seatsDB = resService.getSeatsDB(sch_num);
+		String seats = "";
+		for(int i=0;i<seatsDB.size();i++) {
+			if(i>0) seats += ",";
+			seats += seatsDB.get(i);
+		}
 		
 		model.addAttribute("scheduleVO",scheduleVO);
-		model.addAttribute("seatsDB",seatsDB);
+		model.addAttribute("seatsDB",seats);
 		
 		return "seat";
 	}
