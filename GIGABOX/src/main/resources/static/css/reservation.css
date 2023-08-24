@@ -142,16 +142,20 @@
 	background-color: white;
 	border:none;
 	cursor: pointer;
-	width:100%;
 	text-align: left;
+	width:230px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .all-list ul li button.btn-on{
 	background-color: #666;
 	color:white;
 	border:none;
 	cursor: pointer;
-	width:100%;
+	width:230px;
 	text-align: left;
+	
 }
 /*극장*/
 .quick_resArea .theater-choice {

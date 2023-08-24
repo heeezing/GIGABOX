@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/seat.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservation.css">
 <div class="page-util">
@@ -195,7 +196,8 @@
 						<p class="date">${scheduleVO.sch_date}</p>
 						<p class="time">${scheduleVO.sch_start} ~ ${scheduleVO.sch_end}</p>
 						<p class="poster">
-							<img src="${scheduleVO.m_poster2}" alt="${scheduleVO.m_title}">
+							<c:if test="${!empty scheduleVO.m_poster}"><img src="../movie/imageView.do?movie_num=${scheduleVO.movie_num}&movie_type=1"></c:if>
+							<c:if test="${empty scheduleVO.m_poster}"><img src="${scheduleVO.m_poster2}" alt="${scheduleVO.m_title}"></c:if>
 						</p>
 					</div>
 					<div class="choice-seat-area">

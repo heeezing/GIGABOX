@@ -37,7 +37,9 @@
 				   JOIN hall h ON s.hall_num = h.hall_num
 				   JOIN theater th ON h.th_num = th.th_num
 			  	   WHERE r.mem_num=#{mem_num} AND r.res_status=1
+			  	   ORDER BY r.res_date DESC
 			  	   )a)
+			  	   
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>

@@ -1,6 +1,9 @@
 package kr.spring.reservation.vo;
 
+import java.io.IOException;
 import java.sql.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +30,8 @@ public class ReservationVO {
 	private String phone; //회원전화번호
 	private String name; //회원이름
 	private String m_poster2; // 포스터(api)
+	private byte[] m_poster;
+	private String poster_name;
 	
 	private int sch_num;
 	private int mem_num;
@@ -36,4 +41,11 @@ public class ReservationVO {
 	private int use_point; // 사용 포인트
 	
 	private int remain; // 남은 좌석수 계산
+	
+	public void setPoster(MultipartFile poster) throws IOException{
+		//MultipartFile -> byte[] 변환
+		setM_poster(poster.getBytes());
+		//파일명 구하기
+		setPoster_name(poster.getOriginalFilename());
+	}
 }

@@ -44,7 +44,7 @@
 	padding: 20px;
 }
 
-.subscribe-button .back-btn {
+.subscribe-button {
     text-decoration: none; /* 링크의 밑줄 제거 */
     text-align: center;
     display: block;
@@ -52,7 +52,7 @@
     
 }
 
-.subscribe-btn .back-btn {
+.subscribe-btn {
     padding: 10px 20px;
     background-color: black;
     color: #fff;
@@ -63,7 +63,7 @@
     transition: background-color 0.3s ease;
 }
 
-.subscribe-btn:hover .back-btn {
+.subscribe-btn:hover {
     background-color: #0056b3;
 }
 /*===========================
