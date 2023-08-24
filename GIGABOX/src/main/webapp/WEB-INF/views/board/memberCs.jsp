@@ -34,7 +34,7 @@
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="찾기"> 
+				<input type="submit" class="sub-button" value="찾기"> 
 			</li>
 		</ul>
 		<%-- <div class="aligh-right">

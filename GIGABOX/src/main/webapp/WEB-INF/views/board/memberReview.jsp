@@ -33,10 +33,10 @@
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="찾기">
+				<input type="submit" class="sub-button" value="찾기">
 			</li>
 		</ul>
-		<div class="aligh-right">
+		<div class="align-right">
 			<select id="order" name="order">
 				<option value="1" <c:if test="${param.order == 1}">selected</c:if>>리뷰번호</option>
 				<option value="2" <c:if test="${param.order == 2}">selected</c:if>>작성날짜</option>

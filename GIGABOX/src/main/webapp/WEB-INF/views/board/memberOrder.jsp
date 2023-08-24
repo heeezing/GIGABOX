@@ -37,7 +37,7 @@
 				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="조회">
+				<input type="submit" class="sub-button" value="조회">
 			</li>
 		</ul>
 	</form>

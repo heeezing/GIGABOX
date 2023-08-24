@@ -29,7 +29,7 @@
 				                     value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="찾기">
+				<input type="submit" class="sub-button" value="찾기">
 				<input type="button" value="목록" 
 				   onclick="location.href='memberList.do'">
 			</li>
