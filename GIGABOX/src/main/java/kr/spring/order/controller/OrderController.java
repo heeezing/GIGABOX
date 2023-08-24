@@ -421,7 +421,10 @@ public class OrderController {
 	======================*/
 	//성공
 	@RequestMapping("/order/orderComplete.do")
-	public String complete() {
+	public String complete(HttpSession session,Model model) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String orders_num = orderService.getOrders_num(user.getMem_num());
+		model.addAttribute("orders_num", orders_num);
 		return "orderComplete"; //tiles 설정
 	}
 	

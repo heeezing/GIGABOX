@@ -40,6 +40,9 @@ public interface OrderMapper {
 	@Delete("DELETE FROM cart WHERE sn_num=#{sn_num} AND mem_num=#{mem_num}")
 	public void deleteCartItem(@Param(value="sn_num") Integer sn_num,
 						 	   @Param(value="mem_num") Integer mem_num);
+	//주문 성공 UI에서 보여줄 주문번호
+	@Select("SELECT orders_num FROM orders WHERE mem_num=#{mem_num} ORDER BY orders_date DESC FETCH FIRST 1 ROW ONLY")
+	public String getOrders_num(Integer mem_num);
 	
 	//[관리자] 전체or검색 레코드 수
 	public int selectOrderCount(Map<String,Object> map);

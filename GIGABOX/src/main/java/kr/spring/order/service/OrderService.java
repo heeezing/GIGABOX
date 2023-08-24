@@ -21,6 +21,8 @@ public interface OrderService {
 	public String selectDetailNum();
 	//주문 등록
 	public void insertOrder(OrderVO order, List<OrderDetailVO> list);
+	//주문 성공 UI에서 보여줄 주문번호
+	public String getOrders_num(Integer mem_num);
 	//선물 등록 
 	public void insertGiftOrder(OrderVO order, List<OrderDetailVO> list);
 	//[관리자] 전체or검색 레코드 수

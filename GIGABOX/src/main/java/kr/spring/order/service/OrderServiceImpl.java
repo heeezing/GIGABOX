@@ -164,6 +164,11 @@ public class OrderServiceImpl implements OrderService{
 		return orderMapper.selectGiftCountPossible(to_id); 
 	}
 
+	@Override
+	public String getOrders_num(Integer mem_num) {
+		return orderMapper.getOrders_num(mem_num);
+	}
+
 
     /*
     // 스케줄링을 바로 실행할 테스트 메서드
