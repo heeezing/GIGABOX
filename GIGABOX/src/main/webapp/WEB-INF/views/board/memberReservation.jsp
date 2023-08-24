@@ -60,8 +60,18 @@
 					</tr>
 				</table>
 			</div>
+			<c:if test="${now_date == reservation.sch_date && now_time < reservation.sch_start}">
 			<input type="button" value="예매취소" class="del-res" data-num="${reservation.res_num}"> 
+			</c:if>
+			<c:if test="${now_date < reservation.sch_date}">
+			<input type="button" value="예매취소" class="del-res" data-num="${reservation.res_num}"> 
+			</c:if>
+			<c:if test="${now_date == reservation.sch_date && now_time > reservation.sch_start}">
 			<input type="button" value="관람평 작성" class="del-res2" id="openrwButton">
+			</c:if>
+			<c:if test="${now_date > reservation.sch_date}">
+			<input type="button" value="관람평 작성" class="del-res2" id="openrwButton">
+			</c:if>
 					<!-- 모달 -->
 					<div class="rw-modal" id="rw-modal">
 						<div class="rw-content">
@@ -115,7 +125,7 @@
 											<span class="letter-count align-right">220/220</span>
 										</div>
 										<div id="review_second2" class="align-center">
-											<input type="button" value="취소하기" class="review-cancel-btn">
+												<input type="button" value="취소하기" class="review-cancel-btn">
 											<input type="submit" value="작성하기" id="review-btn2">
 										</div>
 									</c:if>

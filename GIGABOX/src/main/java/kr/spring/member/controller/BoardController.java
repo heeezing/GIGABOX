@@ -1,6 +1,7 @@
 package kr.spring.member.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,14 @@ public class BoardController {
 			log.debug("<<DelList>> : " + DelList);
 		}
 		
+		// 현재시간 구하기
+		Date nowDate = new Date();
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		String now_time = timeFormat.format(nowDate);
+		// 오늘 날짜 구하기
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String now_date = dateFormat.format(nowDate);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("memberReservation");
 		mav.addObject("count", count);
@@ -89,6 +98,8 @@ public class BoardController {
 		mav.addObject("DelList",DelList);
 		mav.addObject("page",page.getPage());
 		mav.addObject("pageDel",pageDel.getPage());
+		mav.addObject("now_time",now_time);
+		mav.addObject("now_date",now_date);
 		
 		return mav;
 	}
