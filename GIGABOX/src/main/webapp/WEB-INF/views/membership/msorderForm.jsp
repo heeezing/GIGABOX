@@ -93,8 +93,8 @@ $(document).ready(function() {
             order_id: order_num,
             params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
             extra: {
-                start_at: '2019-05-10', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
-                end_at: '2022-05-10' // 정기결제 만료일 -  기간 없음 - 무제한
+                start_at: '2023-08-25', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
+                end_at: '2023-08-26' // 정기결제 만료일 -  기간 없음 - 무제한
             }
             
         }).error(function (data) {
@@ -126,8 +126,8 @@ $(document).ready(function() {
                     membership_id: membershipId,
                     price: price,
                     pay_type:'카드결제',
-                    pay_date: '2023-08-23',
-                    next_pay_date: '2023-09-23',
+                    pay_date: '2023-08-25',
+                    next_pay_date: '2023-09-25',
                     billing_key: billing_key,
                     result_status: '테스트 결제',
                     result_message: '결제 성공',
