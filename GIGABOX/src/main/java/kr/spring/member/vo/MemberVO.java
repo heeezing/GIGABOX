@@ -28,7 +28,7 @@ public class MemberVO {
 	private String name;//이름
 	
 	private String passwd;//비밀번호
-	@Pattern(regexp="^[0-9]{4,13}$")
+	@Pattern(regexp="^[0-9]{11}$")
 	@NotEmpty
 	private String phone;//전화번호
 	@Email

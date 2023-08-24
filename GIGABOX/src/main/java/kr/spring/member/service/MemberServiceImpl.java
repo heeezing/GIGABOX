@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService{
 	    String charSet = "utf-8";
 	    String hostSMTP = "smtp.naver.com";
 	    String hostSMTPid = "wjdqudgml03@naver.com"; // 전체 이메일 주소
-	    String hostSMTPpwd = "wjdqudgml11!~~";
+	    String hostSMTPpwd = "";
 	    String fromEmail = "wjdqudgml03@naver.com";
 	    String fromName = "gigabox";
 	    String subject = "";
