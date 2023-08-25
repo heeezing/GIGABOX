@@ -31,7 +31,7 @@
 		</ul>
 	</form>
 	<div class="align-left">
-		<input type="button" value="신고 삭제" class="delete_btn">
+		<input type="button" value="목록 삭제" class="delete_btn" style="margin-bottom:10px;">
 	</div>
 	
 	<c:if test="${count == 0}">

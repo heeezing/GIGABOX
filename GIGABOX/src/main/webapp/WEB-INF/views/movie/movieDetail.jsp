@@ -262,11 +262,11 @@ li {
 						<li>등급 : ${movie.m_rating}</li>
 						<c:if test="${!empty movie.m_opendate}"><li>개봉일 : ${movie.m_opendate}</li></c:if>
 						<c:if test="${empty movie.m_opendate}"><li>개봉일 : ${movie.m_opendate2}</li></c:if>
+						<li>배급 : ${movie.m_company}</li>
 					</ul>
 					<ul style="margin-top:0;">
-						<li>출연진 : ${movie.m_actor}</li>
 						<li>제작국가 : ${movie.m_nation}</li>
-						<li>배급 : ${movie.m_company}</li>
+						<li>출연진 : ${movie.m_actor}</li>
 					</ul>
 				</div>
 				<!-- movie-info끝 -->
