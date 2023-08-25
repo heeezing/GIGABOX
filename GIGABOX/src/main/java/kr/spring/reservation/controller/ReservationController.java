@@ -168,7 +168,7 @@ public class ReservationController {
 	 *  상영 시간표 목록
 	 *========================*/
 	@RequestMapping("/reservation/admin_schedule.do")
-	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @RequestParam(value="order", defaultValue="1") int order, String keyfield, String keyword) {
+	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, String keyfield, String keyword) {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("keyfield", keyfield);
@@ -180,11 +180,10 @@ public class ReservationController {
 		log.debug("<<count>> : " + count);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10, 10, "list.do", "&order="+order);
+		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10, 10, "admin_schedule.do");
 		
 		List<ScheduleVO> list = null;
 		if(count > 0) {
-			map.put("order", order);
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
 			list = resService.selectList(map);
@@ -427,7 +426,7 @@ public class ReservationController {
 	 *  회원 예매 내역 목록
 	 *========================*/
 	@RequestMapping("/reservation/admin_resList.do")
-	public ModelAndView getResList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @RequestParam(value="order", defaultValue="1") int order, String keyfield, String keyword){
+	public ModelAndView getResList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, String keyfield, String keyword){
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("keyfield", keyfield);
@@ -439,11 +438,10 @@ public class ReservationController {
 		log.debug("<<count>> : " + count);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10, 10, "admin_resList.do", "&order="+order);
+		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10, 10, "admin_resList.do");
 		
 		List<ReservationVO> list = null;
 		if(count > 0) {
-			map.put("order", order);
 			map.put("start", page.getStartRow());
 			map.put("end", page.getEndRow());
 			list = resService.selectResList(map);
