@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class CsContorller {
 	
-	String uploadPath ="C:\\\\Users\\\\Hunter\\\\git\\\\GIGABOX\\\\GIGABOX\\\\src\\\\main\\\\webapp\\\\image_upload\\\\cs\\\\";
+	String uploadPath ="C:\\\\Users\\\\user\\\\git\\\\GIGABOX\\\\GIGABOX\\\\src\\\\main\\\\webapp\\\\image_upload\\\\cs\\\\";
 	
 	@Autowired
 	CsService csService;

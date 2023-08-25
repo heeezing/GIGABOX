@@ -79,7 +79,7 @@ public class CsServiceImpl implements CsService{
 					file.setSave_name(FileUtil.generateSaveFilename(m.getOriginalFilename()));
 					file.setFile_size(m.getSize());
 					 
-					m.transferTo(new File("C:\\Users\\Hunter\\git\\GIGABOX\\GIGABOX\\src\\main\\webapp\\image_upload\\cs\\"+file.getSave_name()));
+					m.transferTo(new File("C:\\Users\\user\\git\\GIGABOX\\GIGABOX\\src\\main\\webapp\\image_upload\\cs\\"+file.getSave_name()));
 				
 					csMapper.saveAll(file);
 	        }
