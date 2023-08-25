@@ -84,7 +84,7 @@ $(document).ready(function() {
 					
 					<c:if test="${user.auth == 9}">
 					<li style="width: 70px;">
-						<a href="${pageContext.request.contextPath}/main/admin.do">관리자메인</a>
+						<a href="${pageContext.request.contextPath}/board/memberList.do">관리자메인</a>
 					</li>
 					</c:if>
 				</c:if>
