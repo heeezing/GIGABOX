@@ -159,14 +159,14 @@ $(function(){
 	/*=======================
 			    결제
   	  =======================*/
-	
+		/*
 	//[테스트 용] 결제 생략, 바로 주문 완료
 	$('#pay_btn').click(function(){
 		orderInsert();
 	});
+	*/
 	
 	//결제하기 버튼 클릭 이벤트
-	/*
 	$('#pay_btn').click(function iamport(){
 		let usePoint = parseInt($("#use_point").val());
 		console.log('<<사용 금액>> : ' + usePoint);
@@ -250,7 +250,7 @@ $(function(){
 			}
 		}
 	}); //end of click
-	*/
+	
 		
 	//order.do로 submit
 	function orderInsert(){
