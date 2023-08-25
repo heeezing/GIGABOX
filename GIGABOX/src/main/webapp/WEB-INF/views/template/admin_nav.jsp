@@ -47,14 +47,16 @@
 			</li>
 			<li>
 				<a href="${pageContext.request.contextPath}/event/eventAdminList.do" title="이벤트 관리">이벤트 관리</a>
+				<!--
 				<ul class="depth3">
 				  	<li>
 				  		<a href="${pageContext.request.contextPath}/event/eventResultAdminList.do" title="추첨 이벤트 관리">추첨 이벤트 관리</a>
 				  	</li>
 				</ul>
+				  -->
 			</li>
 			<li>
-				<a href="${pageContext.request.contextPath}/#" title="고객센터">고객센터</a>
+				<a href="${pageContext.request.contextPath}/cs/csMain.do" title="고객센터">고객센터</a>
 				<ul class="depth3">
 					<li>
 						<a href="${pageContext.request.contextPath}/cs/csQnaAdminList.do" title="자주묻는 질문 관리">자주묻는 질문 관리</a>
