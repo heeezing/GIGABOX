@@ -251,7 +251,10 @@ img {
 .tit_info{
 	display:flex;
 }
-
+.poster_info img {
+    width: 182px !important;; /* 원하는 너비로 조정 */
+    height: 260px !important; /* 높이는 자동 조정 */
+  }
 </style>
 <script type="text/javascript">
 	$(function() {

@@ -63,7 +63,8 @@ $(document).ready(function () {
 					<span class="poster_info">
 						<c:set var="movieIndex" value="${loop.index + 1}" />
               			<span class="rank">${movieIndex}</span>
-						<img src="${movie.m_poster2}">
+						<c:if test="${!empty movie.m_poster}"><img src="../movie/imageView.do?movie_num=${movie.movie_num}&movie_type=1"></c:if>
+						<c:if test="${empty movie.m_poster}"><img src="${movie.m_poster2}" alt="${movie.m_title}"></c:if>
 					</span>
 					<span class="over_box"> <!-- 박스 안 버튼 -->
 							${movie.m_plot}

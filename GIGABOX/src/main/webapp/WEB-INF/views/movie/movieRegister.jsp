@@ -107,7 +107,8 @@ input.form-input{
 				<li>
 					<label>상영 여부</label>
 					<input type="radio" name="m_status" value="1" id="status1" checked>상영
-					<input type="radio" name="m_status" value="2" id="status2">상영중지
+					<input type="radio" name="m_status" value="2" id="status2">상영예정
+					<input type="radio" name="m_status" value="3" id="status3">상영중지
 				</li>
 				<li>
 					<label for="m_title">영화제목</label>
@@ -154,25 +155,9 @@ input.form-input{
 					<input type="file" name="poster" id="poster" accept="image/gif,image/png,image/jpeg"><br>
 				</li>
 				<li>
-					<label for="m_stllimg" class="form-label">스틸컷1</label>
+					<label for="m_stllimg" class="form-label">스틸컷</label>
 					<input type="file" name="stllimg" id="stllimg" accept="image/gif,image/png,image/jpeg"><br>
-				</li>
-				<li>
-					<label for="m_stllimg3" class="form-label">스틸컷2</label>
-					<input type="file" name="stllimg3" id="stllimg3" accept="image/gif,image/png,image/jpeg"><br>
-				</li>
-				<li>
-					<label for="m_stllimg4" class="form-label">스틸컷3</label>
-					<input type="file" name="stllimg4" id="stllimg4" accept="image/gif,image/png,image/jpeg"><br>
-				</li>
-				<li>
-					<label for="m_stllimg5" class="form-label">스틸컷4</label>
-					<input type="file" name="stllimg5" id="stllimg5" accept="image/gif,image/png,image/jpeg"><br>
-				</li>	
-				<li>
-					<label for="m_stllimg6" class="form-label">스틸컷5</label>
-					<input type="file" name="stllimg6" id="stllimg6" accept="image/gif,image/png,image/jpeg"><br>
-				</li>																			
+				</li>																		
 				<li>
 					<label for="m_vod" class="form-label">예고편</label>
 					<input type="url" name="m_vod" id="m_vod"><br>

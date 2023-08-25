@@ -250,7 +250,10 @@ img {
 .tit_info{
 	display:flex;
 }
-
+.poster_info img {
+    width: 182px !important;; /* 원하는 너비로 조정 */
+    height: 260px !important; /* 높이는 자동 조정 */
+  }
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -309,7 +312,7 @@ img {
 						</span>
 						<div class="over_box"> <!-- 박스 안 버튼 -->
 							<div class="inner" style="margin-top: -33px;">
-								<span><a href="${pageContext.request.contextPath}/reservation/quick_res.do?movie_num=${movie.movie_num}"  class="btn_col3 ty3 btn_booking">예매하기</a></span>
+								<%-- <span><a href="${pageContext.request.contextPath}/reservation/quick_res.do?movie_num=${movie.movie_num}"  class="btn_col3 ty3 btn_booking">예매하기</a></span> --%>
 								<span><a href="movieDetail.do?movie_num=${movie.movie_num}" class="btn_col3 ty3 btn_details">상세정보</a></span>
 							</div>
 						</div>
@@ -326,7 +329,7 @@ img {
 							<c:if test="${ratingNumber == '전체'}">
 						   		<img src="${pageContext.request.contextPath}/images/ALL.png"  class="ratingicon">
 							</c:if>
-							<c:if test="${ratingNumber == '청소'}">
+							<c:if test="${ratingNumber == '18'}">
 						   		<img src="${pageContext.request.contextPath}/images/18.png"  class="ratingicon">
 							</c:if>
 							<strong class="title_info"><span>${movie.m_title}</span></strong><br>

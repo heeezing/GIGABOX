@@ -16,21 +16,10 @@
 			m_rating,
 			m_genre,
 			m_opendate,
-			m_opendate2,
 			m_poster,
 			poster_name,
-			m_poster2,
-			m_stllimg2,
 			m_stllimg,
-			stllimg_name,
-			m_stllimg3,
-			stllimg_name3,
-			m_stllimg4,
-			stllimg_name4,
-			m_stllimg5,
-			stllimg_name5,
-			m_stllimg6,
-			stllimg_name6,									
+			stllimg_name,									
 			m_vod,
 			m_status
 			)
@@ -48,21 +37,10 @@
 			#{m_rating},
 			#{m_genre},
 			#{m_opendate},
-			#{m_opendate2},
 			#{m_poster},
 			#{poster_name},
-			#{m_poster2},
-			#{m_stllimg2},
 			#{m_stllimg},
-			#{stllimg_name},
-			#{m_stllimg3},
-			#{stllimg_name3},
-			#{m_stllimg4},
-			#{stllimg_name4},
-			#{m_stllimg5},
-			#{stllimg_name5},	
-			#{m_stllimg6},
-			#{stllimg_name6},											
+			#{stllimg_name},											
 			#{m_vod},
 			#{m_status}
 			)
@@ -243,6 +221,62 @@
 			movie
 		<include refid="movieSearch"></include>
 	</select>
+	<!-- 영화 수정 -->
+	<update id="updateMovie" parameterType="movieVO">
+		UPDATE
+			movie
+		SET
+			m_title=#{m_title},
+			m_titleEng=#{m_titleEng},
+			m_director=#{m_director},
+			m_actor=#{m_actor},
+			m_company=#{m_company},
+			m_plot=#{m_plot},
+			m_runtime=#{m_runtime},
+			m_rating=#{m_rating},
+			m_genre=#{m_genre},
+			<if test="m_opendate2 != null">
+				m_opendate=#{m_opendate},
+			</if>
+			<if test="m_opendate == null">
+				m_opendate2=#{m_opendate2},
+			</if>
+			m_vod=#{m_vod},
+			m_nation=#{m_nation},
+			m_status=#{m_status},
+			<if test="poster_name != null">
+				m_poster=#{m_poster},
+				poster_name=#{poster_name},
+			</if>
+			<if test="poster_name == null">
+				m_poster2=#{m_poster2},
+			</if>
+			<if test="stllimg_name != null">
+				m_stllimg=#{m_stllimg},
+				stllimg_name=#{poster_name}	
+			</if>
+			<if test="stllimg_name == null">
+				m_stllimg2=#{m_stllimg2}	
+			</if>	
+			<!-- <if test="stllimg3.length > 0">
+				m_stllimg3=#{m_stllimg3},
+				stllimg_name3=#{stllimg_name3},
+			</if>
+			<if test="stllimg4.length > 0">
+				m_stllimg4=#{m_stllimg4},
+				stllimg_name4=#{stllimg_name4},
+			</if>	
+			<if test="stllimg5.length > 0">
+				m_stllimg5=#{m_stllimg5},
+				stllimg_name5=#{stllimg_name5},
+			</if>	
+			<if test="stllimg6.length > 0">
+				m_stllimg6=#{m_stllimg6},
+				stllimg_name6=#{stllimg_name6}
+			</if> -->
+		WHERE
+			movie_num=#{movie_num}
+	</update>
 	<!-- (체크박스) 영화 상영종료 -->	
 	<update id="updateStatusMovieCheck">
 		UPDATE 

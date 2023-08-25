@@ -35,13 +35,10 @@
 				<a href="${pageContext.request.contextPath}/point/admin_list.do" title="포인트 내역">포인트 내역</a>
 			</li>
 			<li>
-				<a href="${pageContext.request.contextPath}/#" title="신고 관리">신고 관리</a>
+				<a href="${pageContext.request.contextPath}/movie/reportAdmin.do" title="신고 관리">신고 관리</a>
 				  <ul class="depth3">
 				  	<li>
 				  		<a href="${pageContext.request.contextPath}/movie/reportAdmin.do" title="관람평 신고 관리">관람평 신고 관리</a>
-				  	</li>
-				  	<li>
-				  		<a href="${pageContext.request.contextPath}/#" title="무비포스트 신고 관리">무비포스트 신고 관리</a>
 				  	</li>
 				  </ul>
 			</li>

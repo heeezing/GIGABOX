@@ -33,8 +33,6 @@ public interface MovieMapper {
 	public List<String> getExistingMovieSeqList();
 	@Select("SELECT * FROM movie WHERE movie_num=#{movie_num}")
 	public MovieVO selectMovie(Integer movie_num);
-	@Update("UPDATE movie SET m_title=#{m_title},m_titleEng=#{m_titleEng},m_director=#{m_director},m_actor=#{m_actor},m_company=#{m_company},m_plot=#{m_plot},m_runtime=#{m_runtime},m_rating=#{m_rating},m_genre=#{m_genre},m_opendate=#{m_opendate},m_opendate2=#{m_opendate2},m_poster=#{m_poster},poster_name=#{poster_name},m_poster2=#{m_poster2},m_stllimg=#{m_stllimg},stllimg_name=#{stllimg_name},m_stllimg2=#{m_stllimg2},m_stllimg3=#{m_stllimg3},stllimg_name3=#{stllimg_name3},m_stllimg4=#{m_stllimg4},stllimg_name4=#{stllimg_name4},m_stllimg5=#{m_stllimg5},stllimg_name5=#{stllimg_name5},m_stllimg6=#{m_stllimg6},stllimg_name6=#{stllimg_name6},m_vod=#{m_vod},m_nation=#{m_nation},m_status=#{m_status}"
-			+ "WHERE movie_num=#{movie_num}")
 	public void updateMovie(MovieVO movie);
 	@Delete("DELETE FROM movie WHERE movie_num=#{movie_num}")
 	public void deleteMovie(Integer movie_num);
