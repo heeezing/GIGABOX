@@ -125,9 +125,7 @@ $(function(){
 		$('.theater-choice .btn').first().click();
 		}
 		
-		if($('#speed_reservation').length>0 && location.search.replace(/[?&]+(^=&]+)=([^&]*)/gi).includes('movie_num') && $('.all-list')[0].scrollTop == 0){
-			$(this).parents('ul').prepend($(this).parent());
-		}
+		$(this).parents('.all-list').animate({scrollTop:$(this).parent().attr('data-order')*35,duration:400});
 		
 		console.log(movie_num);
     });

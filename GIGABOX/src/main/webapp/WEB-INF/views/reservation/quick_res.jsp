@@ -44,8 +44,8 @@
 					<p class="title title-cinema" data-num="${param.movie_num}">영화</p>
 					<div class="all-list">
 						<ul>
-							<c:forEach var="movie" items="${movieList}">
-								<li>
+							<c:forEach var="movie" items="${movieList}" varStatus="status">
+								<li data-order="${status.index}">
 									<button type="button" class="btn" data-num="${movie.movie_num}">
 										<c:set var="ratingNumber" value="${fn:substring(movie.m_rating, 0, 2)}" />
 										<c:if test="${ratingNumber == '12'}">
