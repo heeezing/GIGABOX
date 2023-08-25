@@ -398,6 +398,11 @@ button[type="submit"]{
 }
 #member_login .login-btn{
 	width:320px;
+	color: #fff;
+    border: 0;
+    background: #503396;
+    height: 40px;
+    border-radius: 4px;
 }
 #member_login label[for="auto"]{
 	width:200px;
