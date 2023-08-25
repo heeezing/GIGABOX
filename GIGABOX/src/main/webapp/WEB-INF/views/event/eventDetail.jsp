@@ -2,10 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/megabox.min.css" media="all" />
 <script src="${pageContext.request.contextPath}/js/megabox.api.min.js"></script>
-
+<div class="page-util">
+	<div class="location">
+		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
+		<a href="../event/eventList.do">이벤트</a> 
+		<a href="../event/eventList.do">시사회/무대인사</a>
+	</div>
+</div>
 <!-- 기존댓글 그대로..  -->
 <div class="page-main">
-	<div class="event-detail">
+	<div class="event-detail" style="margin-top:20px;">
 	    <h2 class="tit">${event.title}</h2>
 	    <p class="event-detail-date">
 	        <span>기간</span>
