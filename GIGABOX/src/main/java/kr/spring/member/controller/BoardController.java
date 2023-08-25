@@ -252,15 +252,15 @@ public class BoardController {
 		}else {
 			membership = membership.toUpperCase();
 		}
-			
+		
 		String pointRate = "";
-		if(membership == "BASIC") {
+		if(membership.equals("BASIC")) {
 			pointRate = "3%";
-		}else if(membership == "BRONZE") {
+		}else if(membership.equals("BRONZE")) {
 			pointRate = "5%";
-		}else if(membership == "SILVER") {
+		}else if(membership.equals("SILVER")) {
 			pointRate = "7%";
-		}else if(membership == "GOLD") {
+		}else if(membership.equals("GOLD")) {
 			pointRate = "10%";
 		}
 		
