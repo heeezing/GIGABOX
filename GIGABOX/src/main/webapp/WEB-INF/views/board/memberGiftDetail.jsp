@@ -41,6 +41,7 @@
 		<table class="cart-table" style="margin-bottom:65px;">
 			<thead style="background-color: #f8f8f8;">
 			<tr>
+				<th style="width:100px;">쿠폰번호</th>
 				<th>상품명</th>
 				<th>수량</th>
 				<th>상태</th>
@@ -50,7 +51,9 @@
 			<tbody>
 				<c:forEach var="detail" items="${detail}">
 				<tr>
-					<!-- (1)상품명 -->
+					<!-- (1)쿠폰번호 -->
+					<td class="align-center">${detail.detail_num}</td>
+					<!-- (2)상품명 -->
 					<td>
 						<span class="product-img" style="padding:0 20px;">
 						<img src="${pageContext.request.contextPath}/snack/imageView.do?sn_num=${detail.sn_num}">
@@ -58,7 +61,7 @@
 						<span class="product-detail">${detail.sn_detail}</span>
 						</span>
 					</td>
-					<!-- (2)구매수량 -->
+					<!-- (3)구매수량 -->
 					<td class="align-center" style="padding:0 20px;">
 						<span style="padding:0 20px;">
 						<fmt:formatNumber value="${detail.orders_quantity}"/>개
