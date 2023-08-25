@@ -15,7 +15,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="inner-wrap">
+	<div class="inner-wrap"  style="margin-top:40px;">
 		<h2 class="tit">지난 이벤트</h2>
 		<ul class="dot-list">
 			<li>
@@ -28,7 +28,7 @@
 		</ul>		
 	</div>
 	<div id="contents" class="">
-	    <div id="boardSearch" class="inner-wrap" style="">
+	    <div id="boardSearch" class="inner-wrap" >
 	            <div class="board-list-util mt0">
 	            <p class="result-count"><strong>전체 <b id="count_number"> </b>건</strong></p>
 	
