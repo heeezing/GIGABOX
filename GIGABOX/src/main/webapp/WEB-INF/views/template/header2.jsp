@@ -132,7 +132,6 @@ $(document).ready(function() {
 					<ul>
 						<li><a href="<c:url value="/event/eventList.do" />">진행중이벤트</a></li>
 						<li><a href="<c:url value="/event/eventEndList.do" />">지난이벤트</a></li>
-						<li><a href="<c:url value="/event/eventResultList.do" />">당첨자발표</a></li>
 					</ul>
 				</li>
 				
