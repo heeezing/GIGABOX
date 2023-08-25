@@ -4,12 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <!-- myPage 시작 -->
-<div class="page-util">
-	<div class="location">
-		<span style="cursor: pointer;" onclick="window.location.href='${pageContext.request.contextPath}/main/main.do'">홈</span> 
-		<a href="../member/myPage.do">마이페이지</a>
-	</div>
-</div>
 <div class="mypage">
 	<div class="mypage-top">
 		<div class="mypage-photo"><img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="my-photo"></div>
