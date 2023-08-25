@@ -149,6 +149,7 @@ li {
   width: 600px;
   border-style:none;
   text-align:left;
+  border-radius:10px;
 }
 
 .rating-wrap {
@@ -159,6 +160,9 @@ li {
   margin-bottom:30px;
   margin-right:15px;
 	
+}
+.review-reset{
+	background-color:#bbbbbb;
 }
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/review.js"></script>

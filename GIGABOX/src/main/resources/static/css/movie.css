@@ -358,7 +358,7 @@ hr{
 	color:#fccf28;
 }
 
-#review_form{
+#review_form, #mreview_form{
 	border-style: none;
 	margin-top:4%;
 }
@@ -461,7 +461,7 @@ hr{
 	background-color:#999;
 	margin-top:7%;
     width:18%;
-    margin-right:13px;
+    margin-right:10px;
     height: 43.2px;
     color: white;
     border: none; 
@@ -571,8 +571,8 @@ hr{
 .sub-item {
   display: flex;
   justify-content: space-between;
+	text-align:left;
 }
-
 .sub-item p {
   width: 700px;
   font-size: 14px;
